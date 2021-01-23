@@ -2,7 +2,7 @@
 #'
 #' @param path The root path to use to mount existing Plumber endpoints to
 #'
-#' @return A modified version of \code{pr} that is compliant with Tableau
+#' @return A function that can be used with \code{#* @plumber}
 #'
 #' @examples
 #' \dontrun{

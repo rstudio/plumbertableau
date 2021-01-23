@@ -10,7 +10,7 @@ tableau_extension(path = "/")
 \item{path}{The root path to use to mount existing Plumber endpoints to}
 }
 \value{
-A modified version of \code{pr} that is compliant with Tableau
+A function that can be used with \code{#* @plumber}
 }
 \description{
 Make an existing Plumber API compliant as a Tableau Analytics Extension
