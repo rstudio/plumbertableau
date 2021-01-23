@@ -11,3 +11,8 @@ check_connect <- function() {
     Sys.getenv("TMPDIR") == "/opt/rstudio-connect/mnt/tmp" |
     grepl("^/opt/rstudio-connect/mnt/tmp", Sys.getenv("R_SESSION_TMPDIR"))
 }
+
+#' Ensure path value starts with / and doesn't include double /
+standardize_path <- function(path) {
+  gsub("//", "/", paste0("/", path))
+}
