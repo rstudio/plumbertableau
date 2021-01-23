@@ -4,10 +4,10 @@
 \alias{tableau_extension}
 \title{Make an existing Plumber API compliant as a Tableau Analytics Extension}
 \usage{
-tableau_extension(pr)
+tableau_extension(path = "/")
 }
 \arguments{
-\item{pr}{An existing Plumber router}
+\item{path}{The root path to use to mount existing Plumber endpoints to}
 }
 \value{
 A modified version of \code{pr} that is compliant with Tableau
@@ -30,7 +30,7 @@ function(req, res) {
 }
 
 #* @plumber
-tableau_extension
+tableau_extension()
 }
 
 }

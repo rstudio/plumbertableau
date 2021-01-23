@@ -1,6 +1,6 @@
 #' Make an existing Plumber API compliant as a Tableau Analytics Extension
 #'
-#' @param pr An existing Plumber router
+#' @param path The root path to use to mount existing Plumber endpoints to
 #'
 #' @return A modified version of \code{pr} that is compliant with Tableau
 #'
@@ -19,18 +19,25 @@
 #' }
 #'
 #' #* @plumber
-#' tableau_extension
+#' tableau_extension()
 #' }
 #'
 #' @export
-tableau_extension <- function(pr) {
-  # If this is running on RStudio Connect, the original Plumber router should be
-  # returned
-  if (check_connect()) {
-    pr
-  } else {
-    pr %>%
-      plumber::pr_filter("reroute", reroute) %>%
-      plumber::pr_get("/info", info)
+tableau_extension <- function(path = "/") {
+  function(pr) {
+    # If this is running on RStudio Connect, the original Plumber router should be
+    # returned
+    if (check_connect()) {
+      pr
+    } else {
+      # Add Tableau boilerplate
+      if (path != "/") {
+        # Mount a copy of the router under the supplied path
+        pr <- plumber::pr_mount(pr, standardize_path(path), pr$clone())
+      }
+      pr %>%
+        plumber::pr_filter("reroute", reroute) %>%
+        plumber::pr_get("/info", info)
+    }
   }
 }
