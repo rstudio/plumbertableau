@@ -7,7 +7,9 @@
 tableau_extension(path = "/")
 }
 \arguments{
-\item{path}{The root path to use to mount existing Plumber endpoints to}
+\item{path}{The root path to use to mount existing Plumber endpoints to. This
+allows local development to mirror the deployed API when it is deployed to
+RStudio Connect.}
 }
 \value{
 A function that can be used with \code{#* @plumber}
@@ -21,8 +23,6 @@ library(plumber)
 library(rtab)
 
 #* Capitalize incoming text
-#* @parser json
-#* @serializer json
 #* @post /capitalize
 function(req, res) {
   dat <- req$body$data

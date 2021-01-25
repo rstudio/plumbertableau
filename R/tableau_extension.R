@@ -1,6 +1,8 @@
 #' Make an existing Plumber API compliant as a Tableau Analytics Extension
 #'
-#' @param path The root path to use to mount existing Plumber endpoints to
+#' @param path The root path to use to mount existing Plumber endpoints to. This
+#' allows local development to mirror the deployed API when it is deployed to
+#' RStudio Connect.
 #'
 #' @return A function that can be used with \code{#* @plumber}
 #'
@@ -10,8 +12,6 @@
 #' library(rtab)
 #'
 #' #* Capitalize incoming text
-#' #* @parser json
-#' #* @serializer json
 #' #* @post /capitalize
 #' function(req, res) {
 #'   dat <- req$body$data
@@ -28,16 +28,34 @@ tableau_extension <- function(path = "/") {
     # If this is running on RStudio Connect, the original Plumber router should be
     # returned
     if (check_connect()) {
-      pr
-    } else {
-      # Add Tableau boilerplate
-      if (path != "/") {
-        # Mount a copy of the router under the supplied path
-        pr <- plumber::pr_mount(pr, standardize_path(path), pr$clone())
-      }
-      pr %>%
-        plumber::pr_filter("reroute", reroute) %>%
-        plumber::pr_get("/info", info)
+      return(pr)
     }
+    # Add Tableau boilerplate
+    if (length(path) == 0) stop("Path must be a string beginning with /")
+    if (!startsWith(path, "/")) path <- paste0("/", path)
+    if (endsWith(path, "/") && nchar(path) > 1) path <- sub("/$", "", path)
+
+    # Check for Tableau compliance
+    # Every route accepts POST requests
+
+    if (path != "/") {
+      # Change router path to supplied path
+      lapply(pr$endpoints, function(routes) {
+        # Modify route in place
+        lapply(routes, function(route) {
+          # This works b/c route is an R6 object
+          route$path <- paste0(path, route$path)
+        })
+      })
+      # Change existing mounts to be mounted under path
+      Map(pr$mounts, names(pr$mounts), f = function(mount, mount_path) {
+        pr$unmount(mount_path)
+        pr$mount(paste0(path, mount_path), mount)
+      })
+    }
+
+    pr %>%
+      plumber::pr_filter("reroute", reroute) %>%
+      plumber::pr_get("/info", info)
   }
 }
