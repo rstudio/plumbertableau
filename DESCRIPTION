@@ -7,7 +7,6 @@ Authors@R: c(
     person(family = "RStudio", role = c("cph", "fnd")),
     person(family = "Tableau", role = c("cph"))
     )
-Maintainer: The package maintainer <yourself@somewhere.net>
 Description: The Tableau Analytics Extension API allows Tableau to be extended
     to external services. This package provides helpers for creating Plumber
     APIs that properly function as Tableau Analytics Extensions.
