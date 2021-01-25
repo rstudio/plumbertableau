@@ -19,9 +19,10 @@ remotes::install_github("rstudio/rtab")
 
 ## Example
 
-The main function in `rtab` is `tableau_extension()`. This function takes an
-existing Plumber router and modifies it so that it complies with the
-specification set forward by the Tableau Analytics Extensions API.
+The main function in `rtab` is `tableau_extension()`. This function creates a
+function that takes an existing Plumber router and modifies it so that it
+complies with the specification set forward by the Tableau Analytics Extensions
+API.
 
 ``` r
 library(plumber)
@@ -30,8 +31,6 @@ library(rtab)
 #* @apiTitle A simple Tableau Extensions API
 
 #* Capitalize incoming text
-#* @parser json
-#* @serializer json
 #* @post /capitalize
 function(req, res) {
   dat <- req$body$data
@@ -39,7 +38,7 @@ function(req, res) {
 }
 
 #* @plumber
-tableau_extension
+tableau_extension()
 ```
 
 In order to use an analytics extension from Tableau, you need to configure the
