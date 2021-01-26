@@ -37,14 +37,16 @@ tableau_extension <- function(path = "/") {
 
     # Check for Tableau compliance
     # Every route accepts POST requests
-
     if (path != "/") {
       # Change router path to supplied path
       lapply(pr$endpoints, function(routes) {
         # Modify route in place
         lapply(routes, function(route) {
+          if (!("POST" %in% route$verbs)) warning("Tableau endpoints must accept POST requests")
           # This works b/c route is an R6 object
           route$path <- paste0(path, route$path)
+          # Address internal Plumber regex
+          route$.__enclos_env__$private$regex <- plumber:::createPathRegex(route$path, route$getFuncParams())
         })
       })
       # Change existing mounts to be mounted under path
