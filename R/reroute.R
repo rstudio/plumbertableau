@@ -7,9 +7,13 @@ reroute <- function(req, res) {
       if (body$script == "return int(1)") {
         return(1L)
       }
+      # Create the new path
       new_path <- body$script
       if (!startsWith(new_path, "/")) new_path <- paste0("/", new_path)
       req$PATH_INFO <- new_path
+
+      # Update the body of the request
+      req$postBody <- jsonlite::toJSON(body$data)
     }
   }
   plumber::forward()
