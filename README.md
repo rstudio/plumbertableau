@@ -1,5 +1,5 @@
 
-# rtab
+# plumbertableau
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -10,23 +10,23 @@ API](https://tableau.github.io/analytics-extensions-api/#).
 
 ## Installation
 
-You can install the development version of rtab from
-[GitHub](https://github.com/rstudio/rtab) with:
+You can install the development version of plumbertableau from
+[GitHub](https://github.com/rstudio/plumbertableau) with:
 
 ``` r
-remotes::install_github("rstudio/rtab")
+remotes::install_github("rstudio/plumbertableau")
 ```
 
 ## Example
 
-The main function in `rtab` is `tableau_extension()`. This function creates a
+The main function in `plumbertableau` is `tableau_extension()`. This function creates a
 function that takes an existing Plumber router and modifies it so that it
 complies with the specification set forward by the Tableau Analytics Extensions
 API.
 
 ``` r
 library(plumber)
-library(rtab)
+library(plumbertableau)
 
 #* @apiTitle A simple Tableau Extensions API
 
@@ -53,6 +53,7 @@ use to example above, you could create a calculated field like the following:
 ![Calculated field screen shot](vignettes/calculated-field.png)
 
 A `SCRIPT_` function in Tableau takes two arguments: `string` and `expression`.
-When using `rtab`, the `string` argument is the path to the endpoint you want to
-use (in this case `/capitalize`). The subsequent `expression` can be a constant
-value (in this case `"Hello World"`) or a reference to a data object in Tableau.
+When using `plumbertableau`, the `string` argument is the path to the endpoint
+you want to use (in this case `/capitalize`). The subsequent `expression` can be
+a constant value (in this case `"Hello World"`) or a reference to a data object
+in Tableau.

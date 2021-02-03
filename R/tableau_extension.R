@@ -9,7 +9,7 @@
 #' @examples
 #' \dontrun{
 #' library(plumber)
-#' library(rtab)
+#' library(plumbertableau)
 #'
 #' #* Capitalize incoming text
 #' #* @post /capitalize

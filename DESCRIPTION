@@ -1,4 +1,4 @@
-Package: rtab
+Package: plumbertableau
 Type: Package
 Title: Create Tableau Analytics Extension API Compliant Plumber APIs
 Version: 0.1.0.9999

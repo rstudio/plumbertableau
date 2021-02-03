@@ -20,7 +20,7 @@ Make an existing Plumber API compliant as a Tableau Analytics Extension
 \examples{
 \dontrun{
 library(plumber)
-library(rtab)
+library(plumbertableau)
 
 #* Capitalize incoming text
 #* @post /capitalize
