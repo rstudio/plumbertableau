@@ -25,8 +25,10 @@
 #' @export
 tableau_extension <- function(path = "/") {
   function(pr) {
-    # If this is running on RStudio Connect, the original Plumber router should be
-    # returned
+    pr <- pr %>%
+      plumber::pr_filter("reroute", reroute)
+
+    # If this is running on RStudio Connect, not all boilerplate is necessary
     if (check_connect()) {
       return(pr)
     }
@@ -57,7 +59,6 @@ tableau_extension <- function(path = "/") {
     }
 
     pr %>%
-      plumber::pr_filter("reroute", reroute) %>%
       plumber::pr_get("/info", info)
   }
 }
