@@ -1,7 +1,12 @@
 reroute <- function(req, res) {
-  if (req$PATH_INFO == "/evaluate") {
+  if ((req$PATH_INFO == "/evaluate" | !is.null(req$HTTP_TABPY_CLIENT)) && req$REQUEST_METHOD == "POST") {
+    # Parse out postBody
     body <- jsonlite::fromJSON(req$postBody)
-    if ("script" %in% names(body)) {
+    # Pass arguments to user functions and preserve existing arguments
+    # We want to do this here b/c req$postBody is already parsed
+    # This should only fire for Tableau requests
+    req$args <- c(req$args, unname(body$data))
+    if ("script" %in% names(body) && !check_connect()) {
       # This satisfies a Tableau requirement
       # See https://tableau.github.io/analytics-extensions-api/docs/ae_known_issues.html
       if (body$script == "return int(1)") {
