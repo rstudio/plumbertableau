@@ -2,4 +2,5 @@
 
 export("%>%")
 export(tableau_extension)
+export(tableau_invoke)
 importFrom(magrittr,"%>%")
