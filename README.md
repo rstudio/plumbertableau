@@ -2,6 +2,7 @@
 # plumbertableau
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/rstudio/plumbertableau/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/plumbertableau/actions)
 <!-- badges: end -->
 
 An R package that helps create [Plumber APIs](https://www.rplumber.io/) that are
