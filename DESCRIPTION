@@ -25,5 +25,8 @@ Imports:
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
-    zeallot
+    zeallot,
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
+VignetteBuilder: knitr
