@@ -2,8 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-<<<<<<< HEAD
 docs
-=======
 inst/doc
->>>>>>> main
+scratch
