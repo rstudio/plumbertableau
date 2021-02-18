@@ -13,6 +13,10 @@ check_connect <- function() {
 }
 
 #' Check Plumber route for Tableau compliance
+#'
+#' @param route A plumber route
+#'
+#' @return Provides warnings based on features of \code{route}
 check_route <- function(route) {
   # Recursively work through mounted / nested routes
   if ("Plumber" %in% class(route)) {

@@ -6,6 +6,12 @@
 \usage{
 check_route(route)
 }
+\arguments{
+\item{route}{A plumber route}
+}
+\value{
+Provides warnings based on features of \code{route}
+}
 \description{
 Check Plumber route for Tableau compliance
 }
