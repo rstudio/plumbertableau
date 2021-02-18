@@ -3,4 +3,5 @@
 export("%>%")
 export(tableau_extension)
 export(tableau_invoke)
+export(tableau_json)
 importFrom(magrittr,"%>%")
