@@ -18,4 +18,7 @@
   <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/tableau_invoke.html</loc>
   </url>
+  <url>
+    <loc>https://rstudio.github.io/plumbertableau//reference/tableau_json.html</loc>
+  </url>
 </urlset>

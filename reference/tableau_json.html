@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • plumbertableau</title>
+<title>Create a mock JSON request that mimics the behavior of Tableau — tableau_json • plumbertableau</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Create a mock JSON request that mimics the behavior of Tableau — tableau_json" />
+<meta property="og:description" content="Create a mock JSON request that mimics the behavior of Tableau" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -108,69 +109,41 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Create a mock JSON request that mimics the behavior of Tableau</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/tableau_json.R'><code>R/tableau_json.R</code></a></small>
+    <div class="hidden name"><code>tableau_json.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Create a mock JSON request that mimics the behavior of Tableau</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>tableau_json</span><span class='op'>(</span><span class='va'>script</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="check_connect.html">check_connect()</a></code> </p>
-        </td>
-        <td><p>Perform a series of checks to determine if the current code is executing on
-RStudio Connect. This intentionally casts a wide net since there's no
-persistent and reliable way to check of RStudio Connect is executing the R
-session</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_route.html">check_route()</a></code> </p>
-        </td>
-        <td><p>Check Plumber route for Tableau compliance</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tableau_extension.html">tableau_extension()</a></code> </p>
-        </td>
-        <td><p>Make an existing Plumber API compliant as a Tableau Analytics Extension</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tableau_invoke.html">tableau_invoke()</a></code> </p>
-        </td>
-        <td><p>Programatically invoke a Tableau extension function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tableau_json.html">tableau_json()</a></code> </p>
-        </td>
-        <td><p>Create a mock JSON request that mimics the behavior of Tableau</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>script</th>
+      <td><p>String indicating the endpoint path</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>A list or dataframe that is serialized to JSON</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to <code><a href='https://rdrr.io/pkg/jsonlite/man/fromJSON.html'>jsonlite::toJSON()</a></code></p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A JSON object that can be passed to a Tableau endpoint</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
