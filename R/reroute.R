@@ -1,5 +1,5 @@
 reroute <- function(req, res) {
-  if (req$PATH_FINO == "/info") {
+  if (req$PATH_INFO == "/info") {
     return(info())
   }
   if (req$PATH_INFO == "/evaluate") {
