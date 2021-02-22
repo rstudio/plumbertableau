@@ -1,4 +1,7 @@
 reroute <- function(req, res) {
+  if (req$PATH_FINO == "/info") {
+    return(info())
+  }
   if (req$PATH_INFO == "/evaluate") {
     body <- jsonlite::fromJSON(req$postBody)
     if ("script" %in% names(body)) {
