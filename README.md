@@ -2,6 +2,7 @@
 # plumbertableau
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/rstudio/plumbertableau/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/plumbertableau/actions)
 <!-- badges: end -->
 
 An R package that helps create [Plumber APIs](https://www.rplumber.io/) that are
@@ -50,7 +51,7 @@ Server](https://tableau.github.io/analytics-extensions-api/docs/ae_connect_serve
 When this API is running, it can be used via a calculated field in Tableau. To
 use to example above, you could create a calculated field like the following:
 
-![Calculated field screen shot](vignettes/calculated-field.png)
+![Calculated field screen shot](man/figures/calculated-field.png)
 
 A `SCRIPT_` function in Tableau takes two arguments: `string` and `expression`.
 When using `plumbertableau`, the `string` argument is the path to the endpoint

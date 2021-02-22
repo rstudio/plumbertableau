@@ -11,6 +11,7 @@ Description: The Tableau Analytics Extension API allows Tableau to be extended
     to external services. This package provides helpers for creating Plumber
     APIs that properly function as Tableau Analytics Extensions.
 License: MIT + file LICENSE
+URL: https://rstudio.github.io/plumbertableau/, https://github.com/rstudio/plumbertableau
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -26,5 +27,8 @@ Imports:
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
-    zeallot
+    zeallot,
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
+VignetteBuilder: knitr

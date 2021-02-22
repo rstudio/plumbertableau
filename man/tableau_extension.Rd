@@ -4,12 +4,15 @@
 \alias{tableau_extension}
 \title{Make an existing Plumber API compliant as a Tableau Analytics Extension}
 \usage{
-tableau_extension(path = "/")
+tableau_extension(path = "/", warnings = TRUE)
 }
 \arguments{
 \item{path}{The root path to use to mount existing Plumber endpoints to. This
 allows local development to mirror the deployed API when it is deployed to
 RStudio Connect.}
+
+\item{warnings}{Whether or not to provide warnings about non-Tableau compliant
+endpoints.}
 }
 \value{
 A function that can be used with \code{#* @plumber}
