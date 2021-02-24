@@ -8,7 +8,8 @@ library(zeallot)
 #* @post /capitalize
 #* @parser json
 function(req, res) {
-  c(dat) %<-% req$body$data
+  c(dat) %<-% validate_request(req,
+                               x = "character")
   toupper(dat)
 }
 
@@ -16,7 +17,8 @@ function(req, res) {
 #* @post /lowercase
 #* @parser json
 function(req, res) {
-  c(dat) %<-% req$body$data
+  c(dat) %<-% validate_request(req,
+                               x = "character")
   tolower(dat)
 }
 
