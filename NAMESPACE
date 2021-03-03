@@ -2,6 +2,7 @@
 
 export("%>%")
 export(tableau_extension)
+export(tableau_handler)
 export(tableau_invoke)
 export(tableau_json)
 export(validate_request)

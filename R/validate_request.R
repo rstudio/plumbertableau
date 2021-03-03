@@ -13,7 +13,7 @@
 #'
 #' @export
 validate_request <- function(req, ...) {
-  val <- list(...)
+  val <- rlang::list2(...)
   dat <- req$body$data
 
   # Check that the same number of values is provided as what is expected

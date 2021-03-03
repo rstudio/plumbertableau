@@ -7,11 +7,14 @@ library(zeallot)
 #* Capitalize incoming text
 #* @post /capitalize
 #* @parser json
-function(req, res) {
-  c(dat) %<-% validate_request(req,
-                               x = "character")
-  toupper(dat)
-}
+tableau_handler(
+  args = list(
+    str_value = "character"
+  ),
+  function(req, res) {
+    toupper(str_value)
+  }
+)
 
 #* Lowercase incoming text
 #* @post /lowercase
