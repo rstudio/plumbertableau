@@ -6,6 +6,6 @@ error_handler <- function(req, res, err) {
   res$status <- 500
   list(
     message = jsonlite::unbox("Server Error"),
-    info = jsonlite::unbox(err$message)
+    info = jsonlite::unbox(conditionMessage(err))
   )
 }
