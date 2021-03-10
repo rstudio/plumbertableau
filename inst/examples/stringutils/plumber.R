@@ -19,18 +19,29 @@ tableau_handler(
 #* Lowercase incoming text
 #* @post /lowercase
 #* @parser json
-function(req, res) {
-  c(dat) %<-% validate_request(req,
-                               x = "character")
-  tolower(dat)
-}
+tableau_handler(
+  args = list(
+    str_value = "character"
+  ),
+  function(req, res) {
+    c(dat) %<-% validate_request(req,
+                                 x = "character")
+    tolower(str_value)
+  }
+)
 
 #* Concatenate
 #* @post /concat
 #* @parser json
-function(req, res, sep = " ") {
-  do.call(paste, c(unname(req$body$data), list(sep = sep)))
-}
+tableau_handler(
+  args = list(
+    arg1 = "character",
+    arg2 = "character"
+  ),
+  function(req, res, sep = " ") {
+    do.call(paste, c(unname(.data), list(sep = sep)))
+  }
+)
 
 #* @plumber
 tableau_extension("stringutils")
