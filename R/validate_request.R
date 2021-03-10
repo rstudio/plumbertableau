@@ -37,15 +37,15 @@ validate_request <- function(req, ...) {
     err <- paste0("Mismatched data types found in ",
                   req$PATH_INFO,
                   ": ",
-                  paste0("\n---- ",
-                         names(val)[mismatch],
-                         "(",
+                  paste0("\n - Argument ",
                          which(mismatch),
-                         ") ",
-                         " ",
+                         " (",
+                         names(val)[mismatch],
+                         ") is type ",
                          unlist(val[mismatch]),
-                         ":",
+                         " but type ",
                          unlist(dat_types[mismatch]),
+                         " was expected",
                          collapse = "")
     )
     stop(err, call. = FALSE)
