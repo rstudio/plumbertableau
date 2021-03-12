@@ -64,6 +64,9 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
     }
 
     pr %>%
+      plumber::pr_get("/", create_user_guide(path, pr), serializer = plumber::serializer_html()) %>%
+      plumber::pr_static("/__plumbertableau_assets__",
+        system.file("www", package = "plumbertableau", mustWork = TRUE)) %>%
       plumber::pr_filter("reroute", reroute) %>%
       plumber::pr_set_error(error_handler)
   }

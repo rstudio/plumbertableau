@@ -2,7 +2,8 @@ library(plumber)
 library(plumbertableau)
 library(zeallot)
 
-#* @apiTitle A simple Tableau Extensions API
+#* @apiTitle String utilities
+#* @apiDescription Simple functions for mutating strings
 
 #* Capitalize incoming text
 #* @post /capitalize
@@ -11,6 +12,7 @@ tableau_handler(
   args = list(
     str_value = "character"
   ),
+  return = "character",
   function(req, res) {
     toupper(str_value)
   }
@@ -21,11 +23,10 @@ tableau_handler(
 #* @parser json
 tableau_handler(
   args = list(
-    str_value = "character"
+    str_value = arg_spec("character?", "Strings to be converted to lowercase")
   ),
+  return = arg_spec("character", "A lowercase string"),
   function(req, res) {
-    c(dat) %<-% validate_request(req,
-                                 x = "character")
     tolower(str_value)
   }
 )
@@ -38,8 +39,9 @@ tableau_handler(
     arg1 = "character",
     arg2 = "character"
   ),
+  return = "character",
   function(req, res, sep = " ") {
-    do.call(paste, c(unname(.data), list(sep = sep)))
+    paste(arg1, arg2, sep = sep)
   }
 )
 

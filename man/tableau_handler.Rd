@@ -4,13 +4,25 @@
 \alias{tableau_handler}
 \title{Create a Tableau compliant handler}
 \usage{
-tableau_handler(args, func)
+tableau_handler(args, return, func)
 }
 \arguments{
-\item{args}{A named list detailing the expected names and types of incoming
-data from Tableau}
+\item{args}{A named list describing the arguments that are expected from
+valid Tableau requests. The names in the named list can be any unique
+variable names. The values in the named list must each be either a string
+indicating the expected data type for that argument (\code{"character"},
+\code{"logical"}, \code{"numeric"}, or \code{"integer"}); or better yet, a specification
+object created by \code{\link[=arg_spec]{arg_spec()}}. If an argument should be considered
+optional, then its data type should be followed by \verb{?}, like
+\code{"numeric?"}.}
 
-\item{func}{A function to be used as the handler function}
+\item{return}{A string indicating the data type that will be returned from
+\code{func} (\code{"character"}, \code{"logical"}, \code{"numeric"}, or \code{"integer"}); or, a
+specification object created by \code{\link[=arg_spec]{arg_spec()}}.}
+
+\item{func}{A function to be used as the handler function. Code in the body
+of the function will automatically be able to access Tableau request args
+simply by referring to their names in \code{args}; see the example below.}
 }
 \description{
 Create a Tableau compliant handler

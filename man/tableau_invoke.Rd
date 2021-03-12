@@ -7,26 +7,26 @@
 tableau_invoke(pr, script, ..., .toJSON_args = NULL)
 }
 \arguments{
-\item{pr}{Either a [tableau_extension()] style Plumber router object, or, the
+\item{pr}{Either a \code{\link[=tableau_extension]{tableau_extension()}} style Plumber router object, or, the
 filename of a plumber.R that implements a Tableau extension.}
 
 \item{script}{The script string that identifies the plumber route to invoke.
-(Equivalent to the first argument to `SCRIPT_STR`, et al., in Tableau.) URL
+(Equivalent to the first argument to \code{SCRIPT_STR}, et al., in Tableau.) URL
 query parameters are allowed.}
 
 \item{...}{Zero or more unnamed arguments to be passed to the script.}
 
 \item{.toJSON_args}{Additional options that should be passed to
-[jsonlite::toJSON()] when the `...` arguments are serialized; for example,
-`pretty = TRUE` or `digits = 8`.}
+\code{\link[jsonlite:fromJSON]{jsonlite::toJSON()}} when the \code{...} arguments are serialized; for example,
+\code{pretty = TRUE} or \code{digits = 8}.}
 }
 \value{
 The object that was returned from the request, JSON-decoded using
-  `jsonlite::parse_json`.
+\code{jsonlite::parse_json}.
 }
 \description{
 Simulates invoking a Tableau extension function from a Tableau calculated
-field `SCRIPT_*` call. Intended for unit testing of Tableau extension APIs.
+field \verb{SCRIPT_*} call. Intended for unit testing of Tableau extension APIs.
 }
 \examples{
 pr_path <- system.file("examples/stringutils/plumber.R",

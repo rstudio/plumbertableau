@@ -22,7 +22,8 @@ Imports:
     jsonlite,
     later,
     promises,
-    rlang
+    rlang,
+    htmltools
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
@@ -31,3 +32,4 @@ Suggests:
     rmarkdown
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
