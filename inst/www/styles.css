@@ -1,3 +1,7 @@
+:root {
+  --link-color: #007bff;
+}
+
 body {
   font-family: sans-serif;
   background-color: #DDD;
@@ -24,6 +28,7 @@ h1 {
   margin-top: 0;
 }
 
+
 .route {
   margin-bottom: 3rem;
   margin-left: 2rem;
@@ -35,10 +40,12 @@ h1 {
   font-family: monospace;
 }
 
+
 .args table {
   border-spacing: 1px;
   border-collapse: collapse;
   width: 100%;
+  font-size: 0.85em;
 }
 
 .args table th {
@@ -60,4 +67,19 @@ h1 {
 
 .args table td.arg-desc {
   width: 60%;
+}
+
+
+
+a.permalink {
+  display: none;
+}
+:hover > a.permalink {
+  display: inline;
+  position: relative;
+  top: 0.125em;
+  text-decoration: none;
+  font-size: 1.25em;
+  line-height: 0;
+  color: var(--link-color);
 }

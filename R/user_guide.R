@@ -51,7 +51,12 @@ render_user_guide <- function(path, pr) {
 render_route_info <- function(route_info) {
   htmltools::withTags(
     div(class = "route",
-      h3(class = "path", route_info$path),
+      h3(id = route_info$path, class = "path",
+        route_info$path,
+        a(class = "permalink", href = paste0("#", route_info$path),
+          "#"
+        )
+      ),
       if (any(nzchar(route_info$comments))) {
         div(class = "desc",
           h4("Description"),
