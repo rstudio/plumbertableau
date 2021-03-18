@@ -22,8 +22,7 @@ Imports:
     jsonlite,
     later,
     promises,
-    rlang,
-    yaml
+    rlang
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
