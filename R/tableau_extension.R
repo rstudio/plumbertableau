@@ -66,6 +66,6 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
     pr %>%
       plumber::pr_filter("reroute", reroute) %>%
       plumber::pr_get("/info", info) %>%
-      plumber::pr_set_api_spec(tableau_openapi)
+      plumber::pr_set_api_spec(tableau_openapi(pr))
   }
 }
