@@ -25,7 +25,7 @@
 #' }
 #'
 #' @export
-tableau_extension <- function(path = "/", warnings = TRUE) {
+tableau_extension <- function(path = "my-extension", warnings = TRUE) {
   # Checks
   if (length(path) == 0) stop("Path must be a string")
   function(pr) {
