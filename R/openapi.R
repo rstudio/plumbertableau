@@ -34,7 +34,8 @@ tableau_spec <- list(description = "Tableau Request",
 
 
 #* Generate an OpenAPI file that matches Tableau's request specification
-tableau_openapi <- function(spec) {
+tableau_openapi <- function(pr) {
+  function(spec) {
   for (i in 1:length(spec$paths)) {
     if (!is.null(spec$paths[[i]][["post"]])) {
       # For every post request, attach a description of the Tableau requestBody
@@ -43,8 +44,8 @@ tableau_openapi <- function(spec) {
       spec$paths[[i]][["post"]][["requestBody"]] <- tableau_spec
     }
   }
-
   spec
+  }
 }
 
 
