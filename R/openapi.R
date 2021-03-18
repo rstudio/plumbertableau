@@ -1,6 +1,36 @@
 # Tableau POST spec
-tableau_spec <- yaml::read_yaml(system.file("openapi/tableau-evaluate-spec.yaml",
-                                            package = "plumbertableau"))
+tableau_spec <- list(description = "Tableau Request",
+                     required = TRUE,
+                     content = list(
+                       `application/json` = list(
+                         schema = list(
+                           type = "object",
+                           required = c("script", "data"),
+                           properties = list(
+                             script = list(
+                               type = "string",
+                               description = "Path to desired endpoint",
+                               example = "/foo"
+                             ),
+                             data = list(
+                               type = "object",
+                               required = "_arg1",
+                               properties = list(
+                                 `_arg1` = list(
+                                   type = "array",
+                                   description = "First object passed from Tableau", example = 1:3),
+                                 `_argN` = list(
+                                   type = "array",
+                                   description = "Other optional objects passed from Tableau",
+                                   example = c("a", "b", "c")
+                                 )
+                               )
+                             )
+                           )
+                         )
+                       )
+                     )
+)
 
 
 #* Generate an OpenAPI file that matches Tableau's request specification
