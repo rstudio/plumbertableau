@@ -15,7 +15,7 @@ URL: https://rstudio.github.io/plumbertableau/, https://github.com/rstudio/plumb
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    plumber,
+    plumber (>= 1.0.0.90002),
     magrittr,
     curl,
     httpuv,
@@ -30,6 +30,8 @@ Suggests:
     zeallot,
     knitr,
     rmarkdown
+Remotes:
+    rstudio/plumber@endpoint-metadata
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

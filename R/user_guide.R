@@ -119,8 +119,9 @@ extract_route_info <- function(path, pr) {
   results <- lapply(pr$endpoints, function(routes) {
     lapply(routes, function(route) {
       path <- route$path
-      arg_spec <- attr(route$.__enclos_env__$private$func, "tableau_arg_specs", exact = TRUE)
-      return_spec <- attr(route$.__enclos_env__$private$func, "tableau_return_spec", exact = TRUE)
+      func <- route$getFunc()
+      arg_spec <- attr(func, "tableau_arg_specs", exact = TRUE)
+      return_spec <- attr(func, "tableau_return_spec", exact = TRUE)
       if (!is.null(arg_spec)) {
         list(comments = route$comments, path = path, arg_spec = arg_spec, return_spec = return_spec)
       } else {
