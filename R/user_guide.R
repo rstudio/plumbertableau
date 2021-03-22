@@ -1,8 +1,12 @@
-# TODO: Document URL (and path?) parameters
-# TODO: Show return value description (and possibly type)
-# TODO: Implement support for "any" type or multiple types
+# MUST HAVE
 # TODO: Implement validation for optional arguments
 # TODO: If an optional argument is not provided, its variable must still be created at runtime
+# TODO: Include welcome text indicating this is a Tableau Extension API
+# TODO: URL param default values should be shown
+
+# NICE TO HAVE
+# TODO: Implement support for "any" type or multiple types
+# TODO: URL param values should be coerced to type (if possible?)
 
 #' @importFrom htmltools tags
 create_user_guide <- function(path, pr) {
@@ -67,10 +71,33 @@ render_route_info <- function(route_info) {
         h4("Usage"),
         code(render_usage(route_info))
       ),
-      div(class = "args",
-        h4("Arguments"),
-        render_args(route_info$arg_spec)
-      )
+      if (length(route_info$param_spec) > 0) {
+        div(class = "params",
+          h4("Params"),
+          render_args(route_info$param_spec)
+        )
+      },
+      if (length(route_info$arg_spec) > 0) {
+        div(class = "args",
+          h4("Arguments"),
+          render_args(route_info$arg_spec)
+        )
+      },
+      if (length(route_info$return_spec$desc) > 0 && any(nzchar(route_info$return_spec$desc))) {
+        div(class = "return",
+          h4("Return value"),
+          table(class = "items",
+            tr(
+              th("Type"),
+              th("Description")
+            ),
+            tr(
+              td(route_info$return_spec$type),
+              td(route_info$return_spec$desc)
+            )
+          ),
+          p(route_info$return_spec$desc))
+      }
     )
   )
 }
@@ -87,15 +114,24 @@ render_usage <- function(route_info) {
     paste0(", ", names(route_info$arg_spec), collapse = "")
   }
 
+  query <- ""
+  if (length(route_info$param_spec) > 0) {
+    query <- paste0("?",
+      paste(collapse = "&",
+        paste0(names(route_info$param_spec), "=<", names(route_info$param_spec), ">")
+      )
+    )
+  }
+
   paste0(calling_func, "(",
-    "\"", route_info$path, "\"",
+    "\"", route_info$path, query, "\"",
     usage_args,
     ")")
 }
 
 render_args <- function(arg_spec) {
   htmltools::withTags(
-    table(
+    table(class = "items",
       tr(
         th("Name"),
         th("Type"),
@@ -103,9 +139,9 @@ render_args <- function(arg_spec) {
       ),
       mapply(names(arg_spec), arg_spec, FUN = function(nm, spec) {
         tr(
-          td(class = "arg-name", code(nm)),
-          td(class = "arg-type", normalize_type_to_tableau(spec$type)),
-          td(class = "arg-desc",
+          td(class = "item-name", code(nm)),
+          td(class = "item-type", normalize_type_to_tableau(spec$type)),
+          td(class = "item-desc",
             if (spec$optional) em("(Optional)"),
             if (any(nzchar(spec$desc))) spec$desc
           )
@@ -122,8 +158,10 @@ extract_route_info <- function(path, pr) {
       func <- route$getFunc()
       arg_spec <- attr(func, "tableau_arg_specs", exact = TRUE)
       return_spec <- attr(func, "tableau_return_spec", exact = TRUE)
+      param_spec <- extract_param_spec(route)
       if (!is.null(arg_spec)) {
-        list(comments = route$comments, path = path, arg_spec = arg_spec, return_spec = return_spec)
+        list(comments = route$comments, path = path, param_spec = param_spec,
+          arg_spec = arg_spec, return_spec = return_spec)
       } else {
         NULL
       }
@@ -133,4 +171,26 @@ extract_route_info <- function(path, pr) {
   results <- unlist(recursive = FALSE, results)
   results <- results[vapply(results, Negate(is.null), logical(1))]
   results
+}
+
+extract_param_spec <- function(route) {
+  params <- route$getEndpointParams()
+  func <- route$getFunc()
+  defaults <- lapply(as.list(formals(func)), function(x) {
+    if (is.character(x) || is.numeric(x) || is.integer(x)) {
+      x
+    } else if (is.logical(x)) {
+      x
+    } else {
+      NULL
+    }
+  })
+
+  mapply(names(params), params, FUN = function(nm, param) {
+    param_spec(type = param$type,
+      desc = param$desc,
+      optional = !isTRUE(param$required),
+      default = defaults[[nm]]
+    )
+  }, SIMPLIFY = FALSE, USE.NAMES = TRUE)
 }

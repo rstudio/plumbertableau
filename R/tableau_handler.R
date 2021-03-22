@@ -30,11 +30,12 @@ tableau_handler <- function(args, return, func) {
     fargs <- getRelevantArgs(fargs, func_local)
     do.call(func_local, fargs)
   }
-  argspecs <- normalize_argspecs(args)
+
+  argspecs <- lapply(args, normalize_argspec)
   validate_argspecs(argspecs)
-  returnspecs <- normalize_argspecs(list("return" = return))
+  returnspec <- normalize_returnspec(return)
   attr(result, "tableau_arg_specs") <- argspecs
-  attr(result, "tableau_return_spec") <- returnspecs[[1]]
+  attr(result, "tableau_return_spec") <- returnspec
   result
 }
 
@@ -57,10 +58,39 @@ arg_spec <- function(type = c("character", "integer", "logical", "numeric"),
   type <- sub("\\?$", "", type)
 
   structure(list(
-    type = type,
+    type = normalize_type_to_r(type),
     desc = desc,
     optional = optional
   ), class = "tableau_arg_spec")
+}
+
+#' @export
+param_spec <- function(type = c("character", "integer", "logical", "numeric"),
+  desc = "", optional = grepl("\\?$", type), default = NULL) {
+
+  # We're about to modify `type`, so eval `optional` first
+  force(optional)
+
+  type <- sub("\\?$", "", type)
+
+  structure(list(
+    type = normalize_type_to_r(type),
+    desc = desc,
+    optional = optional,
+    default = default
+  ), class = "tableau_param_spec")
+}
+
+#' @export
+return_spec <- function(type = c("character", "integer", "logical", "numeric"),
+  desc = "") {
+
+  type <- match.arg(type)
+
+  structure(list(
+    type = normalize_type_to_r(type),
+    desc = desc
+  ), class = "tableau_return_spec")
 }
 
 # Copied from Plumber source code
@@ -145,19 +175,25 @@ normalize_type_to_tableau <- function(type = c("character", "string", "str",
   }
 }
 
-normalize_argspecs <- function(args) {
-  setNames(
-    mapply(names(args), args, FUN = normalize_argspec, SIMPLIFY = FALSE, USE.NAMES = FALSE),
-    names(args)
-  )
-}
-
-normalize_argspec <- function(name, arg) {
+normalize_argspec <- function(arg) {
   if (is.character(arg)) {
     arg_spec(arg)
   } else {
-    # TODO: Validate class/shape
+    if (!inherits(arg, "tableau_arg_spec")) {
+      stop("Invalid argument specification; arg_spec() object or character expected")
+    }
     arg
+  }
+}
+
+normalize_returnspec <- function(return_obj) {
+  if (is.character(return_obj)) {
+    return_spec(return_obj)
+  } else {
+    if (!inherits(return_obj, "tableau_return_spec")) {
+      stop("Invalid return value specification; return_spec() object or character expected")
+    }
+    return_obj
   }
 }
 

@@ -41,31 +41,31 @@ h1 {
 }
 
 
-.args table {
+table.items {
   border-spacing: 1px;
   border-collapse: collapse;
   width: 100%;
   font-size: 0.85em;
 }
 
-.args table th {
+table.items th {
   text-align: left;
 }
 
-.args table th, .args table td {
+table.items th, table.items td {
   padding: 3px;
   border: 1px solid #EEE;
 }
 
-.args table td.arg-name {
+td.item-name {
   width: 25%;
 }
 
-.args table td.arg-type {
+td.item-type {
   width: 15%;
 }
 
-.args table td.arg-desc {
+td.item-desc {
   width: 60%;
 }
 

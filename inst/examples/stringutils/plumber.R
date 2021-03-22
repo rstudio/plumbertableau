@@ -19,14 +19,15 @@ tableau_handler(
 )
 
 #* Lowercase incoming text
+#* @param unicode:boolean Whether unicode logic should be used
 #* @post /lowercase
 #* @parser json
 tableau_handler(
   args = list(
     str_value = arg_spec("character?", "Strings to be converted to lowercase")
   ),
-  return = arg_spec("character", "A lowercase string"),
-  function(req, res) {
+  return = return_spec("character", "A lowercase string"),
+  function(req, res, unicode = FALSE) {
     tolower(str_value)
   }
 )
