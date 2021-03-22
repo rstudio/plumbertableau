@@ -4,7 +4,7 @@
 \alias{tableau_extension}
 \title{Make an existing Plumber API compliant as a Tableau Analytics Extension}
 \usage{
-tableau_extension(path = "/", warnings = TRUE)
+tableau_extension(path = "my-extension", warnings = TRUE)
 }
 \arguments{
 \item{path}{The root path to use to mount existing Plumber endpoints to. This

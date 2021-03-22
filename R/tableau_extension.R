@@ -25,7 +25,7 @@
 #' }
 #'
 #' @export
-tableau_extension <- function(path = "/", warnings = TRUE) {
+tableau_extension <- function(path = "my-extension", warnings = TRUE) {
   # Checks
   if (length(path) == 0) stop("Path must be a string")
   function(pr) {
@@ -65,6 +65,7 @@ tableau_extension <- function(path = "/", warnings = TRUE) {
 
     pr %>%
       plumber::pr_filter("reroute", reroute) %>%
-      plumber::pr_get("/info", info)
+      plumber::pr_get("/info", info) %>%
+      plumber::pr_set_api_spec(tableau_openapi(pr))
   }
 }

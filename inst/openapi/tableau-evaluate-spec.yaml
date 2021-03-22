@@ -1,0 +1,27 @@
+description: "Tableau Request"
+required: true
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - script
+        - data
+      properties:
+        script:
+          type: string
+          title: Path to desired endpoint
+          example: /foo
+        data:
+          type: object
+          required:
+            - _arg1
+          properties:
+            _arg1:
+              type: array
+              title: First object passed from Tableau
+              example: [1, 2, 3]
+            _argN:
+              type: array
+              title: Other optional objects passed from Tableau
+              example: [a, b, c]
