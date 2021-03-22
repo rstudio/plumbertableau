@@ -75,13 +75,7 @@ tableau_invoke <- function(pr, script, ..., .toJSON_args = NULL) {
   # In case of error
   on.exit(later_handle(), add = TRUE)
 
-  # TODO: Suppress messages during plumber startup. Ideally this would be with
-  # a `quiet = TRUE` argument to `run()` or `options_plumber(quiet = TRUE)`, but
-  # if necessary, we could use `sink()` to squelch messages before `run()` and
-  # unsquelch them as soon as our `later()` callback above begins executing.
-  # If we go with the latter approach, we'll need to watch out for the case
-  # where the later callback was never called.
-  pr$run(port = port)
+  pr$run(port = port, quiet = TRUE, swaggerCallback = NULL)
 
   if (is_error) {
     stop(result)

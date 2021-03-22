@@ -31,7 +31,7 @@ Suggests:
     knitr,
     rmarkdown
 Remotes:
-    rstudio/plumber@endpoint-metadata
+    rstudio/plumber
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
