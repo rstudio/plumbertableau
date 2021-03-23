@@ -8,6 +8,8 @@
 # TODO: Implement support for "any" type or multiple types
 # TODO: URL param values should be coerced to type (if possible?)
 
+globalVariables(names(htmltools::tags))
+
 #' @importFrom htmltools tags
 create_user_guide <- function(path, pr) {
   cached_ui <- NULL
