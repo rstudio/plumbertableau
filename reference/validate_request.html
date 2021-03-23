@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Programatically invoke a Tableau extension function — tableau_invoke • plumbertableau</title>
+<title>Validate an incoming Tableau API request — validate_request • plumbertableau</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Programatically invoke a Tableau extension function — tableau_invoke" />
-<meta property="og:description" content="Simulates invoking a Tableau extension function from a Tableau calculated
-field SCRIPT_* call. Intended for unit testing of Tableau extension APIs." />
+<meta property="og:title" content="Validate an incoming Tableau API request — validate_request" />
+<meta property="og:description" content="Validate an incoming Tableau API request" />
 
 
 
@@ -112,55 +111,40 @@ field SCRIPT_* call. Intended for unit testing of Tableau extension APIs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Programatically invoke a Tableau extension function</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/client.R'><code>R/client.R</code></a></small>
-    <div class="hidden name"><code>tableau_invoke.Rd</code></div>
+    <h1>Validate an incoming Tableau API request</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/validate_request.R'><code>R/validate_request.R</code></a></small>
+    <div class="hidden name"><code>validate_request.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Simulates invoking a Tableau extension function from a Tableau calculated
-field <code>SCRIPT_*</code> call. Intended for unit testing of Tableau extension APIs.</p>
+    <p>Validate an incoming Tableau API request</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tableau_invoke</span><span class='op'>(</span><span class='va'>pr</span>, <span class='va'>script</span>, <span class='va'>...</span>, .toJSON_args <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>validate_request</span><span class='op'>(</span><span class='va'>req</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pr</th>
-      <td><p>Either a <code><a href='tableau_extension.html'>tableau_extension()</a></code> style Plumber router object, or, the
-filename of a plumber.R that implements a Tableau extension.</p></td>
-    </tr>
-    <tr>
-      <th>script</th>
-      <td><p>The script string that identifies the plumber route to invoke.
-(Equivalent to the first argument to <code>SCRIPT_STR</code>, et al., in Tableau.) URL
-query parameters are allowed.</p></td>
+      <th>req</th>
+      <td><p>The <code>req</code> object of a Plumber request</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Zero or more unnamed arguments to be passed to the script.</p></td>
-    </tr>
-    <tr>
-      <th>.toJSON_args</th>
-      <td><p>Additional options that should be passed to
-<code><a href='https://rdrr.io/pkg/jsonlite/man/fromJSON.html'>jsonlite::toJSON()</a></code> when the <code>...</code> arguments are serialized; for example,
-<code>pretty = TRUE</code> or <code>digits = 8</code>.</p></td>
+      <td><p>Named values to parse out of <code>req$body$data</code> and the expected
+data type</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The object that was returned from the request, JSON-decoded using
-<code><a href='https://rdrr.io/pkg/jsonlite/man/read_json.html'>jsonlite::parse_json</a></code>.</p>
+    <p>A list of named values parsed from <code>req$body$data</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>pr_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples/stringutils/plumber.R"</span>,
-  package <span class='op'>=</span> <span class='st'>"plumbertableau"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='fu'>tableau_invoke</span><span class='op'>(</span><span class='va'>pr_path</span>, <span class='st'>"/stringutils/capitalize"</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "A" "B" "C" "D" "E"</div><div class='input'>
+<span class='op'>}</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -4,10 +4,16 @@
     <loc>https://rstudio.github.io/plumbertableau//index.html</loc>
   </url>
   <url>
+    <loc>https://rstudio.github.io/plumbertableau//reference/arg_spec.html</loc>
+  </url>
+  <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/check_connect.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/check_route.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/plumbertableau//reference/error_handler.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/pipe.html</loc>
@@ -16,9 +22,15 @@
     <loc>https://rstudio.github.io/plumbertableau//reference/tableau_extension.html</loc>
   </url>
   <url>
+    <loc>https://rstudio.github.io/plumbertableau//reference/tableau_handler.html</loc>
+  </url>
+  <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/tableau_invoke.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/tableau_json.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/plumbertableau//reference/validate_request.html</loc>
   </url>
 </urlset>

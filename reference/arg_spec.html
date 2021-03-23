@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Programatically invoke a Tableau extension function — tableau_invoke • plumbertableau</title>
+<title>Describe expected args and return values — arg_spec • plumbertableau</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,11 @@
 
 
 
-<meta property="og:title" content="Programatically invoke a Tableau extension function — tableau_invoke" />
-<meta property="og:description" content="Simulates invoking a Tableau extension function from a Tableau calculated
-field SCRIPT_* call. Intended for unit testing of Tableau extension APIs." />
+<meta property="og:title" content="Describe expected args and return values — arg_spec" />
+<meta property="og:description" content="These functions are used to create arguments to tableau_handler(). They
+allow the API author to tell plumbertableau the data type of the arg or
+return value, and a human-readable description that can be used to generate
+documentation." />
 
 
 
@@ -112,56 +114,47 @@ field SCRIPT_* call. Intended for unit testing of Tableau extension APIs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Programatically invoke a Tableau extension function</h1>
-    <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/client.R'><code>R/client.R</code></a></small>
-    <div class="hidden name"><code>tableau_invoke.Rd</code></div>
+    <h1>Describe expected args and return values</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/tableau_handler.R'><code>R/tableau_handler.R</code></a></small>
+    <div class="hidden name"><code>arg_spec.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Simulates invoking a Tableau extension function from a Tableau calculated
-field <code>SCRIPT_*</code> call. Intended for unit testing of Tableau extension APIs.</p>
+    <p>These functions are used to create arguments to <code><a href='tableau_handler.html'>tableau_handler()</a></code>. They
+allow the API author to tell plumbertableau the data type of the arg or
+return value, and a human-readable description that can be used to generate
+documentation.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tableau_invoke</span><span class='op'>(</span><span class='va'>pr</span>, <span class='va'>script</span>, <span class='va'>...</span>, .toJSON_args <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>arg_spec</span><span class='op'>(</span>
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"character"</span>, <span class='st'>"integer"</span>, <span class='st'>"logical"</span>, <span class='st'>"numeric"</span><span class='op'>)</span>,
+  desc <span class='op'>=</span> <span class='st'>""</span>,
+  optional <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"\\?$"</span>, <span class='va'>type</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>return_spec</span><span class='op'>(</span>type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"character"</span>, <span class='st'>"integer"</span>, <span class='st'>"logical"</span>, <span class='st'>"numeric"</span><span class='op'>)</span>, desc <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pr</th>
-      <td><p>Either a <code><a href='tableau_extension.html'>tableau_extension()</a></code> style Plumber router object, or, the
-filename of a plumber.R that implements a Tableau extension.</p></td>
+      <th>type</th>
+      <td><p>A string indicating the data type that is required for this
+argument.</p></td>
     </tr>
     <tr>
-      <th>script</th>
-      <td><p>The script string that identifies the plumber route to invoke.
-(Equivalent to the first argument to <code>SCRIPT_STR</code>, et al., in Tableau.) URL
-query parameters are allowed.</p></td>
+      <th>desc</th>
+      <td><p>A human-readable description of the argument. Used to generate
+documentation.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Zero or more unnamed arguments to be passed to the script.</p></td>
-    </tr>
-    <tr>
-      <th>.toJSON_args</th>
-      <td><p>Additional options that should be passed to
-<code><a href='https://rdrr.io/pkg/jsonlite/man/fromJSON.html'>jsonlite::toJSON()</a></code> when the <code>...</code> arguments are serialized; for example,
-<code>pretty = TRUE</code> or <code>digits = 8</code>.</p></td>
+      <th>optional</th>
+      <td><p>If <code>TRUE</code>, then this argument need not be present in a
+request. Defaults to <code>TRUE</code> if <code>type</code> ends with a <code>"?"</code> character.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The object that was returned from the request, JSON-decoded using
-<code><a href='https://rdrr.io/pkg/jsonlite/man/read_json.html'>jsonlite::parse_json</a></code>.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>pr_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples/stringutils/plumber.R"</span>,
-  package <span class='op'>=</span> <span class='st'>"plumbertableau"</span><span class='op'>)</span>
-
-<span class='fu'>tableau_invoke</span><span class='op'>(</span><span class='va'>pr_path</span>, <span class='st'>"/stringutils/capitalize"</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "A" "B" "C" "D" "E"</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
