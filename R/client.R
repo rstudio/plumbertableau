@@ -23,7 +23,7 @@
 #' tableau_invoke(pr_path, "/stringutils/capitalize", letters[1:5])
 #'
 #' @export
-tableau_invoke <- function(pr, script, ..., .toJSON_args = NULL) {
+tableau_invoke <- function(pr, script, ..., .toJSON_args = NULL, .quiet = FALSE) {
   # Prevents Swagger UI from launching--sometimes. (It doesn't work when pr is
   # an actual router object, since you need to have these set at the time of
   # Plumber router initialization.)
@@ -53,7 +53,9 @@ tableau_invoke <- function(pr, script, ..., .toJSON_args = NULL) {
     p <- promises::then(curl_async(h), ~{
       resp <- .
       if (!isTRUE(resp$status_code == 200)) {
-        # TODO: Give more detail, maybe show the body
+        if (!isTRUE(.quiet)) {
+          message(rawToChar(resp$content))
+        }
         stop("Unexpected status code: ", resp$status_code)
       }
       if (!identical(resp$type, "application/json")) {

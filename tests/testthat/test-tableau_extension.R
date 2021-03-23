@@ -16,6 +16,13 @@ test_that("stringutils example works", {
     tableau_invoke(pr_path, "/stringutils/concat?sep=-", letters, LETTERS),
     paste0(letters, "-", LETTERS)
   )
+
+  # 404
+  expect_error(tableau_invoke(pr_path, "/stringutils/blah", .quiet = TRUE))
+  # Too few args
+  expect_error(tableau_invoke(pr_path, "/stringutils/concat", letters, .quiet = TRUE))
+  # Too many args
+  expect_error(tableau_invoke(pr_path, "/stringutils/concat", letters, letters, letters, .quiet = TRUE))
 })
 
 test_that("OpenAPI specification works", {
