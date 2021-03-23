@@ -1,6 +1,5 @@
 library(plumber)
 library(plumbertableau)
-library(zeallot)
 
 #* @apiTitle String utilities
 #* @apiDescription Simple functions for mutating strings
