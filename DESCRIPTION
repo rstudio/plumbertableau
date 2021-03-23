@@ -15,21 +15,22 @@ URL: https://rstudio.github.io/plumbertableau/, https://github.com/rstudio/plumb
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    plumber (>= 1.0.0.90001),
+    plumber (>= 1.0.0.90002),
     magrittr,
     curl,
     httpuv,
     jsonlite,
     later,
     promises,
-    rlang
+    rlang,
+    htmltools
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
-    zeallot,
     knitr,
     rmarkdown
 Remotes:
     rstudio/plumber
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
