@@ -16,8 +16,12 @@
 #'   simply by referring to their names in `args`; see the example below.
 #' @export
 tableau_handler <- function(args, return, func) {
+  args <- lapply(args, normalize_argspec)
+  validate_argspecs(args)
+  return <- normalize_returnspec(return)
+
   result <- function(req, res, ...) {
-    vars <- validate_request(req, !!!args)
+    vars <- validate_request(req, args = args, return = return)
 
     # Copy the func, leave the original unchanged
     func_local <- func
@@ -31,11 +35,8 @@ tableau_handler <- function(args, return, func) {
     do.call(func_local, fargs)
   }
 
-  argspecs <- lapply(args, normalize_argspec)
-  validate_argspecs(argspecs)
-  returnspec <- normalize_returnspec(return)
-  attr(result, "tableau_arg_specs") <- argspecs
-  attr(result, "tableau_return_spec") <- returnspec
+  attr(result, "tableau_arg_specs") <- args
+  attr(result, "tableau_return_spec") <- return
   result
 }
 

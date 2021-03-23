@@ -12,15 +12,31 @@
 #' @return A list of named values parsed from \code{req$body$data}
 #'
 #' @export
-validate_request <- function(req, ...) {
-  val <- rlang::list2(...)
+validate_request <- function(req, args, return) {
+  # Not for any particular reason
+  force(req)
+  force(args)
+  force(return)
+
+  optionals <- vapply(args, function(x) x[["optional"]], logical(1))
+  opt_idx <- which(optionals)
+  req_idx <- which(!optionals)
+  min_possible_args <- length(req_idx)
+  max_possible_args <- length(args)
+
+  val <- args[seq_len(min(max_possible_args, max(min_possible_args, length(req$body$data))))]
+
   dat <- req$body$data
 
   # Check that the same number of values is provided as what is expected
   if (length(val) != length(dat)) {
     err <- paste0(req$PATH_INFO,
                   " expected ",
-                  length(val),
+                  if (min_possible_args == max_possible_args) {
+                    min_possible_args
+                  } else {
+                    paste0("between ", min_possible_args, " and ", max_possible_args)
+                  },
                   " arguments but instead received ",
                   length(dat))
     stop(err, call. = FALSE)
@@ -49,6 +65,13 @@ validate_request <- function(req, ...) {
 
   # Assign dat with names provided
   names(dat) <- names(val)
+
+  # Add missing optionals, with NULL values
+  missing_arg_names <- tail(names(args), -length(val))
+  missing_args <- setNames(
+    rep_len(list(NULL), length(missing_arg_names)),
+    missing_arg_names)
+  dat <- c(dat, missing_args)
 
   # Return the renamed data as a list
   dat
