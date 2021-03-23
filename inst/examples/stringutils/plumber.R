@@ -33,6 +33,7 @@ tableau_handler(
 
 #* Concatenate
 #* @post /concat
+#* @param sep:str Separator value to use
 #* @parser json
 tableau_handler(
   args = list(
