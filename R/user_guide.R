@@ -153,6 +153,7 @@ render_args <- function(arg_spec) {
   )
 }
 
+#TODO: I don't think we need the path param in here
 extract_route_info <- function(path, pr) {
   results <- lapply(pr$endpoints, function(routes) {
     lapply(routes, function(route) {
