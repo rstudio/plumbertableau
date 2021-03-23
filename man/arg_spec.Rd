@@ -2,13 +2,16 @@
 % Please edit documentation in R/tableau_handler.R
 \name{arg_spec}
 \alias{arg_spec}
-\title{Create an argument specification object}
+\alias{return_spec}
+\title{Describe expected args and return values}
 \usage{
 arg_spec(
   type = c("character", "integer", "logical", "numeric"),
   desc = "",
   optional = grepl("\\\\?$", type)
 )
+
+return_spec(type = c("character", "integer", "logical", "numeric"), desc = "")
 }
 \arguments{
 \item{type}{A string indicating the data type that is required for this
@@ -18,8 +21,11 @@ argument.}
 documentation.}
 
 \item{optional}{If \code{TRUE}, then this argument need not be present in a
-request.}
+request. Defaults to \code{TRUE} if \code{type} ends with a \code{"?"} character.}
 }
 \description{
-Create an argument specification object
+These functions are used to create arguments to \code{\link[=tableau_handler]{tableau_handler()}}. They
+allow the API author to tell plumbertableau the data type of the arg or
+return value, and a human-readable description that can be used to generate
+documentation.
 }

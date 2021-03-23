@@ -39,14 +39,19 @@ tableau_handler <- function(args, return, func) {
   result
 }
 
-#' Create an argument specification object
+#' Describe expected args and return values
+#'
+#' These functions are used to create arguments to [tableau_handler()]. They
+#' allow the API author to tell plumbertableau the data type of the arg or
+#' return value, and a human-readable description that can be used to generate
+#' documentation.
 #'
 #' @param type A string indicating the data type that is required for this
 #'   argument.
 #' @param desc A human-readable description of the argument. Used to generate
 #'   documentation.
 #' @param optional If `TRUE`, then this argument need not be present in a
-#'   request.
+#'   request. Defaults to `TRUE` if `type` ends with a `"?"` character.
 #'
 #' @export
 arg_spec <- function(type = c("character", "integer", "logical", "numeric"),
@@ -64,7 +69,6 @@ arg_spec <- function(type = c("character", "integer", "logical", "numeric"),
   ), class = "tableau_arg_spec")
 }
 
-#' @export
 param_spec <- function(type = c("character", "integer", "logical", "numeric"),
   desc = "", optional = grepl("\\?$", type), default = NULL) {
 
@@ -81,6 +85,7 @@ param_spec <- function(type = c("character", "integer", "logical", "numeric"),
   ), class = "tableau_param_spec")
 }
 
+#' @rdname arg_spec
 #' @export
 return_spec <- function(type = c("character", "integer", "logical", "numeric"),
   desc = "") {

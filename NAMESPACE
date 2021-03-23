@@ -2,7 +2,6 @@
 
 export("%>%")
 export(arg_spec)
-export(param_spec)
 export(return_spec)
 export(tableau_extension)
 export(tableau_handler)

@@ -6,4 +6,4 @@
 ^pkgdown$
 ^\.github$
 ^scratch$
-/rsconnect/
+/rsconnect$
