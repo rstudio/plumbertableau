@@ -69,7 +69,7 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
         system.file("www", package = "plumbertableau", mustWork = TRUE)) %>%
       plumber::pr_filter("reroute", reroute) %>%
       plumber::pr_get("/info", info) %>%
-      plumber::pr_set_api_spec(tableau_openapi(pr, path)) %>%
+      plumber::pr_set_api_spec(tableau_openapi(pr)) %>%
       plumber::pr_set_error(error_handler)
   }
 }

@@ -1,6 +1,6 @@
-tableau_openapi <- function(pr, path) {
+tableau_openapi <- function(pr) {
   spec <- pr$getApiSpec()
-  route_info <- extract_route_info(path, pr)
+  route_info <- extract_route_info(pr)
   spec_paths <- names(spec$paths)
   # Identify Tableau routes from route_info (these are the only routes from route_info)
   tableau_routes <- unlist(lapply(route_info, function(route) route[["path"]]))
@@ -22,6 +22,7 @@ build_tableau_spec <- function(route_attrs) {
   arg_list <- lapply(names(args), function(arg_name) {
     list(
       type = "array",
+      #TODO: Add description here as well
       description = arg_name,
       required = !args[[arg_name]]$optional,
       items = list(
