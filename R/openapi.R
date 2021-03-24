@@ -22,8 +22,7 @@ build_tableau_spec <- function(route_attrs) {
   arg_list <- lapply(names(args), function(arg_name) {
     list(
       type = "array",
-      #TODO: Add description here as well
-      description = arg_name,
+      description = ifelse(args[[arg_name]]$desc == "", arg_name, paste0(arg_name, ": ", args[[arg_name]]$desc)),
       required = !args[[arg_name]]$optional,
       items = list(
         type = json_type(args[[arg_name]]$type)
