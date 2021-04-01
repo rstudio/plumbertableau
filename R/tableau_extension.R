@@ -50,10 +50,8 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
       lapply(pr$endpoints, function(routes) {
         # Modify route in place
         lapply(routes, function(route) {
-          # This works b/c route is an R6 object
-          route$path <- paste0(path, route$path)
-          # Address internal Plumber regex
-          route$.__enclos_env__$private$regex <- plumber:::createPathRegex(route$path, route$getFuncParams())
+          # Update route path
+          route$setPath(paste0(path, route$path))
         })
       })
       # Change existing mounts to be mounted under path
