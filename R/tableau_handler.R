@@ -37,6 +37,7 @@ tableau_handler <- function(args, return, func) {
 
   attr(result, "tableau_arg_specs") <- args
   attr(result, "tableau_return_spec") <- return
+  class(result) <- c("tableau_handler", class(result))
   result
 }
 
@@ -97,6 +98,107 @@ return_spec <- function(type = c("character", "integer", "logical", "numeric"),
     type = normalize_type_to_r(type),
     desc = desc
   ), class = "tableau_return_spec")
+}
+
+# Given a route that may have @tab.* comments, create a tableau_handler object.
+infer_tableau_handler <- function(route) {
+  func <- route$getFunc()
+  if (inherits(func, "tableau_handler")) {
+    # Already a handler
+    return(func)
+  }
+
+  srcref <- attr(func, "srcref", exact = TRUE)
+  if (is.null(srcref)) {
+    # TODO
+    stop("no srcref")
+  }
+  comment_lines_df <- get_comments_from_srcref(srcref)
+  parsed_comments <- parse_comment_tags(comment_lines_df)
+
+  args <- parsed_comments[parsed_comments$tag == c("tab.arg"), c("line", "remainder")]
+  returns <- parsed_comments[parsed_comments$tag == c("tab.return"), c("line", "remainder")]
+
+  args <- parse_args_comment_df(args)
+  return <- parse_return_comment_df(returns)
+
+  tableau_handler(
+    args = args,
+    return = return,
+    func = func
+  )
+}
+
+get_comments_from_srcref <- function(srcref) {
+  func_start_line <- srcref[[7]]
+  srcfile <- attr(srcref, "srcfile", exact = TRUE)
+  srcfile <- file.path(srcfile$wd, srcfile$filename)
+  if (!file.exists(srcfile)) {
+    # TODO
+    stop("srcfile doesn't exist")
+  }
+  file <- readUTF8(srcfile)
+
+  lineNum <- func_start_line - 1
+
+  while (lineNum > 0 && (grepl("^#['\\*]", file[lineNum]) || grepl("^\\s*$", file[lineNum]))) {
+    lineNum <- lineNum - 1
+  }
+  line <- seq(from = lineNum + 1, length.out = func_start_line - (lineNum + 1))
+  data.frame(line, text = file[line], stringsAsFactors = FALSE)
+}
+
+parse_comment_tags <- function(lines_df) {
+  lines <- lines_df$text
+  m <- regexec("^#['\\*]\\s+@([^\\s]+)\\s*(.*)", lines, perl = TRUE)
+  matches <- regmatches(lines, m)
+
+  tag <- sapply(matches, `[`, i = 2)
+  remainder <- sapply(matches, `[`, i = 3)
+  df <- data.frame(line = lines_df$line, tag, remainder, stringsAsFactors = FALSE)
+  df[!is.na(df$tag),]
+}
+
+# @param comment_df Data frame with `line` and `remainder` columns
+parse_args_comment_df <- function(comment_df) {
+  m <- regexec("^\\s*([a-zA-Z0-9._-]+):([^\\s?]+)(\\?)?\\s+(.*)$", comment_df$remainder, perl = TRUE)
+  matches <- regmatches(comment_df$remainder, m)
+
+  name <- sapply(matches, `[`, i = 2)
+  type <- sapply(matches, `[`, i = 3)
+  type <- sub("^\\[(.+)]$", "\\1", type)
+  opt <- sapply(matches, `[`, i = 4)
+  desc <- sapply(matches, `[`, i = 5)
+
+  bad_lines <- comment_df$line[which(is.na(name))]
+  if (length(bad_lines) > 0) {
+    stop("Invalid @tab.arg on line(s) ", paste(bad_lines, collapse = ", "))
+  }
+
+  arg_specs <- mapply(name, type, opt, desc, FUN = function(name, type, opt, desc) {
+    arg_spec(type = type, desc = desc, optional = !is.na(opt))
+  }, SIMPLIFY = FALSE, USE.NAMES = TRUE)
+
+  # TODO: make sure names are unique
+
+  arg_specs
+}
+
+parse_return_comment_df <- function(comment_df) {
+  m <- regexec("^\\s*([^\\s?]+)\\s+(.*)$", comment_df$remainder, perl = TRUE)
+  matches <- regmatches(comment_df$remainder, m)
+
+  type <- sapply(matches, `[`, i = 2)
+  type <- sub("^\\[(.+)]$", "\\1", type)
+  desc <- sapply(matches, `[`, i = 3)
+
+  return_spec(type = type, desc = desc)
+}
+
+# read a file using UTF-8 and (on Windows) convert to native encoding if possible
+readUTF8 <- function(file) {
+  # TODO: don't use private function
+  plumber:::readUTF8(file)
 }
 
 # Copied from Plumber source code

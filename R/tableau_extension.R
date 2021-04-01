@@ -54,6 +54,7 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
           route$path <- paste0(path, route$path)
           # Address internal Plumber regex
           route$.__enclos_env__$private$regex <- plumber:::createPathRegex(route$path, route$getFuncParams())
+          route$.__enclos_env__$private$func <- infer_tableau_handler(route)
         })
       })
       # Change existing mounts to be mounted under path

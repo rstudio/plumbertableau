@@ -19,17 +19,13 @@ tableau_handler(
 
 #* Lowercase incoming text
 #* @param unicode:boolean Whether unicode logic should be used
+#* @tab.arg str_value:[character]? Strings to be converted to lowercase
+#* @tab.return [character] A lowercase string
 #* @post /lowercase
 #* @parser json
-tableau_handler(
-  args = list(
-    str_value = arg_spec("character?", "Strings to be converted to lowercase")
-  ),
-  return = return_spec("character", "A lowercase string"),
-  function(req, res, unicode = FALSE) {
-    tolower(str_value)
-  }
-)
+function(req, res, unicode = FALSE) {
+  tolower(str_value)
+}
 
 #* Concatenate
 #* @post /concat
