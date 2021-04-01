@@ -3,6 +3,7 @@
 # TODO: If an optional argument is not provided, its variable must still be created at runtime
 # TODO: Include welcome text indicating this is a Tableau Extension API
 # TODO: URL param default values should be shown
+# TODO: args should be provided to handler functions via formal params, not implicit variables
 
 # NICE TO HAVE
 # TODO: Implement support for "any" type or multiple types

@@ -52,6 +52,7 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
         lapply(routes, function(route) {
           # Update route path
           route$setPath(paste0(path, route$path))
+          route$.__enclos_env__$private$func <- infer_tableau_handler(route)
         })
       })
       # Change existing mounts to be mounted under path
