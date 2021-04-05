@@ -35,7 +35,6 @@ build_tableau_spec <- function(route_attrs) {
 
   names(arg_list) <- paste0("_arg", 1:length(arg_list))
 
-
   list(description = "Tableau Request",
        required = TRUE,
        content = list(
@@ -51,7 +50,7 @@ build_tableau_spec <- function(route_attrs) {
                ),
                data = list(
                  type = "object",
-                 required = "_arg1",
+                 required = names(arg_list)[unlist(lapply(arg_list, function(arg) arg$required))],
                  properties = arg_list
                )
              )
