@@ -42,9 +42,9 @@ validate_request <- function(req, ...) {
                          " (",
                          names(val)[mismatch],
                          ") is type ",
-                         unlist(val[mismatch]),
-                         " but type ",
                          unlist(dat_types[mismatch]),
+                         " but type ",
+                         unlist(val[mismatch]),
                          " was expected",
                          collapse = "")
     )
