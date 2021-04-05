@@ -11,6 +11,9 @@ tableau_openapi <- function(pr) {
     }
   }
 
+  # Remove / from spec so it doesn't show in UI
+  spec$paths[["/"]] <- NULL
+
   # Return OAS as a list
   spec
 }
