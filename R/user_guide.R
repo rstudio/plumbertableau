@@ -43,7 +43,7 @@ render_user_guide <- function(path, pr) {
     ),
     tags$main(
       tags$div(class = "routes",
-        lapply(extract_route_info(path, pr), render_route_info)
+        lapply(extract_route_info(pr), render_route_info)
       )
     )
   )
@@ -153,7 +153,7 @@ render_args <- function(arg_spec) {
   )
 }
 
-extract_route_info <- function(path, pr) {
+extract_route_info <- function(pr) {
   results <- lapply(pr$endpoints, function(routes) {
     lapply(routes, function(route) {
       path <- route$path
