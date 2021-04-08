@@ -37,6 +37,9 @@ render_user_guide <- function(path, pr) {
         title,
         if (!is.null(version)) paste0("(v", version, ")")
       ),
+      tags$h3(
+        "A Tableau Analytics Extension"
+      ),
       tags$div(class = "api-desc",
         desc
       )
