@@ -1,21 +1,22 @@
 tableau_openapi <- function(pr) {
-  spec <- pr$getApiSpec()
-  route_info <- extract_route_info(pr)
-  spec_paths <- names(spec$paths)
-  # Identify Tableau routes from route_info (these are the only routes from route_info)
-  tableau_routes <- unlist(lapply(route_info, function(route) route[["path"]]))
+  function(spec) {
+    route_info <- extract_route_info(pr)
+    spec_paths <- names(spec$paths)
+    # Identify Tableau routes from route_info (these are the only routes from route_info)
+    tableau_routes <- unlist(lapply(route_info, function(route) route[["path"]]))
 
-  for (path in spec_paths) {
-    if (path %in% tableau_routes) {
-      spec$paths[[path]][["post"]][["requestBody"]] <- build_tableau_spec(route_info[tableau_routes == path][[1]])
+    for (path in spec_paths) {
+      if (path %in% tableau_routes) {
+        spec$paths[[path]][["post"]][["requestBody"]] <- build_tableau_spec(route_info[tableau_routes == path][[1]])
+      }
     }
+
+    # Remove / from spec so it doesn't show in UI
+    spec$paths[["/"]] <- NULL
+
+    # Return OAS as a list
+    spec
   }
-
-  # Remove / from spec so it doesn't show in UI
-  spec$paths[["/"]] <- NULL
-
-  # Return OAS as a list
-  spec
 }
 
 build_tableau_spec <- function(route_attrs) {
