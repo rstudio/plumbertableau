@@ -28,11 +28,7 @@ validate_request <- function(req, ...) {
 
   # Check to make sure data types match
   dat_types <- lapply(dat, class)
-  mismatch <- unlist(
-    Map(function(x, y) x != y,
-        val,
-        dat_types)
-  )
+  mismatch <- check_types(val, dat_types)
   if (any(mismatch)) {
     err <- paste0("Mismatched data types found in ",
                   req$PATH_INFO,
@@ -56,4 +52,17 @@ validate_request <- function(req, ...) {
 
   # Return the renamed data as a list
   dat
+}
+
+# Check expected data types against actual data types
+check_types <- function(expected_types, actual_types) {
+  unlist(
+    Map(function(x, y) {
+      if (class(x) == "tableau_arg_spec") {
+        x$type != y
+      } else {
+        x != y
+      }
+    })
+  )
 }
