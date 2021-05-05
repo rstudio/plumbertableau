@@ -26,7 +26,7 @@ tableau_handler <- function(args, return, func) {
     # Copy the func, leave the original unchanged
     func_local <- func
     environment(func_local) <- list2env(vars, parent = environment(func))
-    # TODO: .env and .data might want to be real rlang pronouns?
+    # TODO: Fake .env and .data pronouns? This cannot possibly be the best way to do this, talk to Hadley
     environment(func_local)$.env <- environment(func)
     environment(func_local)$.data <- vars
 
@@ -110,8 +110,12 @@ infer_tableau_handler <- function(route) {
 
   srcref <- attr(func, "srcref", exact = TRUE)
   if (is.null(srcref)) {
-    # TODO
-    stop("no srcref")
+    stop(
+      call. = FALSE,
+      "plumbertableau encountered a plumber endpoint with no srcref; try ",
+      "making sure all endpoint functions are defined directly in the plumber ",
+      "file"
+    )
   }
   comment_lines_df <- get_comments_from_srcref(srcref)
   parsed_comments <- parse_comment_tags(comment_lines_df)
@@ -133,9 +137,12 @@ get_comments_from_srcref <- function(srcref) {
   func_start_line <- srcref[[7]]
   srcfile <- attr(srcref, "srcfile", exact = TRUE)
   srcfile <- file.path(srcfile$wd, srcfile$filename)
-  if (!file.exists(srcfile)) {
-    # TODO
-    stop("srcfile doesn't exist")
+  if (!isTRUE(file.exists(srcfile))) {
+    stop(
+      call. = FALSE,
+      "plumbertableau encountered a plumber endpoint whose source file could ",
+      "not be determined"
+    )
   }
   file <- readUTF8(srcfile)
 
@@ -179,7 +186,15 @@ parse_args_comment_df <- function(comment_df) {
     arg_spec(type = type, desc = desc, optional = !is.na(opt))
   }, SIMPLIFY = FALSE, USE.NAMES = TRUE)
 
-  # TODO: make sure names are unique
+  # Make sure @tab.arg names are unique
+  duplicate_names <- unique(name[which(duplicated(name))])
+  if (length(duplicate_names) > 0) {
+    stop(call. = FALSE,
+      "Duplicate @tab.arg name(s) detected: ",
+      paste0(paste0("'", duplicate_names, "'"), collapse = ", "),
+      ". Names must be unique."
+    )
+  }
 
   arg_specs
 }
