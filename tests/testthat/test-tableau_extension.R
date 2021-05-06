@@ -23,6 +23,8 @@ test_that("stringutils example works", {
   expect_error(tableau_invoke(pr_path, "/stringutils/concat", letters, .quiet = TRUE))
   # Too many args
   expect_error(tableau_invoke(pr_path, "/stringutils/concat", letters, letters, letters, .quiet = TRUE))
+  # Incorrect data type
+  expect_error(tableau_invoke(pr_path, "/stringutils/concat", letters, seq_along(letters), .quiet = TRUE))
 })
 
 test_that("OpenAPI specification works", {
