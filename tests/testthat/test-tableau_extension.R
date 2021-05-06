@@ -3,8 +3,8 @@ pr_path <- system.file("examples/stringutils/plumber.R", package = "plumbertable
 test_that("stringutils example works", {
 
   expect_identical(
-    tableau_invoke(pr_path, "/stringutils/capitalize", "hello"),
-    "HELLO"
+    tableau_invoke(pr_path, "/stringutils/lowercase", "HeLlO"),
+    "hello"
   )
 
   expect_identical(

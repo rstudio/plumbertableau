@@ -18,7 +18,7 @@ function(req, res, unicode = FALSE) {
 #* @post /concat
 #* @param sep:str Separator value to use
 #* @tab.arg arg1:[character] One or more string values
-#* @tab.arg arg2:[character] One or more string values to concatenate to arg1
+#* @tab.arg arg2:[character] One or more string values to concatenate to `arg1`
 #* @tab.return [character] arg1 and arg2 concatenated together
 #* @parser json
 function(req, res, sep = " ") {

@@ -183,7 +183,7 @@ parse_args_comment_df <- function(comment_df) {
   }
 
   arg_specs <- mapply(name, type, opt, desc, FUN = function(name, type, opt, desc) {
-    arg_spec(type = type, desc = desc, optional = !is.na(opt))
+    arg_spec(type = type, desc = desc, optional = ifelse(is.na(opt), FALSE, opt == "?"))
   }, SIMPLIFY = FALSE, USE.NAMES = TRUE)
 
   # Make sure @tab.arg names are unique

@@ -98,8 +98,8 @@ render_route_info <- function(route_info) {
               td(route_info$return_spec$type),
               td(route_info$return_spec$desc)
             )
-          ),
-          p(route_info$return_spec$desc))
+          )
+        )
       }
     )
   )
