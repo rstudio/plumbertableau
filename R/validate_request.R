@@ -1,17 +1,3 @@
-#' Validate an incoming Tableau API request
-#'
-#' @param req The \code{req} object of a Plumber request
-#' @param ... Named values to parse out of \code{req$body$data} and the expected
-#' data type
-#'
-#' @examples
-#' \dontrun{
-#'
-#' }
-#'
-#' @return A list of named values parsed from \code{req$body$data}
-#'
-#' @export
 validate_request <- function(req, args, return) {
   # Not for any particular reason
   force(req)
@@ -77,8 +63,8 @@ validate_request <- function(req, args, return) {
   names(dat) <- names(val)
 
   # Add missing optionals, with NULL values
-  missing_arg_names <- tail(names(args), -length(val))
-  missing_args <- setNames(
+  missing_arg_names <- utils::tail(names(args), -length(val))
+  missing_args <- stats::setNames(
     rep_len(list(NULL), length(missing_arg_names)),
     missing_arg_names)
   dat <- c(dat, missing_args)

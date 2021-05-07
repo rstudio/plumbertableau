@@ -12,6 +12,7 @@
 #' @param .toJSON_args Additional options that should be passed to
 #'   [jsonlite::toJSON()] when the `...` arguments are serialized; for example,
 #'   `pretty = TRUE` or `digits = 8`.
+#' @param .quiet If `TRUE`, do not print response bodies when errors occur.
 #'
 #' @return The object that was returned from the request, JSON-decoded using
 #'   `jsonlite::parse_json`.
@@ -20,7 +21,7 @@
 #' pr_path <- system.file("examples/stringutils/plumber.R",
 #'   package = "plumbertableau")
 #'
-#' tableau_invoke(pr_path, "/stringutils/capitalize", letters[1:5])
+#' tableau_invoke(pr_path, "/stringutils/lowercase", LETTERS[1:5])
 #'
 #' @export
 tableau_invoke <- function(pr, script, ..., .toJSON_args = NULL, .quiet = FALSE) {
