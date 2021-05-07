@@ -25,5 +25,18 @@ function(req, res, sep = " ") {
   paste(arg1, arg2, sep = sep)
 }
 
+#* Convert to string
+#* @post /stringify
+#* @tab.arg value:[any] One or more values of any data type
+#* @tab.return [character] The data, converted to string
+#* @parser json
+function(req, res) {
+  if (is.logical(value)) {
+    ifelse(value, "true", "false")
+  } else {
+    as.character(value)
+  }
+}
+
 #* @plumber
 tableau_extension("stringutils")

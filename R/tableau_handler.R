@@ -274,6 +274,7 @@ normalize_type_to_r <- function(type = c("character", "string", "str",
     "logical" =, "boolean" =, "bool" = "logical",
     "numeric" =, "real" = "numeric",
     "integer" =, "int" = "integer",
+    "any" = "any",
     stop("Unknown type ", type)
   )
 }
@@ -288,11 +289,12 @@ normalize_type_to_tableau <- function(type = c("character", "string", "str",
     "logical" =, "boolean" =, "bool" = "bool",
     "numeric" =, "real" = "real",
     "integer" =, "int" = "int",
+    "any" = "any",
     stop("Unknown type ", type)
   )
 
   if (!abbrev) {
-    c(str = "string", bool = "boolean", real = "real", int = "integer")[short]
+    c(str = "string", bool = "boolean", real = "real", int = "integer", any = "any")[short]
   } else {
     short
   }

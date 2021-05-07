@@ -40,7 +40,7 @@ validate_request <- function(req, args, return) {
     }
   }, character(1))
 
-  mismatch <- expected_types != dat_types
+  mismatch <- !check_types(dat_types, expected_types)
   if (any(mismatch)) {
     err <- paste0("Mismatched data types found in ",
                   req$PATH_INFO,
@@ -71,4 +71,11 @@ validate_request <- function(req, args, return) {
 
   # Return the renamed data as a list
   dat
+}
+
+check_types <- function(actual_types, expected_types) {
+  ifelse(expected_types == "any",
+    rep_len(TRUE, length(expected_types)),
+    actual_types == expected_types
+  )
 }

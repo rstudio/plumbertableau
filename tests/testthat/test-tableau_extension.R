@@ -17,10 +17,21 @@ test_that("stringutils example works", {
     paste0(letters, "-", LETTERS)
   )
 
+  expect_identical(
+    tableau_invoke(pr_path, "/stringutils/stringify", 1:10),
+    as.character(1:10)
+  )
+
+  expect_identical(
+    tableau_invoke(pr_path, "/stringutils/stringify", c(TRUE, FALSE, NA, TRUE)),
+    c("true", "false", NA, "true")
+  )
+
   # 404
   expect_error(tableau_invoke(pr_path, "/stringutils/blah", .quiet = TRUE))
   # Too few args
   expect_error(tableau_invoke(pr_path, "/stringutils/concat", letters, .quiet = TRUE))
+  expect_error(tableau_invoke(pr_path, "/stringutils/stringify", .quiet = TRUE))
   # Too many args
   expect_error(tableau_invoke(pr_path, "/stringutils/concat", letters, letters, letters, .quiet = TRUE))
   # Incorrect data type

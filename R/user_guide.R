@@ -4,7 +4,6 @@
 # TODO: args should be provided to handler functions via formal params, not implicit variables
 
 # NICE TO HAVE
-# TODO: Implement support for "any" type or multiple types
 # TODO: URL param values should be coerced to type (if possible?)
 
 globalVariables(names(htmltools::tags))
