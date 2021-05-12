@@ -34,11 +34,11 @@ check_route <- function(route) {
     }
 
     # Check for JSON parser
-    if (!("json" %in% names(route$parsers$alias))) {
+    if (!is.null(route$parsers)) {
       warning(
-        paste0("Tableau submits JSON requests. ",
+        paste0("Route ",
                route$path,
-               " does not include a JSON parser."),
+               " includes a user specified parser. plumbertableau automatically sets the appropriate parser for Tableau requests. There is no need to use #* @parser or pr_set_parsers()."),
         call. = FALSE)
     }
   }
