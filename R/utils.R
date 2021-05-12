@@ -33,12 +33,21 @@ check_route <- function(route) {
         call. = FALSE)
     }
 
-    # Check for JSON parser
+    # Check for default (JSON) parser
     if (!is.null(route$parsers)) {
       warning(
         paste0("Route ",
                route$path,
-               " includes a user specified parser. plumbertableau automatically sets the appropriate parser for Tableau requests. There is no need to use #* @parser or pr_set_parsers()."),
+               " includes a user specified parser. plumbertableau automatically sets the appropriate parser for Tableau requests. There is no need to specify a parser."),
+        call. = FALSE)
+    }
+
+    # Check for default (JSON) serializer
+    if (!is.null(route$serializer)) {
+      warning(
+        paste0("Route ",
+               route$path,
+               " includes a user specified serializer. plumbertableau automatically sets the appropriate serializer for Tableau requests. There is no need to specify a serializer."),
         call. = FALSE)
     }
   }
