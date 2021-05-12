@@ -29,12 +29,6 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
   # Checks
   if (length(path) == 0) stop("Path must be a string")
   function(pr) {
-    # If this is running on RStudio Connect, the original Plumber router should be
-    # returned
-    if (check_connect()) {
-      return(pr)
-    }
-
     if (!startsWith(path, "/")) path <- paste0("/", path)
     if (endsWith(path, "/") && nchar(path) > 1) path <- sub("/$", "", path)
     if (warnings) {
