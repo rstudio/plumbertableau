@@ -136,17 +136,8 @@ infer_tableau_handler <- function(route) {
 get_comments_from_srcref <- function(srcref) {
   func_start_line <- srcref[[7]]
   srcfile <- attr(srcref, "srcfile", exact = TRUE)
-  srcfile <- file.path(srcfile$wd, srcfile$filename)
-  if (!isTRUE(file.exists(srcfile))) {
-    stop(
-      call. = FALSE,
-      "plumbertableau encountered a plumber endpoint whose source file could ",
-      "not be determined"
-    )
-  }
-  file <- readUTF8(srcfile)
-
   lineNum <- func_start_line - 1
+  file <- getSrcLines(srcfile, 1, lineNum)
 
   while (lineNum > 0 && (grepl("^#['\\*]", file[lineNum]) || grepl("^\\s*$", file[lineNum]))) {
     lineNum <- lineNum - 1
@@ -208,12 +199,6 @@ parse_return_comment_df <- function(comment_df) {
   desc <- sapply(matches, `[`, i = 3)
 
   return_spec(type = type, desc = desc)
-}
-
-# read a file using UTF-8 and (on Windows) convert to native encoding if possible
-readUTF8 <- function(file) {
-  # TODO: don't use private function
-  plumber:::readUTF8(file)
 }
 
 # Copied from Plumber source code
