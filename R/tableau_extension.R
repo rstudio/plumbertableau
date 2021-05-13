@@ -29,12 +29,6 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
   # Checks
   if (length(path) == 0) stop("Path must be a string")
   function(pr) {
-    # If this is running on RStudio Connect, the original Plumber router should be
-    # returned
-    if (check_connect()) {
-      return(pr)
-    }
-
     if (!startsWith(path, "/")) path <- paste0("/", path)
     if (endsWith(path, "/") && nchar(path) > 1) path <- sub("/$", "", path)
     if (warnings) {
@@ -45,20 +39,23 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
 
     # Check for Tableau compliance
     # Every route accepts POST requests
-    if (path != "/") {
-      # Change router path to supplied path
-      lapply(pr$endpoints, function(routes) {
-        # Modify route in place
-        lapply(routes, function(route) {
-          # Update route path
-          route$setPath(paste0(path, route$path))
+    # This shouldn't run on RSC b/c RSC handles path rerouting
+    if (!check_connect()) {
+      if (path != "/") {
+        # Change router path to supplied path
+        lapply(pr$endpoints, function(routes) {
+          # Modify route in place
+          lapply(routes, function(route) {
+            # Update route path
+            route$setPath(paste0(path, route$path))
+          })
         })
-      })
-      # Change existing mounts to be mounted under path
-      Map(pr$mounts, names(pr$mounts), f = function(mount, mount_path) {
-        pr$unmount(mount_path)
-        pr$mount(paste0(path, mount_path), mount)
-      })
+        # Change existing mounts to be mounted under path
+        Map(pr$mounts, names(pr$mounts), f = function(mount, mount_path) {
+          pr$unmount(mount_path)
+          pr$mount(paste0(path, mount_path), mount)
+        })
+      }
     }
 
     pr %>%
