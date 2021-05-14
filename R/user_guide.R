@@ -1,7 +1,5 @@
 # MUST HAVE
-# TODO: Include welcome text indicating this is a Tableau Extension API
 # TODO: URL param default values should be shown
-# TODO: args should be provided to handler functions via formal params, not implicit variables
 
 # NICE TO HAVE
 # TODO: URL param values should be coerced to type (if possible?)
