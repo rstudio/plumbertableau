@@ -30,7 +30,7 @@ check_route <- function(route) {
         paste0("Tableau endpoints must accept POST requests. ",
                route$path,
                " does not respond to POST requests."),
-        call. = FALSE)
+        call. = FALSE, immediate. = TRUE)
     }
 
     # Check for JSON parser
@@ -39,7 +39,7 @@ check_route <- function(route) {
         paste0("Tableau submits JSON requests. ",
                route$path,
                " does not include a JSON parser."),
-        call. = FALSE)
+        call. = FALSE, immediate. = TRUE)
     }
   }
 }

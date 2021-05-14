@@ -10,7 +10,7 @@ library(plumbertableau)
 #* @tab.return [character] A lowercase string
 #* @post /lowercase
 #* @parser json
-function(req, res, unicode = FALSE) {
+function(req, res, str_value, unicode = FALSE) {
   tolower(str_value)
 }
 
@@ -21,7 +21,7 @@ function(req, res, unicode = FALSE) {
 #* @tab.arg arg2:[character] One or more string values to concatenate to `arg1`
 #* @tab.return [character] arg1 and arg2 concatenated together
 #* @parser json
-function(req, res, sep = " ") {
+function(req, res, arg1, arg2, sep = " ") {
   paste(arg1, arg2, sep = sep)
 }
 
@@ -30,7 +30,7 @@ function(req, res, sep = " ") {
 #* @tab.arg value:[any] One or more values of any data type
 #* @tab.return [character] The data, converted to string
 #* @parser json
-function(req, res) {
+function(req, res, value) {
   if (is.logical(value)) {
     ifelse(value, "true", "false")
   } else {

@@ -20,19 +20,21 @@ tableau_handler <- function(args, return, func) {
   validate_argspecs(args)
   return <- normalize_returnspec(return)
 
+  fargs <- getRelevantArgs(args, func)
+  unused_args <- setdiff(names(args), names(fargs))
+  if (length(unused_args) > 0) {
+    warning(call. = FALSE, immediate. = TRUE,
+      "The following Tableau arg(s) were declared, but not included as ",
+      "function parameters: ",
+      paste(collapse = ", ", paste0("'", unused_args, "'"))
+    )
+  }
+
   result <- function(req, res, ...) {
     vars <- validate_request(req, args = args, return = return)
-
-    # Copy the func, leave the original unchanged
-    func_local <- func
-    environment(func_local) <- list2env(vars, parent = environment(func))
-    # TODO: Fake .env and .data pronouns? This cannot possibly be the best way to do this, talk to Hadley
-    environment(func_local)$.env <- environment(func)
-    environment(func_local)$.data <- vars
-
-    fargs <- list(req = req, res = res, ...)
-    fargs <- getRelevantArgs(fargs, func_local)
-    do.call(func_local, fargs)
+    fargs <- rlang::list2(req = req, res = res, !!!vars, ...)
+    fargs <- getRelevantArgs(fargs, func)
+    do.call(func, fargs)
   }
 
   attr(result, "tableau_arg_specs") <- args
