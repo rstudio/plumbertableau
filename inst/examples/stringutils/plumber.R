@@ -6,7 +6,6 @@ library(plumbertableau)
 
 #* Capitalize incoming text
 #* @post /capitalize
-#* @parser json
 tableau_handler(
   args = list(
     str_value = "character"
@@ -20,7 +19,6 @@ tableau_handler(
 #* Lowercase incoming text
 #* @param unicode:boolean Whether unicode logic should be used
 #* @post /lowercase
-#* @parser json
 tableau_handler(
   args = list(
     str_value = arg_spec("character?", "Strings to be converted to lowercase")
@@ -34,7 +32,6 @@ tableau_handler(
 #* Concatenate
 #* @post /concat
 #* @param sep:str Separator value to use
-#* @parser json
 tableau_handler(
   args = list(
     arg1 = "character",
