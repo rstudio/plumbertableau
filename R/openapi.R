@@ -1,6 +1,6 @@
-tableau_openapi <- function(pr) {
+tableau_openapi <- function(pr, path) {
   function(spec) {
-    route_info <- extract_route_info(pr)
+    route_info <- extract_route_info(pr, path)
     spec_paths <- names(spec$paths)
     # Identify Tableau routes from route_info (these are the only routes from route_info)
     tableau_routes <- unlist(lapply(route_info, function(route) route[["path"]]))

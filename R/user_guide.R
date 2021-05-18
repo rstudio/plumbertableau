@@ -43,7 +43,7 @@ render_user_guide <- function(path, pr) {
     ),
     tags$main(
       tags$div(class = "routes",
-        lapply(extract_route_info(pr), render_route_info)
+        lapply(extract_route_info(pr, path), render_route_info)
       )
     )
   )
@@ -153,10 +153,11 @@ render_args <- function(arg_spec) {
   )
 }
 
-extract_route_info <- function(pr) {
+extract_route_info <- function(pr, path) {
   results <- lapply(pr$endpoints, function(routes) {
     lapply(routes, function(route) {
-      path <- route$path
+      # If route$path starts with path, use it. Otherwise, prepend path to route$path
+      path <- ifelse(grepl(paste0("^", path), route$path), route$path, paste0(path, route$path))
       func <- route$getFunc()
       arg_spec <- attr(func, "tableau_arg_specs", exact = TRUE)
       return_spec <- attr(func, "tableau_return_spec", exact = TRUE)
