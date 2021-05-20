@@ -1,11 +1,7 @@
 # MUST HAVE
-# TODO: Implement validation for optional arguments
-# TODO: If an optional argument is not provided, its variable must still be created at runtime
-# TODO: Include welcome text indicating this is a Tableau Extension API
 # TODO: URL param default values should be shown
 
 # NICE TO HAVE
-# TODO: Implement support for "any" type or multiple types
 # TODO: URL param values should be coerced to type (if possible?)
 
 globalVariables(names(htmltools::tags))
@@ -97,8 +93,8 @@ render_route_info <- function(route_info) {
               td(route_info$return_spec$type),
               td(route_info$return_spec$desc)
             )
-          ),
-          p(route_info$return_spec$desc))
+          )
+        )
       }
     )
   )

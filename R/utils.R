@@ -30,7 +30,7 @@ check_route <- function(route) {
         paste0("Tableau endpoints must accept POST requests. ",
                route$path,
                " does not respond to POST requests."),
-        call. = FALSE)
+        call. = FALSE, immediate. = TRUE)
     }
 
     # Check for default (JSON) parser
@@ -39,7 +39,7 @@ check_route <- function(route) {
         paste0("Route ",
                route$path,
                " includes a user specified parser. plumbertableau automatically sets the appropriate parser for Tableau requests. There is no need to specify a parser."),
-        call. = FALSE)
+        call. = FALSE, immediate. = TRUE)
     }
 
     # Check for default (JSON) serializer

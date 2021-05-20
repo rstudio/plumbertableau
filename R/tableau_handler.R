@@ -16,26 +16,30 @@
 #'   simply by referring to their names in `args`; see the example below.
 #' @export
 tableau_handler <- function(args, return, func) {
-  result <- function(req, res, ...) {
-    vars <- validate_request(req, !!!args)
+  args <- lapply(args, normalize_argspec)
+  validate_argspecs(args)
+  return <- normalize_returnspec(return)
 
-    # Copy the func, leave the original unchanged
-    func_local <- func
-    environment(func_local) <- list2env(vars, parent = environment(func))
-    # TODO: .env and .data might want to be real rlang pronouns?
-    environment(func_local)$.env <- environment(func)
-    environment(func_local)$.data <- vars
-
-    fargs <- list(req = req, res = res, ...)
-    fargs <- getRelevantArgs(fargs, func_local)
-    do.call(func_local, fargs)
+  fargs <- getRelevantArgs(args, func)
+  unused_args <- setdiff(names(args), names(fargs))
+  if (length(unused_args) > 0) {
+    warning(call. = FALSE, immediate. = TRUE,
+      "The following Tableau arg(s) were declared, but not included as ",
+      "function parameters: ",
+      paste(collapse = ", ", paste0("'", unused_args, "'"))
+    )
   }
 
-  argspecs <- lapply(args, normalize_argspec)
-  validate_argspecs(argspecs)
-  returnspec <- normalize_returnspec(return)
-  attr(result, "tableau_arg_specs") <- argspecs
-  attr(result, "tableau_return_spec") <- returnspec
+  result <- function(req, res, ...) {
+    vars <- validate_request(req, args = args, return = return)
+    fargs <- rlang::list2(req = req, res = res, !!!vars, ...)
+    fargs <- getRelevantArgs(fargs, func)
+    do.call(func, fargs)
+  }
+
+  attr(result, "tableau_arg_specs") <- args
+  attr(result, "tableau_return_spec") <- return
+  class(result) <- c("tableau_handler", class(result))
   result
 }
 
@@ -98,6 +102,107 @@ return_spec <- function(type = c("character", "integer", "logical", "numeric"),
   ), class = "tableau_return_spec")
 }
 
+# Given a route that may have @tab.* comments, create a tableau_handler object.
+infer_tableau_handler <- function(route) {
+  func <- route$getFunc()
+  if (inherits(func, "tableau_handler")) {
+    # Already a handler
+    return(func)
+  }
+
+  srcref <- attr(func, "srcref", exact = TRUE)
+  if (is.null(srcref)) {
+    stop(
+      call. = FALSE,
+      "plumbertableau encountered a plumber endpoint with no srcref; try ",
+      "making sure all endpoint functions are defined directly in the plumber ",
+      "file"
+    )
+  }
+  comment_lines_df <- get_comments_from_srcref(srcref)
+  parsed_comments <- parse_comment_tags(comment_lines_df)
+
+  args <- parsed_comments[parsed_comments$tag == c("tab.arg"), c("line", "remainder")]
+  returns <- parsed_comments[parsed_comments$tag == c("tab.return"), c("line", "remainder")]
+
+  args <- parse_args_comment_df(args)
+  return <- parse_return_comment_df(returns)
+
+  tableau_handler(
+    args = args,
+    return = return,
+    func = func
+  )
+}
+
+get_comments_from_srcref <- function(srcref) {
+  func_start_line <- srcref[[7]]
+  srcfile <- attr(srcref, "srcfile", exact = TRUE)
+  lineNum <- func_start_line - 1
+  file <- getSrcLines(srcfile, 1, lineNum)
+
+  while (lineNum > 0 && (grepl("^#['\\*]", file[lineNum]) || grepl("^\\s*$", file[lineNum]))) {
+    lineNum <- lineNum - 1
+  }
+  line <- seq(from = lineNum + 1, length.out = func_start_line - (lineNum + 1))
+  data.frame(line, text = file[line], stringsAsFactors = FALSE)
+}
+
+parse_comment_tags <- function(lines_df) {
+  lines <- lines_df$text
+  m <- regexec("^#['\\*]\\s+@([^\\s]+)\\s*(.*)", lines, perl = TRUE)
+  matches <- regmatches(lines, m)
+
+  tag <- sapply(matches, `[`, i = 2)
+  remainder <- sapply(matches, `[`, i = 3)
+  df <- data.frame(line = lines_df$line, tag, remainder, stringsAsFactors = FALSE)
+  df[!is.na(df$tag),]
+}
+
+# @param comment_df Data frame with `line` and `remainder` columns
+parse_args_comment_df <- function(comment_df) {
+  m <- regexec("^\\s*([a-zA-Z0-9._-]+):([^\\s?]+)(\\?)?\\s+(.*)$", comment_df$remainder, perl = TRUE)
+  matches <- regmatches(comment_df$remainder, m)
+
+  name <- sapply(matches, `[`, i = 2)
+  type <- sapply(matches, `[`, i = 3)
+  type <- sub("^\\[(.+)]$", "\\1", type)
+  opt <- sapply(matches, `[`, i = 4)
+  desc <- sapply(matches, `[`, i = 5)
+
+  bad_lines <- comment_df$line[which(is.na(name))]
+  if (length(bad_lines) > 0) {
+    stop("Invalid @tab.arg on line(s) ", paste(bad_lines, collapse = ", "))
+  }
+
+  arg_specs <- mapply(name, type, opt, desc, FUN = function(name, type, opt, desc) {
+    arg_spec(type = type, desc = desc, optional = ifelse(is.na(opt), FALSE, opt == "?"))
+  }, SIMPLIFY = FALSE, USE.NAMES = TRUE)
+
+  # Make sure @tab.arg names are unique
+  duplicate_names <- unique(name[which(duplicated(name))])
+  if (length(duplicate_names) > 0) {
+    stop(call. = FALSE,
+      "Duplicate @tab.arg name(s) detected: ",
+      paste0(paste0("'", duplicate_names, "'"), collapse = ", "),
+      ". Names must be unique."
+    )
+  }
+
+  arg_specs
+}
+
+parse_return_comment_df <- function(comment_df) {
+  m <- regexec("^\\s*([^\\s?]+)\\s+(.*)$", comment_df$remainder, perl = TRUE)
+  matches <- regmatches(comment_df$remainder, m)
+
+  type <- sapply(matches, `[`, i = 2)
+  type <- sub("^\\[(.+)]$", "\\1", type)
+  desc <- sapply(matches, `[`, i = 3)
+
+  return_spec(type = type, desc = desc)
+}
+
 # Copied from Plumber source code
 getRelevantArgs <- function(args, func) {
   # Extract the names of the arguments this function supports.
@@ -156,6 +261,7 @@ normalize_type_to_r <- function(type = c("character", "string", "str",
     "logical" =, "boolean" =, "bool" = "logical",
     "numeric" =, "real" = "numeric",
     "integer" =, "int" = "integer",
+    "any" = "any",
     stop("Unknown type ", type)
   )
 }
@@ -170,11 +276,12 @@ normalize_type_to_tableau <- function(type = c("character", "string", "str",
     "logical" =, "boolean" =, "bool" = "bool",
     "numeric" =, "real" = "real",
     "integer" =, "int" = "int",
+    "any" = "any",
     stop("Unknown type ", type)
   )
 
   if (!abbrev) {
-    c(str = "string", bool = "boolean", real = "real", int = "integer")[short]
+    c(str = "string", bool = "boolean", real = "real", int = "integer", any = "any")[short]
   } else {
     short
   }
