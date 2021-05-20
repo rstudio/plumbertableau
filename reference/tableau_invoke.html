@@ -122,7 +122,7 @@ field SCRIPT_* call. Intended for unit testing of Tableau extension APIs." />
 field <code>SCRIPT_*</code> call. Intended for unit testing of Tableau extension APIs.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tableau_invoke</span><span class='op'>(</span><span class='va'>pr</span>, <span class='va'>script</span>, <span class='va'>...</span>, .toJSON_args <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>tableau_invoke</span><span class='op'>(</span><span class='va'>pr</span>, <span class='va'>script</span>, <span class='va'>...</span>, .toJSON_args <span class='op'>=</span> <span class='cn'>NULL</span>, .quiet <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,6 +148,10 @@ query parameters are allowed.</p></td>
 <code><a href='https://rdrr.io/pkg/jsonlite/man/fromJSON.html'>jsonlite::toJSON()</a></code> when the <code>...</code> arguments are serialized; for example,
 <code>pretty = TRUE</code> or <code>digits = 8</code>.</p></td>
     </tr>
+    <tr>
+      <th>.quiet</th>
+      <td><p>If <code>TRUE</code>, do not print response bodies when errors occur.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -159,8 +163,8 @@ query parameters are allowed.</p></td>
     <pre class="examples"><div class='input'><span class='va'>pr_path</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"examples/stringutils/plumber.R"</span>,
   package <span class='op'>=</span> <span class='st'>"plumbertableau"</span><span class='op'>)</span>
 
-<span class='fu'>tableau_invoke</span><span class='op'>(</span><span class='va'>pr_path</span>, <span class='st'>"/stringutils/capitalize"</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "A" "B" "C" "D" "E"</div><div class='input'>
+<span class='fu'>tableau_invoke</span><span class='op'>(</span><span class='va'>pr_path</span>, <span class='st'>"/stringutils/lowercase"</span>, <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Route /concat includes a user specified parser. plumbertableau automatically sets the appropriate parser for Tableau requests. There is no need to specify a parser.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Route /lowercase includes a user specified parser. plumbertableau automatically sets the appropriate parser for Tableau requests. There is no need to specify a parser.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Route /stringify includes a user specified parser. plumbertableau automatically sets the appropriate parser for Tableau requests. There is no need to specify a parser.</span></div><div class='output co'>#&gt; [1] "a" "b" "c" "d" "e"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
