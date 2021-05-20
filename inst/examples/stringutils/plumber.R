@@ -47,4 +47,4 @@ tableau_handler(
 )
 
 #* @plumber
-tableau_extension("stringutils")
+tableau_extension()

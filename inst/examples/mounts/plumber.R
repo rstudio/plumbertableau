@@ -11,4 +11,4 @@ function(pr) {
 }
 
 #* @plumber
-tableau_extension(path = "tableau")
+tableau_extension()

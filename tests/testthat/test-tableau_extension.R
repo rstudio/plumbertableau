@@ -3,17 +3,17 @@ pr_path <- system.file("examples/stringutils/plumber.R", package = "plumbertable
 test_that("stringutils example works", {
 
   expect_identical(
-    tableau_invoke(pr_path, "/stringutils/capitalize", "hello"),
+    tableau_invoke(pr_path, "/capitalize", "hello"),
     "HELLO"
   )
 
   expect_identical(
-    tableau_invoke(pr_path, "/stringutils/concat", letters, LETTERS),
+    tableau_invoke(pr_path, "/concat", letters, LETTERS),
     paste0(letters, " ", LETTERS)
   )
 
   expect_identical(
-    tableau_invoke(pr_path, "/stringutils/concat?sep=-", letters, LETTERS),
+    tableau_invoke(pr_path, "/concat?sep=-", letters, LETTERS),
     paste0(letters, "-", LETTERS)
   )
 })

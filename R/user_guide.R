@@ -11,19 +11,19 @@
 globalVariables(names(htmltools::tags))
 
 #' @importFrom htmltools tags
-create_user_guide <- function(path, pr) {
+create_user_guide <- function(pr) {
   cached_ui <- NULL
 
   function(req, res) {
     if (is.null(cached_ui)) {
-      cached_ui <<- render_user_guide(path, pr)
+      cached_ui <<- render_user_guide(pr)
     }
 
     cached_ui
   }
 }
 
-render_user_guide <- function(path, pr) {
+render_user_guide <- function(pr) {
   apiSpec <- pr$getApiSpec()
 
   title <- apiSpec$info$title
@@ -43,7 +43,7 @@ render_user_guide <- function(path, pr) {
     ),
     tags$main(
       tags$div(class = "routes",
-        lapply(extract_route_info(pr, path), render_route_info)
+        lapply(extract_route_info(pr), render_route_info)
       )
     )
   )
@@ -153,11 +153,11 @@ render_args <- function(arg_spec) {
   )
 }
 
-extract_route_info <- function(pr, path) {
+extract_route_info <- function(pr) {
   results <- lapply(pr$endpoints, function(routes) {
     lapply(routes, function(route) {
-      # If route$path starts with path, use it. Otherwise, prepend path to route$path
-      path <- ifelse(grepl(paste0("^", path), route$path), route$path, paste0(path, route$path))
+      #TODO: Path will need to be adjusted based on the header passed from RSC
+      path <- route$path
       func <- route$getFunc()
       arg_spec <- attr(func, "tableau_arg_specs", exact = TRUE)
       return_spec <- attr(func, "tableau_return_spec", exact = TRUE)
