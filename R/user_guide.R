@@ -12,10 +12,10 @@ globalVariables(names(htmltools::tags))
 
 #' @importFrom htmltools tags
 create_user_guide <- function(path, pr) {
-  "!DEBUG Creating Tableau User Guide"
   cached_ui <- NULL
 
   function(req, res) {
+    "!DEBUG `write_log_message(req, res, 'Generating Tableau User Guide')"
     if (is.null(cached_ui)) {
       cached_ui <<- render_user_guide(path, pr)
     }

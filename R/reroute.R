@@ -1,7 +1,7 @@
 reroute <- function(req, res) {
-  "!DEBUG `req$PATH_INFO``ifelse(req$postBody == '', '', paste0(':', req$postBody))`"
+  "!DEBUG `write_log_message(req, res)"
   if (req$PATH_INFO == "/info") {
-    "!DEBUG Responding to /info request"
+    "!DEBUG `write_log_message(req, res, 'Responding to /info request')"
     return(info())
   }
   if (req$PATH_INFO == "/evaluate") {

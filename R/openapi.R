@@ -1,5 +1,4 @@
 tableau_openapi <- function(pr) {
-  "!DEBUG Creating Tableau OpenAPI Spec"
   function(spec) {
     route_info <- extract_route_info(pr)
     spec_paths <- names(spec$paths)
