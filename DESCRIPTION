@@ -24,7 +24,8 @@ Imports:
     promises,
     rlang,
     htmltools,
-    debugme
+    debugme,
+    withr
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
