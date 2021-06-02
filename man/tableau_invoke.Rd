@@ -4,7 +4,7 @@
 \alias{tableau_invoke}
 \title{Programatically invoke a Tableau extension function}
 \usage{
-tableau_invoke(pr, script, ..., .toJSON_args = NULL)
+tableau_invoke(pr, script, ..., .toJSON_args = NULL, .quiet = FALSE)
 }
 \arguments{
 \item{pr}{Either a \code{\link[=tableau_extension]{tableau_extension()}} style Plumber router object, or, the
@@ -19,6 +19,8 @@ query parameters are allowed.}
 \item{.toJSON_args}{Additional options that should be passed to
 \code{\link[jsonlite:fromJSON]{jsonlite::toJSON()}} when the \code{...} arguments are serialized; for example,
 \code{pretty = TRUE} or \code{digits = 8}.}
+
+\item{.quiet}{If \code{TRUE}, do not print response bodies when errors occur.}
 }
 \value{
 The object that was returned from the request, JSON-decoded using
@@ -32,6 +34,6 @@ field \verb{SCRIPT_*} call. Intended for unit testing of Tableau extension APIs.
 pr_path <- system.file("examples/stringutils/plumber.R",
   package = "plumbertableau")
 
-tableau_invoke(pr_path, "/stringutils/capitalize", letters[1:5])
+tableau_invoke(pr_path, "/stringutils/lowercase", LETTERS[1:5])
 
 }
