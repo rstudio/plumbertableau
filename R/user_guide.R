@@ -157,7 +157,7 @@ render_args <- function(arg_spec) {
 extract_route_info <- function(pr, path = NULL) {
   results <- lapply(pr$endpoints, function(routes) {
     lapply(routes, function(route) {
-      if (rlang::is_empty(path)) {
+      if (rlang::is_null(path)) {
         path <- route$path
       } else {
         path <- ifelse(grepl(paste0("^", path), route$path), route$path, paste0(path, route$path))
