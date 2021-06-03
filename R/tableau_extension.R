@@ -31,6 +31,14 @@ tableau_extension <- function(warnings = TRUE) {
       })
     }
 
+    # Infer Tableau handler information
+    lapply(pr$endpoints, function(routes) {
+      # Modify route in place
+      lapply(routes, function(route) {
+        route$.__enclos_env__$private$func <- infer_tableau_handler(route)
+      })
+    })
+
     pr %>%
       plumber::pr_get("/", create_user_guide(pr), serializer = plumber::serializer_html()) %>%
       plumber::pr_static("/__plumbertableau_assets__",

@@ -157,6 +157,8 @@ extract_route_info <- function(pr, path = NULL) {
         path <- route$path
       } else {
         path <- ifelse(grepl(paste0("^", path), route$path), route$path, paste0(path, route$path))
+        # Remove any potential double // from path
+        path <- gsub("//", "/", path)
       }
 
       func <- route$getFunc()

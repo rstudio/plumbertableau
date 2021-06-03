@@ -6,10 +6,18 @@ headers <- function(req, res) {
     rsc_root <- Sys.getenv("CONNECT_SERVER")
     vanity_path <- gsub(rsc_root,
                         "",
-                        gsub(req$PATH_INFO,
-                             "",
-                             full_path)
+                        full_path,
+                        fixed = TRUE
     )
+
+    # If the path requested is not root (/), strip it from the vanity path
+    if (req$PATH_INFO != "/") {
+      vanity_path <- gsub(req$PATH_INFO,
+                          "",
+                          vanity_path,
+                          fixed = TRUE
+      )
+    }
     req$vanity_path <- vanity_path
   }
 
