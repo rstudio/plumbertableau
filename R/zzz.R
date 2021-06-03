@@ -14,8 +14,8 @@ write_log_message <- function(req, res, msg = NULL) {
     req$REQUEST_METHOD,
     " ",
     req$PATH_INFO,
-    ifelse(rlang::is_empty(msg), "", paste0(" - ", msg)),
-    ifelse(rlang::is_empty(req$body_log) && req$postBody != "", paste0(" - ", req$postBody), "")
+    ifelse(rlang::is_null(msg), "", paste0(" - ", msg)),
+    ifelse(rlang::is_null(req$body_log) && req$postBody != "", paste0(" - ", req$postBody), "")
   )
 
   req$body_log <- TRUE
