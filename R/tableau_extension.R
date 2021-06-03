@@ -35,7 +35,7 @@ tableau_extension <- function(warnings = TRUE) {
       plumber::pr_get("/", create_user_guide(pr), serializer = plumber::serializer_html()) %>%
       plumber::pr_static("/__plumbertableau_assets__",
         system.file("www", package = "plumbertableau", mustWork = TRUE)) %>%
-      # plumber::pr_filter("headers", headers) %>%
+      plumber::pr_filter("headers", headers) %>%
       plumber::pr_filter("reroute", reroute) %>%
       plumber::pr_set_api_spec(tableau_openapi(pr)) %>%
       plumber::pr_set_error(error_handler) %>%
