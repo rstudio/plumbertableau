@@ -21,5 +21,11 @@ headers <- function(req, res) {
     req$vanity_path <- vanity_path
   }
 
+  # Request ID - RStudio Connect sends X-RS-CORRELATION-ID, but we will use the
+  # generic X-CORRELATION-ID
+  if (!rlang::is_null(req$HTTP_X_RS_CORRELATION_ID)) {
+    req$HTTP_X_CORRELATION_ID <- req$HTTP_X_RS_CORRELATION_ID
+  }
+
   plumber::forward()
 }

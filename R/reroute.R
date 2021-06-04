@@ -1,5 +1,7 @@
 reroute <- function(req, res) {
+  "!DEBUG `write_log_message(req, res)"
   if (req$PATH_INFO == "/info") {
+    "!DEBUG `write_log_message(req, res, 'Responding to /info request')"
     return(info())
   }
   if (req$PATH_INFO == "/evaluate") {
@@ -22,6 +24,7 @@ reroute <- function(req, res) {
       # Yuck. The queryStringFilter will have already run.
       req$argsQuery <- plumber:::parseQS(new_query_string)
       req$args <- c(req$args, req$argsQuery)
+      "!DEBUG Rerouting /evaluate request to `new_path_info`"
     }
   }
   plumber::forward()
