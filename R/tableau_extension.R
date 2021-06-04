@@ -32,7 +32,6 @@ tableau_extension <- function(path = "my-extension", warnings = TRUE) {
     # If this is running on RStudio Connect, the original Plumber router should be
     # returned
     if (check_connect()) {
-      "!DEBUG Running on RSC - returning pr"
       return(pr)
     }
 
