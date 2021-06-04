@@ -24,7 +24,7 @@ Imports:
     promises,
     rlang,
     htmltools,
-    debugme,
+    debugme (>= 1.1.0.9001),
     withr
 RoxygenNote: 7.1.1
 Suggests: 
@@ -34,3 +34,5 @@ Suggests:
 Config/testthat/edition: 3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
+Remotes:  
+    r-lib/debugme
