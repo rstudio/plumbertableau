@@ -24,7 +24,7 @@ reroute <- function(req, res) {
       # Yuck. The queryStringFilter will have already run.
       req$argsQuery <- plumber:::parseQS(new_query_string)
       req$args <- c(req$args, req$argsQuery)
-      "!DEBUG Rerouting /evaluate request to `new_path_info`"
+      "!DEBUG `write_log_message(req, res, paste('Rerouting /evaluate request to', new_path_info))`"
     }
   }
   plumber::forward()
