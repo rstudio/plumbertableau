@@ -45,6 +45,10 @@ tableau_extension <- function(warnings = TRUE) {
         system.file("www", package = "plumbertableau", mustWork = TRUE)) %>%
       plumber::pr_filter("headers", headers) %>%
       plumber::pr_filter("reroute", reroute) %>%
+      plumber::pr_hooks(list(
+        preroute = preroute_hook,
+        postroute = postroute_hook
+      )) %>%
       plumber::pr_set_api_spec(tableau_openapi(pr)) %>%
       plumber::pr_set_error(error_handler) %>%
       plumber::pr_set_parsers("json") %>%

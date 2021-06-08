@@ -59,3 +59,14 @@ write_log_message <- function(req, res, msg = NULL) {
 
   log_msg
 }
+
+# Utilities for capturing endpoint execution time
+preroute_hook <- function(data, req, res) {
+  # Capture execution start time
+  data$start_time <- Sys.time()
+}
+
+postroute_hook <- function(data, req, res) {
+  time_diff <- round(abs(as.numeric(difftime(Sys.time(), data$start_time, units = "secs"))), 4)
+  "!DEBUG `write_log_message(req, res, paste('Request executed in', time_diff, 'seconds'))`"
+}
