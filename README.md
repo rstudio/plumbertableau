@@ -29,13 +29,16 @@ API.
 library(plumber)
 library(plumbertableau)
 
-#* @apiTitle A simple Tableau Extensions API
+#* @apiTitle String utilities
+#* @apiDescription Simple functions for mutating strings
 
-#* Capitalize incoming text
-#* @post /capitalize
-function(req, res) {
-  dat <- req$body$data
-  toupper(dat)
+#* Lowercase incoming text
+#* @param unicode:boolean Whether unicode logic should be used
+#* @tab.arg str_value:[character] Strings to be converted to lowercase
+#* @tab.return [character] A lowercase string
+#* @post /lowercase
+function(req, res, str_value, unicode = FALSE) {
+  tolower(str_value)
 }
 
 #* @plumber
