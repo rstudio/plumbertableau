@@ -23,6 +23,15 @@
 #'
 #' @export
 tableau_extension <- function(warnings = TRUE) {
+  # RStudio Connect Details
+  # Provide messaging if RSC doesn't support Tableau extensions
+  connect_support <- Sys.getenv("RSC_TABLEAU")
+  if (!rlang::is_true(connect_support) && Sys.getenv("CONNECT_SERVER") != "") {
+    rsc_support_message <<- "This installation of RStudio Connect does not currently support Tableau Analytics Extension APIs. Please reach out to your RStudio Connect administrator."
+    rlang::warn(rsc_support_message, .frequency = "once", .frequency_id = "rsc_warning")
+  }
+
+
   # Checks
   function(pr) {
     if (warnings) {
