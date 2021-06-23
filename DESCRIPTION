@@ -26,7 +26,8 @@ Imports:
     htmltools,
     debugme (>= 1.1.0.9001),
     withr,
-    stringi
+    stringi,
+    markdown
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),

@@ -14,6 +14,15 @@ tableau_openapi <- function(pr) {
     # Remove / from spec so it doesn't show in UI
     spec$paths[["/"]] <- NULL
 
+    # Check for RStudio Connect support
+    # NOTE: At this point, the rsc_support_message hasn't yet been created...
+    if (exists("rsc_support_message")) {
+      spec$info$description <- paste0("#### ",
+                                      rsc_support_message,
+                                      "\n\n",
+                                     spec$info$description)
+    }
+
     # Return OAS as a list
     spec
   }

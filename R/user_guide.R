@@ -27,7 +27,8 @@ render_user_guide <- function(path, pr) {
   title <- apiSpec$info$title
   version <- apiSpec$info$version
   # TODO: Allow markdown?
-  desc <- apiSpec$info$description
+  desc <- markdown::markdownToHTML(text = apiSpec$info$description,
+                                   fragment.only = TRUE)
 
   ui <- htmltools::tagList(
     tags$header(
@@ -36,7 +37,7 @@ render_user_guide <- function(path, pr) {
         if (!is.null(version)) paste0("(v", version, ")")
       ),
       tags$div(class = "api-desc",
-        desc
+        htmltools::HTML(desc)
       )
     ),
     tags$main(
