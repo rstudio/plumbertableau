@@ -34,6 +34,6 @@ field \verb{SCRIPT_*} call. Intended for unit testing of Tableau extension APIs.
 pr_path <- system.file("examples/stringutils/plumber.R",
   package = "plumbertableau")
 
-tableau_invoke(pr_path, "/stringutils/lowercase", LETTERS[1:5])
+tableau_invoke(pr_path, "/lowercase", LETTERS[1:5])
 
 }

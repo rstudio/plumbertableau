@@ -21,7 +21,7 @@
 #' pr_path <- system.file("examples/stringutils/plumber.R",
 #'   package = "plumbertableau")
 #'
-#' tableau_invoke(pr_path, "/stringutils/lowercase", LETTERS[1:5])
+#' tableau_invoke(pr_path, "/lowercase", LETTERS[1:5])
 #'
 #' @export
 tableau_invoke <- function(pr, script, ..., .toJSON_args = NULL, .quiet = FALSE) {

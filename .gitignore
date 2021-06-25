@@ -5,3 +5,6 @@
 docs
 inst/doc
 scratch
+.Renviron
+rsconnect/
+notes.md

@@ -7,12 +7,14 @@
 globalVariables(names(htmltools::tags))
 
 #' @importFrom htmltools tags
-create_user_guide <- function(path, pr) {
+create_user_guide <- function(pr) {
   cached_ui <- NULL
 
   function(req, res) {
+    "!DEBUG `write_log_message(req, res, 'Generating Tableau User Guide')"
     if (is.null(cached_ui)) {
-      cached_ui <<- render_user_guide(path, pr)
+      # Caching works b/c R is restarted when the vanity path changes on RStudio Connect
+      cached_ui <<- render_user_guide(req$vanity_path, pr)
     }
 
     cached_ui
@@ -25,7 +27,8 @@ render_user_guide <- function(path, pr) {
   title <- apiSpec$info$title
   version <- apiSpec$info$version
   # TODO: Allow markdown?
-  desc <- apiSpec$info$description
+  desc <- markdown::markdownToHTML(text = apiSpec$info$description,
+                                   fragment.only = TRUE)
 
   ui <- htmltools::tagList(
     tags$header(
@@ -34,12 +37,12 @@ render_user_guide <- function(path, pr) {
         if (!is.null(version)) paste0("(v", version, ")")
       ),
       tags$div(class = "api-desc",
-        desc
+        htmltools::HTML(desc)
       )
     ),
     tags$main(
       tags$div(class = "routes",
-        lapply(extract_route_info(pr), render_route_info)
+        lapply(extract_route_info(pr, path), render_route_info)
       )
     )
   )
@@ -149,10 +152,17 @@ render_args <- function(arg_spec) {
   )
 }
 
-extract_route_info <- function(pr) {
+extract_route_info <- function(pr, path = NULL) {
   results <- lapply(pr$endpoints, function(routes) {
     lapply(routes, function(route) {
-      path <- route$path
+      if (rlang::is_null(path)) {
+        path <- route$path
+      } else {
+        path <- ifelse(grepl(paste0("^", path), route$path), route$path, paste0(path, route$path))
+        # Remove any potential double // from path
+        path <- gsub("//", "/", path)
+      }
+
       func <- route$getFunc()
       arg_spec <- attr(func, "tableau_arg_specs", exact = TRUE)
       return_spec <- attr(func, "tableau_return_spec", exact = TRUE)

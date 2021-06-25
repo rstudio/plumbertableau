@@ -14,6 +14,8 @@ License: MIT + file LICENSE
 URL: https://rstudio.github.io/plumbertableau/, https://github.com/rstudio/plumbertableau
 Encoding: UTF-8
 LazyData: true
+Depends:
+  R (>= 3.0.0)
 Imports: 
     plumber (>= 1.1.0),
     magrittr,
@@ -23,7 +25,10 @@ Imports:
     later,
     promises,
     rlang,
-    htmltools
+    htmltools,
+    debugme,
+    stringi,
+    markdown
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
