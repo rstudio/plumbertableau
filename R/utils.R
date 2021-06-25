@@ -234,7 +234,13 @@ info_message <- function() {
 
   if (stringi::stri_detect(Sys.getenv("DEBUGME"), fixed = "plumbertableau")) {
     message_contents <- paste(message_contents,
-                              "* Debugging is **on**",
+                              "* Debugging is **on**.
+  * To disable it please remove the `DEBUGME` environment variable or set it to a value that does not include 'plumbertableau'.",
+                              sep = "\n")
+  } else {
+    message_contents <- paste(message_contents,
+                              "* Debugging is **off**.
+  * To enable it please set the environment variable `DEBUGME` to include 'plumbertableau'.",
                               sep = "\n")
   }
 
