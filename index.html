@@ -92,13 +92,15 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span>
 
-<span class="co">#* @apiTitle A simple Tableau Extensions API</span>
+<span class="co">#* @apiTitle String utilities</span>
+<span class="co">#* @apiDescription Simple functions for mutating strings</span>
 
 <span class="co">#* Capitalize incoming text</span>
+<span class="co">#* @tab.arg str_value:[character] Strings to be capitalized</span>
+<span class="co">#* @tab.return [character] A capitalized string(s)</span>
 <span class="co">#* @post /capitalize</span>
-<span class="kw">function</span><span class="op">(</span><span class="va">req</span>, <span class="va">res</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">req</span><span class="op">$</span><span class="va">body</span><span class="op">$</span><span class="va">data</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
+<span class="kw">function</span><span class="op">(</span><span class="va">str_value</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">str_value</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="co">#* @plumber</span>
