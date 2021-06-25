@@ -224,8 +224,9 @@ info_message <- function() {
   message_contents <- NULL
   # RStudio Connect Details
   # Provide messaging if RSC doesn't support Tableau extensions
+  # TODO: Replace this with proper logic once available
   connect_support <- Sys.getenv("RSC_TABLEAU")
-  if (!rlang::is_true(connect_support) && Sys.getenv("CONNECT_SERVER") != "") {
+  if (!rlang::is_true(as.logical(connect_support)) && Sys.getenv("CONNECT_SERVER") != "") {
     message_contents <- paste(message_contents,
                               "* **This installation of RStudio Connect does not currently support Tableau Analytics Extension APIs. Please reach out to your RStudio Connect administrator.**",
                               sep = "\n")
