@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; child-src 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; child-src 'none'; frame-src 'self';">
   <link rel="stylesheet" type="text/css" href="__plumbertableau_assets__/styles.css">
   {{ headContent() }}
 </head>
@@ -10,6 +10,14 @@
 
 {{ content }}
 
+<hr>
+
+<!--
+Embed OpenAPI doc as iframe
+-->
+<iframe class="openapi" src="/__docs__/"></iframe>
+
 </div>
+
 </body>
 </html>
