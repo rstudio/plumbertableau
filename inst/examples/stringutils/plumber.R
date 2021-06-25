@@ -1,6 +1,9 @@
 library(plumber)
 library(plumbertableau)
 
+# TODO: Update examples to show that req and res are not required for every
+# endpoint
+
 #* @apiTitle String utilities
 #* @apiDescription Simple functions for mutating strings
 
