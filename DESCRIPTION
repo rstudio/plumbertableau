@@ -24,7 +24,7 @@ Imports:
     promises,
     rlang,
     htmltools,
-    debugme (>= 1.1.0.9001),
+    debugme,
     withr,
     stringi,
     markdown
