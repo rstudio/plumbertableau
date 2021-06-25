@@ -29,13 +29,15 @@ API.
 library(plumber)
 library(plumbertableau)
 
-#* @apiTitle A simple Tableau Extensions API
+#* @apiTitle String utilities
+#* @apiDescription Simple functions for mutating strings
 
 #* Capitalize incoming text
+#* @tab.arg str_value:[character] Strings to be capitalized
+#* @tab.return [character] A capitalized string(s)
 #* @post /capitalize
-function(req, res) {
-  dat <- req$body$data
-  toupper(dat)
+function(str_value) {
+  toupper(str_value)
 }
 
 #* @plumber
