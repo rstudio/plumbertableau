@@ -27,7 +27,6 @@ Imports:
     rlang,
     htmltools,
     debugme,
-    withr,
     stringi,
     markdown
 RoxygenNote: 7.1.1
