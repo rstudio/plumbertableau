@@ -20,10 +20,10 @@ remotes::install_github("rstudio/plumbertableau")
 
 ## Example
 
-The main function in `plumbertableau` is `tableau_extension()`. This function creates a
-function that takes an existing Plumber router and modifies it so that it
-complies with the specification set forward by the Tableau Analytics Extensions
-API.
+The main function in `plumbertableau` is `tableau_extension()`. This function
+returns a function that takes an existing Plumber router and modifies it so that
+it complies with the specification set forward by the Tableau Analytics
+Extensions API.
 
 ``` r
 library(plumber)
