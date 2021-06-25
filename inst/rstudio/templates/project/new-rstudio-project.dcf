@@ -1,0 +1,4 @@
+Title: New Tableau Extension (plumbertableau) Project
+Binding: newRStudioProject
+Subtitle: Create a new Tableau Extension using plumbertableau
+OpenFiles: plumber.R
