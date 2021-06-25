@@ -32,22 +32,12 @@ library(plumbertableau)
 #* @apiTitle String utilities
 #* @apiDescription Simple functions for mutating strings
 
-<<<<<<< HEAD
-#* Lowercase incoming text
-#* @param unicode:boolean Whether unicode logic should be used
-#* @tab.arg str_value:[character] Strings to be converted to lowercase
-#* @tab.return [character] A lowercase string
-#* @post /lowercase
-function(req, res, str_value, unicode = FALSE) {
-  tolower(str_value)
-=======
 #* Capitalize incoming text
 #* @tab.arg str_value:[character] Strings to be capitalized
 #* @tab.return [character] A capitalized string(s)
 #* @post /capitalize
 function(str_value) {
   toupper(str_value)
->>>>>>> main
 }
 
 #* @plumber
