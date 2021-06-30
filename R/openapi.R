@@ -25,6 +25,12 @@ tableau_openapi <- function(pr) {
       spec$info$description
     )
 
+    # Add reference back to Tableau user guide
+    spec$externalDocs <- list(
+      description = "Tableau User Guide",
+      url = "/"
+    )
+
     # Return OAS as a list
     spec
   }
@@ -38,7 +44,6 @@ build_tableau_spec <- function(route_attrs) {
     list(
       type = "array",
       description = ifelse(args[[arg_name]]$desc == "", arg_name, paste0(arg_name, ": ", args[[arg_name]]$desc)),
-      required = !args[[arg_name]]$optional,
       items = list(
         type = json_type(args[[arg_name]]$type)
       )
@@ -62,7 +67,7 @@ build_tableau_spec <- function(route_attrs) {
                ),
                data = list(
                  type = "object",
-                 required = names(arg_list)[unlist(lapply(arg_list, function(arg) arg$required))],
+                 required = as.list(names(arg_list)[unlist(lapply(args, function(arg) !arg$optional))]),
                  properties = arg_list
                )
              )
