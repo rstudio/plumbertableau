@@ -84,7 +84,27 @@ a.permalink {
   color: var(--link-color);
 }
 
-.openapi {
-  width: 100%;
-  height: 500px;
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+}
+
+.button {
+  background-color: navy;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+.button:hover {
+  background-color: #007bff;
+  color: white;
 }
