@@ -16,14 +16,30 @@ tableau_openapi <- function(pr) {
 
     # Provide additional context in the description field. This is also visible
     # in the user guide
-    spec$info$description <- paste0(
-      "### Info\n",
-      info_message(),
-      "\n\n***\n### Setup\n",
-      extension_setup(),
-      "\n\n***\n### Description\n",
-      spec$info$description
-    )
+    warnings <- warning_message()
+    if (!rlang::is_null(warnings)) {
+      spec$info$description <- paste0(
+        "### Warnings\n",
+        warnings,
+        "\n\n***\n### Info\n",
+        info_message(),
+        "\n\n***\n### Setup\n",
+        extension_setup(),
+        "\n\n***\n### Description\n",
+        spec$info$description
+      )
+    } else {
+      spec$info$description <- paste0(
+        "### Info\n",
+        info_message(),
+        "\n\n***\n### Setup\n",
+        extension_setup(),
+        "\n\n***\n### Description\n",
+        spec$info$description
+      )
+    }
+
+
 
     # Return OAS as a list
     spec

@@ -219,20 +219,60 @@ combine_keys <- function(obj, type) {
   vals
 }
 
-# Generate an informational message based on the executional context of the extension
-info_message <- function() {
+# Generate an informational message based on the execution context of the extension
+warning_message <- function() {
   message_contents <- NULL
   # RStudio Connect Details
-  # Provide messaging if RSC doesn't support Tableau extensions
+  # Provide messaging if RSC:
+  #  * Is a version that doesn't support Tableau Extensions
+  #  * Isn't configured to support Tableau Extensions
+  #  * Doesn't have Server.Address configured
   # TODO: Replace this with proper logic once available
+
+  # Server.Address
+  connect_server <- Sys.getenv("CONNECT_SERVER")
+
+  # Does this installation support Tableau Extensions
   connect_support <- Sys.getenv("RSC_TABLEAU")
-  if (!rlang::is_true(as.logical(connect_support)) && Sys.getenv("CONNECT_SERVER") != "") {
+
+  # RStudio Connect version
+  connect_version <- Sys.getenv("RSC_VERSION")
+
+  if (connect_version != "1.9.0") {
     message_contents <- paste(message_contents,
-                              "* **This installation of RStudio Connect does not currently support Tableau Analytics Extension APIs. Please reach out to your RStudio Connect administrator.**",
+                              "* **This version of RStudio Connect does not support Tableau Analytics Extension APIs.**",
                               sep = "\n")
+  } else {
+    if (!rlang::is_true(as.logical(connect_support))) {
+      message_contents <- paste(message_contents,
+                                "* This installation of RStudio Connect does not currently support Tableau Analytics Extension APIs.",
+                                sep = "\n")
+    }
+
+    if (connect_server == "") {
+      message_contents <- paste(message_contents,
+                                "* The `Server.Address` property isn't configured for this installation of RStudio Connect.",
+                                sep = "\n")
+    }
+  }
+
+  # Send warning message to the console if any of the above are TRUE
+  if (!rlang::is_null(message_contents)) {
+    message_contents <- paste(
+      message_contents,
+      "* **Please reach out to your RStudio Connect administrator**",
+      sep = "\n"
+    )
+
     rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning")
   }
 
+  message_contents
+}
+
+
+info_message <- function() {
+  message_contents <- NULL
   if (stringi::stri_detect(Sys.getenv("DEBUGME"), fixed = "plumbertableau")) {
     message_contents <- paste(message_contents,
                               "* Debugging is **on**.
