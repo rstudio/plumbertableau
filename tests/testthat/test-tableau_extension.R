@@ -1,5 +1,3 @@
-pr_path <- system.file("examples/stringutils/plumber.R", package = "plumbertableau")
-
 test_that("stringutils example works", {
 
   expect_identical(
@@ -36,10 +34,4 @@ test_that("stringutils example works", {
   expect_error(tableau_invoke(pr_path, "/concat", letters, letters, letters, .quiet = TRUE))
   # Incorrect data type
   expect_error(tableau_invoke(pr_path, "/concat", letters, seq_along(letters), .quiet = TRUE))
-})
-
-test_that("error_handler returns correct object", {
-  # TODO: Check error_handler itself, don't invoke full router
-  res <- list()
-  error_handler(res = res, err = )
 })
