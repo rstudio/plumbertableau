@@ -43,7 +43,7 @@ tableau_openapi <- function(pr) {
 
     # Add reference back to Tableau user guide
     spec$externalDocs <- list(
-      description = "Tableau User Guide",
+      description = "Tableau Usage Instructions",
       url = "/"
     )
 
