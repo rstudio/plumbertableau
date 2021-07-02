@@ -38,28 +38,8 @@ test_that("stringutils example works", {
   expect_error(tableau_invoke(pr_path, "/concat", letters, seq_along(letters), .quiet = TRUE))
 })
 
-test_that("OpenAPI specification works", {
-  pr <- plumber::plumb(pr_path)
-  spec <- pr$getApiSpec()
-  for (path in spec$paths) {
-    if (!is.null(path$post)) {
-      expect_equal(path$post$requestBody$description, "Tableau Request")
-    }
-  }
-})
-
-test_that("tableau_handler warns on missing function params", {
-  args <- list(foo = arg_spec("character"), bar = arg_spec("character"))
-
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function() {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(foo) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(bar) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(foo, bar) {}), NA)
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(...) {}), NA)
-
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res, foo) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res, bar) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res, foo, bar) {}), NA)
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res, ...) {}), NA)
+test_that("error_handler returns correct object", {
+  # TODO: Check error_handler itself, don't invoke full router
+  res <- list()
+  error_handler(res = res, err = )
 })
