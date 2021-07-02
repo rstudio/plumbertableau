@@ -240,27 +240,27 @@ warning_message <- function() {
 
   if (connect_version != "1.9.0") {
     message_contents <- paste(message_contents,
-                              "* **This version of RStudio Connect does not support Tableau Analytics Extension APIs.**",
+                              "* **This version of RStudio Connect does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect to at least version 1.9.x**",
                               sep = "\n")
-  } else {
-    if (!rlang::is_true(as.logical(connect_support))) {
-      message_contents <- paste(message_contents,
-                                "* This installation of RStudio Connect does not currently support Tableau Analytics Extension APIs.",
-                                sep = "\n")
-    }
-
-    if (connect_server == "") {
-      message_contents <- paste(message_contents,
-                                "* The `Server.Address` property isn't configured for this installation of RStudio Connect.",
-                                sep = "\n")
-    }
   }
+  if (!rlang::is_true(as.logical(connect_support))) {
+    message_contents <- paste(message_contents,
+                              "* This installation of RStudio Connect does not currently support Tableau Analytics Extension APIs.",
+                              sep = "\n")
+  }
+
+  if (connect_server == "") {
+    message_contents <- paste(message_contents,
+                              "* The `Server.Address` property isn't configured for this installation of RStudio Connect.",
+                              sep = "\n")
+  }
+
 
   # Send warning message to the console if any of the above are TRUE
   if (!rlang::is_null(message_contents)) {
     message_contents <- paste(
       message_contents,
-      "* **Please reach out to your RStudio Connect administrator**",
+      "\n\n#### Please reach out to your RStudio Connect administrator",
       sep = "\n"
     )
 
@@ -277,12 +277,12 @@ info_message <- function() {
     message_contents <- paste(message_contents,
                               "* Debugging is **on**.
   * To disable it please remove the `DEBUGME` environment variable or set it to a value that does not include 'plumbertableau'.",
-                              sep = "\n")
+  sep = "\n")
   } else {
     message_contents <- paste(message_contents,
                               "* Debugging is **off**.
   * To enable it please set the environment variable `DEBUGME` to include 'plumbertableau'.",
-                              sep = "\n")
+  sep = "\n")
   }
 
   message_contents
