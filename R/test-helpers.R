@@ -1,1 +1,1 @@
-pr_path <- system.file("examples/stringutils/plumber.R", package = "plumbertableau")
+pr_path <- function() system.file("examples/stringutils/plumber.R", package = "plumbertableau")
