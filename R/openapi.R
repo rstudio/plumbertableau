@@ -16,13 +16,35 @@ tableau_openapi <- function(pr) {
 
     # Provide additional context in the description field. This is also visible
     # in the user guide
-    spec$info$description <- paste0(
-      "### Info\n",
-      info_message(),
-      "\n\n***\n### Setup\n",
-      extension_setup(),
-      "\n\n***\n### Description\n",
-      spec$info$description
+    warnings <- warning_message()
+    if (!rlang::is_null(warnings)) {
+      spec$info$description <- paste0(
+        "### Warnings\n",
+        warnings,
+        "\n\n***\n### Info\n",
+        info_message(),
+        "\n\n***\n### Setup\n",
+        extension_setup(),
+        "\n\n***\n### Description\n",
+        spec$info$description
+      )
+    } else {
+      spec$info$description <- paste0(
+        "### Info\n",
+        info_message(),
+        "\n\n***\n### Setup\n",
+        extension_setup(),
+        "\n\n***\n### Description\n",
+        spec$info$description
+      )
+    }
+
+
+
+    # Add reference back to Tableau user guide
+    spec$externalDocs <- list(
+      description = "Tableau Usage Instructions",
+      url = "/"
     )
 
     # Return OAS as a list
@@ -38,7 +60,6 @@ build_tableau_spec <- function(route_attrs) {
     list(
       type = "array",
       description = ifelse(args[[arg_name]]$desc == "", arg_name, paste0(arg_name, ": ", args[[arg_name]]$desc)),
-      required = !args[[arg_name]]$optional,
       items = list(
         type = json_type(args[[arg_name]]$type)
       )
@@ -62,7 +83,7 @@ build_tableau_spec <- function(route_attrs) {
                ),
                data = list(
                  type = "object",
-                 required = names(arg_list)[unlist(lapply(arg_list, function(arg) arg$required))],
+                 required = as.list(names(arg_list)[unlist(lapply(args, function(arg) !arg$optional))]),
                  properties = arg_list
                )
              )

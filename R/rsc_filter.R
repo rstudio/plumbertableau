@@ -6,22 +6,21 @@ rsc_filter <- function(req, res) {
   if (!rlang::is_null(req$HTTP_X_RSC_REQUEST)) {
     full_path <- req$HTTP_X_RSC_REQUEST
     rsc_root <- Sys.getenv("CONNECT_SERVER")
-    vanity_path <- gsub(rsc_root,
-                        "",
-                        full_path,
-                        fixed = TRUE
+    content_path <- gsub(rsc_root,
+                         "",
+                         full_path,
+                         fixed = TRUE
     )
 
-    # If the path requested is not root (/), strip it from the vanity path
-    # TODO: rename vanity_path -> content_path
+    # If the path requested is not root (/), strip it from the content path
     if (req$PATH_INFO != "/") {
-      vanity_path <- gsub(req$PATH_INFO,
-                          "",
-                          vanity_path,
-                          fixed = TRUE
+      content_path <- gsub(req$PATH_INFO,
+                           "",
+                           content_path,
+                           fixed = TRUE
       )
     }
-    req$vanity_path <- vanity_path
+    req$content_path <- content_path
   }
 
   # Request ID - RStudio Connect sends X-RS-CORRELATION-ID, but we will use the
