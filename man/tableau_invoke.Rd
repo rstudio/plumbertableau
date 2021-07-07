@@ -7,7 +7,7 @@
 tableau_invoke(pr, script, ..., .toJSON_args = NULL, .quiet = FALSE)
 }
 \arguments{
-\item{pr}{Either a \code{\link[=tableau_extension]{tableau_extension()}} style Plumber router object, or, the
+\item{pr}{Either a \link{tableau_extension} style Plumber router object, or, the
 filename of a plumber.R that implements a Tableau extension.}
 
 \item{script}{The script string that identifies the plumber route to invoke.

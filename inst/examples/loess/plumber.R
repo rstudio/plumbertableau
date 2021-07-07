@@ -17,4 +17,4 @@ function(req, res, x, y, alpha = 0.75) {
 }
 
 #* @plumber
-tableau_extension()
+tableau_extension

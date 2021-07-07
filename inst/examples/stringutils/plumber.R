@@ -39,4 +39,4 @@ function(req, res, value) {
 }
 
 #* @plumber
-tableau_extension()
+tableau_extension

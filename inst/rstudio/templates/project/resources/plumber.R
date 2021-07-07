@@ -21,4 +21,4 @@ function(str_value) {
 }
 
 #* @plumber
-tableau_extension()
+tableau_extension
