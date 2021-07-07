@@ -9,3 +9,4 @@
 /rsconnect$
 ^notes\.md$
 ^\.Renviron$
+^codecov\.yml$

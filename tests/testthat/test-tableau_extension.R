@@ -1,65 +1,37 @@
-pr_path <- system.file("examples/stringutils/plumber.R", package = "plumbertableau")
-
 test_that("stringutils example works", {
 
   expect_identical(
-    tableau_invoke(pr_path, "/lowercase", "HELLO"),
+    tableau_invoke(pr_path(), "/lowercase", "HELLO"),
     "hello"
   )
 
   expect_identical(
-    tableau_invoke(pr_path, "/concat", letters, LETTERS),
+    tableau_invoke(pr_path(), "/concat", letters, LETTERS),
     paste0(letters, " ", LETTERS)
   )
 
   expect_identical(
-    tableau_invoke(pr_path, "/concat?sep=-", letters, LETTERS),
+    tableau_invoke(pr_path(), "/concat?sep=-", letters, LETTERS),
     paste0(letters, "-", LETTERS)
   )
 
   expect_identical(
-    tableau_invoke(pr_path, "/stringify", 1:10),
+    tableau_invoke(pr_path(), "/stringify", 1:10),
     as.character(1:10)
   )
 
   expect_identical(
-    tableau_invoke(pr_path, "/stringify", c(TRUE, FALSE, NA, TRUE)),
+    tableau_invoke(pr_path(), "/stringify", c(TRUE, FALSE, NA, TRUE)),
     c("true", "false", NA, "true")
   )
 
   # 404
-  expect_error(tableau_invoke(pr_path, "/blah", .quiet = TRUE))
+  expect_error(tableau_invoke(pr_path(), "/blah", .quiet = TRUE))
   # Too few args
-  expect_error(tableau_invoke(pr_path, "/concat", letters, .quiet = TRUE))
-  expect_error(tableau_invoke(pr_path, "/stringify", .quiet = TRUE))
+  expect_error(tableau_invoke(pr_path(), "/concat", letters, .quiet = TRUE))
+  expect_error(tableau_invoke(pr_path(), "/stringify", .quiet = TRUE))
   # Too many args
-  expect_error(tableau_invoke(pr_path, "/concat", letters, letters, letters, .quiet = TRUE))
+  expect_error(tableau_invoke(pr_path(), "/concat", letters, letters, letters, .quiet = TRUE))
   # Incorrect data type
-  expect_error(tableau_invoke(pr_path, "/concat", letters, seq_along(letters), .quiet = TRUE))
-})
-
-test_that("OpenAPI specification works", {
-  pr <- plumber::plumb(pr_path)
-  spec <- pr$getApiSpec()
-  for (path in spec$paths) {
-    if (!is.null(path$post)) {
-      expect_equal(path$post$requestBody$description, "Tableau Request")
-    }
-  }
-})
-
-test_that("tableau_handler warns on missing function params", {
-  args <- list(foo = arg_spec("character"), bar = arg_spec("character"))
-
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function() {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(foo) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(bar) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(foo, bar) {}), NA)
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(...) {}), NA)
-
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res, foo) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res, bar) {}))
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res, foo, bar) {}), NA)
-  expect_warning(tableau_handler(args = args, return = return_spec(), func = function(req, res, ...) {}), NA)
+  expect_error(tableau_invoke(pr_path(), "/concat", letters, seq_along(letters), .quiet = TRUE))
 })
