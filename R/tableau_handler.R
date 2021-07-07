@@ -10,7 +10,7 @@
 #'   `"numeric?"`.
 #' @param return A string indicating the data type that will be returned from
 #'   `func` (`"character"`, `"logical"`, `"numeric"`, or `"integer"`); or, a
-#'   specification object created by [arg_spec()].
+#'   specification object created by [return_spec()].
 #' @param func A function to be used as the handler function. Code in the body
 #'   of the function will automatically be able to access Tableau request args
 #'   simply by referring to their names in `args`; see the example below.
