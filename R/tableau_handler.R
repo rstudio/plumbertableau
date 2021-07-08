@@ -124,11 +124,12 @@ infer_tableau_handler <- function(route) {
 
 
   # Check to see if Tableau args and return values have been provided
-  if (!("tab.arg" %in% parsed_comments$tag) | !("tab.return" %in% parsed_comments$tag)) {
-   stop(
-     call. = FALSE,
-     "Tableau argument and return data types must be specified. Please use either #* tab.arg and #* tab.return annotations or tableau_handler() to specify Tableau argument and return types."
-   )
+  err <- "Tableau argument and return data types must be specified. Please use either #* tab.arg and #* tab.return annotations or tableau_handler() to specify Tableau argument and return types."
+
+  if (rlang::is_empty(parsed_comments)) {
+    stop(err, call. = FALSE)
+  } else if (!("tab.arg" %in% parsed_comments$tag) | !("tab.return" %in% parsed_comments$tag)) {
+    stop(err, call. = FALSE)
   }
 
   args <- parsed_comments[parsed_comments$tag == c("tab.arg"), c("line", "remainder")]
