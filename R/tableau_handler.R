@@ -122,6 +122,15 @@ infer_tableau_handler <- function(route) {
   comment_lines_df <- get_comments_from_srcref(srcref)
   parsed_comments <- parse_comment_tags(comment_lines_df)
 
+
+  # Check to see if Tableau args and return values have been provided
+  if (!("tab.arg" %in% parsed_comments$tag) | !("tab.return" %in% parsed_comments$tag)) {
+   stop(
+     call. = FALSE,
+     "Tableau argument and return data types must be specified. Please use either #* tab.arg and #* tab.return annotations or tableau_handler() to specify Tableau argument and return types."
+   )
+  }
+
   args <- parsed_comments[parsed_comments$tag == c("tab.arg"), c("line", "remainder")]
   returns <- parsed_comments[parsed_comments$tag == c("tab.return"), c("line", "remainder")]
 
