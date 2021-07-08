@@ -89,7 +89,7 @@ tableau_invoke <- function(pr, script, ..., .toJSON_args = NULL, .quiet = FALSE)
 
 # TODO: Error on unrealistic (non-Tableau-supported) data types? Error on
 # unrealistic vector lengths (lengths that are different and not 1)?
-encode_payload <- function(script, ..., .toJSON_args) {
+encode_payload <- function(script, ..., .toJSON_args, raw = TRUE) {
   data <- rlang::list2(...)
   if (!is.null(names(data))) {
     stop("tableau_invoke requires ... arguments to be unnamed")
@@ -108,7 +108,11 @@ encode_payload <- function(script, ..., .toJSON_args) {
 
   json <- do.call(jsonlite::toJSON, c(list(x = payload, na = "null"), .toJSON_args))
   json <- enc2utf8(json)
-  charToRaw(json)
+  if (raw == TRUE) {
+    charToRaw(json)
+  } else {
+    json
+  }
 }
 
 curl_async <- function(handle, polling_interval = 0.1) {
