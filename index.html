@@ -87,7 +87,7 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>The main function in <code>plumbertableau</code> is <code><a href="reference/tableau_extension.html">tableau_extension()</a></code>. This function returns a function that takes an existing Plumber router and modifies it so that it complies with the specification set forward by the Tableau Analytics Extensions API.</p>
+<p>The main function in <code>plumbertableau</code> is <code><a href="reference/tableau_extension.html">tableau_extension()</a></code>. This function modifies an existing Plumber router so that it complies with the specification set forward by the Tableau Analytics Extensions API.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span>
@@ -104,7 +104,7 @@
 <span class="op">}</span>
 
 <span class="co">#* @plumber</span>
-<span class="fu"><a href="reference/tableau_extension.html">tableau_extension</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="va">tableau_extension</span></code></pre></div>
 <p>In order to use an analytics extension from Tableau, you need to configure the extension for either <a href="https://tableau.github.io/analytics-extensions-api/docs/ae_connect_desktop.html">Tableau Desktop</a> or <a href="https://tableau.github.io/analytics-extensions-api/docs/ae_connect_server.html">Tableau Server</a>.</p>
 <p>When this API is running, it can be used via a calculated field in Tableau. To use to example above, you could create a calculated field like the following:</p>
 <p><img src="reference/figures/calculated-field.png" alt="Calculated field screen shot"></p>
