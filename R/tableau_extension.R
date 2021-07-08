@@ -23,6 +23,8 @@
 #'
 #' @export
 tableau_extension <- function(warnings = TRUE) {
+  # Print info message to the console
+  message(info_message())
   function(pr) {
     if (warnings) {
       lapply(pr$routes, function(route) {

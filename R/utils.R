@@ -274,15 +274,17 @@ warning_message <- function() {
 info_message <- function() {
   message_contents <- NULL
   if (stringi::stri_detect(Sys.getenv("DEBUGME"), fixed = "plumbertableau")) {
-    message_contents <- paste(message_contents,
-                              "* Debugging is **on**.
-  * To disable it please remove the `DEBUGME` environment variable or set it to a value that does not include 'plumbertableau'.",
-  sep = "\n")
+    message_contents <- paste(
+      message_contents,
+      "Verbose logging is on. To disable it please remove the `DEBUGME` environment variable or set it to a value that does not include 'plumbertableau'.",
+      sep = "\n"
+    )
   } else {
-    message_contents <- paste(message_contents,
-                              "* Debugging is **off**.
-  * To enable it please set the environment variable `DEBUGME` to include 'plumbertableau'.",
-  sep = "\n")
+    message_contents <- paste(
+      message_contents,
+      "Verbose logging is off. To enable it please set the environment variable `DEBUGME` to include 'plumbertableau'.",
+      sep = "\n"
+    )
   }
 
   message_contents
