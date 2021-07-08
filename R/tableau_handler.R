@@ -10,7 +10,7 @@
 #'   `"numeric?"`.
 #' @param return A string indicating the data type that will be returned from
 #'   `func` (`"character"`, `"logical"`, `"numeric"`, or `"integer"`); or, a
-#'   specification object created by [arg_spec()].
+#'   specification object created by [return_spec()].
 #' @param func A function to be used as the handler function. Code in the body
 #'   of the function will automatically be able to access Tableau request args
 #'   simply by referring to their names in `args`; see the example below.
@@ -121,6 +121,16 @@ infer_tableau_handler <- function(route) {
   }
   comment_lines_df <- get_comments_from_srcref(srcref)
   parsed_comments <- parse_comment_tags(comment_lines_df)
+
+
+  # Check to see if Tableau args and return values have been provided
+  err <- "Tableau argument and return data types must be specified. Please use either #* tab.arg and #* tab.return annotations or tableau_handler() to specify Tableau argument and return types."
+
+  if (rlang::is_empty(parsed_comments)) {
+    stop(err, call. = FALSE)
+  } else if (!("tab.arg" %in% parsed_comments$tag) | !("tab.return" %in% parsed_comments$tag)) {
+    stop(err, call. = FALSE)
+  }
 
   args <- parsed_comments[parsed_comments$tag == c("tab.arg"), c("line", "remainder")]
   returns <- parsed_comments[parsed_comments$tag == c("tab.return"), c("line", "remainder")]

@@ -4,14 +4,14 @@
 \alias{tableau_extension}
 \title{Make an existing Plumber API compliant as a Tableau Analytics Extension}
 \usage{
-tableau_extension(warnings = TRUE)
+tableau_extension(pr)
 }
 \arguments{
-\item{warnings}{Whether or not to provide warnings about non-Tableau compliant
-endpoints.}
+\item{pr}{A plumber router}
 }
 \value{
-A function that can be used with \code{#* @plumber}
+A modified plumber router that functions as a Tableau Analytics
+Extension
 }
 \description{
 Make an existing Plumber API compliant as a Tableau Analytics Extension
@@ -29,7 +29,7 @@ function(req, res) {
 }
 
 #* @plumber
-tableau_extension()
+tableau_extension
 }
 
 }
