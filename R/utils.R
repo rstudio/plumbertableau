@@ -264,7 +264,7 @@ warning_message <- function() {
       sep = "\n"
     )
 
-    rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning")
+    rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning")
   }
 
   message_contents
@@ -288,30 +288,4 @@ info_message <- function() {
   }
 
   message_contents
-}
-
-# Generate message for extension setup
-extension_setup <- function() {
-  # TODO: Dynamically describe the actual values for Host and Port based on
-  # executing environment
-  "<details>
-  <summary>Tableau setup instructions</summary>
-
-#### Tableau Server / Tableau Online
-  1. Using an administrative account, login to Tableau Server
-  2. Navigate to Settings, then Extensions
-  3. At the bottom of the page, choose to *Enable analytics extensions for site*
-  4. Create a new connection and select the Connection Type of 'TapPy/Analytics Extension'
-  5. Select if you want to use SSL and enter the server Host and Port for your RStudio Connect server
-  6. If desired, select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
-  8. Save changes
-
-#### Tableau Desktop
-  1. Navigate to Help, Settings and Performance, Manage Analytics Extension Connection...
-  2. Select 'TabPy/External API'
-  3. Set Server and Port to the address and port of the server running the API
-  4. If desired, select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
-  5. Select whether to Require SSL
-  6. Save changes
-  </details>"
 }
