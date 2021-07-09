@@ -23,7 +23,11 @@ tableau_openapi <- function(pr) {
     #
     warnings <- warning_message()
     if (!rlang::is_null(warnings)) {
-      spec$info$description <- warnings
+      spec$info$description <- paste0(
+        "### Warning",
+        warnings,
+        sep = "\n"
+      )
     } else {
       spec$info$description <- paste0(
 "### Description\n",
