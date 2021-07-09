@@ -228,6 +228,7 @@ warning_message <- function() {
   #  * Isn't configured to support Tableau Extensions
   #  * Doesn't have Server.Address configured
   # TODO: Replace this with proper logic once available
+  minimum_version <- "1.9.0"
 
   # Server.Address
   connect_server <- Sys.getenv("CONNECT_SERVER")
@@ -238,20 +239,24 @@ warning_message <- function() {
   # RStudio Connect version
   connect_version <- Sys.getenv("RSC_VERSION")
 
-  if (connect_version != "1.9.0") {
+  if (compareVersion(connect_version, minimum_version) < 0) {
     message_contents <- paste(message_contents,
-                              "* **This version of RStudio Connect does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect to at least version 1.9.x**",
+                              paste0("* **This version of RStudio Connect (",
+                                     connect_version,
+                                     ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect to version ",
+                                     minimum_version,
+                                     " or newer."),
                               sep = "\n")
   }
   if (!rlang::is_true(as.logical(connect_support))) {
     message_contents <- paste(message_contents,
-                              "* This installation of RStudio Connect does not currently support Tableau Analytics Extension APIs.",
+                              "* Tableau Analytics Extension API support is currently disabled in RStudio Connect's configuration.",
                               sep = "\n")
   }
 
   if (connect_server == "") {
     message_contents <- paste(message_contents,
-                              "* The `Server.Address` property isn't configured for this installation of RStudio Connect.",
+                              "* The `Server.Address` property is not set in RStudio Connect's configuration.",
                               sep = "\n")
   }
 
@@ -260,7 +265,7 @@ warning_message <- function() {
   if (!rlang::is_null(message_contents)) {
     message_contents <- paste(
       message_contents,
-      "\n\n#### Please reach out to your RStudio Connect administrator",
+      "\n\n#### Please reach out to your RStudio Connect administrator to fix these issues.",
       sep = "\n"
     )
 
