@@ -27,16 +27,18 @@ render_user_guide <- function(path, pr) {
   if (!rlang::is_null(warnings)) {
     warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
     ui <- htmltools::tagList(
-      tags$h1(
-        "Warning"
-      ),
+      tags$header(
+        class = "warning",
+        tags$h1(
+          "Warning"
+        )),
       tags$main(
         htmltools::HTML(warnings)
       )
     )
 
     as.character(htmltools::htmlTemplate(
-      system.file("template/warning.html", package = "plumbertableau", mustWork = TRUE),
+      system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
       content = ui
     ))
   } else {

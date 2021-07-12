@@ -17,13 +17,7 @@ body {
 }
 
 .warning {
-  max-width: 860px;
-  margin: 0 auto;
   background-color: #cc3300;
-  padding: 0;
-  border: 1px solid #888;
-  box-shadow: rgba(0, 0, 0, 0.22) 0 2rem 8rem;
-  border-radius: 16px;
 }
 
 .warning h1 {
