@@ -34,6 +34,7 @@ tableau_openapi <- function(pr) {
 "This is a Tableau Analytics Extension.
   * [Tableau setup instructions](/setup)
   * [Tableau usage instructions](/)
+  * [Open API documentation](/__docs__/)
 
 ***
 ",

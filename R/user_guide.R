@@ -64,16 +64,7 @@ render_user_guide <- function(path, pr) {
         tags$div(class = "routes",
                  lapply(extract_route_info(pr, path), render_route_info)
         )
-      ),
-      tags$div(
-        class = "center",
-        tags$a(
-          href = "/__docs__/",
-          class = "button",
-          "Open API Documentation"
-        )
       )
-
     )
 
     as.character(htmltools::htmlTemplate(
