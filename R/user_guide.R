@@ -33,7 +33,9 @@ render_user_guide <- function(path, pr) {
           "Warning"
         )),
       tags$main(
-        htmltools::HTML(warnings)
+        htmltools::HTML(warnings),
+        tags$a(href = "/__docs__/",
+               "Open API documentation")
       )
     )
 
