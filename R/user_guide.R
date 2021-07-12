@@ -30,7 +30,7 @@ render_user_guide <- function(path, pr) {
       tags$header(
         class = "warning",
         tags$h1(
-          "Warning"
+          "Warnings"
         )),
       tags$main(
         htmltools::HTML(warnings),

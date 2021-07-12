@@ -241,22 +241,22 @@ warning_message <- function() {
 
   if (compareVersion(connect_version, minimum_version) < 0) {
     message_contents <- paste(message_contents,
-                              paste0("* **This version of RStudio Connect (",
+                              paste0("> **WARNING**: This version of RStudio Connect (",
                                      connect_version,
-                                     ") does not support Tableau Analytics Extension APIs.** Please upgrade RStudio Connect to version ",
+                                     ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect to version ",
                                      minimum_version,
-                                     " or newer."),
+                                     " or newer.\n"),
                               sep = "\n")
   }
   if (!rlang::is_true(as.logical(connect_support))) {
     message_contents <- paste(message_contents,
-                              "* Tableau Analytics Extension API support is currently disabled in RStudio Connect's configuration.",
+                              "> **WARNING**: Tableau Analytics Extension API support is currently disabled in RStudio Connect's configuration.\n",
                               sep = "\n")
   }
 
   if (connect_server == "") {
     message_contents <- paste(message_contents,
-                              "* The `Server.Address` property is not set in RStudio Connect's configuration.",
+                              "> **WARNING**: The `Server.Address` property is not set in RStudio Connect's configuration.\n",
                               sep = "\n")
   }
 
