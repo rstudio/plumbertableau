@@ -34,15 +34,10 @@ render_user_guide <- function(path, pr) {
         )),
       tags$main(
         htmltools::HTML(warnings),
-        tags$a(href = "/__docs__/",
+        tags$a(href = "./__docs__/",
                "Open API documentation")
       )
     )
-
-    as.character(htmltools::htmlTemplate(
-      system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
-      content = ui
-    ))
   } else {
     apiSpec <- pr$getApiSpec()
 
@@ -68,12 +63,12 @@ render_user_guide <- function(path, pr) {
         )
       )
     )
-
-    as.character(htmltools::htmlTemplate(
-      system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
-      content = ui
-    ))
   }
+
+  as.character(htmltools::htmlTemplate(
+    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
+    content = ui
+  ))
 
 }
 
