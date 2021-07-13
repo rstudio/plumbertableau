@@ -39,6 +39,7 @@ check_route <- function(route) {
   }
 }
 
+
 write_log_message <- function(req, res, msg = NULL) {
   # Desired behavior:
   # - Include Correlation ID in every log entry
@@ -60,6 +61,7 @@ write_log_message <- function(req, res, msg = NULL) {
   log_msg
 }
 
+
 # Utilities for capturing endpoint execution time
 preroute_hook <- function(data, req, res) {
   # Capture execution start time
@@ -70,6 +72,7 @@ postroute_hook <- function(data, req, res) {
   time_diff <- round(abs(as.numeric(difftime(Sys.time(), data$start_time, units = "secs"))), 4)
   "!DEBUG `write_log_message(req, res, paste('Request executed in', time_diff, 'seconds'))`"
 }
+
 
 # Pulled from plumber package to avoid using a non-exported function
 parseQS <- function(qs){
@@ -114,6 +117,7 @@ parseQS <- function(qs){
   # If duplicates, combine
   combine_keys(vals, type = "query")
 }
+
 
 #' @noRd
 #' @importFrom stats setNames
@@ -219,6 +223,7 @@ combine_keys <- function(obj, type) {
   vals
 }
 
+
 # Generate an informational message based on the execution context of the extension
 warning_message <- function() {
   message_contents <- NULL
@@ -255,7 +260,6 @@ warning_message <- function() {
                               sep = "\n")
   }
 
-
   # Send warning message to the console if any of the above are TRUE
   if (!rlang::is_null(message_contents)) {
     message_contents <- paste(
@@ -287,6 +291,7 @@ info_message <- function() {
 
   message_contents
 }
+
 
 # Generate message for extension setup
 extension_setup <- function() {
