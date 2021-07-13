@@ -43,6 +43,7 @@ tableau_handler <- function(args, return, func) {
   result
 }
 
+
 #' Describe expected args and return values
 #'
 #' These functions are used to create arguments to [tableau_handler()]. They
@@ -73,6 +74,7 @@ arg_spec <- function(type = c("character", "integer", "logical", "numeric"),
   ), class = "tableau_arg_spec")
 }
 
+
 param_spec <- function(type = c("character", "integer", "logical", "numeric"),
   desc = "", optional = grepl("\\?$", type), default = NULL) {
 
@@ -89,6 +91,7 @@ param_spec <- function(type = c("character", "integer", "logical", "numeric"),
   ), class = "tableau_param_spec")
 }
 
+
 #' @rdname arg_spec
 #' @export
 return_spec <- function(type = c("character", "integer", "logical", "numeric"),
@@ -102,6 +105,7 @@ return_spec <- function(type = c("character", "integer", "logical", "numeric"),
   ), class = "tableau_return_spec")
 }
 
+
 # Given a route that may have @tab.* comments, create a tableau_handler object.
 infer_tableau_handler <- function(route) {
   func <- route$getFunc()
@@ -114,9 +118,11 @@ infer_tableau_handler <- function(route) {
   if (is.null(srcref)) {
     stop(
       call. = FALSE,
-      "plumbertableau encountered a plumber endpoint with no srcref; try ",
-      "making sure all endpoint functions are defined directly in the plumber ",
-      "file"
+      glue::glue(
+        "plumbertableau could not get the source code for the endpoint ", 
+        "{route$path}. Please make sure the endpoint function is defined ",
+        "directly in the Plumber file."
+      )
     )
   }
   comment_lines_df <- get_comments_from_srcref(srcref)
@@ -124,7 +130,11 @@ infer_tableau_handler <- function(route) {
 
 
   # Check to see if Tableau args and return values have been provided
-  err <- "Tableau argument and return data types must be specified. Please use either #* tab.arg and #* tab.return annotations or tableau_handler() to specify Tableau argument and return types."
+  err <- glue::glue(
+    "Tableau argument and return data types must be specified. Please ",
+    "use either #* tab.arg and #* tab.return annotations or ",
+    "tableau_handler() to specify Tableau argument and return types."
+  )
 
   if (rlang::is_empty(parsed_comments)) {
     stop(err, call. = FALSE)
@@ -145,6 +155,7 @@ infer_tableau_handler <- function(route) {
   )
 }
 
+
 get_comments_from_srcref <- function(srcref) {
   func_start_line <- srcref[[7]]
   srcfile <- attr(srcref, "srcfile", exact = TRUE)
@@ -158,6 +169,7 @@ get_comments_from_srcref <- function(srcref) {
   data.frame(line, text = file[line], stringsAsFactors = FALSE)
 }
 
+
 parse_comment_tags <- function(lines_df) {
   lines <- lines_df$text
   m <- regexec("^#['\\*]\\s+@([^\\s]+)\\s*(.*)", lines, perl = TRUE)
@@ -168,6 +180,7 @@ parse_comment_tags <- function(lines_df) {
   df <- data.frame(line = lines_df$line, tag, remainder, stringsAsFactors = FALSE)
   df[!is.na(df$tag),]
 }
+
 
 # @param comment_df Data frame with `line` and `remainder` columns
 parse_args_comment_df <- function(comment_df) {
@@ -202,6 +215,7 @@ parse_args_comment_df <- function(comment_df) {
   arg_specs
 }
 
+
 parse_return_comment_df <- function(comment_df) {
   m <- regexec("^\\s*([^\\s?]+)\\s+(.*)$", comment_df$remainder, perl = TRUE)
   matches <- regmatches(comment_df$remainder, m)
@@ -212,6 +226,7 @@ parse_return_comment_df <- function(comment_df) {
 
   return_spec(type = type, desc = desc)
 }
+
 
 # Copied from Plumber source code
 getRelevantArgs <- function(args, func) {
@@ -262,6 +277,7 @@ getRelevantArgs <- function(args, func) {
   args
 }
 
+
 normalize_type_to_r <- function(type = c("character", "string", "str",
   "logical", "boolean", "bool",
   "numeric", "real",
@@ -275,6 +291,7 @@ normalize_type_to_r <- function(type = c("character", "string", "str",
     stop("Unknown type ", type)
   )
 }
+
 
 normalize_type_to_tableau <- function(type = c("character", "string", "str",
   "logical", "boolean", "bool",
@@ -297,6 +314,7 @@ normalize_type_to_tableau <- function(type = c("character", "string", "str",
   }
 }
 
+
 normalize_argspec <- function(arg) {
   if (is.character(arg)) {
     arg_spec(arg)
@@ -308,6 +326,7 @@ normalize_argspec <- function(arg) {
   }
 }
 
+
 normalize_returnspec <- function(return_obj) {
   if (is.character(return_obj)) {
     return_spec(return_obj)
@@ -318,6 +337,7 @@ normalize_returnspec <- function(return_obj) {
     return_obj
   }
 }
+
 
 validate_argspecs <- function(args) {
   if (length(args) == 0) {

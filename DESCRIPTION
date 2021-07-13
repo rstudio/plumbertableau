@@ -28,7 +28,9 @@ Imports:
     htmltools,
     debugme,
     stringi,
-    markdown
+    markdown,
+    urltools,
+    glue
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
