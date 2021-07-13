@@ -222,54 +222,57 @@ combine_keys <- function(obj, type) {
 # Generate an informational message based on the execution context of the extension
 warning_message <- function() {
   message_contents <- NULL
-  # RStudio Connect Details
-  # Provide messaging if RSC:
-  #  * Is a version that doesn't support Tableau Extensions
-  #  * Isn't configured to support Tableau Extensions
-  #  * Doesn't have Server.Address configured
-  # TODO: Replace this with proper logic once available
-  minimum_version <- "1.9.0"
+  # If running on RSC, perform checks; if not return NULL
+  if (check_rstudio_connect()) {
+    # RStudio Connect Details
+    # Provide messaging if RSC:
+    #  * Is a version that doesn't support Tableau Extensions
+    #  * Isn't configured to support Tableau Extensions
+    #  * Doesn't have Server.Address configured
+    # TODO: Replace this with proper logic once available
+    minimum_version <- "1.9.0"
 
-  # Server.Address
-  connect_server <- Sys.getenv("CONNECT_SERVER")
+    # Server.Address
+    connect_server <- Sys.getenv("CONNECT_SERVER")
 
-  # Does this installation support Tableau Extensions
-  connect_support <- Sys.getenv("RSC_TABLEAU")
+    # Does this installation support Tableau Extensions
+    connect_support <- Sys.getenv("RSC_TABLEAU")
 
-  # RStudio Connect version
-  connect_version <- Sys.getenv("RSC_VERSION")
+    # RStudio Connect version
+    connect_version <- Sys.getenv("RSC_VERSION")
 
-  if (compareVersion(connect_version, minimum_version) < 0) {
-    message_contents <- paste(message_contents,
-                              paste0("> **WARNING**: This version of RStudio Connect (",
-                                     connect_version,
-                                     ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect to version ",
-                                     minimum_version,
-                                     " or newer.\n"),
-                              sep = "\n")
-  }
-  if (!rlang::is_true(as.logical(connect_support))) {
-    message_contents <- paste(message_contents,
-                              "> **WARNING**: Tableau Analytics Extension API support is currently disabled in RStudio Connect's configuration.\n",
-                              sep = "\n")
-  }
+    if (utils::compareVersion(connect_version, minimum_version) < 0) {
+      message_contents <- paste(message_contents,
+                                paste0("> **WARNING**: This version of RStudio Connect (",
+                                       connect_version,
+                                       ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect to version ",
+                                       minimum_version,
+                                       " or newer.\n"),
+                                sep = "\n")
+    }
+    if (!rlang::is_true(as.logical(connect_support))) {
+      message_contents <- paste(message_contents,
+                                "> **WARNING**: Tableau Analytics Extension API support is currently disabled in RStudio Connect's configuration.\n",
+                                sep = "\n")
+    }
 
-  if (connect_server == "") {
-    message_contents <- paste(message_contents,
-                              "> **WARNING**: The `Server.Address` property is not set in RStudio Connect's configuration.\n",
-                              sep = "\n")
-  }
+    if (connect_server == "") {
+      message_contents <- paste(message_contents,
+                                "> **WARNING**: The `Server.Address` property is not set in RStudio Connect's configuration.\n",
+                                sep = "\n")
+    }
 
 
-  # Send warning message to the console if any of the above are TRUE
-  if (!rlang::is_null(message_contents)) {
-    message_contents <- paste(
-      message_contents,
-      "\n\n#### Please reach out to your RStudio Connect administrator to fix these issues.",
-      sep = "\n"
-    )
+    # Send warning message to the console if any of the above are TRUE
+    if (!rlang::is_null(message_contents)) {
+      message_contents <- paste(
+        message_contents,
+        "\n\n#### Please reach out to your RStudio Connect administrator to fix these issues.",
+        sep = "\n"
+      )
 
-    rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning")
+      rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning")
+    }
   }
 
   message_contents
@@ -293,4 +296,11 @@ info_message <- function() {
   }
 
   message_contents
+}
+
+check_rstudio_connect <- function() {
+  # Return TRUE if running in a traditional RStudio Connect environment
+  # TODO: Replace this logic with correct logic once it's available in RStudio
+  # Connect
+  as.logical(Sys.getenv("RSTUDIO_CONNECT", unset = FALSE))
 }
