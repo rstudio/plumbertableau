@@ -30,7 +30,8 @@ Imports:
     stringi,
     markdown,
     urltools,
-    glue
+    glue,
+    utils
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
