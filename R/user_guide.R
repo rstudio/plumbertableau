@@ -43,8 +43,8 @@ render_user_guide <- function(path, pr) {
 
     title <- apiSpec$info$title
     version <- apiSpec$info$version
-    # TODO: Allow markdown?
-    desc <- markdown::markdownToHTML(text = apiSpec$info$description,
+    # Strip description of links to other pages
+    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                      fragment.only = TRUE)
 
     ui <- htmltools::tagList(
@@ -54,7 +54,18 @@ render_user_guide <- function(path, pr) {
           if (!is.null(version)) paste0("(v", version, ")")
         ),
         tags$div(class = "api-desc",
-                 htmltools::HTML(desc)
+                 htmltools::HTML(desc),
+                 tags$p(
+                   tags$a(
+                     href = "./setup",
+                     "Tableau Setup Instructions"
+                   ),
+                   tags$br(),
+                   tags$a(
+                     href = "./__docs__/",
+                     "Open API Documentation"
+                   )
+                 )
         )
       ),
       tags$main(
@@ -250,7 +261,7 @@ render_setup_instructions <- function(path, pr) {
       server_port <- 443
   }
   apiSpec <- pr$getApiSpec()
-  desc <- markdown::markdownToHTML(text = apiSpec$info$description,
+  desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                    fragment.only = TRUE)
 
   ui <- htmltools::tagList(
@@ -259,7 +270,18 @@ render_setup_instructions <- function(path, pr) {
         "Tableau Setup"
       ),
       tags$div(class = "api-desc",
-               htmltools::HTML(desc)
+               htmltools::HTML(desc),
+               tags$p(
+                 tags$a(
+                   href = "../",
+                   "Tableau Usage Instructions"
+                 ),
+                 tags$br(),
+                 tags$a(
+                   href = "../__docs__/",
+                   "Open API Documentation"
+                 )
+               )
       )
     ),
     tags$main(
@@ -291,4 +313,8 @@ fragment.only = TRUE
     system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
     content = ui
   ))
+}
+
+strip_md_links <- function(text) {
+  stringi::stri_replace_all(text, regex = "[.*](.*)\n?", "")
 }
