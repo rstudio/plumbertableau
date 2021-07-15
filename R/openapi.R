@@ -14,38 +14,32 @@ tableau_openapi <- function(pr) {
     # Remove / from spec so it doesn't show in UI
     spec$paths[["/"]] <- NULL
 
+    # Remove /setup from spec so it doesn't show in UI
+    spec$paths[["/setup"]] <- NULL
+
     # Provide additional context in the description field. This is also visible
     # in the user guide
+
+    #
     warnings <- warning_message()
     if (!rlang::is_null(warnings)) {
       spec$info$description <- paste0(
-        "### Warnings\n",
+        "### Warnings",
         warnings,
-        "\n\n***\n### Info\n",
-        info_message(),
-        "\n\n***\n### Setup\n",
-        extension_setup(),
-        "\n\n***\n### Description\n",
-        spec$info$description
+        sep = "\n"
       )
     } else {
       spec$info$description <- paste0(
-        "### Info\n",
-        info_message(),
-        "\n\n***\n### Setup\n",
-        extension_setup(),
-        "\n\n***\n### Description\n",
-        spec$info$description
+"### Description\n",
+"This is a Tableau Analytics Extension.
+  * [Tableau usage instructions](../)
+  * [Tableau setup instructions](../setup)
+***
+",
+        spec$info$description,
+        sep = "\n"
       )
     }
-
-
-
-    # Add reference back to Tableau user guide
-    spec$externalDocs <- list(
-      description = "Tableau Usage Instructions",
-      url = "/"
-    )
 
     # Return OAS as a list
     spec

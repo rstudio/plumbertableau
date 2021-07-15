@@ -11,7 +11,7 @@ create_user_guide <- function(pr) {
   cached_ui <- NULL
 
   function(req, res) {
-    "!DEBUG `write_log_message(req, res, 'Generating Tableau User Guide')"
+    "!DEBUG `write_log_message(req, res, 'Generating Tableau Usage Instructions')"
     if (is.null(cached_ui)) {
       # Caching works b/c R is restarted when the vanity path changes on RStudio Connect
       cached_ui <<- render_user_guide(req$content_path, pr)
@@ -22,35 +22,65 @@ create_user_guide <- function(pr) {
 }
 
 render_user_guide <- function(path, pr) {
-  apiSpec <- pr$getApiSpec()
+  warnings <- warning_message()
 
-  title <- apiSpec$info$title
-  version <- apiSpec$info$version
-  # TODO: Allow markdown?
-  desc <- markdown::markdownToHTML(text = apiSpec$info$description,
-                                   fragment.only = TRUE)
-
-  ui <- htmltools::tagList(
-    tags$header(
-      tags$h1(
-        title,
-        if (!is.null(version)) paste0("(v", version, ")")
-      ),
-      tags$div(class = "api-desc",
-        htmltools::HTML(desc)
-      )
-    ),
-    tags$main(
-      tags$div(class = "routes",
-        lapply(extract_route_info(pr, path), render_route_info)
+  if (!rlang::is_null(warnings)) {
+    warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
+    ui <- htmltools::tagList(
+      tags$header(
+        class = "warning",
+        tags$h1(
+          "Warnings"
+        )),
+      tags$main(
+        htmltools::HTML(warnings),
+        tags$a(href = "./__docs__/",
+               "Open API documentation")
       )
     )
-  )
+  } else {
+    apiSpec <- pr$getApiSpec()
+
+    title <- apiSpec$info$title
+    version <- apiSpec$info$version
+    # Strip description of links to other pages
+    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+                                     fragment.only = TRUE)
+
+    ui <- htmltools::tagList(
+      tags$header(
+        tags$h1(
+          title,
+          if (!is.null(version)) paste0("(v", version, ")")
+        ),
+        tags$div(class = "api-desc",
+                 htmltools::HTML(desc),
+                 tags$p(
+                   tags$a(
+                     href = "./setup",
+                     "Tableau Setup Instructions"
+                   ),
+                   tags$br(),
+                   tags$a(
+                     href = "./__docs__/",
+                     "Open API Documentation"
+                   )
+                 )
+        )
+      ),
+      tags$main(
+        tags$div(class = "routes",
+                 lapply(extract_route_info(pr, path), render_route_info)
+        )
+      )
+    )
+  }
 
   as.character(htmltools::htmlTemplate(
     system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
     content = ui
   ))
+
 }
 
 render_route_info <- function(route_info) {
@@ -201,4 +231,90 @@ extract_param_spec <- function(route) {
       default = defaults[[nm]]
     )
   }, SIMPLIFY = FALSE, USE.NAMES = TRUE)
+}
+
+create_setup_instructions <- function(pr) {
+  cached_instructions <- NULL
+
+  function(req, res) {
+    "!DEBUG `write_log_message(req, res, 'Generating Tableau Setup Instructions')"
+    if (is.null(cached_instructions)) {
+      # Caching works b/c R is restarted when the vanity path changes on RStudio Connect
+      cached_instructions <<- render_setup_instructions(req$content_path, pr)
+    }
+
+    cached_instructions
+  }
+}
+
+render_setup_instructions <- function(path, pr) {
+  connect_server <- Sys.getenv("CONNECT_SERVER")
+  server_domain <- urltools::domain(connect_server)
+  server_port <- urltools::port(connect_server)
+  if (rlang::is_na(server_port)) {
+    server_scheme <- urltools::scheme(connect_server)
+    if (rlang::is_na(server_scheme)) {
+      # Do nothing
+    } else if (server_scheme == "http") {
+      server_port <- 80
+    } else if (server_scheme == "https")
+      server_port <- 443
+  }
+  apiSpec <- pr$getApiSpec()
+  desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+                                   fragment.only = TRUE)
+
+  ui <- htmltools::tagList(
+    tags$header(
+      tags$h1(
+        "Tableau Setup"
+      ),
+      tags$div(class = "api-desc",
+               htmltools::HTML(desc),
+               tags$p(
+                 tags$a(
+                   href = "../",
+                   "Tableau Usage Instructions"
+                 ),
+                 tags$br(),
+                 tags$a(
+                   href = "../__docs__/",
+                   "Open API Documentation"
+                 )
+               )
+      )
+    ),
+    tags$main(
+      htmltools::HTML(
+        markdown::markdownToHTML(
+          text = glue::glue("#### Tableau Server / Tableau Online
+  1. Using an administrative account, login to Tableau Server/Online
+  2. Navigate to Settings, then Extensions
+  3. Under the heading 'Analytics Extensions', select 'Enable analytics extension for site'
+  4. Create a new connection and select the connection type of 'Analytics Extensions API'
+  5. Select if you want to use SSL and enter the server Host (`{server_domain}`) and Port (`{server_port}`) for your RStudio Connect server
+  6. Select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
+  8. Create / Save changes
+
+#### Tableau Desktop
+  1. Navigate to Help, Settings and Performance, Manage Analytics Extension Connection...
+  2. Select 'TabPy/External API'
+  3. Set Server (`{server_domain}`) and Port (`{server_port}`) to the address and port of the server running the API
+  4. If desired, select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
+  5. Select whether to Require SSL
+  6. Save changes"),
+fragment.only = TRUE
+        )
+      )
+    )
+  )
+
+  as.character(htmltools::htmlTemplate(
+    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
+    content = ui
+  ))
+}
+
+strip_md_links <- function(text) {
+  stringi::stri_replace_all(text, regex = " +\\*.*", "")
 }

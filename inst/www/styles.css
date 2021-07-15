@@ -16,6 +16,14 @@ body {
   box-shadow: rgba(0, 0, 0, 0.22) 0 2rem 8rem;
 }
 
+.warning {
+  background-color: #cc3300;
+}
+
+.warning h1 {
+  margin-left: 2rem;
+}
+
 header, main {
   padding: 3rem;
 }
@@ -92,7 +100,7 @@ a.permalink {
 }
 
 .button {
-  background-color: navy;
+  background-color: #4c83b6;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -105,6 +113,6 @@ a.permalink {
 }
 
 .button:hover {
-  background-color: #007bff;
-  color: white;
+  background-color: #81a8cb;
+  border: #4c83b6;
 }

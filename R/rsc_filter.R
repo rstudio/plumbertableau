@@ -3,12 +3,12 @@ rsc_filter <- function(req, res) {
   # Parse the endpoint path from header on RStudio Connect
   # TODO: Improve logic for identifying content_path
   # Look into RSTUDIO-CONNECT-APP-BASE-URL
-  if (!rlang::is_null(req$HTTP_X_RSC_REQUEST)) {
-    full_path <- req$HTTP_X_RSC_REQUEST
+  if (!rlang::is_null(req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL)) {
+    base_url <- req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL
     rsc_root <- Sys.getenv("CONNECT_SERVER")
     content_path <- gsub(rsc_root,
                          "",
-                         full_path,
+                         base_url,
                          fixed = TRUE
     )
 
