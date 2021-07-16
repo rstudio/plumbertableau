@@ -97,5 +97,3 @@ json_type <- function(type) {
     double = "number"
   )
 }
-
-

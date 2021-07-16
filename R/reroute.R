@@ -1,3 +1,4 @@
+# A filter applied to the Plumber router to rewrite it for Tableau compatibility.
 reroute <- function(req, res) {
   "!DEBUG `write_log_message(req, res)"
   if (req$PATH_INFO == "/info") {

@@ -2,7 +2,8 @@
 % Please edit documentation in R/utils.R
 \name{check_route}
 \alias{check_route}
-\title{Check Plumber route for Tableau compliance}
+\title{Checks a Plumber router for Tableau compliance: that all endpoints accept
+POST requests and use the default JSON parser and serializer.}
 \usage{
 check_route(route)
 }
@@ -13,5 +14,6 @@ check_route(route)
 Provides warnings based on features of \code{route}
 }
 \description{
-Check Plumber route for Tableau compliance
+Checks a Plumber router for Tableau compliance: that all endpoints accept
+POST requests and use the default JSON parser and serializer.
 }
