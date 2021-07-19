@@ -1,3 +1,6 @@
+# This is a function that takes a router, and returns a function that operates
+# on the OpenAPI spec that's generated for that router. We then call
+# plumber::pr_set_api_spec() on the function that this returns.
 tableau_openapi <- function(pr) {
   function(spec) {
     route_info <- extract_route_info(pr)
@@ -20,7 +23,6 @@ tableau_openapi <- function(pr) {
     # Provide additional context in the description field. This is also visible
     # in the user guide
 
-    #
     warnings <- warning_message()
     if (!rlang::is_null(warnings)) {
       spec$info$description <- paste0(
