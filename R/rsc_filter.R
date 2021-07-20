@@ -20,6 +20,9 @@ rsc_filter <- function(req, res) {
                            fixed = TRUE
       )
     }
+
+    # Ensure path starts with '/'
+    if (!stringi::stri_startswith(content_path, "/")) content_path <- paste0("/", content_path)
     req$content_path <- content_path
   }
 
