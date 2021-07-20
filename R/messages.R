@@ -16,18 +16,13 @@ warning_message <- function() {
     rsc_client <- connect()
     settings <- rsc_client$server_settings()
 
-    minimum_version <- "1.8.3.3"
-
     # Server.Address
     connect_server <- Sys.getenv("CONNECT_SERVER")
 
     # Does this installation support Tableau Extensions
     connect_support <- settings$tableau_integration_enabled
 
-    # RStudio Connect version
-    connect_version <- settings$version
-
-    if (utils::compareVersion(connect_version, minimum_version) < 0) {
+    if (is.null(connect_support)) {
       message_contents <- paste(message_contents,
                                 paste0("> **WARNING**: This version of RStudio Connect (",
                                        connect_version,
@@ -35,8 +30,7 @@ warning_message <- function() {
                                        minimum_version,
                                        " or newer.\n"),
                                 sep = "\n")
-    }
-    if (!rlang::is_true(as.logical(connect_support))) {
+    } else if (!connect_support) {
       message_contents <- paste(message_contents,
                                 "> **WARNING**: Tableau Analytics Extension API support is currently disabled in RStudio Connect's configuration.\n",
                                 sep = "\n")
