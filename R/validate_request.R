@@ -1,3 +1,5 @@
+# Called on a specific request before a user-defined function is called. This
+# takes place in the function generated in tableau_handler().
 validate_request <- function(req, args, return) {
   # Not for any particular reason
   force(req)
