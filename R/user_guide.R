@@ -183,6 +183,7 @@ render_args <- function(arg_spec) {
 }
 
 extract_route_info <- function(pr, path = NULL) {
+  # Returns a list containing a bunch of attributes about each route.
   results <- lapply(pr$endpoints, function(routes) {
     lapply(routes, function(route) {
       if (rlang::is_null(path)) {

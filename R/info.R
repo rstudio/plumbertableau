@@ -1,4 +1,3 @@
-
 info <- function() {
   list(
     description = "Plumber Tableau API",
