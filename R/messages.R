@@ -11,17 +11,21 @@ warning_message <- function() {
     #  * Is a version that doesn't support Tableau Extensions
     #  * Isn't configured to support Tableau Extensions
     #  * Doesn't have Server.Address configured
-    # TODO: Replace this with proper logic once available
-    minimum_version <- "1.9.0"
+
+    # Connect to RStudio Connect API and read server settings
+    rsc_client <- connect()
+    settings <- rsc_client$server_settings()
+
+    minimum_version <- "1.8.3.3"
 
     # Server.Address
     connect_server <- Sys.getenv("CONNECT_SERVER")
 
     # Does this installation support Tableau Extensions
-    connect_support <- Sys.getenv("RSC_TABLEAU")
+    connect_support <- settings$tableau_integration_enabled
 
     # RStudio Connect version
-    connect_version <- Sys.getenv("RSC_VERSION")
+    connect_version <- settings$version
 
     if (utils::compareVersion(connect_version, minimum_version) < 0) {
       message_contents <- paste(message_contents,
