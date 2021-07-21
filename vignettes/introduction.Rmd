@@ -17,3 +17,10 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(plumbertableau)
 ```
+
+This package is designed to enable R developers to build [Tableau Analytics Extensions](https://tableau.github.io/analytics-extensions-api/) and deploy those extensions to [RStudio Connect](https://www.rstudio.com/products/connect/). The goal is to make it easy for R developers to build Tableau extensions and to make it easy for Tableau developers to use those extensions.
+
+### Why R and Tableau
+Tableau is an industry leading visual analytics platform. Many organizations use Tableau to investigate, understand, and report on data. While Tableau offers some analytics capabilities, there are times when it's useful to perform additional analytics within Tableau. For example, it may be desirable to include real time output from a predictive model in a Tableau dashboard. This type of real time reporting can be accomplished using Tableau Analytics Extensions.
+
+R is a popular language 
