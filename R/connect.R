@@ -14,13 +14,17 @@ Client <- R6::R6Class( # nolint
   "Client",
   public = list(
     server = NULL,
+    orig_server = NULL,
     api_key = NULL,
-    minimum_server_version = "1.8.8.3",
-    initialize = function(server, api_key) {
+    allow_downgrade = FALSE,
+    url_downgraded = FALSE,
+    initialize = function(server, api_key, allow_downgrade) {
       self$server <- server
+      self$orig_server <- self$server
       self$api_key <- api_key
-
+      self$allow_downgrade <- allow_downgrade
       private$validate()
+      private$test_connection()
     },
     print = function(...) {
       cat("RStudio Connect API Client: \n")
@@ -41,12 +45,15 @@ Client <- R6::R6Class( # nolint
       private$raise_error(res)
       httr::content(res, as = parser)
     },
-    content = function() {
-      results <- self$GET("/v1/content", query = list(include = "tags,owner"))
-      jsonlite::fromJSON(results, simplifyDataFrame = T)
-    },
     server_settings = function() {
       self$GET("/server_settings", parser = "parsed")
+    },
+    vanity = function(appGUID) {
+      self$GET(paste0("/v1/content/", appGUID, "/vanity"), parser = "parsed")
+    },
+    content = function(appGUID) {
+      results <- self$GET(paste0("/v1/content/", appGUID))
+      jsonlite::fromJSON(results, simplifyDataFrame = T)
     }
   ),
   private = list(
@@ -67,27 +74,54 @@ Client <- R6::R6Class( # nolint
           "ERROR: Please provide a protocol (http / https). You gave: {server}"
         ))
       }
-
-      settings <- tryCatch({
+    },
+    test_connection = function() {
+      original_exception <- NULL
+      downgraded_exception <- NULL
+      success <- FALSE
+      tryCatch({
         self$server_settings()
+        success <- TRUE
       },
       error = function(e) {
-        message(e)
-        stop(
-          glue::glue(
-            "ERROR: Unable to connect to RStudio Connect at {server}"
-          )
-        )
+        original_exception <- e
+        success <- FALSE
       }
       )
 
-      if (compareVersion(settings$version, self$minimum_server_version) < 0) {
-        stop(
-          glue::glue("ERROR: Requires RStudio Connect server version >= ",
-                     self$minimum_server_version,
-                     ", current version ",
-                     settings$version)
+      # if we don't succeed and we're able to downgrade a https connection, then try it
+      if (!success && self$allow_downgrade && httr::parse_url(self$orig_server)$scheme == "https") {
+        self$server <- sub("https://", "http://", self$orig_server)
+        tryCatch({
+          self$server_settings()
+          success <- TRUE
+          url_downgraded <- TRUE
+          cat("WARNING: Using http:// to access the Connect server.")
+        },
+        error = function(e) {
+          downgraded_exception <- e
+          success <- FALSE
+        }
         )
+      }
+
+      if (!success) {
+        if (!is.null(downgraded_exception)) {
+          message(original_exception)
+          stop(
+            glue::glue(
+              "ERROR: Unable to connect to RStudio Connect at {self$orig_server}"
+            )
+          )
+        } else {
+          message(original_exception)
+          message(downgraded_exception)
+          stop(
+            glue::glue(
+              "ERROR: Unable to connect to RStudio Connect at {self$orig_server} or {self$downgraded_server}"
+            )
+          )
+        }
       }
     },
     raise_error = function(res) {
@@ -98,7 +132,6 @@ Client <- R6::R6Class( # nolint
           httr::http_status(res)$message
         )
         message(capture.output(str(httr::content(res))))
-        stop(err)
       }
     },
     add_auth = function() {
@@ -122,6 +155,7 @@ Client <- R6::R6Class( # nolint
 #'
 #' @export
 connect <- function(server = Sys.getenv("CONNECT_SERVER", NA_character_),
-                    api_key = Sys.getenv("CONNECT_API_KEY", NA_character_)) {
-  Client$new(server = server, api_key = api_key)
+                    api_key = Sys.getenv("CONNECT_API_KEY", NA_character_),
+                    allow_downgrade = FALSE) {
+  Client$new(server = server, api_key = api_key, allow_downgrade = allow_downgrade)
 }
