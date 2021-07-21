@@ -1,4 +1,5 @@
 # A plumber filter for dealing with various details related to RStudio Connect
+# TODO: Can the content_path be set at the process level instead of the request level
 rsc_filter <- function(req, res) {
   # Parse the endpoint path from header on RStudio Connect
   req$content_path <- NULL
@@ -21,7 +22,7 @@ rsc_filter <- function(req, res) {
     }
 
     # Ensure path starts with '/'
-    if (!stringi::stri_startswith(content_path, "/")) content_path <- paste0("/", content_path)
+    if (!stringi::stri_startswith_fixed(content_path, "/")) content_path <- paste0("/", content_path)
     req$content_path <- content_path
   }
 
