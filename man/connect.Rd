@@ -6,7 +6,8 @@
 \usage{
 connect(
   server = Sys.getenv("CONNECT_SERVER", NA_character_),
-  api_key = Sys.getenv("CONNECT_API_KEY", NA_character_)
+  api_key = Sys.getenv("CONNECT_API_KEY", NA_character_),
+  allow_downgrade = FALSE
 )
 }
 \arguments{
@@ -15,6 +16,8 @@ environment variable CONNECT_SERVER}
 
 \item{api_key}{The API key to authenticate with RStudio Connect. Defaults
 to environment variable CONNECT_API_KEY}
+
+\item{allow_downgrade}{Whether or not to allow HTTPS to be downgraded to HTTP}
 }
 \value{
 An Client object

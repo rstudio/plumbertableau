@@ -148,6 +148,7 @@ Client <- R6::R6Class( # nolint
 #'   environment variable CONNECT_SERVER
 #' @param api_key The API key to authenticate with RStudio Connect. Defaults
 #'   to environment variable CONNECT_API_KEY
+#' @param allow_downgrade Whether or not to allow HTTPS to be downgraded to HTTP
 #'
 #' @return An Client object
 #'

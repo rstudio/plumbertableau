@@ -22,8 +22,9 @@ API. Authentication is done by providing an API key.
 \item \href{#method-new}{\code{Client$new()}}
 \item \href{#method-print}{\code{Client$print()}}
 \item \href{#method-GET}{\code{Client$GET()}}
-\item \href{#method-content}{\code{Client$content()}}
 \item \href{#method-server_settings}{\code{Client$server_settings()}}
+\item \href{#method-vanity}{\code{Client$vanity()}}
+\item \href{#method-content}{\code{Client$content()}}
 \item \href{#method-clone}{\code{Client$clone()}}
 }
 }
@@ -32,7 +33,7 @@ API. Authentication is done by providing an API key.
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Client$new(server, api_key)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Client$new(server, api_key, allow_downgrade)}\if{html}{\out{</div>}}
 }
 
 }
@@ -55,20 +56,29 @@ API. Authentication is done by providing an API key.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-content"></a>}}
-\if{latex}{\out{\hypertarget{method-content}{}}}
-\subsection{Method \code{content()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Client$content()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-server_settings"></a>}}
 \if{latex}{\out{\hypertarget{method-server_settings}{}}}
 \subsection{Method \code{server_settings()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Client$server_settings()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-vanity"></a>}}
+\if{latex}{\out{\hypertarget{method-vanity}{}}}
+\subsection{Method \code{vanity()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Client$vanity(appGUID)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-content"></a>}}
+\if{latex}{\out{\hypertarget{method-content}{}}}
+\subsection{Method \code{content()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Client$content(appGUID)}\if{html}{\out{</div>}}
 }
 
 }
