@@ -10,7 +10,30 @@ globalVariables(names(htmltools::tags))
 create_user_guide <- function(pr) {
   function(req, res) {
     "!DEBUG `write_log_message(req, res, 'Generating Tableau Usage Instructions')"
-      render_user_guide(req$content_path, pr)
+    # Parse the endpoint path from header on RStudio Connect
+    content_path <- NULL
+    if (!rlang::is_null(req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL)) {
+      base_url <- req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL
+      rsc_root <- Sys.getenv("CONNECT_SERVER")
+      content_path <- gsub(rsc_root,
+                           "",
+                           base_url,
+                           fixed = TRUE
+      )
+
+      # If the path requested is not root (/), strip it from the content path
+      if (req$PATH_INFO != "/") {
+        content_path <- gsub(req$PATH_INFO,
+                             "",
+                             content_path,
+                             fixed = TRUE
+        )
+      }
+
+      # Ensure path starts with '/'
+      if (!stringi::stri_startswith(content_path, fixed = "/")) content_path <- paste0("/", content_path)
+    }
+    render_user_guide(content_path, pr)
   }
 }
 
