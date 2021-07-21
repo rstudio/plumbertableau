@@ -22,13 +22,14 @@ warning_message <- function() {
     # Does this installation support Tableau Extensions
     connect_support <- settings$tableau_integration_enabled
 
+    # Find connect version
+    connect_version <- settings$version
+
     if (is.null(connect_support)) {
       message_contents <- paste(message_contents,
-                                paste0("> **WARNING**: This version of RStudio Connect (",
+                                paste0("> **WARNING**: This version of RStudio Connect ",
                                        connect_version,
-                                       ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect to version ",
-                                       minimum_version,
-                                       " or newer.\n"),
+                                       ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect.\n"),
                                 sep = "\n")
     } else if (!connect_support) {
       message_contents <- paste(message_contents,
