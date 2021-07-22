@@ -295,7 +295,7 @@ render_setup_instructions <- function(path, pr) {
                  ),
                  tags$br(),
                  tags$a(
-                   href = "../__docs__/",
+                   href = "./__docs__/",
                    "Open API Documentation"
                  )
                )
