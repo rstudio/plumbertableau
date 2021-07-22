@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • plumbertableau</title>
+<title>Create a connection to RStudio Connect — connect • plumbertableau</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Create a connection to RStudio Connect — connect" />
+<meta property="og:description" content="Creates a connection to RStudio Connect using the server URL and an api key." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -108,91 +109,47 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Create a connection to RStudio Connect</h1>
+    <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/connect.R'><code>R/connect.R</code></a></small>
+    <div class="hidden name"><code>connect.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Creates a connection to RStudio Connect using the server URL and an api key.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>connect</span><span class='op'>(</span>
+  server <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"CONNECT_SERVER"</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
+  api_key <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"CONNECT_API_KEY"</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
+  allow_downgrade <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="Client.html">Client</a></code> </p>
-        </td>
-        <td><p>Class representing a Connect API client</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="arg_spec.html">arg_spec()</a></code> <code><a href="arg_spec.html">return_spec()</a></code> </p>
-        </td>
-        <td><p>Describe expected args and return values</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_route.html">check_route()</a></code> </p>
-        </td>
-        <td><p>Checks a Plumber router for Tableau compliance: that all endpoints accept
-POST requests and use the default JSON parser and serializer.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="connect.html">connect()</a></code> </p>
-        </td>
-        <td><p>Create a connection to RStudio Connect</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="error_handler.html">error_handler()</a></code> </p>
-        </td>
-        <td><p>Gracefully handle Plumber errors so they are effectively communicated back to Tableau</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tableau_extension.html">tableau_extension()</a></code> </p>
-        </td>
-        <td><p>Make an existing Plumber API compliant as a Tableau Analytics Extension</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tableau_handler.html">tableau_handler()</a></code> </p>
-        </td>
-        <td><p>Create a Tableau compliant handler</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tableau_invoke.html">tableau_invoke()</a></code> </p>
-        </td>
-        <td><p>Programatically invoke a Tableau extension function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tableau_json.html">tableau_json()</a></code> </p>
-        </td>
-        <td><p>Create a mock JSON request that mimics the behavior of Tableau</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>server</th>
+      <td><p>The server URL for accessing RStudio Connect. Defaults to
+environment variable CONNECT_SERVER</p></td>
+    </tr>
+    <tr>
+      <th>api_key</th>
+      <td><p>The API key to authenticate with RStudio Connect. Defaults
+to environment variable CONNECT_API_KEY</p></td>
+    </tr>
+    <tr>
+      <th>allow_downgrade</th>
+      <td><p>Whether or not to allow HTTPS to be downgraded to HTTP</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An Client object</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

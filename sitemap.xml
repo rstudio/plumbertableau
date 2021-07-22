@@ -4,10 +4,16 @@
     <loc>https://rstudio.github.io/plumbertableau//index.html</loc>
   </url>
   <url>
+    <loc>https://rstudio.github.io/plumbertableau//reference/Client.html</loc>
+  </url>
+  <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/arg_spec.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/check_route.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/plumbertableau//reference/connect.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/plumbertableau//reference/error_handler.html</loc>
