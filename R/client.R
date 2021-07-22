@@ -18,7 +18,7 @@
 #'   `jsonlite::parse_json`.
 #'
 #' @examples
-#' pr_path <- system.file("examples/stringutils/plumber.R",
+#' pr_path <- system.file("plumber/stringutils/plumber.R",
 #'   package = "plumbertableau")
 #'
 #' tableau_invoke(pr_path, "/lowercase", LETTERS[1:5])

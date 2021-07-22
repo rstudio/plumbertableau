@@ -31,7 +31,7 @@ Simulates invoking a Tableau extension function from a Tableau calculated
 field \verb{SCRIPT_*} call. Intended for unit testing of Tableau extension APIs.
 }
 \examples{
-pr_path <- system.file("examples/stringutils/plumber.R",
+pr_path <- system.file("plumber/stringutils/plumber.R",
   package = "plumbertableau")
 
 tableau_invoke(pr_path, "/lowercase", LETTERS[1:5])
