@@ -290,7 +290,7 @@ render_setup_instructions <- function(path, pr) {
                htmltools::HTML(desc),
                tags$p(
                  tags$a(
-                   href = "../",
+                   href = "./",
                    "Tableau Usage Instructions"
                  ),
                  tags$br(),
