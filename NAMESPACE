@@ -2,6 +2,7 @@
 
 export("%>%")
 export(arg_spec)
+export(connect)
 export(return_spec)
 export(tableau_extension)
 export(tableau_handler)
@@ -11,3 +12,4 @@ import(stringi)
 importFrom(htmltools,tags)
 importFrom(magrittr,"%>%")
 importFrom(stats,setNames)
+importFrom(utils,capture.output)

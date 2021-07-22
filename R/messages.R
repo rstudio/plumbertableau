@@ -11,28 +11,27 @@ warning_message <- function() {
     #  * Is a version that doesn't support Tableau Extensions
     #  * Isn't configured to support Tableau Extensions
     #  * Doesn't have Server.Address configured
-    # TODO: Replace this with proper logic once available
-    minimum_version <- "1.9.0"
+
+    # Connect to RStudio Connect API and read server settings
+    rsc_client <- connect()
+    settings <- rsc_client$server_settings()
 
     # Server.Address
     connect_server <- Sys.getenv("CONNECT_SERVER")
 
     # Does this installation support Tableau Extensions
-    connect_support <- Sys.getenv("RSC_TABLEAU")
+    connect_support <- settings$tableau_integration_enabled
 
-    # RStudio Connect version
-    connect_version <- Sys.getenv("RSC_VERSION")
+    # Find connect version
+    connect_version <- settings$version
 
-    if (utils::compareVersion(connect_version, minimum_version) < 0) {
+    if (is.null(connect_support)) {
       message_contents <- paste(message_contents,
-                                paste0("> **WARNING**: This version of RStudio Connect (",
+                                paste0("> **WARNING**: This version of RStudio Connect ",
                                        connect_version,
-                                       ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect to version ",
-                                       minimum_version,
-                                       " or newer.\n"),
+                                       ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect.\n"),
                                 sep = "\n")
-    }
-    if (!rlang::is_true(as.logical(connect_support))) {
+    } else if (!connect_support) {
       message_contents <- paste(message_contents,
                                 "> **WARNING**: Tableau Analytics Extension API support is currently disabled in RStudio Connect's configuration.\n",
                                 sep = "\n")
@@ -78,6 +77,29 @@ info_message <- function() {
       sep = "\n"
     )
   }
+
+  # Provide information about RStudio Connect logging
+  if (check_rstudio_connect()) {
+    rsc_client <- connect()
+    settings <- rsc_client$server_settings()
+    if (!rlang::is_null(settings$tableau_integration_logging)) {
+      if (settings$tableau_integration_logging) {
+        message_contents <- paste(
+          message_contents,
+          "RStudio Connect Tableau Logging is enabled. To disable it please set Tableau.Logging to false in the RStudio Connect configuration file.",
+          sep = "\n"
+        )
+      } else {
+        message_contents <- paste(
+          message_contents,
+          "RStudio Connect Tableau Logging is disabled To enable it please set Tableau.Logging to true in the RStudio Connect configuration file.",
+          sep = "\n"
+        )
+      }
+    }
+  }
+
+
 
   message_contents
 }

@@ -31,7 +31,9 @@ Imports:
     markdown,
     urltools,
     glue,
-    utils
+    utils,
+    httr,
+    R6
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),

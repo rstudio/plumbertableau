@@ -33,7 +33,7 @@ reroute <- function(req, res) {
 
 
 # Pulled from Plumber package to avoid using a non-exported function.
-#' @noRD
+#' @noRd
 parseQS <- function(qs){
 
   if (is.null(qs) || length(qs) == 0L || qs == "") {
