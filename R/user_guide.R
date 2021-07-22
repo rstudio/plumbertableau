@@ -8,16 +8,32 @@ globalVariables(names(htmltools::tags))
 
 #' @importFrom htmltools tags
 create_user_guide <- function(pr) {
-  cached_ui <- NULL
-
   function(req, res) {
     "!DEBUG `write_log_message(req, res, 'Generating Tableau Usage Instructions')"
-    if (is.null(cached_ui)) {
-      # Caching works b/c R is restarted when the vanity path changes on RStudio Connect
-      cached_ui <<- render_user_guide(req$content_path, pr)
-    }
+    # Parse the endpoint path from header on RStudio Connect
+    content_path <- NULL
+    if (!rlang::is_null(req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL)) {
+      base_url <- req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL
+      rsc_root <- Sys.getenv("CONNECT_SERVER")
+      content_path <- gsub(rsc_root,
+                           "",
+                           base_url,
+                           fixed = TRUE
+      )
 
-    cached_ui
+      # If the path requested is not root (/), strip it from the content path
+      if (req$PATH_INFO != "/") {
+        content_path <- gsub(req$PATH_INFO,
+                             "",
+                             content_path,
+                             fixed = TRUE
+        )
+      }
+
+      # Ensure path starts with '/'
+      if (!stringi::stri_startswith(content_path, fixed = "/")) content_path <- paste0("/", content_path)
+    }
+    render_user_guide(content_path, pr)
   }
 }
 
@@ -274,12 +290,12 @@ render_setup_instructions <- function(path, pr) {
                htmltools::HTML(desc),
                tags$p(
                  tags$a(
-                   href = "../",
+                   href = "./",
                    "Tableau Usage Instructions"
                  ),
                  tags$br(),
                  tags$a(
-                   href = "../__docs__/",
+                   href = "./__docs__/",
                    "Open API Documentation"
                  )
                )
