@@ -10,3 +10,6 @@
 ^notes\.md$
 ^\.Renviron$
 ^codecov\.yml$
+^README\.Rmd$
+^doc$
+^Meta$
