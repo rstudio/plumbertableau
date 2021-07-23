@@ -10,7 +10,7 @@ library(plumbertableau)
 #* @tab.arg y:numeric Y values for fitting
 #* @tab.return numeric Fitted loess values
 #* @post /predict
-function(req, res, x, y, alpha = 0.75) {
+function(x, y, alpha = 0.75) {
   alpha <- as.numeric(alpha)
   l_out <- loess(y ~ x, span = alpha)
   predict(l_out, data.frame(x, y))

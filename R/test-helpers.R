@@ -1,4 +1,4 @@
-pr_path <- function() system.file("examples/stringutils/plumber.R", package = "plumbertableau")
+pr_path <- function() system.file("plumber/stringutils/plumber.R", package = "plumbertableau")
 
 make_req <- function(verb = "GET", path = "/", qs="", body="", args = c(), pr = NULL, ...){
   req <- as.environment(list(...))

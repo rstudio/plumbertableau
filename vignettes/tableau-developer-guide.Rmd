@@ -1,0 +1,35 @@
+---
+title: "Tableau Developer Guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tableau Developer Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Analytics extensions built with `plumbertableau` are designed to be easily used from within calculated fields in  Tableau Workbooks. When extensions are published to RStudio Connect, a Tableau usage guide is automatically generated and displayed when viewing the extension on RStudio Connect:
+
+![Tableau usage guide](files/tableau-usage-guide.png){width=75%}
+
+This page includes the following details about the extension:
+* A description of the endpoint
+* Links to other important pieces of documentation. This includes a setup guide for Tableau and the OpenAPI (Swagger) documentation for the extension.
+* An example of a `SCRIPT_` command to be used from within a calculated field in Tableau
+* Descriptions of the different parameters, arguments, and return data for the extension
+
+Using this reference page, you can copy and paste the `SCRIPT_` command into a calculated field in Tableau and replace the argument placeholders with actual values from the Tableau workbook.
+
+![Tableau calculated field](files/calculated-field.png){width=75%}
+
+In order to ensure values are correctly passed from Tableau to the extension, Tableau aggregation needs to be turned off.
+
+![Tableau aggregation](files/aggregate.png){width=75%}
+
+Calculated fields don't allow you to pass values directly from Tableau to an extension. Instead, those values must be aggregated using a function in Tableau. Since we've turned off "Aggregate Measures", any function should do. We've found success using `ATTR([VALUE_NAME])`.
