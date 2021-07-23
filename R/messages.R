@@ -27,7 +27,7 @@ warning_message <- function() {
 
     if (is.null(connect_support)) {
       message_contents <- paste(message_contents,
-                                paste0("> **WARNING**: This version of RStudio Connect ",
+                                paste0("> **WARNING**: This version of RStudio Connect (",
                                        connect_version,
                                        ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect.\n"),
                                 sep = "\n")
