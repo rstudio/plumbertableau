@@ -14,11 +14,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-Analytics extensions built with `plumbertableau` are designed to be easily used from within Tableau Workbook calculated fields. When extensions are published to RStudio Connect, a Tableau usage guide is automatically generated. When viewing an extension on RStudio Connect, users will see a page like the following:
+Analytics extensions built with `plumbertableau` are designed to be easily used from within calculated fields in  Tableau Workbooks. When extensions are published to RStudio Connect, a Tableau usage guide is automatically generated and displayed when viewing the extension on RStudio Connect:
 
 ![Tableau usage guide](files/tableau-usage-guide.png){width=75%}
 
-This page details exactly what is necessary to use the extension from within Tableau.
+This page includes the following details about the extension:
+* A description of the endpoint
+* Links to other important pieces of documentation. This includes a setup guide for Tableau and the OpenAPI (Swagger) documentation for the extension.
+* An example of a `SCRIPT_` command to be used from within a calculated field in Tableau
+* Descriptions of the different parameters, arguments, and return data
+
+Using this reference page, you can copy and paste the `SCRIPT_` command into a calculated field in Tableau and replace the argument placeholders with actual values from the Tableau workbook.
 
 ![Tableau calculated field](files/calculated-field.png){width=75%}
 
