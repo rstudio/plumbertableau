@@ -137,7 +137,7 @@ By default, content published to RStudio Connect is assigned a URL containing th
 #### Compatability
 Tableau Analytics Extensions are only supported in RStudio Connect version 1.9+. If you publish an extension to an unsupported version of RStudio Connect, the extension will successfully publish but then you will see the following message when visiting the extension:
 
-![Warning message](files/warnings.png){width = 75%}
+![Warning message](files/warnings.png){width=75%}
 
 Additionally, Tableau Analytics Extensions have the following requirements on RStudio Connect:
 * `Tableau.IntegrationEnabled` must be `TRUE` - this is the default, but can be turned off by an RStudio Connect administrator
