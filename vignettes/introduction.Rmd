@@ -44,6 +44,6 @@ The first argumenent to the calculated field is the path to the API endpoint we 
 The second (and subsequent) argument(s) are the values we want to pass from Tableau to the analytics extension. In this example, we're passing the string (`"Hello World"`), but this field can refer to data fields in the Tableau workbook.
 
 ### Learn more
-* [R developer guide for getting started with developing Tableau extensions using `plumbertableau`](r-developer-guide.html)
-* [Tableau developer guide for getting started using Tableau extensions built with `plumbertableau`](tableau-developer-guide.html)
+* [R developer guide for getting started with developing Tableau extensions using plumbertableau](r-developer-guide.html)
+* [Tableau developer guide for getting started using Tableau extensions built with plumbertableau](tableau-developer-guide.html)
 * [Setting up Tableau for use with extensions hosted on RStudio Connect](tableau-configutation.html)
