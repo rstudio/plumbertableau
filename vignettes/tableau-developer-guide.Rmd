@@ -22,7 +22,7 @@ This page includes the following details about the extension:
 * A description of the endpoint
 * Links to other important pieces of documentation. This includes a setup guide for Tableau and the OpenAPI (Swagger) documentation for the extension.
 * An example of a `SCRIPT_` command to be used from within a calculated field in Tableau
-* Descriptions of the different parameters, arguments, and return data
+* Descriptions of the different parameters, arguments, and return data for the extension
 
 Using this reference page, you can copy and paste the `SCRIPT_` command into a calculated field in Tableau and replace the argument placeholders with actual values from the Tableau workbook.
 
@@ -31,3 +31,5 @@ Using this reference page, you can copy and paste the `SCRIPT_` command into a c
 In order to ensure values are correctly passed from Tableau to the extension, Tableau aggregation needs to be turned off.
 
 ![Tableau aggregation](files/aggregate.png){width=75%}
+
+Calculated fields don't allow you to pass values directly from Tableau to an extension. Instead, those values must be aggregated using a function in Tableau. Since we've turned off "Aggregate Measures", any function should do. We've found success using `ATTR([VALUE_NAME])`.
