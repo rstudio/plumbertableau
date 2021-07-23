@@ -1,0 +1,141 @@
+---
+title: "R Developer Guide for Tableau Analytics Extensions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{R Developer Guide for Tableau Analytics Extensions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+# Load package
+library(plumbertableau)
+
+# Set random seed
+set.seed(35487)
+
+# R chunks
+knitr::read_chunk(path = system.file("plumber", "loess", "plumber.R", package = "plumbertableau"),
+                  labels = "loess")
+```
+
+### Setup
+Install the R package.
+
+From CRAN:
+```{r, eval = FALSE}
+install.packages("plumbertableau")
+```
+
+From Github:
+```{r, eval = FALSE}
+remotes::install_github("rstudio/plumbertableau")
+```
+
+### Getting started {#getting-started}
+`plumbertableau`, as the name suggests, is an extension of the [`plumber`](https://www.rplumber.io/) package. If you are unfamiliar with `plumber`, the [quickstart guide](https://www.rplumber.io/articles/quickstart.html) provides a good overview of the package. Building a Tableau Analytics Extension with `plumbertableau` is simply a matter of building a `plumber` API with a few additional pieces.
+
+### Creating an extension {#extension}
+Let's start with an example. Let's say we want to fit a loess curve to a given set of data. This can be done in R with the following:
+```{r}
+x <- seq(1, 10, length.out = 100)
+y <- 1/x^2 + rnorm(length(x), sd = 0.05)
+fit <- loess(y ~ x, span = 0.75)
+y_fit <- predict(fit, data.frame(x, y))
+```
+
+Here, we can visualize the result of our smoothed fit:
+```{r, fig.width=8, fig.height=6}
+plot(x, y)
+lines(x, y_fit)
+```
+
+To turn this into a Tableau extension, we can use `plumber` annotations to define the endpoint:
+```{r loess, eval = FALSE}
+```
+
+### Development {#development}
+Now that we have the whole picture, let's break down each piece.
+
+#### Plumber annotations
+```{r, eval = FALSE}
+library(plumber)
+library(plumbertableau)
+
+#* @apiTitle Loess Smoothing
+#* @apiDescription Loess smoothing for Tableau
+
+#* Fit a loess curve to the inputs and return the curve values
+#* @param alpha Degree of smoothing
+#* @tab.arg x:integer X values for fitting
+#* @tab.arg y:numeric Y values for fitting
+#* @tab.return numeric Fitted loess values
+#* @post /predict
+```
+
+Here we load the relevant packages and use standard `plumber` annotations to describe the API. `plumbertableau` introduces new annotations `tab.arg` and `tab.return` that allow you to describe the expected Tableau arguments and types and the return value and type of the API.
+
+#### Function definition
+```{r, eeval = FALSE}
+function(x, y, alpha = 0.75) {
+  alpha <- as.numeric(alpha)
+  l_out <- loess(y ~ x, span = alpha)
+  predict(l_out, data.frame(x, y))
+}
+```
+
+This is the actual function definition for the endpoint. Here, the values `x` and `y` are the values described in the `tab.arg` statements. These values are automatically parsed and named from the request submitted from Tableau. `alpha` is a URL parameter we can use to adjust the level of smoothing.
+
+#### Tableau extension
+```{r, eval = FALSE}
+#* @plumber
+tableau_extension
+```
+
+In order for this API to properly respond to Tableau requests, using `tableau_extension` is required. This function handles the request from Tableau and makes sure it's forwarded to the correct endpoint.
+
+### Testing {#testing}
+Once the extension has been developed, it can be tested locally through the default Swagger UI. In RStudio, you can click the Run API button, or you can use `plumber::plumb()$run()` to run the API. Once the API is running, you'll be presented with an interface like the following:
+
+![Swagger UI](files/swagger.png){width=75%}
+
+From this page, you can click on the `/predict` endpoint to expand the available options. You can then click "Try it out" to test the API.
+
+![Swagger Predict](files/swagger-predict.png){width=75%}
+
+Tableau requests contain a JSON request body that contains two objects^[[Tableau Analytics Extensions API Reference](https://tableau.github.io/analytics-extensions-api/docs/ae_api_ref.html#post-evaluate)].
+* script: In the case of `plumbertableau`, this is a string that identifies the specific endpoint being requested.
+* data: This object contains the data being passed from Tableau to the extension. In the case of `plumbertableau`, this data is parsed and automatically made available to the underlying function. Note that values passed from Tableau are unnamed, and instead follow the naming convention `_arg1`, `_arg2`, ... ,`_argN`.
+
+`plumbertableau` automatically provides a simple mock request that follows the specification provided by Tableau. This initial mock request contains simple `script` and `data` values. If you'd like, you can use `tableau_json()` to create a more full-featured request for use with Swagger:
+
+```{r}
+tableau_json(script = "/predict", 
+             data = mtcars[,c("hp", "mpg")])
+```
+
+Note that you will have to stop the running API in order to generate the mock request body in the current R session.
+
+Once you've generated a mock request body, you can insert it into the Swagger documentation for the API to test the API.
+
+![Swagger testing](files/swagger-test.png){width=75%}
+
+### Deploying {#deploying}
+`plumbertableau` is designed to be used with RStudio Connect. RStudio Connect supports a variety of [different deployment methods](https://docs.rstudio.com/connect/user/publishing/). Once an extension is published to RStudio Connect, a few things need to be adjusted to make it easily accessible from Tableau.
+
+1. Provide proper access
+Tableau extensions used from Tableau Server and Tableau Online are setup with a single set of shared credentials. We recommend creating a service account on RStudio Connect and using that account to manage access to extensions. For example, if the service account username is "Tableau", you would give the "Tableau" user access to the extension after it's been published.
+
+2. Assign a vanity URL
+By default, content published to RStudio Connect is assigned a URL containing the content GUID. These urls are long and unindicative of what the actual content is. We strongly recommend assigning a vanity URL to each extension published to RStudio Connect. This allows the extension to be easily referenced from Tableau workbooks. For example, if we published the previous example extension to RStudio Connect and assigned the vanity URL `/loess`, we would refer to it from a calculated field in Tableau with `/loess/predict`.
+
+### Debugging {#debugging}
+Logging can be enabled for `plumbertableau` using [`debugme`](https://github.com/r-lib/debugme). Setting the `DEBUGME` environment variable to a value containing `plumbertableau` prior to loading the package will result in additional logging to the R console. These log messages can be helpful in understanding what's happening with each request, as well as what is contained in each request. This feature is also available for content deployed on RStudio Connect by adding the `DEBUGME` [environment variable](https://docs.rstudio.com/connect/user/content-settings/#content-vars).
+RStudio Connect administrators can enable additional logging for Tableau extensions hosted on RStudio Connect.
+
+Adding `browser()` statements during local development can also aid in debugging efforts.
