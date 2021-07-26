@@ -93,7 +93,7 @@ Client <- R6::R6Class( # nolint
         {
           self$server_settings()
           self$error_encountered <- FALSE
-          return TRUE
+          return(TRUE)
         },
         error = function(err) {
           original_exception <- err
@@ -111,7 +111,7 @@ Client <- R6::R6Class( # nolint
             url_downgraded <- TRUE
             self$failure_messages <- list()
             cat("WARNING: Using http:// to access the Connect server.")
-            return TRUE
+            return(TRUE)
           },
           error = function(err) {
             downgraded_exception <- err
@@ -138,9 +138,9 @@ Client <- R6::R6Class( # nolint
           httr::http_status(res)$message,
           capture.output(str(httr::content(res)))
         )
-        return TRUE
+        return(TRUE)
       }
-      return FALSE
+      return(FALSE)
     },
     add_auth = function() {
       httr::add_headers(Authorization = paste0("Key ", self$api_key))
