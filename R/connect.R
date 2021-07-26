@@ -21,13 +21,19 @@ Client <- R6::R6Class( # nolint
     error_encountered = FALSE,
     failure_messages = list(),
     initialize = function(server, api_key, allow_downgrade) {
+      "!DEBUG New Connect object"
       self$server <- server
       self$orig_server <- self$server
       self$api_key <- api_key
       self$allow_downgrade <- allow_downgrade
     },
     validate = function() {
-      private$validate_parameters() && private$test_connection()
+      "!DEBUG Connect object validate called"
+      validate_parameters_result <- private$validate_parameters()
+      "!DEBUG private$validate_parameters() resulted in `validate_parameters_result`"
+      test_connection_result <- private$test_connection()
+      "!DEBUG private$test_connection() resulted in `test_connection_result`"
+      validate_parameters_result && test_connection_result
     },
     print = function(...) {
       cat("RStudio Connect API Client: \n")
@@ -66,6 +72,7 @@ Client <- R6::R6Class( # nolint
   ),
   private = list(
     validate_parameters = function() {
+      "!DEBUG Connect validate_parameters called"
       api_key <- self$api_key
       server <- self$server
       self$failure_messages <- list()
@@ -81,21 +88,29 @@ Client <- R6::R6Class( # nolint
       if (is.null(httr::parse_url(server)$scheme)) {
         self$failure_messages.append("ERROR: Protocol missing in server URL (http / https). You gave: {server}")
       }
+      "!DEBUG validate_parameters has errors? `length(self$failure_messages) > 0`"
+      for (i in self$failure_messages) {
+        "!DEBUG validate_parameters error: `i`"
+      }
       self$error_encountered <- length(self$failure_messages) > 0
       self$error_encountered
     },
     test_connection = function() {
+      "!DEBUG Connect test_connection called"
       self$error_encountered <- FALSE
       original_exception <- NULL
       downgraded_exception <- NULL
       self$failure_messages <- list()
       tryCatch(
         {
+          "!DEBUG attempting connection with server at `self$server`"
           self$server_settings()
           self$error_encountered <- FALSE
+          "!DEBUG connection successful"
           return(TRUE)
         },
         error = function(err) {
+          "!DEBUG connection failed: `err`"
           original_exception <- err
           self$error_encountered <- TRUE
         }
@@ -104,9 +119,11 @@ Client <- R6::R6Class( # nolint
       # if we don't succeed and we're able to downgrade a https connection, then try it
       if (self$error_encountered && self$allow_downgrade && httr::parse_url(self$orig_server)$scheme == "https") {
         self$server <- sub("https://", "http://", self$orig_server)
+        "!DEBUG attempting downgrading connection with server at `self$server`"
         tryCatch(
           {
             self$server_settings()
+            "!DEBUG connection successful"
             self$error_encountered <- FALSE
             url_downgraded <- TRUE
             self$failure_messages <- list()
@@ -114,6 +131,7 @@ Client <- R6::R6Class( # nolint
             return(TRUE)
           },
           error = function(err) {
+            "!DEBUG connection failed: `err`"
             downgraded_exception <- err
             self$error_encountered <- TRUE
           }
@@ -128,6 +146,7 @@ Client <- R6::R6Class( # nolint
         self$failure_messages.append("ERROR: After attempting downgrade, exception encountered: {self$downgraded_exception.}")
         self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server} or {self$downgraded_server}")
       }
+      "!DEBUG connection failed: `self$failure_messages`"
       FALSE
     },
     check_for_http_error = function(res) {
