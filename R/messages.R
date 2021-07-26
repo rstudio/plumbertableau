@@ -116,25 +116,25 @@ info_message <- function() {
   }
 
   # Provide information about RStudio Connect logging
-  if (check_rstudio_connect()) {
-    rsc_client <- connect(allow_downgrade=TRUE)
-    # settings <- rsc_client$server_settings()
-    # if (!rlang::is_null(settings$tableau_integration_logging)) {
-    #   if (settings$tableau_integration_logging) {
-    #     message_contents <- paste0(
-    #       message_contents,
-    #       "RStudio Connect Tableau Logging is enabled. To disable it please set Tableau.Logging to false in the RStudio Connect configuration file.",
-    #       sep = "\n"
-    #     )
-    #   } else {
-    #     message_contents <- paste0(
-    #       message_contents,
-    #       "RStudio Connect Tableau Logging is disabled To enable it please set Tableau.Logging to true in the RStudio Connect configuration file.",
-    #       sep = "\n"
-    #     )
-    #   }
-    # }
-  }
+  # if (check_rstudio_connect()) {
+  #   rsc_client <- connect(allow_downgrade=TRUE)
+  #   settings <- rsc_client$server_settings()
+  #   if (!rlang::is_null(settings$tableau_integration_logging)) {
+  #     if (settings$tableau_integration_logging) {
+  #       message_contents <- paste0(
+  #         message_contents,
+  #         "RStudio Connect Tableau Logging is enabled. To disable it please set Tableau.Logging to false in the RStudio Connect configuration file.",
+  #         sep = "\n"
+  #       )
+  #     } else {
+  #       message_contents <- paste0(
+  #         message_contents,
+  #         "RStudio Connect Tableau Logging is disabled To enable it please set Tableau.Logging to true in the RStudio Connect configuration file.",
+  #         sep = "\n"
+  #       )
+  #     }
+  #   }
+  # }
 
   message_contents
 }
