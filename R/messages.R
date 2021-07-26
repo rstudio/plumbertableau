@@ -48,7 +48,7 @@ warning_message <- function() {
     }
 
     if (!continue_checking) {
-      return rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning")
+      return(rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning"))
     }
 
     # Server.Address
