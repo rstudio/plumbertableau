@@ -38,6 +38,7 @@ Let's look at a simple example, an API that capitalizes all incoming text:
 ```
 
 This looks almost exactly like a standard Plumber API. It contains an R function, with "annotations" (comments beginning with `#*`) above the functions that define the web service. There are two main differences from a standard Plumber API.
+
 - The `@tab.arg` and `@tab.return` annotations above the function describe the data types that the function should expect from Tableau, and what data to send back.
 - The `@plumber` annotation above the `tableau_extension` statement. This is actually a function that [modifies the Plumber router](https://www.rplumber.io/articles/annotations.html#plumber-router-modifier), allowing it to work with requests from Tableau.
 
@@ -52,6 +53,7 @@ SCRIPT_STR("/extension/path/capitalize", "Hello World")
 ```
 
 There are a few parts to this:
+
 - The `SCRIPT_STR()` function tells Tableau to send a request to an extension, and to expect `string` data in response.
 - The first argumenent to `SCRIPT_STR` is the relative path to the API endpoint we wish to call. If the extension was published to RStudio Connect, this is path to the extension on the server, `/extension/path"`, plus the path to the specific function, `/capitalize`.
 - The second (and any subsequent) argument(s) are values we want to pass from Tableau to the R function. In this example, we're passing the string (`"Hello World"`), but these fields can also refer to data fields in the Tableau workbook.
