@@ -18,13 +18,16 @@ Client <- R6::R6Class( # nolint
     api_key = NULL,
     allow_downgrade = FALSE,
     url_downgraded = FALSE,
+    error_encountered = FALSE,
+    failure_messages = list(),
     initialize = function(server, api_key, allow_downgrade) {
       self$server <- server
       self$orig_server <- self$server
       self$api_key <- api_key
       self$allow_downgrade <- allow_downgrade
-      private$validate()
-      private$test_connection()
+    },
+    validate = function() {
+      private$validate() && private$test_connection()
     },
     print = function(...) {
       cat("RStudio Connect API Client: \n")
@@ -42,8 +45,10 @@ Client <- R6::R6Class( # nolint
         writer,
         ...
       )
-      private$raise_error(res)
-      httr::content(res, as = parser)
+      if (!private$check_for_http_error(res)) {
+        httr::content(res, as = parser)
+      }
+      NULL
     },
     server_settings = function() {
       self$GET("/server_settings", parser = "parsed")
@@ -53,86 +58,89 @@ Client <- R6::R6Class( # nolint
     },
     content = function(appGUID) {
       results <- self$GET(paste0("/v1/content/", appGUID))
-      jsonlite::fromJSON(results, simplifyDataFrame = T)
+      if (!is.null(results)) {
+        jsonlite::fromJSON(results, simplifyDataFrame = T)
+      }
+      NULL
     }
   ),
   private = list(
     validate = function() {
       api_key <- self$api_key
       server <- self$server
+      self$failure_messages <- list()
 
       if (is.null(api_key) || is.na(api_key) || nchar(api_key) == 0) {
-        stop("ERROR: Please provide a valid API key")
+        self$failure_messages.append("ERROR: API key is missing or invalid.")
       }
 
       if (is.null(server) || is.na(server) || nchar(server) == 0) {
-        stop("ERROR: Please provide a valid server URL")
+        self$failure_messages.append("ERROR: Server URL is missing or invalid")
       }
 
       if (is.null(httr::parse_url(server)$scheme)) {
-        stop(glue::glue(
-          "ERROR: Please provide a protocol (http / https). You gave: {server}"
-        ))
+        self$failure_messages.append("ERROR: Protocol missing in server URL (http / https). You gave: {server}")
       }
+      self$error_encountered <- length(self$failure_messages) > 0
+      self$error_encountered
     },
     test_connection = function() {
+      self$error_encountered <- FALSE
       original_exception <- NULL
       downgraded_exception <- NULL
-      success <- FALSE
-      tryCatch({
-        self$server_settings()
-        success <- TRUE
-      },
-      error = function(e) {
-        original_exception <- e
-        success <- FALSE
-      }
+      self$failure_messages <- list()
+      tryCatch(
+        {
+          self$server_settings()
+          self$error_encountered <- FALSE
+          return TRUE
+        },
+        error = function(err) {
+          original_exception <- err
+          self$error_encountered <- TRUE
+        }
       )
 
       # if we don't succeed and we're able to downgrade a https connection, then try it
-      if (!success && self$allow_downgrade && httr::parse_url(self$orig_server)$scheme == "https") {
+      if (self$error_encountered && self$allow_downgrade && httr::parse_url(self$orig_server)$scheme == "https") {
         self$server <- sub("https://", "http://", self$orig_server)
-        tryCatch({
-          self$server_settings()
-          success <- TRUE
-          url_downgraded <- TRUE
-          cat("WARNING: Using http:// to access the Connect server.")
-        },
-        error = function(e) {
-          downgraded_exception <- e
-          success <- FALSE
-        }
+        tryCatch(
+          {
+            self$server_settings()
+            self$error_encountered <- FALSE
+            url_downgraded <- TRUE
+            self$failure_messages <- list()
+            cat("WARNING: Using http:// to access the Connect server.")
+            return TRUE
+          },
+          error = function(err) {
+            downgraded_exception <- err
+            self$error_encountered <- TRUE
+          }
         )
       }
 
-      if (!success) {
-        if (!is.null(downgraded_exception)) {
-          message(original_exception)
-          stop(
-            glue::glue(
-              "ERROR: Unable to connect to RStudio Connect at {self$orig_server}"
-            )
-          )
-        } else {
-          message(original_exception)
-          message(downgraded_exception)
-          stop(
-            glue::glue(
-              "ERROR: Unable to connect to RStudio Connect at {self$orig_server} or {self$downgraded_server}"
-            )
-          )
-        }
+      if (!is.null(downgraded_exception)) {
+        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception.}")
+        self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server}")
+      } else {
+        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception.}")
+        self$failure_messages.append("ERROR: After attempting downgrade, exception encountered: {self$downgraded_exception.}")
+        self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server} or {self$downgraded_server}")
       }
+      FALSE
     },
-    raise_error = function(res) {
+    check_for_http_error = function(res) {
       if (httr::http_error(res)) {
-        err <- sprintf(
-          "%s request failed with %s",
+        self$failure_messages.append(sprintf(
+          "%s request failed with %s, full response=%s",
           res$request$url,
-          httr::http_status(res)$message
+          httr::http_status(res)$message,
+          capture.output(str(httr::content(res)))
         )
-        message(capture.output(str(httr::content(res))))
+        return TRUE
       }
+      return FALSE
     },
     add_auth = function() {
       httr::add_headers(Authorization = paste0("Key ", self$api_key))
@@ -157,6 +165,7 @@ Client <- R6::R6Class( # nolint
 #' @export
 connect <- function(server = Sys.getenv("CONNECT_SERVER", NA_character_),
                     api_key = Sys.getenv("CONNECT_API_KEY", NA_character_),
-                    allow_downgrade = FALSE) {
+                    allow_downgrade_env = Sys.getenv("PLUMBERTABLEAU_ALLOW_DOWNGRADE", "FALSE") {
+  allow_downgrade <- allow_downgrade_env == "TRUE"            
   Client$new(server = server, api_key = api_key, allow_downgrade = allow_downgrade)
 }
