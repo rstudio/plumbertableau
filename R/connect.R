@@ -137,7 +137,7 @@ Client <- R6::R6Class( # nolint
           res$request$url,
           httr::http_status(res)$message,
           capture.output(str(httr::content(res)))
-        )
+        ))
         return(TRUE)
       }
       return(FALSE)
