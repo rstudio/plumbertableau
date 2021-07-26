@@ -14,7 +14,7 @@ warning_message <- function() {
     #  * Doesn't have Server.Address configured
 
     # Connect to RStudio Connect API and read server settings
-    rsc_client <- connect(allow_downgrade=TRUE)
+    rsc_client <- connect(allow_downgrade=FALSE)
     return (message_contents)
 
     if (rsc_client$error_encountered) {
