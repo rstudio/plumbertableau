@@ -15,6 +15,8 @@ warning_message <- function() {
 
     # Connect to RStudio Connect API and read server settings
     rsc_client <- connect(allow_downgrade=TRUE)
+    return (message_contents)
+    
     if (rsc_client$error_encountered) {
       message_contents <- paste(message_contents,
         "> **ERROR**: Unable to connect to RStudio Connect!", sep = "\n")
