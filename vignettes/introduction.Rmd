@@ -21,29 +21,45 @@ knitr::read_chunk(path = system.file("plumber", "capitalize", "plumber.R", packa
 The plumbertableau package makes it simple for R developers to build [Tableau Analytics Extensions](https://tableau.github.io/analytics-extensions-api/) by lightly annotating Plumber APIs and deploy those extensions to [RStudio Connect](https://www.rstudio.com/products/connect/). It also makes it easy for Tableau developers to use those extensions, by automatically generating instructions and code examples tailored for Tableau.
 
 ### R and Tableau
-Tableau is an industry leading visual analytics platform, used by many organizations to investigate, understand, and report on data. While Tableau offers some built-in analytics capabilities, it's often useful to run additional analytics from outside of Tableau, such as real time output from a predictive model in R. This type of real time reporting can be accomplished using Tableau Analytics Extensions^[See [Announcing the Analytics Extensions API](https://www.tableau.com/about/blog/2020/3/announcing-analytics-extensions-api)].
+
+[Tableau](https://www.tableau.com) is an industry leading visual analytics platform, used by many organizations to investigate, understand, and report on data. Tableau offers some built-in analytics capabilities, but can also call external tools via Tableau Analytics Extensions^[See [Announcing the Analytics Extensions API](https://www.tableau.com/about/blog/2020/3/announcing-analytics-extensions-api)] to leverage more advanced capabilities.
 
 R is a popular programming language for statistics and data analysis. Extending Tableau workbooks with plumbertableau extensions lets Tableau developers leverage R's flexibility, power, and deep library of analytical packages. In this way, R and Tableau can be used to complement each other's strengths and provide more comprehensive data insights to decisionmakers.
 
 ### Implementation
-The plumbertableau package is built on top of [Plumber](https://www.rplumber.io/), a package for developing APIs in R. plumbertableau extends Plumber to comply with the [Tableau Analytics API specification](https://tableau.github.io/analytics-extensions-api/docs/ae_api_ref.html). Developing an Analytics Extension for Tableau in R is, at its core, a matter of building a Plumber API, and annotating it with the extra information it needs to communicate with Tableau.
 
-A simple example is creating an API that capitalizes all incoming text:
+The plumbertableau package is built on top of [Plumber](https://www.rplumber.io/), a package for creating web services in R.
+
+To use plumbertableau, you first build a Plumber API, and then annotate it with the extra information it needs to comply with the [Tableau Analytics API specification](https://tableau.github.io/analytics-extensions-api/docs/ae_api_ref.html)
+
+Let's look at a simple example, an API that capitalizes all incoming text:
 
 ```{r capitalize, eval = FALSE}
 ```
 
-Once this API has been developed, it can be [published to RStudio Connect](https://docs.rstudio.com/connect/user/publishing/) and used from within a Tableau workbook, running in either Tableau Desktop, Tableau Server, or Tableau Online. Extensions are accessed from calculated fields in Tableau. To use our example `capitalize` extension, we type the following into a Tableau calculated field:
+This looks almost exactly like a standard Plumber API. It contains an R function, with "annotations" (comments beginning with `#*`) above the functions that define the web service. There are two main differences from a standard Plumber API.
+- The `@tab.arg` and `@tab.return` annotations above the function describe the data types that the function should expect from Tableau, and what data to send back.
+- The `@plumber` annotation above the `tableau_extension` statement. This is actually a function that [modifies the Plumber router](https://www.rplumber.io/articles/annotations.html#plumber-router-modifier), allowing it to work with requests from Tableau.
+
+For more information on these, see the guide to [Developing plumbertableau Extensions in R](r-developer-guide.html).
+
+This API can then be [published to RStudio Connect](https://docs.rstudio.com/connect/user/publishing/). That RStudio Connect server must be set up as an extension in Tableau, and then our API, and other Tableau extensions running on the same Connect server, can be used within a Tableau workbook on Tableau Desktop, Tableau Server, or Tableau Online.
+
+Extensions are used in Tableau's *calculated fields*. To use our  `capitalize` extension, we'd type the following into a Tableau calculated field:
 
 ```
 SCRIPT_STR("/extension/path/capitalize", "Hello World")
 ```
 
-The first argumenent to the calculated field is the path to the API endpoint we wish to call. If the extension was published to RStudio Connect, this is path to the API on the server, `/extension/path"`, plus the path to the specific endpoint, `/capitalize`.
+There are a few parts to this:
+- The `SCRIPT_STR()` function tells Tableau to send a request to an extension, and to expect `string` data in response.
+- The first argumenent to `SCRIPT_STR` is the relative path to the API endpoint we wish to call. If the extension was published to RStudio Connect, this is path to the extension on the server, `/extension/path"`, plus the path to the specific function, `/capitalize`.
+- The second (and any subsequent) argument(s) are values we want to pass from Tableau to the R function. In this example, we're passing the string (`"Hello World"`), but these fields can also refer to data fields in the Tableau workbook.
 
-The second (and subsequent) argument(s) are the values we want to pass from Tableau to the analytics extension. In this example, we're passing the string (`"Hello World"`), but this field can refer to data fields in the Tableau workbook.
+For more information, see the guides to [Using plumbertableau Extensions in Tableau](tableau-developer-guide.html) and [Setting up Tableau for use with extensions hosted on RStudio Connect](tableau-configutation.html).
 
 ### Learn more
+
 * [R developer guide for getting started with developing Tableau extensions using plumbertableau](r-developer-guide.html)
 * [Tableau developer guide for getting started using Tableau extensions built with plumbertableau](tableau-developer-guide.html)
 * [Setting up Tableau for use with extensions hosted on RStudio Connect](tableau-configutation.html)
