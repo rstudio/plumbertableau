@@ -16,7 +16,7 @@ warning_message <- function() {
     # Connect to RStudio Connect API and read server settings
     rsc_client <- connect(allow_downgrade=TRUE)
     return (message_contents)
-    
+
     if (rsc_client$error_encountered) {
       message_contents <- paste(message_contents,
         "> **ERROR**: Unable to connect to RStudio Connect!", sep = "\n")
@@ -117,7 +117,7 @@ info_message <- function() {
 
   # Provide information about RStudio Connect logging
   if (check_rstudio_connect()) {
-    rsc_client <- connect(allow_downgrade_env=TRUE)
+    rsc_client <- connect(allow_downgrade=TRUE)
     settings <- rsc_client$server_settings()
     if (!rlang::is_null(settings$tableau_integration_logging)) {
       if (settings$tableau_integration_logging) {
