@@ -7,6 +7,7 @@ warning_message <- function() {
   continue_checking <- TRUE
   # If running on RSC, perform checks; if not return NULL
   if (check_rstudio_connect()) {
+    "!DEBUG Running on Connect"
     # RStudio Connect Details
     # Provide messaging if RSC:
     #  * Is a version that doesn't support Tableau Extensions
@@ -14,6 +15,7 @@ warning_message <- function() {
     #  * Doesn't have Server.Address configured
 
     # Connect to RStudio Connect API and read server settings
+    "!DEBUG Creating Connect Object"
     rsc_client <- connect(allow_downgrade=FALSE)
 
     if (rsc_client$error_encountered) {
@@ -22,21 +24,25 @@ warning_message <- function() {
       for (i in rsc_client$failure_messages) {
         message_contents <- paste0(message_contents, "> {i}", sep = "\n")
       }
+      "!DEBUG Errors encountered: `message_contents`"
       continue_checking <- FALSE
     }
 
     if (continue_checking) {
+      "!DEBUG Continuing to the validate"
       if (!rsc_client$validate() || rsc_client$error_encountered) {
         message_contents <- paste0(message_contents,
           "> **ERROR**: Unable to connect to RStudio Connect!", sep = "\n")
         for (i in rsc_client$failure_messages) {
           message_contents <- paste0(message_contents, "> {i}", sep = "\n")
         }
+        "!DEBUG Errors encountered: `message_contents`"
         continue_checking <- FALSE
       }
     }
 
     if (continue_checking) {
+      "!DEBUG Continuing to the actual test call to the server"
       settings <- rsc_client$server_settings()
       if (is.null(settings) || rsc_client$error_encountered) {
         message_contents <- paste0(message_contents,
@@ -44,9 +50,12 @@ warning_message <- function() {
         for (i in rsc_client$failure_messages) {
           message_contents <- paste0(message_contents, "> {i}", sep = "\n")
         }
+        "!DEBUG Errors encountered: `message_contents`"
         continue_checking <- FALSE
       }
     }
+
+    "!DEBUG Past some checks.. continue_checking=`continue_checking`"
 
     if (!continue_checking) {
       return(rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning"))

@@ -93,7 +93,7 @@ Client <- R6::R6Class( # nolint
         "!DEBUG validate_parameters error: `i`"
       }
       self$error_encountered <- length(self$failure_messages) > 0
-      self$error_encountered
+      !self$error_encountered
     },
     test_connection = function() {
       "!DEBUG Connect test_connection called"
