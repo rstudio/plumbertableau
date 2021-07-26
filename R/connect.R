@@ -165,7 +165,7 @@ Client <- R6::R6Class( # nolint
 #' @export
 connect <- function(server = Sys.getenv("CONNECT_SERVER", NA_character_),
                     api_key = Sys.getenv("CONNECT_API_KEY", NA_character_),
-                    allow_downgrade_env = Sys.getenv("PLUMBERTABLEAU_ALLOW_DOWNGRADE", "FALSE")
+                    allow_downgrade = Sys.getenv("PLUMBERTABLEAU_ALLOW_DOWNGRADE", "FALSE")
                    ) {
   allow_downgrade <- allow_downgrade_env == "TRUE"            
   Client$new(server = server, api_key = api_key, allow_downgrade = allow_downgrade)
