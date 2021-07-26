@@ -167,6 +167,7 @@ connect <- function(server = Sys.getenv("CONNECT_SERVER", NA_character_),
                     api_key = Sys.getenv("CONNECT_API_KEY", NA_character_),
                     allow_downgrade = Sys.getenv("PLUMBERTABLEAU_ALLOW_DOWNGRADE", "FALSE")
                    ) {
+  "!DEBUG `write_log_message('Creating Connect object', server, api_key, allow_downgrade)"
   allow_downgrade <- allow_downgrade == "TRUE"            
   Client$new(server = server, api_key = api_key, allow_downgrade = allow_downgrade)
 }
