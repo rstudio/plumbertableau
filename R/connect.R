@@ -27,7 +27,7 @@ Client <- R6::R6Class( # nolint
       self$allow_downgrade <- allow_downgrade
     },
     validate = function() {
-      private$validate() && private$test_connection()
+      private$validate_parameters() && private$test_connection()
     },
     print = function(...) {
       cat("RStudio Connect API Client: \n")
@@ -65,7 +65,7 @@ Client <- R6::R6Class( # nolint
     }
   ),
   private = list(
-    validate = function() {
+    validate_parameters = function() {
       api_key <- self$api_key
       server <- self$server
       self$failure_messages <- list()
