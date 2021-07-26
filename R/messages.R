@@ -31,6 +31,7 @@ warning_message <- function() {
     if (continue_checking) {
       "!DEBUG Continuing to the validate"
       if (!rsc_client$validate() || rsc_client$error_encountered) {
+        "!DEBUG validate has failed.. failure_messages: `rsc_client$failure_messages`"
         message_contents <- paste0(message_contents,
           "> **ERROR**: Unable to connect to RStudio Connect!", sep = "\n")
         for (i in rsc_client$failure_messages) {
