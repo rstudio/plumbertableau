@@ -15,7 +15,6 @@ warning_message <- function() {
 
     # Connect to RStudio Connect API and read server settings
     rsc_client <- connect(allow_downgrade=FALSE)
-    return (message_contents)
 
     if (rsc_client$error_encountered) {
       message_contents <- paste(message_contents,
