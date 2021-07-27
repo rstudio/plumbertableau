@@ -73,7 +73,7 @@ warning_message <- function() {
     "!DEBUG Detected that an error has been returned from exception: `result`"
     message_contents <- paste0(
       message_contents,
-      result$response,
+      result$message,
       sep = "\n"
     )
   } else {
