@@ -21,7 +21,6 @@ Client <- R6::R6Class( # nolint
     error_encountered = FALSE,
     original_exception = NULL,
     downgraded_exception = NULL,
-    failure_messages = list(),
     initialize = function(server, api_key, allow_downgrade) {
       "!DEBUG New Connect object"
       self$server <- server
@@ -77,32 +76,33 @@ Client <- R6::R6Class( # nolint
       "!DEBUG Connect validate_parameters called"
       api_key <- self$api_key
       server <- self$server
-      self$failure_messages <- list()
+      error <- FALSE
 
       if (is.null(api_key) || is.na(api_key) || nchar(api_key) == 0) {
-        self$failure_messages.append("ERROR: API key is missing or invalid.")
+        "!DEBUG ERROR: API key is missing or invalid."
+        error <- TRUE
       }
 
       if (is.null(server) || is.na(server) || nchar(server) == 0) {
-        self$failure_messages.append("ERROR: Server URL is missing or invalid")
+        "!DEBUG ERROR: Server URL is missing or invalid"
+        error <- TRUE
       }
 
       if (is.null(httr::parse_url(server)$scheme)) {
-        self$failure_messages.append("ERROR: Protocol missing in server URL (http / https). You gave: {server}")
+        "!DEBUG ERROR: Protocol missing in server URL (http / https). Value provided: `server`"
+        error <- TRUE
       }
-      "!DEBUG validate_parameters has errors? `length(self$failure_messages) > 0`"
-      for (i in self$failure_messages) {
-        "!DEBUG validate_parameters error: `i`"
-      }
-      self$error_encountered <- length(self$failure_messages) > 0
+      "!DEBUG validate_parameters has errors? `error`"
+      
+      self$error_encountered <- error
       !self$error_encountered
     },
     test_connection = function() {
       "!DEBUG Connect test_connection called"
+
       self$error_encountered <- FALSE
       self$original_exception <- NULL
       self$downgraded_exception <- NULL
-      self$failure_messages <- list()
       tryCatch(
         {
           "!DEBUG attempting connection with server at `self$server`"
@@ -131,7 +131,6 @@ Client <- R6::R6Class( # nolint
             "!DEBUG connection successful"
             self$error_encountered <- FALSE
             self$url_downgraded <- TRUE
-            self$failure_messages <- list()
             cat("WARNING: Using http:// to access the Connect server.")
             return(TRUE)
           },
@@ -147,27 +146,19 @@ Client <- R6::R6Class( # nolint
       if (is.null(self$downgraded_exception)) {
         "!DEBUG adding single failure messages"
         "!DEBUG Exception encountered: `self$original_exception`"
-        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception}")
-        self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server}")
+        "!DEBUG: Unable to connect to RStudio Connect at `self$orig_server`"
       } else {
         "!DEBUG adding double failure messages"
         "!DEBUG Exception encountered: `self$original_exception`"
-        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception}")
-        self$failure_messages.append("ERROR: After attempting downgrade, exception encountered: {self$downgraded_exception}")
-        self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server} or {self$downgraded_server}")
+        "!DEBUG After attempting downgrade, exception encountered: `self$downgraded_exception`"
+        "!DEBUG Unable to connect to RStudio Connect at `self$orig_server`"
       }
       "!DEBUG connection has failed.."
-      "!DEBUG connection failed: `self$failure_messages`"
       FALSE
     },
     check_for_http_error = function(res) {
       if (httr::http_error(res)) {
-        self$failure_messages.append(sprintf(
-          "%s request failed with %s, full response=%s",
-          res$request$url,
-          httr::http_status(res)$message,
-          capture.output(str(httr::content(res)))
-        ))
+        "!DEBUG `res$request$url` request failed with `httr::http_status(res)$message`, full response = `capture.output(str(httr::content(res)))`"
         return(TRUE)
       }
       return(FALSE)
