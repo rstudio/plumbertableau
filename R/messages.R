@@ -70,10 +70,10 @@ warning_message <- function() {
   )
   "!DEBUG After GET call.. result=`result`"
   if (!result$success) {
-    "!DEBUG Detected that an error has been returned from exception: `response`"
+    "!DEBUG Detected that an error has been returned from exception: `result$`"
     message_contents <- paste0(
       message_contents,
-      response,
+      result$response,
       sep = "\n"
     )
   } else {
