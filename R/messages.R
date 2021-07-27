@@ -76,9 +76,11 @@ warning_message <- function() {
         paste0("Problem: API request to ", server, " failed. Error: ", err),
         sep = "\n"
       )
+      return (NULL)
       # Resolve: If using self-signed certificates, define PLUMBERTABLEAU_USE_HTTP = TRUE if able..
     }
   )
+  "!DEBUG message_contents after GET request: `message_contents`"
   if (!is.null(message_contents)) {
     return (message_contents)
   }
