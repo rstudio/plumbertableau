@@ -44,51 +44,52 @@ warning_message <- function() {
   # Get Server Settings endpoint
   url <- paste0(server, "/__api__/server_settings")
   server_settings <- NULL
-  response <- tryCatch (
+  result <- tryCatch (
     {
        "!DEBUG Sending GET request @ `url`"
-      httr::GET(
+      response <- httr::GET(
         url,
         httr::add_headers(Authorization = paste0("Key ", api_key)),
         httr::write_memory()
       )
+      list(success=TRUE, response=response)
     },
     error = function(err) {
       "!DEBUG GET response threw an exception: `err`"
       # Problem: request failed, with error = err
-      message_contents <- paste0(
-        message_contents,
-        paste0("Problem: API request to ", server, " failed. Error: ", err),
-        sep = "\n"
-      )
-      return (NULL)
+      return (list(
+        success=FALSE, 
+        message=paste0(
+          message_contents,
+          paste0("Problem: API request to ", server, " failed. Error: ", err),
+          sep = "\n"
+        )
+      ))
       # Resolve: If using self-signed certificates, define PLUMBERTABLEAU_USE_HTTP = TRUE if able..
     }
   )
-  "!DEBUG After GET call.. response=`response`"
-
-  # if (is.character(response)) {
-  #   "!DEBUG Detected that an error has been returned from exception: `response`"
-  #   message_contents <- paste0(
-  #     message_contents,
-  #     response,
-  #     sep = "\n"
-  #   )
-  # } else {
-  if (!is.null(response)) {
-    "!DEBUG GET response has returned `http_status(response)$category`, `http_status(response)$reason`, `http_status(response)$message`"
-    if (httr::http_error(response)) {
+  "!DEBUG After GET call.. result=`result`"
+  if (!result$success) {
+    "!DEBUG Detected that an error has been returned from exception: `response`"
+    message_contents <- paste0(
+      message_contents,
+      response,
+      sep = "\n"
+    )
+  } else {
+    "!DEBUG GET response has returned `http_status(result$response)$category`, `http_status(result$response)$reason`, `http_status(result$response)$message`"
+    if (httr::http_error(result$response)) {
       "!DEBUG GET response returned an error"
       # NEED TO enhance the message below to include next steps...
       message_contents <- paste0(
         message_contents,
-        paste0("Problem: API request to ", server, " failed. Response: ", http_status(response)$reason, ", ", http_status(response)$message, "."),
+        paste0("Problem: API request to ", server, " failed. Response: ", http_status(result$response)$reason, ", ", http_status(result$response)$message, "."),
         sep = "\n"
       )
       # Problem: request failed, with error in response
       # Resolve: as appropriate...
     } else {
-      server_settings <- httr::content(res, as="text")
+      server_settings <- httr::content(result$response, as="text")
       "!DEBUG GET response was successful. Server settings = `server_settings`"
     }
   }
