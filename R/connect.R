@@ -144,7 +144,7 @@ Client <- R6::R6Class( # nolint
       }
       "!DEBUG After attempting downgraded connection.. success?: `!self$error_encountered`"
       "!DEBUG !is.null(self$downgraded_exception) = `!is.null(self$downgraded_exception)`"
-      if (!is.null(self$downgraded_exception)) {
+      if (is.null(self$downgraded_exception)) {
         "!DEBUG adding single failure messages"
         "!DEBUG Exception encountered: `self$original_exception`"
         self$failure_messages.append("ERROR: Exception encountered: {self$original_exception}")
