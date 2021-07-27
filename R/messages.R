@@ -52,31 +52,39 @@ warning_message <- function() {
         httr::add_headers(Authorization = paste0("Key ", api_key)),
         httr::write_memory()
       )
-      "!DEBUG GET response has returned `http_status(response)$category`, `http_status(response)$reason`, `http_status(response)$message`"
-      if (httr::http_error(response)) {
-        "!DEBUG GET response returned an error"
-        # NEED TO enhance the message below to include next steps...
+      if (is.character(response)) {
+        "!DEBUG Detected that an error has been returned from exception: `response`"
         message_contents <- paste0(
           message_contents,
-          paste0("Problem: API request to ", server, " failed. Response: ", http_status(response)$reason, ", ", http_status(response)$message, "."),
+          response,
           sep = "\n"
         )
-        # Problem: request failed, with error in response
-        # Resolve: as appropriate...
       } else {
-        server_settings <- httr::content(res, as="text")
-        "!DEBUG GET response was successful. Server settings = `server_settings`"
+        "!DEBUG GET response has returned `http_status(response)$category`, `http_status(response)$reason`, `http_status(response)$message`"
+        if (httr::http_error(response)) {
+          "!DEBUG GET response returned an error"
+          # NEED TO enhance the message below to include next steps...
+          message_contents <- paste0(
+            message_contents,
+            paste0("Problem: API request to ", server, " failed. Response: ", http_status(response)$reason, ", ", http_status(response)$message, "."),
+            sep = "\n"
+          )
+          # Problem: request failed, with error in response
+          # Resolve: as appropriate...
+        } else {
+          server_settings <- httr::content(res, as="text")
+          "!DEBUG GET response was successful. Server settings = `server_settings`"
+        }
       }
     },
     error = function(err) {
       "!DEBUG GET response threw an exception: `err`"
       # Problem: request failed, with error = err
-      message_contents <- paste0(
+      return (paste0(
         message_contents,
         paste0("Problem: API request to ", server, " failed. Error: ", err),
         sep = "\n"
-      )
-      return (NULL)
+      ))
       # Resolve: If using self-signed certificates, define PLUMBERTABLEAU_USE_HTTP = TRUE if able..
     }
   )
