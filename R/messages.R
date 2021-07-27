@@ -4,104 +4,103 @@
 # Tableau.
 warning_message <- function() {
   message_contents <- NULL
-  continue_checking <- TRUE
-  # If running on RSC, perform checks; if not return NULL
-  if (check_rstudio_connect()) {
-    "!DEBUG Running on Connect"
-    # RStudio Connect Details
-    # Provide messaging if RSC:
-    #  * Is a version that doesn't support Tableau Extensions
-    #  * Isn't configured to support Tableau Extensions
-    #  * Doesn't have Server.Address configured
 
-    # Connect to RStudio Connect API and read server settings
-    "!DEBUG Creating Connect Object"
-    rsc_client <- connect(allow_downgrade=FALSE)
+  server <- Sys.getenv("CONNECT_SERVER", NA_character_)
+  "!DEBUG Environment Variable CONNECT_SERVER = `server`"
+  if (is.na(server)) {
+    "!DEBUG Problem: CONNECT_SERVER not defined within environment variables"
+    message_contents <- paste0(
+      message_contents,
+      "Problem: CONNECT_SERVER not defined within environment variables. To resolve this, have your system administrator confirm Applications.DefaultServerEnv is enabled and that Server.Address has been defined within the rstudio-connect.gcfg file on the server.",
+      sep = "\n"
+    )
+  } else if (is.null(httr::parse_url(server)$scheme)) {
+    "!DEBUG Problem: Environment Variable CONNECT_SERVER does not specify the protocol (https:// or http://)."
+    message_contents <- paste0(
+      message_contents,
+      paste0("Problem: Environment Variable CONNECT_SERVER (value = ", server, " ) does not specify the protocol (https:// or http://). To resolve this, have your system administrator confirm that Server.Address has been configured with the proper format within the rstudio-connect.gcfg file on the server."),
+      sep = "\n"
+    )
+  }
 
-    if (rsc_client$error_encountered) {
-      message_contents <- paste(message_contents,
-        "> **ERROR**: Unable to connect to RStudio Connect!", sep = "\n")
-      for (i in rsc_client$failure_messages) {
-        message_contents <- paste0(message_contents, "> {i}", sep = "\n")
+  api_key = Sys.getenv("CONNECT_API_KEY", NA_character_)
+  # Do not output the API KEY value..
+  if (is.na(api_key)) {
+    "!DEBUG Problem: CONNECT_API_KEY not defined within environment variables"
+    message_contents <- paste0(
+      message_contents,
+      "Problem: CONNECT_API_KEY not defined within environment variables. To resolve this, have your administrator check if Applications.DefaultAPIKeyEnv is disabled ithin the rstudio-connect.gcfg file on the server. If it is, then you will either need to have it enabled or you will need to create an API KEY and add it within an environment variable explicitly within Connect.",
+      sep = "\n"
+    )
+  }
+  use_http = Sys.getenv("PLUMBERTABLEAU_USE_HTTP", "FALSE")
+  "!DEBUG Environment Variable PLUMBERTABLEAU_USE_HTTP = `use_http`"
+  # No checks, will just need it for the request.
+  if (use_http == "TRUE") {
+    server <- sub("https://", "http://", server)
+  }
+  "!DEBUG After possible https downgrade, server URL is now `server`"
+
+  # Get Server Settings endpoint
+  url <- paste0(server, "/__api__/server_settings")
+  server_settings <- NULL
+  tryCatch (
+    {
+       "!DEBUG Sending GET request @ `url`"
+      response <- httr::GET(
+        url,
+        httr::add_headers(Authorization = paste0("Key ", api_key)),
+        httr::write_memory()
+      )
+      "!DEBUG GET response has returned `http_status(response)$category`, `http_status(response)$reason`, `http_status(response)$message`"
+      if (httr::http_error(response)) {
+        "!DEBUG GET response returned an error"
+        # NEED TO enhance the message below to include next steps...
+        message_contents <- paste0(
+          message_contents,
+          paste0("Problem: API request to ", server, " failed. Response: ", http_status(response)$reason, ", ", http_status(response)$message, "."),
+          sep = "\n"
+        )
+        # Problem: request failed, with error in response
+        # Resolve: as appropriate...
+      } else {
+        server_settings <- httr::content(res, as="text")
+        "!DEBUG GET response was successful. Server settings = `server_settings`"
       }
-      "!DEBUG Errors encountered: `message_contents`"
-      continue_checking <- FALSE
-    }
-
-    if (continue_checking) {
-      "!DEBUG Continuing to the validate"
-      if (!rsc_client$validate() || rsc_client$error_encountered) {
-        "!DEBUG validate has failed.. failure_messages: `rsc_client$failure_messages`"
-        message_contents <- paste0(message_contents,
-          "> **ERROR**: Unable to connect to RStudio Connect!", sep = "\n")
-        for (i in rsc_client$failure_messages) {
-          message_contents <- paste0(message_contents, "> {i}", sep = "\n")
-        }
-        "!DEBUG Errors encountered: `message_contents`"
-        continue_checking <- FALSE
-        return self$error_messages
-      }
-    }
-
-    if (continue_checking) {
-      "!DEBUG Continuing to the actual test call to the server"
-      settings <- rsc_client$server_settings()
-      if (is.null(settings) || rsc_client$error_encountered) {
-        message_contents <- paste0(message_contents,
-          "> **ERROR**: Unable to retrieve server settings from RStudio Connect!", sep = "\n")
-        for (i in rsc_client$failure_messages) {
-          message_contents <- paste0(message_contents, "> {i}", sep = "\n")
-        }
-        "!DEBUG Errors encountered: `message_contents`"
-        continue_checking <- FALSE
-      }
-    }
-
-    "!DEBUG Past some checks.. continue_checking=`continue_checking`"
-
-    if (!continue_checking) {
-      "!DEBUG returning and no longer checking stuff"
-      return(rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning"))
-    }
-
-    # Server.Address
-    connect_server <- Sys.getenv("CONNECT_SERVER")
-
-    if (connect_server == "") {
-      message_contents <- paste0(message_contents,
-                                "> **WARNING**: The `Server.Address` property is not set in RStudio Connect's configuration.\n",
-                                sep = "\n")
-    }
-
-    # Does this installation support Tableau Extensions
-    connect_support <- settings$tableau_integration_enabled
-
-    # Find connect version
-    connect_version <- settings$version
-
-    if (is.null(connect_support)) {
-      message_contents <- paste0(message_contents,
-                                paste0("> **WARNING**: This version of RStudio Connect (",
-                                      connect_version,
-                                      ") does not support Tableau Analytics Extension APIs. Please upgrade RStudio Connect."
-                                ),
-                                sep = "\n")
-    } else if (!connect_support) {
-      message_contents <- paste0(message_contents,
-                                "> **WARNING**: Tableau Analytics Extension API support is currently disabled in RStudio Connect's configuration.",
-                                sep = "\n")
-    }
-
-    # Send warning message to the console if any of the above are TRUE
-    if (!rlang::is_null(message_contents)) {
+    },
+    error = function(err) {
+      "!DEBUG GET response threw an exception: `err`"
+      # Problem: request failed, with error = err
       message_contents <- paste0(
         message_contents,
-        "\n\n#### Please reach out to your RStudio Connect administrator to fix these issues.",
+        paste0("Problem: API request to ", server, " failed. Error: ", err),
         sep = "\n"
       )
-
-      rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning")
+      # Resolve: If using self-signed certificates, define PLUMBERTABLEAU_USE_HTTP = TRUE if able..
     }
+  )
+  if (!is.null(message_contents)) {
+    return (message_contents)
+  }
+
+  # Does this installation support Tableau Extensions
+  if (is.null(server_settings$tableau_integration_enabled)) {
+    "!DEBUG Tableau.IntegrationEnabled is not present within server settings. This Connect server does not support the feature (`server_settings$version`)"
+    # Problem: Feature Flag not available, Connect version (server_settings$version) does not support feature
+    message_contents <- paste0(
+      message_contents,
+      paste0("Problem: Tableau Integration Feature Flag is not available on the RStudio Connect server (v.", server_settings$version, "). Please upgrade to the latest version"),
+      sep = "\n"
+    )
+    # Resolve: Upgrade to latest RStudio Connect version
+  } else if (!server_settings$tableau_integration_enabled) {
+    message_contents <- paste0(
+      message_contents,
+      "Problem: Tableau Integration has been disabled on the RStudio Connect server. Please ask your administrator to set Tableau.TableauIntegrationEnabled = true within RStudio Connect config file",
+      sep = "\n"
+    )
+    # Problem: Feature Flag has been disabled
+    # Resolve: Ask administrator to set Tableau.TableauIntegrationEnabled = true within RStudio Connect config file
   }
 
   message_contents
