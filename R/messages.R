@@ -81,13 +81,13 @@ warning_message <- function() {
       sep = "\n"
     )
   } else {
-    "!DEBUG GET response has returned `http_status(result$response)$category`, `http_status(result$response)$reason`, `http_status(result$response)$message`"
+    "!DEBUG GET response has returned `httr::http_status(result$response)$category`, `httr::http_status(result$response)$reason`, `httr::http_status(result$response)$message`"
     if (httr::http_error(result$response)) {
       "!DEBUG GET response returned an error"
       # NEED TO enhance the message below to include next steps...
       message_contents <- paste0(
         message_contents,
-        paste0("Problem: API request to ", server, " failed. Response: ", http_status(result$response)$reason, ", ", http_status(result$response)$message, "."),
+        paste0("Problem: API request to ", server, " failed. Response: ", httr::http_status(result$response)$reason, ", ", httr::http_status(result$response)$message, "."),
         sep = "\n"
       )
       # Problem: request failed, with error in response
@@ -122,7 +122,7 @@ warning_message <- function() {
     # Problem: Feature Flag has been disabled
     # Resolve: Ask administrator to set Tableau.TableauIntegrationEnabled = true within RStudio Connect config file
   }
-
+  "!DEBUG message_contents after server settings verification"
   message_contents
 }
 
