@@ -110,12 +110,13 @@ Client <- R6::R6Class( # nolint
           return(TRUE)
         },
         error = function(err) {
-          "!DEBUG connection failed: `err`"
+          "!DEBUG Caught the connection failure: `err`"
           original_exception <- err
           self$error_encountered <- TRUE
         }
       )
       "!DEBUG After attempting connection.. success?: `!self$error_encountered`"
+      "!DEBUG Replay of the failure error? `original_exception`"
 
       # if we don't succeed and we're able to downgrade a https connection, then try it
       if (self$error_encountered && self$allow_downgrade && httr::parse_url(self$orig_server)$scheme == "https") {
