@@ -19,6 +19,8 @@ Client <- R6::R6Class( # nolint
     allow_downgrade = FALSE,
     url_downgraded = FALSE,
     error_encountered = FALSE,
+    original_exception = NULL,
+    downgraded_exception = NULL,
     failure_messages = list(),
     initialize = function(server, api_key, allow_downgrade) {
       "!DEBUG New Connect object"
@@ -98,8 +100,8 @@ Client <- R6::R6Class( # nolint
     test_connection = function() {
       "!DEBUG Connect test_connection called"
       self$error_encountered <- FALSE
-      original_exception <- NULL
-      downgraded_exception <- NULL
+      self$original_exception <- NULL
+      self$downgraded_exception <- NULL
       self$failure_messages <- list()
       tryCatch(
         {
@@ -111,13 +113,13 @@ Client <- R6::R6Class( # nolint
         },
         error = function(err) {
           "!DEBUG Caught the connection failure: `err`"
-          original_exception <- err
-          "!DEBUG echoing the connection failure: `original_exception`"
+          self$original_exception <- err
+          "!DEBUG echoing the connection failure: `self$original_exception`"
           self$error_encountered <- TRUE
         }
       )
       "!DEBUG After attempting connection.. success?: `!self$error_encountered`"
-      "!DEBUG Replay of the failure error? `original_exception`"
+      "!DEBUG Replay of the failure error? `self$original_exception`"
 
       # if we don't succeed and we're able to downgrade a https connection, then try it
       if (self$error_encountered && self$allow_downgrade && httr::parse_url(self$orig_server)$scheme == "https") {
@@ -128,7 +130,7 @@ Client <- R6::R6Class( # nolint
             self$server_settings()
             "!DEBUG connection successful"
             self$error_encountered <- FALSE
-            url_downgraded <- TRUE
+            self$url_downgraded <- TRUE
             self$failure_messages <- list()
             cat("WARNING: Using http:// to access the Connect server.")
             return(TRUE)
@@ -144,14 +146,14 @@ Client <- R6::R6Class( # nolint
       "!DEBUG !is.null(downgraded_exception) = `!is.null(downgraded_exception)`"
       if (!is.null(downgraded_exception)) {
         "!DEBUG adding single failure messages"
-        "!DEBUG Exception encountered: `original_exception`"
-        self$failure_messages.append("ERROR: Exception encountered: {original_exception}")
+        "!DEBUG Exception encountered: `self$original_exception`"
+        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception}")
         self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server}")
       } else {
         "!DEBUG adding double failure messages"
-        "!DEBUG Exception encountered: `original_exception`"
-        self$failure_messages.append("ERROR: Exception encountered: {original_exception}")
-        self$failure_messages.append("ERROR: After attempting downgrade, exception encountered: {downgraded_exception}")
+        "!DEBUG Exception encountered: `self$original_exception`"
+        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception}")
+        self$failure_messages.append("ERROR: After attempting downgrade, exception encountered: {self$downgraded_exception}")
         self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server} or {self$downgraded_server}")
       }
       "!DEBUG connection has failed.."
