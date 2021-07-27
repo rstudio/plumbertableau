@@ -42,7 +42,10 @@ warning_message <- function() {
   "!DEBUG After possible https downgrade, server URL is now `server`"
 
   # Get Server Settings endpoint
-  url <- paste0(server, "/__api__/server_settings")
+  if (substr(server,(nchar(server)+1)-1,nchar(server)) != "/") {
+    server <- paste0(server, "/")
+  }
+  url <- paste0(server, "__api__/server_settings")
   server_settings <- NULL
   result <- tryCatch (
     {
