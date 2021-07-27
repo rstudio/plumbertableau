@@ -72,7 +72,7 @@ warning_message <- function() {
       # Resolve: If using self-signed certificates, define PLUMBERTABLEAU_USE_HTTP = TRUE if able..
     }
   )
-  "!DEBUG After GET call.. result=`result`"
+  "!DEBUG After GET call.."
   if (!result$success) {
     "!DEBUG Detected that an error has been returned from exception: `result`"
     message_contents <- paste0(
