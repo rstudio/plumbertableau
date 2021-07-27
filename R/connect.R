@@ -21,6 +21,7 @@ Client <- R6::R6Class( # nolint
     error_encountered = FALSE,
     original_exception = NULL,
     downgraded_exception = NULL,
+    error_messages = "",
     initialize = function(server, api_key, allow_downgrade) {
       "!DEBUG New Connect object"
       self$server <- server
@@ -31,9 +32,13 @@ Client <- R6::R6Class( # nolint
     validate = function() {
       "!DEBUG Connect object validate called"
       validate_parameters_result <- private$validate_parameters()
-      "!DEBUG private$validate_parameters() resulted in `validate_parameters_result`"
-      test_connection_result <- private$test_connection()
+      test_connection_result <- FALSE
+      if (validate_parameters_result) {
+        "!DEBUG private$validate_parameters() resulted in `validate_parameters_result`"
+        test_connection_result <- private$test_connection()
+      }
       "!DEBUG private$test_connection() resulted in `test_connection_result`"
+      self$error_messages = "this didn't work"
       validate_parameters_result && test_connection_result
     },
     print = function(...) {
