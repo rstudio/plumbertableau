@@ -39,6 +39,7 @@ warning_message <- function() {
         }
         "!DEBUG Errors encountered: `message_contents`"
         continue_checking <- FALSE
+        return self$error_messages
       }
     }
 
