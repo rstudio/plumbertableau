@@ -52,6 +52,7 @@ warning_message <- function() {
         httr::add_headers(Authorization = paste0("Key ", api_key)),
         httr::write_memory()
       )
+      "!DEBUG After GET call.. response=`response`"
       if (is.character(response)) {
         "!DEBUG Detected that an error has been returned from exception: `response`"
         message_contents <- paste0(
