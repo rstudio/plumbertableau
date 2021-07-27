@@ -44,7 +44,7 @@ warning_message <- function() {
   # Get Server Settings endpoint
   url <- paste0(server, "/__api__/server_settings")
   server_settings <- NULL
-  tryCatch (
+  result <- tryCatch (
     {
        "!DEBUG Sending GET request @ `url`"
       response <- httr::GET(
@@ -89,6 +89,7 @@ warning_message <- function() {
       # Resolve: If using self-signed certificates, define PLUMBERTABLEAU_USE_HTTP = TRUE if able..
     }
   )
+  "!DEBUG result after call: `result`"
   "!DEBUG message_contents after GET request: `message_contents`"
   if (!is.null(message_contents)) {
     return (message_contents)
