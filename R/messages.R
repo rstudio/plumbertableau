@@ -56,24 +56,26 @@ warning_message <- function() {
     error = function(err) {
       "!DEBUG GET response threw an exception: `err`"
       # Problem: request failed, with error = err
-      return (paste0(
+      message_contents <- paste0(
         message_contents,
         paste0("Problem: API request to ", server, " failed. Error: ", err),
         sep = "\n"
       ))
+      return (NULL)
       # Resolve: If using self-signed certificates, define PLUMBERTABLEAU_USE_HTTP = TRUE if able..
     }
   )
   "!DEBUG After GET call.. response=`response`"
 
-  if (is.character(response)) {
-    "!DEBUG Detected that an error has been returned from exception: `response`"
-    message_contents <- paste0(
-      message_contents,
-      response,
-      sep = "\n"
-    )
-  } else {
+  # if (is.character(response)) {
+  #   "!DEBUG Detected that an error has been returned from exception: `response`"
+  #   message_contents <- paste0(
+  #     message_contents,
+  #     response,
+  #     sep = "\n"
+  #   )
+  # } else {
+  if (!is.null(response)) {
     "!DEBUG GET response has returned `http_status(response)$category`, `http_status(response)$reason`, `http_status(response)$message`"
     if (httr::http_error(response)) {
       "!DEBUG GET response returned an error"
