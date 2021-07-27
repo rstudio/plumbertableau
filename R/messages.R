@@ -59,6 +59,7 @@ warning_message <- function() {
     "!DEBUG Past some checks.. continue_checking=`continue_checking`"
 
     if (!continue_checking) {
+      "!DEBUG returning and no longer checking stuff"
       return(rlang::warn(stringi::stri_replace_all(message_contents, regex = "\\* ?|#+ ", replacement = ""), .frequency = "once", .frequency_id = "rsc_warning"))
     }
 
