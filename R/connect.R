@@ -112,6 +112,7 @@ Client <- R6::R6Class( # nolint
         error = function(err) {
           "!DEBUG Caught the connection failure: `err`"
           original_exception <- err
+          "!DEBUG echoing the connection failure: `original_exception`"
           self$error_encountered <- TRUE
         }
       )
