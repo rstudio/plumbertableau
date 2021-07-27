@@ -142,12 +142,14 @@ Client <- R6::R6Class( # nolint
       "!DEBUG !is.null(downgraded_exception) = `!is.null(downgraded_exception)`"
       if (!is.null(downgraded_exception)) {
         "!DEBUG adding single failure messages"
-        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception.}")
+        "!DEBUG Exception encountered: `self$original_exception`"
+        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception}")
         self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server}")
       } else {
         "!DEBUG adding double failure messages"
-        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception.}")
-        self$failure_messages.append("ERROR: After attempting downgrade, exception encountered: {self$downgraded_exception.}")
+        "!DEBUG Exception encountered: `self$original_exception`"
+        self$failure_messages.append("ERROR: Exception encountered: {self$original_exception}")
+        self$failure_messages.append("ERROR: After attempting downgrade, exception encountered: {self$downgraded_exception}")
         self$failure_messages.append("ERROR: Unable to connect to RStudio Connect at {self$orig_server} or {self$downgraded_server}")
       }
       "!DEBUG connection has failed.."
