@@ -50,13 +50,13 @@ warning_message <- function() {
   result <- tryCatch (
     {
        "!DEBUG Sending GET request @ `url`"
-      # response <- httr::GET(
-      #   url,
-      #   httr::add_headers(Authorization = paste0("Key ", api_key)),
-      #   httr::write_memory()
-      # )
-      # list(success=TRUE, response=response)
-      list(success=FALSE, response="debug")
+      response <- httr::GET(
+        url,
+        httr::add_headers(Authorization = paste0("Key ", api_key)),
+        httr::write_memory()
+      )
+      list(success=TRUE, response=response)
+      # list(success=FALSE, response="debug")
     },
     error = function(err) {
       "!DEBUG GET response threw an exception: `err`"
