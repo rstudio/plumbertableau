@@ -18,9 +18,9 @@ warning_message <- function() {
         "\n-    `CONNECT_SERVER` is not defined within environment variables.",
         "\n",
         "\nPossible Solution:",
-        "\n-    To resolve this, have your system administrator confirm `Applications.DefaultServerEnv` is enabled and that `Server.Address` has been defined within the `rstudio-connect.gcfg` file on the RStudio Connect server."
+        "\n-    Have your system administrator confirm `Applications.DefaultServerEnv` is enabled and that `Server.Address` has been defined within the `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
-      sep = "\n\n"
+      sep = "\n\n---\n\n"
     )
     message_count <- message_count + 1
   } else if (is.null(httr::parse_url(server)$scheme)) {
@@ -34,7 +34,7 @@ warning_message <- function() {
         "\nPossible Solution:",
         "\n-    Have your system administrator confirm that `Server.Address` has been configured with the proper format within the `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
-      sep = "\n\n"
+      sep = "\n\n---\n\n"
     )
     message_count <- message_count + 1
   }
@@ -55,7 +55,7 @@ warning_message <- function() {
         "\n    -    have the configuration option enabled",
         "\n    -    you will need to create an `API KEY` and add it within an environment variable explicitly within Connect."
         ),
-      sep = "\n\n"
+      sep = "\n\n---\n\n"
     )
     message_count <- message_count + 1
   }
@@ -99,7 +99,7 @@ warning_message <- function() {
             "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
             "by setting the environment variable `PLUMBERTABLEAU_USE_HTTP` to `TRUE` within the RStudio Connect application settings.",
-          sep = "\n\n"
+          sep = "\n\n---\n\n"
         )
       ))
     }
@@ -126,7 +126,7 @@ warning_message <- function() {
         "\nPossible Solution:",
         "\n-    Diagnose connectivity or access issue."
         ),
-        sep = "\n\n"
+        sep = "\n\n---\n\n"
       )
       message_count <- message_count + 1
 
@@ -160,9 +160,9 @@ warning_message <- function() {
         "\n-    Tableau Integration Feature Flag is not available on the RStudio Connect server (v.", server_settings$version, ")",
         "\n",
         "\nPossible Solution:",
-        "\n-    Please upgrade to the latest version"
+        "\n-    Please upgrade to the latest version of RStudio Connect"
         ),
-      sep = "\n\n"
+      sep = "\n\n---\n\n"
     )
 
   } else if (!server_settings$tableau_integration_enabled) {
@@ -175,7 +175,7 @@ warning_message <- function() {
         "\nPossible Solution:",
         "\n-    Please ask your administrator to set `Tableau.TableauIntegrationEnabled = true` within `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
-      sep = "\n\n"
+      sep = "\n\n---\n\n"
     )
   }
   
