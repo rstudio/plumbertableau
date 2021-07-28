@@ -71,7 +71,8 @@ warning_message <- function() {
 
   # Get Server Settings endpoint
   # Confirm that the server address ends in a /
-  if (substr(server,(nchar(server)+1)-1,nchar(server)) != "/") {
+  last_char <- substr(server, (nchar(server)+1)-1, nchar(server))
+  if (last_char != "/") {
     server <- paste0(server, "/")
   }
   url <- paste0(server, "__api__/server_settings")
