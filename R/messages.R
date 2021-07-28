@@ -28,11 +28,11 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("### Environment Variable 'CONNECT_SERVER' (value = '", server, "' ) does not specify the protocol ('https://' or 'http://').",
+      paste0("### Environment Variable *CONNECT_SERVER* (value = *", server, "* ) does not specify the protocol (*https://* or *http://*).",
         "\n",
         "\nPossible Solution:",
         "\n",
-        "\nHave your system administrator confirm that 'Server.Address' has been configured with the proper format within the 'rstudio-connect.gcfg' file on the RStudio Connect server."
+        "\nHave your system administrator confirm that *Server.Address* has been configured with the proper format within the *rstudio-connect.gcfg* file on the RStudio Connect server."
         ),
       sep = "\n\n---\n\n"
     )
@@ -47,13 +47,13 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("### The environment variable 'CONNECT_API_KEY' is not defined.",
+      paste0("### The environment variable *CONNECT_API_KEY* is not defined.",
         "\n",
         "\nPossible Solution:",
         "\n",
-        "\nHave your administrator check if 'Applications.DefaultAPIKeyEnv' is disabled within the 'rstudio-connect.gcfg' file on the RStudio Connect server. If it is disabled, then you will either need to:",
+        "\nHave your administrator check if *Applications.DefaultAPIKeyEnv* is disabled within the *rstudio-connect.gcfg* file on the RStudio Connect server. If it is disabled, then you will either need to:",
         "\n-    have the configuration option enabled",
-        "\n-    you will need to create an 'API KEY' and add it within an environment variable explicitly within Connect."
+        "\n-    you will need to create an *API KEY* and add it within an environment variable explicitly within Connect."
         ),
       sep = "\n\n---\n\n"
     )
@@ -98,7 +98,7 @@ warning_message <- function() {
             "\n-    If you have specified an API_KEY, confirm it is valid.",
             "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
-            "by setting the environment variable 'PLUMBERTABLEAU_USE_HTTP' to 'TRUE' within the RStudio Connect application settings.",
+            "by setting the environment variable *PLUMBERTABLEAU_USE_HTTP* to *TRUE* within the RStudio Connect application settings.",
           sep = "\n\n---\n\n"
         )
       ))
@@ -174,7 +174,7 @@ warning_message <- function() {
         "\n",
         "\nPossible Solution:",
         "\n",
-        "\nPlease ask your administrator to set 'Tableau.TableauIntegrationEnabled' = 'true' within 'rstudio-connect.gcfg' file on the RStudio Connect server."
+        "\nPlease ask your administrator to set *Tableau.TableauIntegrationEnabled* = *true* within *rstudio-connect.gcfg* file on the RStudio Connect server."
         ),
       sep = "\n\n---\n\n"
     )
@@ -195,13 +195,13 @@ info_message <- function() {
   if (stringi::stri_detect(Sys.getenv("DEBUGME"), fixed = "plumbertableau")) {
     message_contents <- paste0(
       message_contents,
-      "Verbose logging is on. To disable it please remove the `DEBUGME` environment variable or set it to a value that does not include 'plumbertableau'.",
+      "Verbose logging is on. To disable it please remove the `DEBUGME` environment variable or set it to a value that does not include `plumbertableau`.",
       sep = "\n\n"
     )
   } else {
     message_contents <- paste0(
       message_contents,
-      "Verbose logging is off. To enable it please set the environment variable `DEBUGME` to include 'plumbertableau'.",
+      "Verbose logging is off. To enable it please set the environment variable `DEBUGME` to include `plumbertableau`.",
       sep = "\n\n"
     )
   }
