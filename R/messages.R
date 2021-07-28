@@ -9,7 +9,7 @@ warning_message <- function() {
   server <- Sys.getenv("CONNECT_SERVER", NA_character_)
   "!DEBUG Environment Variable CONNECT_SERVER = `server`"
 
-  if (TRUE || is.na(server) || server == "") {
+  if (is.na(server) || server == "") {
     "!DEBUG Problem: CONNECT_SERVER not defined within environment variables"
 
     message_contents <- paste0(
@@ -44,7 +44,7 @@ warning_message <- function() {
   api_key = Sys.getenv("CONNECT_API_KEY", NA_character_)
   # NOTE: Do not output the API KEY value!!!
 
-  if (TRUE || is.na(api_key) || api_key == "") {
+  if (is.na(api_key) || api_key == "") {
     "!DEBUG Problem: CONNECT_API_KEY not defined within environment variables"
 
     message_contents <- paste0(
@@ -142,7 +142,7 @@ warning_message <- function() {
 
   # Does this installation support Tableau Extensions?
   "!DEBUG server_settings$tableau_integration_enabled = `server_settings$tableau_integration_enabled`"
-  if (TRUE || is.null(server_settings$tableau_integration_enabled)) {
+  if (is.null(server_settings$tableau_integration_enabled)) {
     "!DEBUG Tableau.IntegrationEnabled is not present within server settings. This Connect server does not support the feature (`server_settings$version`)"
 
     message_contents <- paste0(
