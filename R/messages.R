@@ -105,7 +105,7 @@ warning_message <- function() {
 
   # Does this installation support Tableau Extensions
   # if (is.null(server_settings$tableau_integration_enabled)) {
-  if (is.null(getElement(server_settings, "tableau_integration_enabled"))) {
+  if (is.null(server_settings$tableau_integration_enabled)) {
     "!DEBUG Tableau.IntegrationEnabled is not present within server settings. This Connect server does not support the feature (`server_settings$version`)"
     # Problem: Feature Flag not available, Connect version (server_settings$version) does not support feature
     message_contents <- paste0(
@@ -115,7 +115,7 @@ warning_message <- function() {
     )
     # Resolve: Upgrade to latest RStudio Connect version
   # } else if (!server_settings$tableau_integration_enabled) {
-  } else if (!getElement(server_settings, "tableau_integration_enabled")) {
+  } else if (!server_settings$tableau_integration_enabled) {
     message_contents <- paste0(
       message_contents,
       "Problem: Tableau Integration has been disabled on the RStudio Connect server. Please ask your administrator to set Tableau.TableauIntegrationEnabled = true within RStudio Connect config file",
