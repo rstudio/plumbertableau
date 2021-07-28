@@ -68,7 +68,7 @@ warning_message <- function() {
           paste0("### Issue Detected:",
             "\n#### Problem:",
             "\nAPI request to ", server, " has failed with error:",
-            "\n```\n", err, "\n```", 
+            "\n-    ", err, 
             "\n#### Possible Solutions:",
             "\n-    To resolve this issue, confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
