@@ -19,7 +19,7 @@ warning_message <- function() {
         "\nPossible Solutions:",
         "\n",
         "\n-    Have your system administrator confirm *Applications.DefaultServerEnv* is enabled and that *Server.Address* has been defined within the *rstudio-connect.gcfg* file on the RStudio Connect server.",
-        "\n-    Use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_SERVER* environment variable. It should be set to a reachable https or http address for the server.", 
+        "\n-    Use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_SERVER* environment variable. It should be set to a reachable https or http address for the server." 
         ),
       sep = "\n\n---\n\n"
     )
@@ -34,7 +34,7 @@ warning_message <- function() {
         "\nPossible Solutions:",
         "\n",
         "\n-    Have your system administrator confirm that *Server.Address* has been configured with the proper format within the *rstudio-connect.gcfg* file on the RStudio Connect server.",
-        "\n-    Use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_SERVER* environment variable with the proper protocol.", 
+        "\n-    Use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_SERVER* environment variable with the proper protocol."
         ),
       sep = "\n\n---\n\n"
     )
@@ -99,8 +99,7 @@ warning_message <- function() {
             "\n-    If you have specified an API_KEY, confirm it is valid.",
             "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
-            "by setting the environment variable *PLUMBERTABLEAU_USE_HTTP* to *TRUE* within the RStudio Connect application settings.",
-          sep = "\n\n---\n\n"
+            "by setting the environment variable *PLUMBERTABLEAU_USE_HTTP* to *TRUE* within the RStudio Connect application settings."
         )
       ))
     }
@@ -111,7 +110,7 @@ warning_message <- function() {
     message_contents <- paste0(
       message_contents,
       result$message,
-      sep = "\n\n"
+      sep = "\n\n---\n\n"
     )
     message_count <- message_count + 1
   } else {
