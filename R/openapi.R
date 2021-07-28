@@ -27,6 +27,8 @@ tableau_openapi <- function(pr) {
     if (!rlang::is_null(warnings)) {
       spec$info$description <- paste0(
         "### Warnings",
+        "\n",
+        "#### The following item(s) need to be resolved before your API will be accessible from Tableau:",
         warnings,
         sep = "\n"
       )
