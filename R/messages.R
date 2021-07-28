@@ -73,7 +73,7 @@ warning_message <- function() {
             "\n#### Possible Solutions:",
             "\n-    To resolve this issue, confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
-            "by setting the environment variable `PLUMBERTABLEAU_USE_HTTP` to `TRUE` within the RStudio Connect application settings."),
+            "by setting the environment variable `PLUMBERTABLEAU_USE_HTTP` to `TRUE` within the RStudio Connect application settings.",
           sep = "\n"
         )
       ))
