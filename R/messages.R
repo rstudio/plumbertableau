@@ -4,6 +4,7 @@
 # Tableau.
 warning_message <- function() {
   message_contents <- NULL
+  message_count <- 0
 
   server <- Sys.getenv("CONNECT_SERVER", NA_character_)
   "!DEBUG Environment Variable CONNECT_SERVER = `server`"
@@ -14,6 +15,7 @@ warning_message <- function() {
       "Problem: CONNECT_SERVER not defined within environment variables. To resolve this, have your system administrator confirm Applications.DefaultServerEnv is enabled and that Server.Address has been defined within the rstudio-connect.gcfg file on the server.",
       sep = "\n"
     )
+    message_count <- message_count + 1
   } else if (is.null(httr::parse_url(server)$scheme)) {
     "!DEBUG Problem: Environment Variable CONNECT_SERVER does not specify the protocol (https:// or http://)."
     message_contents <- paste0(
@@ -21,6 +23,7 @@ warning_message <- function() {
       paste0("Problem: Environment Variable CONNECT_SERVER (value = ", server, " ) does not specify the protocol (https:// or http://). To resolve this, have your system administrator confirm that Server.Address has been configured with the proper format within the rstudio-connect.gcfg file on the server."),
       sep = "\n"
     )
+    message_count <- message_count + 1
   }
 
   api_key = Sys.getenv("CONNECT_API_KEY", NA_character_)
@@ -32,6 +35,7 @@ warning_message <- function() {
       "Problem: CONNECT_API_KEY not defined within environment variables. To resolve this, have your administrator check if Applications.DefaultAPIKeyEnv is disabled ithin the rstudio-connect.gcfg file on the server. If it is, then you will either need to have it enabled or you will need to create an API KEY and add it within an environment variable explicitly within Connect.",
       sep = "\n"
     )
+    message_count <- message_count + 1
   }
   use_http = Sys.getenv("PLUMBERTABLEAU_USE_HTTP", "FALSE")
   "!DEBUG Environment Variable PLUMBERTABLEAU_USE_HTTP = `use_http`"
@@ -63,10 +67,7 @@ warning_message <- function() {
       # Problem: request failed, with error = err
       return (list(
         success=FALSE, 
-        message=paste0(
-          message_contents,
-          paste0("### Issue Detected:",
-            "\n#### Problem:",
+        message=paste0("#### Problem:",
             "\nAPI request to ", server, " has failed with error:",
             "\n-    ", err, 
             "\n#### Possible Solutions:",
@@ -86,6 +87,7 @@ warning_message <- function() {
       result$message,
       sep = "\n"
     )
+    message_count <- message_count + 1
   } else {
     "!DEBUG GET response has returned `httr::http_status(result$response)$category`, `httr::http_status(result$response)$reason`, `httr::http_status(result$response)$message`"
     if (httr::http_error(result$response)) {
@@ -96,6 +98,7 @@ warning_message <- function() {
         paste0("Problem: API request to ", server, " failed. Response: ", httr::http_status(result$response)$reason, ", ", httr::http_status(result$response)$message, "."),
         sep = "\n"
       )
+      message_count <- message_count + 1
       # Problem: request failed, with error in response
       # Resolve: as appropriate...
     } else {
@@ -105,7 +108,16 @@ warning_message <- function() {
   }
 
   "!DEBUG message_contents after GET request: `message_contents`"
-  if (!is.null(message_contents)) {
+  if (message_count > 0) {
+    if (message_count > 1) {
+      return(paste0("### The following issues must be resolved before your API will function correctly:\n",
+      message_contents,
+      sep = "\n"))
+    } else {
+      return(paste0("### The following issue must be resolved before your API will function correctly:\n",
+      message_contents,
+      sep = "\n"))
+    }
     return (message_contents)
   }
 
