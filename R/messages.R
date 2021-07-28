@@ -91,7 +91,7 @@ warning_message <- function() {
             "\n-    API request to ", server, " has failed with error:",
             "\n    -    ", err, 
             "\n#### Possible Solutions:",
-            "\n-    If you have specified an API_KEY, confirm it is valid."
+            "\n-    If you have specified an API_KEY, confirm it is valid.",
             "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
             "by setting the environment variable `PLUMBERTABLEAU_USE_HTTP` to `TRUE` within the RStudio Connect application settings.",
