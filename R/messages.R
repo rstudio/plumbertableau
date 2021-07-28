@@ -20,7 +20,7 @@ warning_message <- function() {
         "\n#### Possible Solution:",
         "\n-    To resolve this, have your system administrator confirm `Applications.DefaultServerEnv` is enabled and that `Server.Address` has been defined within the `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
-      sep = "\n"
+      sep = "\n\n"
     )
     message_count <- message_count + 1
   } else if (is.null(httr::parse_url(server)$scheme)) {
@@ -34,7 +34,7 @@ warning_message <- function() {
         "\n#### Possible Solution:",
         "\n-    Have your system administrator confirm that `Server.Address` has been configured with the proper format within the `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
-      sep = "\n"
+      sep = "\n\n"
     )
     message_count <- message_count + 1
   }
@@ -55,7 +55,7 @@ warning_message <- function() {
         "\n    -    have the configuration option enabled",
         "\n    -    you will need to create an `API KEY` and add it within an environment variable explicitly within Connect."
         ),
-      sep = "\n"
+      sep = "\n\n"
     )
     message_count <- message_count + 1
   }
@@ -99,7 +99,7 @@ warning_message <- function() {
             "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
             "by setting the environment variable `PLUMBERTABLEAU_USE_HTTP` to `TRUE` within the RStudio Connect application settings.",
-          sep = "\n"
+          sep = "\n\n"
         )
       ))
     }
@@ -110,7 +110,7 @@ warning_message <- function() {
     message_contents <- paste0(
       message_contents,
       result$message,
-      sep = "\n"
+      sep = "\n\n"
     )
     message_count <- message_count + 1
   } else {
@@ -126,7 +126,7 @@ warning_message <- function() {
         "\n#### Possible Solution:",
         "\n-    Diagnose connectivity or access issue."
         ),
-        sep = "\n"
+        sep = "\n\n"
       )
       message_count <- message_count + 1
 
@@ -140,11 +140,11 @@ warning_message <- function() {
     if (message_count > 1) {
       return(paste0("### The following problems must be resolved before your API will function correctly:\n",
       message_contents,
-      sep = "\n"))
+      sep = "\n\n"))
     } else {
       return(paste0("### The following problem must be resolved before your API will function correctly:\n",
       message_contents,
-      sep = "\n"))
+      sep = "\n\n"))
     }
     return (message_contents)
   }
@@ -162,7 +162,7 @@ warning_message <- function() {
         "\n#### Possible Solution:",
         "\n-    Please upgrade to the latest version"
         ),
-      sep = "\n"
+      sep = "\n\n"
     )
 
   } else if (!server_settings$tableau_integration_enabled) {
@@ -175,13 +175,13 @@ warning_message <- function() {
         "\n#### Possible Solution:",
         "\n-    Please ask your administrator to set `Tableau.TableauIntegrationEnabled = true` within `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
-      sep = "\n"
+      sep = "\n\n"
     )
   }
   
   return(paste0("### The following problem must be resolved before your API will function correctly:\n",
     message_contents,
-    sep = "\n"))
+    sep = "\n\n"))
 }
 
 # Gathers information about the extensions's execution environment and returns
@@ -194,13 +194,13 @@ info_message <- function() {
     message_contents <- paste0(
       message_contents,
       "Verbose logging is on. To disable it please remove the `DEBUGME` environment variable or set it to a value that does not include 'plumbertableau'.",
-      sep = "\n"
+      sep = "\n\n"
     )
   } else {
     message_contents <- paste0(
       message_contents,
       "Verbose logging is off. To enable it please set the environment variable `DEBUGME` to include 'plumbertableau'.",
-      sep = "\n"
+      sep = "\n\n"
     )
   }
 
