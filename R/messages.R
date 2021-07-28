@@ -104,7 +104,7 @@ warning_message <- function() {
   }
 
   # Does this installation support Tableau Extensions
-  # if (is.null(server_settings$tableau_integration_enabled)) {
+  "!DEBUG server_settings$tableau_integration_enabled = `server_settings$tableau_integration_enabled`"
   if (is.null(server_settings$tableau_integration_enabled)) {
     "!DEBUG Tableau.IntegrationEnabled is not present within server settings. This Connect server does not support the feature (`server_settings$version`)"
     # Problem: Feature Flag not available, Connect version (server_settings$version) does not support feature
@@ -114,7 +114,6 @@ warning_message <- function() {
       sep = "\n"
     )
     # Resolve: Upgrade to latest RStudio Connect version
-  # } else if (!server_settings$tableau_integration_enabled) {
   } else if (!server_settings$tableau_integration_enabled) {
     message_contents <- paste0(
       message_contents,
