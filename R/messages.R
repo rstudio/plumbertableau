@@ -65,10 +65,10 @@ warning_message <- function() {
         success=FALSE, 
         message=paste0(
           message_contents,
-          paste0("***Problem***: API request to ", server, " failed. Error: ", err, 
-            ". To resolve this issue, confirm there is connectivity between the server itself and the address assigned to it: ", server, 
+          paste0("### Issue Detected:\n#### Problem:\nAPI request to ", server, " failed. Error: ", err, 
+            ".\n#### Possible Solutions:\nTo resolve this issue, confirm there is connectivity between the server itself and the address assigned to it: ", server, 
             ". If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
-            "by defining PLUMBERTABLEAU_USE_HTTP = TRUE within your environment variables."),
+            "by defining `PLUMBERTABLEAU_USE_HTTP = TRUE` within your environment variables."),
           sep = "\n"
         )
       ))
