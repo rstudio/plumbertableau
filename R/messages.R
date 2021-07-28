@@ -40,7 +40,7 @@ warning_message <- function() {
   api_key = Sys.getenv("CONNECT_API_KEY", NA_character_)
   # NOTE: Do not output the API KEY value!!!
 
-  if (is.na(api_key)) {
+  if (is.na(api_key) || api_key == "") {
     "!DEBUG Problem: CONNECT_API_KEY not defined within environment variables"
 
     message_contents <- paste0(
