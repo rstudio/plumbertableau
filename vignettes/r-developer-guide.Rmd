@@ -68,13 +68,15 @@ Here's that same model in a finished plumbertableau extension.
 ```{r loess, eval = FALSE}
 ```
 
-There are a few key parts to this code. For more information on all of these, see below.
+There are a few parts to our extension which are required to make it work:
 
-- Comment lines that begin with `#*` are [annotations](https://www.rplumber.io/articles/annotations.html). Most of the annotations are Plumber annotations, with a few additions. For more detail, see below.
-- The function definition accepts `x` and `y` arguments from Tableau and returns the output of the model. The `@tab.arg` annotations describe the arguments and the `@tab.return` annotation describes the return value.
-- The footer contains the `tableau_extension` object with the `@plumber` annotation. This does the work of modifying Plumber object to be compatible with Tableau.
+- **Annotations**. Comments beginning with `#*` are [annotations](https://www.rplumber.io/articles/annotations.html), which define aspects of the API for Plumber and plumbertableau.
+- **Function definitions** — Each function definition must use annotations to describe the data types for all inputs and the value it returns.
+- **The footer** — This contains the `tableau_extension` object with the `@plumber` annotation. This does the work of modifying the Plumber router to be Tableau-compatible.
 
-## Annotating function arguments and return values.
+## Annotating function definitions for Tableau
+
+Let's look again at our un-annotated function definition.
 
 ```{r, eval = FALSE}
 function(x, y, alpha = 0.75) {
@@ -84,7 +86,14 @@ function(x, y, alpha = 0.75) {
 }
 ```
 
-This is the actual function definition for the endpoint. Here, the values `x` and `y` are the values described in the `tab.arg` statements. These values are automatically parsed and named from the request submitted from Tableau. `alpha` is a URL parameter we can use to adjust the level of smoothing.
+It accepts three inputs: `x`, `y`, and `alpha`. It fits a `loess()` model using this data, and returns the output of the `predict()` function for that model. We need to annotate its inputs and output so that plumbertableau can translate the data correctly for Tableau.
+
+Function inputs can be described using `@tab.arg` or `@param`. Use `@tab.arg` for data which will be provided from Tableau. Use `@param` for values provided as URL parameters that will not depend on Tableau data.
+
+**Tableau arguments** use the `@tab.arg` annotation. `x` and `y` are the data used to fit the model. We want this use data provided by Tableau for this, so we annotate them with the `@tab.arg`
+
+#* @tab.arg x:integer X values for fitting
+#* @tab.arg y:numeric Y values for fitting
 
 #### Tableau extension
 
