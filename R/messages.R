@@ -15,7 +15,8 @@ warning_message <- function() {
     message_contents <- paste0(
       message_contents,
       paste0("#### Problem:",
-        "\n-    `CONNECT_SERVER` is not defined within environment variables.\n",
+        "\n-    `CONNECT_SERVER` is not defined within environment variables.",
+        "\n",
         "\n#### Possible Solution:",
         "\n-    To resolve this, have your system administrator confirm `Applications.DefaultServerEnv` is enabled and that `Server.Address` has been defined within the `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
@@ -29,6 +30,7 @@ warning_message <- function() {
       message_contents,
       paste0("#### Problem:",
         "\n-    Environment Variable `CONNECT_SERVER` (value = `", server, "` ) does not specify the protocol (`https://` or `http://`).",
+        "\n",
         "\n#### Possible Solution:",
         "\n-    Have your system administrator confirm that `Server.Address` has been configured with the proper format within the `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
@@ -47,6 +49,7 @@ warning_message <- function() {
       message_contents,
       paste0("#### Problem:",
         "\n-    `CONNECT_API_KEY` not defined within environment variables.",
+        "\n",
         "\n#### Possible Solution:",
         "\n-    Have your administrator check if `Applications.DefaultAPIKeyEnv` is disabled within the `rstudio-connect.gcfg` file on the RStudio Connect server. If it is disabled, then you will either need to:",
         "\n    -    have the configuration option enabled",
@@ -90,6 +93,7 @@ warning_message <- function() {
         message=paste0("#### Problem:",
             "\n-    API request to ", server, " has failed with error:",
             "\n    -    ", err, 
+            "\n",
             "\n#### Possible Solutions:",
             "\n-    If you have specified an API_KEY, confirm it is valid.",
             "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
@@ -118,6 +122,7 @@ warning_message <- function() {
         paste0("#### Problem:",
         "\n-    API request to ", server, " failed. ",
         "\n    -    Response: ", httr::http_status(result$response)$reason, ", ", httr::http_status(result$response)$message,
+        "\n",
         "\n#### Possible Solution:",
         "\n-    Diagnose connectivity or access issue."
         ),
@@ -153,6 +158,7 @@ warning_message <- function() {
       message_contents,
       paste0("#### Problem:",
         "\n-    Tableau Integration Feature Flag is not available on the RStudio Connect server (v.", server_settings$version, ")",
+        "\n",
         "\n#### Possible Solution:",
         "\n-    Please upgrade to the latest version"
         ),
@@ -165,6 +171,7 @@ warning_message <- function() {
       message_contents,
       paste0("#### Problem:",
         "\n-    Tableau Integration has been disabled on the RStudio Connect server",
+        "\n",
         "\n#### Possible Solution:",
         "\n-    Please ask your administrator to set `Tableau.TableauIntegrationEnabled = true` within `rstudio-connect.gcfg` file on the RStudio Connect server."
         ),
