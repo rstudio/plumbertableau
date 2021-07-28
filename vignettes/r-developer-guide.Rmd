@@ -144,15 +144,13 @@ plumbertableau uses Plumber's ability to generate [Swagger](https://github.com/r
 
 Once you've written an API, it can be tested locally through the Swagger UI. To start the API, click the Run API button in RStudio, or run `plumber::plumb("path/to/plumber.R")$run()` in the R console. Once the API is running, you'll be presented with an interface like the following:
 
-![Swagger UI](files/swagger.png){width=75%}
+![](files/swagger.png){width=75%}
 
-Click on the `/predict` endpoint to expand it. You can then click "Try it out" to edit the example request, and "Execute" to send it.
+Click on the `/predict` endpoint to expand it. You can then click "Try it out" to modify the example request, and "Execute" to send it.
 
-![Swagger Predict](files/swagger-predict.png){width=75%}
+![](files/swagger-predict.png){width=75%}
 
-Requests from Tableau consist of a JSON object with two items^[[Tableau Analytics Extensions API Reference](https://tableau.github.io/analytics-extensions-api/docs/ae_api_ref.html#post-evaluate)].
-
-plumbertableau provides a simple  the skeleton of a request for our endpoint.
+Requests from Tableau consist of a JSON object with two items^[[Tableau Analytics Extensions API Reference](https://tableau.github.io/analytics-extensions-api/docs/ae_api_ref.html#post-evaluate)]. We can see these in the simple mock request that plumbertableau provides following Tableau's specification.
 
 ```{json}
 {
@@ -168,18 +166,18 @@ plumbertableau provides a simple  the skeleton of a request for our endpoint.
 }
 ```
 
-- `script`: A string identifying an endpoint. Behind the scenes, Tableau sends all extension requests to the `/evaluate` endpoint, so plumbertableau uses string this to correctly route the request.
-- `data`: An object containing arguments for the function at the endpoint. plumbertableau parses this data and passes it to the R code. Tableau does not allow explicit naming of arguments, instead calling them `_arg1`, `_arg2`, ... ,`_argN`. Arguments are passed to R based on order in which they appear.
+- `script`: A string identifying an endpoint. Behind the scenes, Tableau sends all extension requests to the `/evaluate` endpoint, and plumbertableau uses this to correctly route the request.
+- `data`: An object containing arguments for the function at the endpoint. plumbertableau parses this data and passes it to the R code. Tableau does not allow explicit naming of arguments, instead naming them `_arg1`, `_arg2`, ... ,`_argN`. Arguments are passed to R in the order in which they appear. In this case, `_arg1` will be passed to `x` and `_arg2` will be passed to `y`.
 
-`plumbertableau` automatically provides a simple mock request that follows the specification provided by Tableau. This initial mock request contains simple `script` and `data` values. If you'd like, you can use `tableau_json()` to create a more full-featured request for use with Swagger:
+To generate a more complex example, plumbertableau, we can use `tableau_json()` to create a more full-featured request for use with Swagger. Here, we pass in a data frame with two columns, and `tableau_json()` uses those columns for `_arg` and `_arg2`.
 
 ```{r}
 tableau_json(script = "/predict", 
              data = mtcars[,c("hp", "mpg")])
 ```
 
-Note that you will have to stop the running API in order to generate the mock request body in the current R session.
+Note that because the running API occupies your R session, you'll have to stop running it to use `tableau_json()`. But once you've generated a mock request, you can paste it into the Swagger documentation to test the API. The data that would be sent back to Tableau appears under "Response body".
 
-Once you've generated a mock request body, you can insert it into the Swagger documentation for the API to test the API.
+![](files/swagger-test.png){width=75%}
 
-![Swagger testing](files/swagger-test.png){width=75%}
+Now that we've written our extension, we can deploy it to RStudio Connect so that it can be called from Tableau. To read more about using plumbertableau extensions on RStudio Connect, see **[Publishing plumbertableau Extensions](publishing-extensions.html)**.
