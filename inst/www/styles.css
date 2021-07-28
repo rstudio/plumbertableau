@@ -24,6 +24,10 @@ body {
   margin-left: 2rem;
 }
 
+.warning h2 {
+  margin-left: 2rem;
+}
+
 header, main {
   padding: 3rem;
 }
