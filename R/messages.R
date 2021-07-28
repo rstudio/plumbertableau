@@ -16,9 +16,10 @@ warning_message <- function() {
       message_contents,
       paste0("### The environment variable *CONNECT_SERVER* is not defined.",
         "\n",
-        "\nPossible Solution:",
+        "\nPossible Solutions:",
         "\n",
-        "\nHave your system administrator confirm *Applications.DefaultServerEnv* is enabled and that *Server.Address* has been defined within the *rstudio-connect.gcfg* file on the RStudio Connect server."
+        "\n-    Have your system administrator confirm *Applications.DefaultServerEnv* is enabled and that *Server.Address* has been defined within the *rstudio-connect.gcfg* file on the RStudio Connect server.",
+        "\n-    Use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_SERVER* environment variable. It should be set to a reachable https or http address for the server.", 
         ),
       sep = "\n\n---\n\n"
     )
@@ -30,9 +31,10 @@ warning_message <- function() {
       message_contents,
       paste0("### Environment Variable *CONNECT_SERVER* (value = *", server, "* ) does not specify the protocol (*https://* or *http://*).",
         "\n",
-        "\nPossible Solution:",
+        "\nPossible Solutions:",
         "\n",
-        "\nHave your system administrator confirm that *Server.Address* has been configured with the proper format within the *rstudio-connect.gcfg* file on the RStudio Connect server."
+        "\n-    Have your system administrator confirm that *Server.Address* has been configured with the proper format within the *rstudio-connect.gcfg* file on the RStudio Connect server.",
+        "\n-    Use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_SERVER* environment variable with the proper protocol.", 
         ),
       sep = "\n\n---\n\n"
     )
@@ -49,11 +51,10 @@ warning_message <- function() {
       message_contents,
       paste0("### The environment variable *CONNECT_API_KEY* is not defined.",
         "\n",
-        "\nPossible Solution:",
+        "\nPossible Solutions:",
         "\n",
-        "\nHave your administrator check if *Applications.DefaultAPIKeyEnv* is disabled within the *rstudio-connect.gcfg* file on the RStudio Connect server. If it is disabled, then you will either need to:",
-        "\n-    have the configuration option enabled",
-        "\n-    you will need to create an *API KEY* and add it within an environment variable explicitly within Connect."
+        "\n- Have your administrator enable the *Applications.DefaultAPIKeyEnv* setting within the *rstudio-connect.gcfg* file on the RStudio Connect server.",
+        "\n- Create an *API KEY* yourself and use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_API_KEY* variable with the *API KEY* value."
         ),
       sep = "\n\n---\n\n"
     )
@@ -91,7 +92,7 @@ warning_message <- function() {
       return (list(
         success=FALSE, 
         message=paste0("### API request to ", server, " has failed with error:",
-            "\n-    ", err, 
+            "\n", err, 
             "\n",
             "\nPossible Solutions:",
             "\n",
