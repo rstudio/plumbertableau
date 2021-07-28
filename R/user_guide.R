@@ -46,7 +46,7 @@ render_user_guide <- function(path, pr) {
       tags$header(
         class = "warning",
         tags$h1(
-          "Warnings"
+          "Warning - The following item(s) need to be resolved before your API will be accessible from Tableau"
         )),
       tags$main(
         htmltools::HTML(warnings),
