@@ -76,7 +76,7 @@ postroute_hook <- function(data, req, res) {
 
 
 check_rstudio_connect <- function() {
-  return TRUE
+  return (TRUE)
   # Return TRUE if running in a traditional RStudio Connect environment
   Sys.getenv("RSTUDIO_PRODUCT") == "CONNECT"
 }
