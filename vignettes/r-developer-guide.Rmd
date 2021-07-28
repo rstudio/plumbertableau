@@ -28,7 +28,7 @@ knitr::read_chunk(path = system.file("plumber", "loess", "plumber.R", package = 
 
 ## Getting started {#getting-started}
 
-This vignette will walk you through writing plumbertableau extensions in R. plumbertableau extensions are Plumber web services with a few additional pieces, and this vignette assumes some familiarity with Plumber (https://www.rplumber.io/). Plumber's [Quickstart guide](https://www.rplumber.io/articles/quickstart.html) gives a good overview of that package.
+This vignette will walk you through writing plumbertableau extensions in R. plumbertableau extensions are Plumber web services with a few additional pieces, and this vignette assumes some familiarity with Plumber (https://www.rplumber.io/). Plumber's [Quickstart guide](https://www.rplumber.io/articles/quickstart.html) gives a good overview of that package. Throughout this guide we'll use the terms "web service" and "API" (application programming interface) interchangeably.
 
 You can install the plumbertableau package from CRAN or GitHub.
 
@@ -72,13 +72,14 @@ There are a few parts to our extension which are required to make it work:
 
 - **Annotations**. Comments beginning with `#*` are [annotations](https://www.rplumber.io/articles/annotations.html), which define aspects of the API for Plumber and plumbertableau.
 - **Function definitions** — Each function definition must use annotations to describe the data types for all inputs and the value it returns.
-- **The footer** — This contains the `tableau_extension` object with the `@plumber` annotation. This does the work of modifying the Plumber router to be Tableau-compatible.
+- **The Tableau extension footer** — This contains the `tableau_extension` object with the `@plumber` annotation. This does the work of modifying the Plumber router to be Tableau-compatible.
 
 ## Annotating function definitions for Tableau
 
 Let's look again at our un-annotated function definition.
 
 ```{r, eval = FALSE}
+#* Annotate me!
 function(x, y, alpha = 0.75) {
   alpha <- as.numeric(alpha)
   l_out <- loess(y ~ x, span = alpha)
@@ -88,14 +89,36 @@ function(x, y, alpha = 0.75) {
 
 It accepts three inputs: `x`, `y`, and `alpha`. It fits a `loess()` model using this data, and returns the output of the `predict()` function for that model. We need to annotate its inputs and output so that plumbertableau can translate the data correctly for Tableau.
 
-Function inputs can be described using `@tab.arg` or `@param`. Use `@tab.arg` for data which will be provided from Tableau. Use `@param` for values provided as URL parameters that will not depend on Tableau data.
+**Data provided by Tableau** is described using the `@tab.arg` annotation. These annotations require a name and a type, and can optionally contain a description: `#* @tab.arg Name:Type Description`. In our example:
 
-**Tableau arguments** use the `@tab.arg` annotation. `x` and `y` are the data used to fit the model. We want this use data provided by Tableau for this, so we annotate them with the `@tab.arg`
-
+```{r, eval=FALSE}
 #* @tab.arg x:integer X values for fitting
 #* @tab.arg y:numeric Y values for fitting
+```
 
-#### Tableau extension
+Here, `x:integer` specifies the `x` argument by name, and tells plumbertableau to expect an integer vector. The string `X values for fitting` will be used to describe this argument in the generated API documentation.
+
+**Data returned to Tableau** is described with `@tab.return`. The syntax is similar to `@tab.arg`, without an argument name: `#* @tab.return Type Description`.
+
+```{r, eval=FALSE}
+#* @tab.return numeric Fitted loess values
+```
+
+plumbertableau will expect `numeric` data to be returned, and will describe it as `Fitted loess values` in our documentation.
+
+**URL parameters** are arguments described with Plumber's [`@param`](https://www.rplumber.io/articles/annotations.html#endpoint) annotation. These are useful for providing fixed values that don't use data from Tableau objects. In our example the optional `alpha` parameter lets Tableau users control the degree of smoothing used in the `loess` model.
+
+```{r, eval=FALSE}
+#* @param alpha Degree of smoothing
+```
+
+Tableau users can now add `?alpha=0.5` to the end of the extension URL to control the degree of smoothing.
+
+### Data types
+
+
+
+## Tableau extension footer
 
 ```{r, eval = FALSE}
 #* @plumber
@@ -104,7 +127,7 @@ tableau_extension
 
 In order for this API to properly respond to Tableau requests, using `tableau_extension` is required. This function handles the request from Tableau and makes sure it's forwarded to the correct endpoint.
 
-### Testing {#testing}
+## Testing {#testing}
 
 Once the extension has been developed, it can be tested locally through the default Swagger UI. In RStudio, you can click the Run API button, or you can use `plumber::plumb()$run()` to run the API. Once the API is running, you'll be presented with an interface like the following:
 
