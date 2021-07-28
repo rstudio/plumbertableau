@@ -132,15 +132,15 @@ warning_message <- function() {
   }
 
   if (message_count > 0) {
-    if (message_count > 1) {
-      return(paste0("The following problems must be resolved before your API will function correctly:\n",
-      message_contents,
-      sep = "\n\n"))
-    } else {
-      return(paste0("The following problem must be resolved before your API will function correctly:\n",
-      message_contents,
-      sep = "\n\n"))
-    }
+    # if (message_count > 1) {
+    #   return(paste0("The following problems must be resolved before your API will function correctly:\n",
+    #   message_contents,
+    #   sep = "\n\n"))
+    # } else {
+    #   return(paste0("The following problem must be resolved before your API will function correctly:\n",
+    #   message_contents,
+    #   sep = "\n\n"))
+    # }
     return (message_contents)
   }
 
@@ -173,9 +173,10 @@ warning_message <- function() {
     )
   }
   
-  return(paste0("The following problem must be resolved before your API will function correctly:\n",
-    message_contents,
-    sep = "\n\n"))
+  # return(paste0("The following problem must be resolved before your API will function correctly:\n",
+  #   message_contents,
+  #   sep = "\n\n"))
+  message_contents
 }
 
 # Gathers information about the extensions's execution environment and returns
