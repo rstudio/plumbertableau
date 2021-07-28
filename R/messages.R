@@ -14,7 +14,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("#### Problem:",
+      paste0("### Problem:",
         "\n-    `CONNECT_SERVER` is not defined within environment variables.",
         "\n",
         "\nPossible Solution:",
@@ -28,7 +28,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("#### Problem:",
+      paste0("### Problem:",
         "\n-    Environment Variable `CONNECT_SERVER` (value = `", server, "` ) does not specify the protocol (`https://` or `http://`).",
         "\n",
         "\nPossible Solution:",
@@ -47,7 +47,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("#### Problem:",
+      paste0("### Problem:",
         "\n-    `CONNECT_API_KEY` not defined within environment variables.",
         "\n",
         "\nPossible Solution:",
@@ -90,7 +90,7 @@ warning_message <- function() {
 
       return (list(
         success=FALSE, 
-        message=paste0("#### Problem:",
+        message=paste0("### Problem:",
             "\n-    API request to ", server, " has failed with error:",
             "\n    -    ", err, 
             "\n",
@@ -119,7 +119,7 @@ warning_message <- function() {
     if (httr::http_error(result$response)) {
       message_contents <- paste0(
         message_contents,
-        paste0("#### Problem:",
+        paste0("### Problem:",
         "\n-    API request to ", server, " failed. ",
         "\n    -    Response: ", httr::http_status(result$response)$reason, ", ", httr::http_status(result$response)$message,
         "\n",
@@ -156,7 +156,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("#### Problem:",
+      paste0("### Problem:",
         "\n-    Tableau Integration Feature Flag is not available on the RStudio Connect server (v.", server_settings$version, ")",
         "\n",
         "\nPossible Solution:",
@@ -169,7 +169,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("#### Problem:",
+      paste0("### Problem:",
         "\n-    Tableau Integration has been disabled on the RStudio Connect server",
         "\n",
         "\nPossible Solution:",
