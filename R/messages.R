@@ -45,8 +45,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("### Problem:",
-        "\n-    `CONNECT_API_KEY` not defined within environment variables.",
+      paste0("### The environment variable `CONNECT_API_KEY` is not defined.",
         "\n",
         "\nPossible Solution:",
         "\n-    Have your administrator check if `Applications.DefaultAPIKeyEnv` is disabled within the `rstudio-connect.gcfg` file on the RStudio Connect server. If it is disabled, then you will either need to:",
@@ -88,9 +87,8 @@ warning_message <- function() {
 
       return (list(
         success=FALSE, 
-        message=paste0("### Problem:",
-            "\n-    API request to ", server, " has failed with error:",
-            "\n    -    ", err, 
+        message=paste0("### API request to ", server, " has failed with error:",
+            "\n-    ", err, 
             "\n",
             "\nPossible Solutions:",
             "\n-    If you have specified an API_KEY, confirm it is valid.",
@@ -117,9 +115,8 @@ warning_message <- function() {
     if (httr::http_error(result$response)) {
       message_contents <- paste0(
         message_contents,
-        paste0("### Problem:",
-        "\n-    API request to ", server, " failed. ",
-        "\n    -    Response: ", httr::http_status(result$response)$reason, ", ", httr::http_status(result$response)$message,
+        paste0("### API request to ", server, " failed. ",
+        "\n-    Response: ", httr::http_status(result$response)$reason, ", ", httr::http_status(result$response)$message,
         "\n",
         "\nPossible Solution:",
         "\n-    Diagnose connectivity or access issue."
@@ -136,11 +133,11 @@ warning_message <- function() {
 
   if (message_count > 0) {
     if (message_count > 1) {
-      return(paste0("### The following problems must be resolved before your API will function correctly:\n",
+      return(paste0("The following problems must be resolved before your API will function correctly:\n",
       message_contents,
       sep = "\n\n"))
     } else {
-      return(paste0("### The following problem must be resolved before your API will function correctly:\n",
+      return(paste0("The following problem must be resolved before your API will function correctly:\n",
       message_contents,
       sep = "\n\n"))
     }
@@ -149,13 +146,13 @@ warning_message <- function() {
 
   # Does this installation support Tableau Extensions?
   "!DEBUG server_settings$tableau_integration_enabled = `server_settings$tableau_integration_enabled`"
-  if (is.null(server_settings$tableau_integration_enabled)) {
+  if (TRUE || is.null(server_settings$tableau_integration_enabled)) {
     "!DEBUG Tableau.IntegrationEnabled is not present within server settings. This Connect server does not support the feature (`server_settings$version`)"
 
     message_contents <- paste0(
       message_contents,
-      paste0("### Problem:",
-        "\n-    Tableau Integration Feature Flag is not available on the RStudio Connect server (v.", server_settings$version, ")",
+      paste0("### Tableau Integration Feature Flag is not available on the RStudio Connect server.",
+        "-    Current server is version: ", server_settings$version,
         "\n",
         "\nPossible Solution:",
         "\n-    Please upgrade to the latest version of RStudio Connect"
@@ -167,8 +164,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("### Problem:",
-        "\n-    Tableau Integration has been disabled on the RStudio Connect server",
+      paste0("### Tableau Integration has been disabled on the RStudio Connect server",
         "\n",
         "\nPossible Solution:",
         "\n-    Please ask your administrator to set `Tableau.TableauIntegrationEnabled = true` within `rstudio-connect.gcfg` file on the RStudio Connect server."
@@ -177,7 +173,7 @@ warning_message <- function() {
     )
   }
   
-  return(paste0("### The following problem must be resolved before your API will function correctly:\n",
+  return(paste0("The following problem must be resolved before your API will function correctly:\n",
     message_contents,
     sep = "\n\n"))
 }
