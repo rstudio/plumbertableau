@@ -42,6 +42,7 @@ warning_message <- function() {
   "!DEBUG After possible https downgrade, server URL is now `server`"
 
   # Get Server Settings endpoint
+  # Confirm that the server address ends in a /
   if (substr(server,(nchar(server)+1)-1,nchar(server)) != "/") {
     server <- paste0(server, "/")
   }
@@ -49,14 +50,13 @@ warning_message <- function() {
   server_settings <- NULL
   result <- tryCatch (
     {
-       "!DEBUG Sending GET request @ `url`"
+       "!DEBUG Sending GET request to `url`"
       response <- httr::GET(
         url,
         httr::add_headers(Authorization = paste0("Key ", api_key)),
         httr::write_memory()
       )
       list(success=TRUE, response=response)
-      # list(success=FALSE, response="debug")
     },
     error = function(err) {
       "!DEBUG GET response threw an exception: `err`"
@@ -72,7 +72,6 @@ warning_message <- function() {
       # Resolve: If using self-signed certificates, define PLUMBERTABLEAU_USE_HTTP = TRUE if able..
     }
   )
-  "!DEBUG After GET call.."
   if (!result$success) {
     "!DEBUG Detected that an error has been returned from exception: `result`"
     message_contents <- paste0(
@@ -123,7 +122,6 @@ warning_message <- function() {
     # Problem: Feature Flag has been disabled
     # Resolve: Ask administrator to set Tableau.TableauIntegrationEnabled = true within RStudio Connect config file
   }
-  "!DEBUG message_contents after server settings verification"
   message_contents
 }
 
