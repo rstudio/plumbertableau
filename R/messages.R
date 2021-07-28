@@ -14,8 +14,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("### Problem:",
-        "\n-    `CONNECT_SERVER` is not defined within environment variables.",
+      paste0("### The environment variable `CONNECT_SERVER` is not defined.",
         "\n",
         "\nPossible Solution:",
         "\n-    Have your system administrator confirm `Applications.DefaultServerEnv` is enabled and that `Server.Address` has been defined within the `rstudio-connect.gcfg` file on the RStudio Connect server."
@@ -28,8 +27,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("### Problem:",
-        "\n-    Environment Variable `CONNECT_SERVER` (value = `", server, "` ) does not specify the protocol (`https://` or `http://`).",
+      paste0("### Environment Variable `CONNECT_SERVER` (value = `", server, "` ) does not specify the protocol (`https://` or `http://`).",
         "\n",
         "\nPossible Solution:",
         "\n-    Have your system administrator confirm that `Server.Address` has been configured with the proper format within the `rstudio-connect.gcfg` file on the RStudio Connect server."
@@ -94,7 +92,7 @@ warning_message <- function() {
             "\n-    API request to ", server, " has failed with error:",
             "\n    -    ", err, 
             "\n",
-            "\n#### Possible Solutions:",
+            "\nPossible Solutions:",
             "\n-    If you have specified an API_KEY, confirm it is valid.",
             "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
