@@ -9,7 +9,7 @@ warning_message <- function() {
   server <- Sys.getenv("CONNECT_SERVER", NA_character_)
   "!DEBUG Environment Variable CONNECT_SERVER = `server`"
 
-  if (is.na(server)) {
+  if (TRUE || is.na(server) || server == "") {
     "!DEBUG Problem: CONNECT_SERVER not defined within environment variables"
 
     message_contents <- paste0(
@@ -40,7 +40,7 @@ warning_message <- function() {
   api_key = Sys.getenv("CONNECT_API_KEY", NA_character_)
   # NOTE: Do not output the API KEY value!!!
 
-  if (is.na(api_key) || api_key == "") {
+  if (TRUE || is.na(api_key) || api_key == "") {
     "!DEBUG Problem: CONNECT_API_KEY not defined within environment variables"
 
     message_contents <- paste0(
@@ -91,7 +91,8 @@ warning_message <- function() {
             "\n-    API request to ", server, " has failed with error:",
             "\n    -    ", err, 
             "\n#### Possible Solutions:",
-            "\n-    To resolve this issue, confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
+            "\n-    If you have specified an API_KEY, confirm it is valid."
+            "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
             "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
             "by setting the environment variable `PLUMBERTABLEAU_USE_HTTP` to `TRUE` within the RStudio Connect application settings.",
           sep = "\n"
