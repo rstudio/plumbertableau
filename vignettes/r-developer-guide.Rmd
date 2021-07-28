@@ -24,8 +24,6 @@ knitr::read_chunk(path = system.file("plumber", "loess", "plumber.R", package = 
                   labels = "loess")
 ```
 
-
-
 ## Getting started {#getting-started}
 
 This vignette will walk you through writing plumbertableau extensions in R. plumbertableau extensions are Plumber web services with a few additional pieces, and this vignette assumes some familiarity with Plumber (https://www.rplumber.io/). Plumber's [Quickstart guide](https://www.rplumber.io/articles/quickstart.html) gives a good overview of that package. Throughout this guide we'll use the terms "web service" and "API" (application programming interface) interchangeably.
@@ -74,7 +72,9 @@ There are a few parts to our extension which are required to make it work:
 - **Function definitions** — Each function definition must use annotations to describe the data types for all inputs and the value it returns.
 - **The Tableau extension footer** — This contains the `tableau_extension` object with the `@plumber` annotation. This does the work of modifying the Plumber router to be Tableau-compatible.
 
-## Annotating function definitions for Tableau
+The `@apiTitle` and `@apiDescription` annotations are used to describe the extension in documentation which is generated.
+
+### Annotating function definitions for Tableau
 
 Let's look again at our un-annotated function definition.
 
@@ -114,32 +114,62 @@ plumbertableau will expect `numeric` data to be returned, and will describe it a
 
 Tableau users can now add `?alpha=0.5` to the end of the extension URL to control the degree of smoothing.
 
+**The path** to the endpoint where this function is accessed is annotated with `@post`. Tableau only supports requests using the POST method, so all our Tableau-accessible endpoints must be annotated with `@post`.
+
 ### Data types
 
+plumbertableau understands the following R and Tableau data types.
 
+R type | Tableau type
+------ | ------------
+`character` | `string`, `str`
+`logical` | `boolean`, `bool`
+`numeric` | `real`
+`integer` | `integer`, `int`
 
-## Tableau extension footer
+### Tableau extension footer
 
 ```{r, eval = FALSE}
 #* @plumber
 tableau_extension
 ```
 
-In order for this API to properly respond to Tableau requests, using `tableau_extension` is required. This function handles the request from Tableau and makes sure it's forwarded to the correct endpoint.
+In order for a plumbertableau API to properly respond to Tableau requests, we must put this block at the bottom of our extension. The `@plumber` annotation tells Plumber to use the `tableau_extension` object to modify the router object it uses to handle requests.
 
-## Testing {#testing}
+Behind the scenes, this object is a [Plumber Router Modifier](https://www.rplumber.io/articles/annotations.html#plumber-router-modifier), and is compatible with [programmatic usage](https://www.rplumber.io/articles/programmatic-usage.html) in Plumber.
 
-Once the extension has been developed, it can be tested locally through the default Swagger UI. In RStudio, you can click the Run API button, or you can use `plumber::plumb()$run()` to run the API. Once the API is running, you'll be presented with an interface like the following:
+## Running and testing extensions locally {#testing}
+
+plumbertableau uses Plumber's ability to generate [Swagger](https://github.com/rstudio/swagger) documentation for APIs.
+
+Once you've written an API, it can be tested locally through the Swagger UI. To start the API, click the Run API button in RStudio, or run `plumber::plumb("path/to/plumber.R")$run()` in the R console. Once the API is running, you'll be presented with an interface like the following:
 
 ![Swagger UI](files/swagger.png){width=75%}
 
-From this page, you can click on the `/predict` endpoint to expand the available options. You can then click "Try it out" to test the API.
+Click on the `/predict` endpoint to expand it. You can then click "Try it out" to edit the example request, and "Execute" to send it.
 
 ![Swagger Predict](files/swagger-predict.png){width=75%}
 
-Tableau requests contain a JSON request body that contains two objects^[[Tableau Analytics Extensions API Reference](https://tableau.github.io/analytics-extensions-api/docs/ae_api_ref.html#post-evaluate)].
-* script: In the case of `plumbertableau`, this is a string that identifies the specific endpoint being requested.
-* data: This object contains the data being passed from Tableau to the extension. In the case of `plumbertableau`, this data is parsed and automatically made available to the underlying function. Note that values passed from Tableau are unnamed, and instead follow the naming convention `_arg1`, `_arg2`, ... ,`_argN`.
+Requests from Tableau consist of a JSON object with two items^[[Tableau Analytics Extensions API Reference](https://tableau.github.io/analytics-extensions-api/docs/ae_api_ref.html#post-evaluate)].
+
+plumbertableau provides a simple  the skeleton of a request for our endpoint.
+
+```{json}
+{
+  "script": "/predict",
+  "data": {
+    "_arg1": [
+      0
+    ],
+    "_arg2": [
+      0
+    ]
+  }
+}
+```
+
+- `script`: A string identifying an endpoint. Behind the scenes, Tableau sends all extension requests to the `/evaluate` endpoint, so plumbertableau uses string this to correctly route the request.
+- `data`: An object containing arguments for the function at the endpoint. plumbertableau parses this data and passes it to the R code. Tableau does not allow explicit naming of arguments, instead calling them `_arg1`, `_arg2`, ... ,`_argN`. Arguments are passed to R based on order in which they appear.
 
 `plumbertableau` automatically provides a simple mock request that follows the specification provided by Tableau. This initial mock request contains simple `script` and `data` values. If you'd like, you can use `tableau_json()` to create a more full-featured request for use with Swagger:
 
@@ -153,30 +183,3 @@ Note that you will have to stop the running API in order to generate the mock re
 Once you've generated a mock request body, you can insert it into the Swagger documentation for the API to test the API.
 
 ![Swagger testing](files/swagger-test.png){width=75%}
-
-### Deploying {#deploying}
-
-`plumbertableau` is designed to be used with RStudio Connect. RStudio Connect supports a variety of [different deployment methods](https://docs.rstudio.com/connect/user/publishing/). Once an extension is published to RStudio Connect, a few things need to be adjusted to make it easily accessible from Tableau.
-
-1. Provide proper access
-Tableau extensions used from Tableau Server and Tableau Online are setup with a single set of shared credentials. We recommend creating a service account on RStudio Connect and using that account to manage access to extensions. For example, if the service account username is "Tableau", you would give the "Tableau" user access to the extension after it's been published.
-
-2. Assign a vanity URL
-By default, content published to RStudio Connect is assigned a URL containing the content GUID. These urls are long and unindicative of what the actual content is. We strongly recommend assigning a vanity URL to each extension published to RStudio Connect. This allows the extension to be easily referenced from Tableau workbooks. For example, if we published the previous example extension to RStudio Connect and assigned the vanity URL `/loess`, we would refer to it from a calculated field in Tableau with `/loess/predict`.
-
-#### Compatability
-Tableau Analytics Extensions are only supported in RStudio Connect version 1.9+. If you publish an extension to an unsupported version of RStudio Connect, the extension will successfully publish but then you will see the following message when visiting the extension:
-
-![Warning message](files/warnings.png){width=75%}
-
-Additionally, Tableau Analytics Extensions have the following requirements on RStudio Connect:
-* `Tableau.IntegrationEnabled` must be `TRUE` - this is the default, but can be turned off by an RStudio Connect administrator
-* `Connect.ServerAddress` must be set
-
-If either of these criteria are not met, a published extension will show a warning message similar to the one above.
-
-### Debugging {#debugging}
-Logging can be enabled for `plumbertableau` using [`debugme`](https://github.com/r-lib/debugme). Setting the `DEBUGME` environment variable to a value containing `plumbertableau` prior to loading the package will result in additional logging to the R console. These log messages can be helpful in understanding what's happening with each request, as well as what is contained in each request. This feature is also available for content deployed on RStudio Connect by adding the `DEBUGME` [environment variable](https://docs.rstudio.com/connect/user/content-settings/#content-vars).
-RStudio Connect administrators can enable additional logging for Tableau extensions hosted on RStudio Connect.
-
-Adding `browser()` statements during local development can also aid in debugging efforts.

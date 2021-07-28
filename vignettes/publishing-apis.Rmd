@@ -17,3 +17,30 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(plumbertableau)
 ```
+
+### Deploying {#deploying}
+
+`plumbertableau` is designed to be used with RStudio Connect. RStudio Connect supports a variety of [different deployment methods](https://docs.rstudio.com/connect/user/publishing/). Once an extension is published to RStudio Connect, a few things need to be adjusted to make it easily accessible from Tableau.
+
+1. Provide proper access
+Tableau extensions used from Tableau Server and Tableau Online are setup with a single set of shared credentials. We recommend creating a service account on RStudio Connect and using that account to manage access to extensions. For example, if the service account username is "Tableau", you would give the "Tableau" user access to the extension after it's been published.
+
+2. Assign a vanity URL
+By default, content published to RStudio Connect is assigned a URL containing the content GUID. These urls are long and unindicative of what the actual content is. We strongly recommend assigning a vanity URL to each extension published to RStudio Connect. This allows the extension to be easily referenced from Tableau workbooks. For example, if we published the previous example extension to RStudio Connect and assigned the vanity URL `/loess`, we would refer to it from a calculated field in Tableau with `/loess/predict`.
+
+#### Compatability
+Tableau Analytics Extensions are only supported in RStudio Connect version 1.9+. If you publish an extension to an unsupported version of RStudio Connect, the extension will successfully publish but then you will see the following message when visiting the extension:
+
+![Warning message](files/warnings.png){width=75%}
+
+Additionally, Tableau Analytics Extensions have the following requirements on RStudio Connect:
+* `Tableau.IntegrationEnabled` must be `TRUE` - this is the default, but can be turned off by an RStudio Connect administrator
+* `Connect.ServerAddress` must be set
+
+If either of these criteria are not met, a published extension will show a warning message similar to the one above.
+
+### Debugging {#debugging}
+Logging can be enabled for `plumbertableau` using [`debugme`](https://github.com/r-lib/debugme). Setting the `DEBUGME` environment variable to a value containing `plumbertableau` prior to loading the package will result in additional logging to the R console. These log messages can be helpful in understanding what's happening with each request, as well as what is contained in each request. This feature is also available for content deployed on RStudio Connect by adding the `DEBUGME` [environment variable](https://docs.rstudio.com/connect/user/content-settings/#content-vars).
+RStudio Connect administrators can enable additional logging for Tableau extensions hosted on RStudio Connect.
+
+Adding `browser()` statements during local development can also aid in debugging efforts.
