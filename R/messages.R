@@ -93,7 +93,7 @@ warning_message <- function() {
       # Problem: request failed, with error in response
       # Resolve: as appropriate...
     } else {
-      server_settings <- httr::content(result$response, as="text")
+      server_settings <- httr::content(result$response, as="parsed")
       "!DEBUG GET response was successful. Server settings = `server_settings`"
     }
   }
