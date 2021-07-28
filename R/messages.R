@@ -14,7 +14,8 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("**Problem:** The environment variable `CONNECT_SERVER` is not defined.",
+      paste0("### Problem:",
+        "\n-    `CONNECT_SERVER` is not defined within environment variables.",
         "\n",
         "\nPossible Solution:",
         "\n-    To resolve this, have your system administrator confirm `Applications.DefaultServerEnv` is enabled and that `Server.Address` has been defined within the `rstudio-connect.gcfg` file on the RStudio Connect server."
@@ -27,7 +28,8 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("**Problem:** Environment Variable `CONNECT_SERVER` (value = `", server, "` ) does not specify the protocol (`https://` or `http://`).",
+      paste0("### Problem:",
+        "\n-    Environment Variable `CONNECT_SERVER` (value = `", server, "` ) does not specify the protocol (`https://` or `http://`).",
         "\n",
         "\nPossible Solution:",
         "\n-    Have your system administrator confirm that `Server.Address` has been configured with the proper format within the `rstudio-connect.gcfg` file on the RStudio Connect server."
