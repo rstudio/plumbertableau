@@ -14,11 +14,11 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("### The environment variable 'CONNECT_SERVER' is not defined.",
+      paste0("### The environment variable *CONNECT_SERVER* is not defined.",
         "\n",
         "\nPossible Solution:",
         "\n",
-        "\nHave your system administrator confirm 'Applications.DefaultServerEnv' is enabled and that 'Server.Address' has been defined within the 'rstudio-connect.gcfg' file on the RStudio Connect server."
+        "\nHave your system administrator confirm *Applications.DefaultServerEnv* is enabled and that *Server.Address* has been defined within the *rstudio-connect.gcfg* file on the RStudio Connect server."
         ),
       sep = "\n\n---\n\n"
     )
