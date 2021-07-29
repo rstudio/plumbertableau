@@ -293,12 +293,12 @@ render_setup_instructions <- function(path, pr) {
                htmltools::HTML(desc),
                tags$p(
                  tags$button(
-                   onClick="javascript:location.href = './';"
+                   onClick="javascript:location.href = './';",
                    "Tableau Usage Instructions"
                  ),
                  tags$br(),
                  tags$button(
-                   onClick="javascript:location.href = './__docs__/';"
+                   onClick="javascript:location.href = './__docs__/';",
                    "Open API Documentation"
                  ),
                )
