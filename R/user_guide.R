@@ -292,13 +292,13 @@ render_setup_instructions <- function(path, pr) {
       tags$div(class = "api-desc",
                htmltools::HTML(desc),
                htmltools::HTML('
-<a href="#" class="button">
+<a href="#" class="button2">
 <tr>
 <span style="font-size: 64px; color: black;">?</span>
 <span style="font-size: 16px;">Configure Tableau</span></th>
   </tr>
 </a>
-<a href="#" class="button">
+<a href="#" class="button2">
 <table style="width:100%; padding: 0px; margin: 0px">
   <tr style="padding: 0px">
     <th style="padding-right: 10px;
