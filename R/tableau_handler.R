@@ -124,16 +124,16 @@ infer_tableau_handler <- function(route) {
 
 
   # Check to see if Tableau args and return values have been provided
-  err <- "Tableau argument and return data types must be specified. Please use either #* tab.arg and #* tab.return annotations or tableau_handler() to specify Tableau argument and return types."
+  err <- "Tableau argument and return data types must be specified. Please use either #* tableauArg and #* tableauReturn annotations or tableau_handler() to specify Tableau argument and return types."
 
   if (rlang::is_empty(parsed_comments)) {
     stop(err, call. = FALSE)
-  } else if (!("tab.arg" %in% parsed_comments$tag) | !("tab.return" %in% parsed_comments$tag)) {
+  } else if (!("tableauArg" %in% parsed_comments$tag) | !("tableauReturn" %in% parsed_comments$tag)) {
     stop(err, call. = FALSE)
   }
 
-  args <- parsed_comments[parsed_comments$tag == c("tab.arg"), c("line", "remainder")]
-  returns <- parsed_comments[parsed_comments$tag == c("tab.return"), c("line", "remainder")]
+  args <- parsed_comments[parsed_comments$tag == c("tableauArg"), c("line", "remainder")]
+  returns <- parsed_comments[parsed_comments$tag == c("tableauReturn"), c("line", "remainder")]
 
   args <- parse_args_comment_df(args)
   return <- parse_return_comment_df(returns)
@@ -182,18 +182,18 @@ parse_args_comment_df <- function(comment_df) {
 
   bad_lines <- comment_df$line[which(is.na(name))]
   if (length(bad_lines) > 0) {
-    stop("Invalid @tab.arg on line(s) ", paste(bad_lines, collapse = ", "))
+    stop("Invalid @tableauArgu on line(s) ", paste(bad_lines, collapse = ", "))
   }
 
   arg_specs <- mapply(name, type, opt, desc, FUN = function(name, type, opt, desc) {
     arg_spec(type = type, desc = desc, optional = ifelse(is.na(opt), FALSE, opt == "?"))
   }, SIMPLIFY = FALSE, USE.NAMES = TRUE)
 
-  # Make sure @tab.arg names are unique
+  # Make sure @tableauArg names are unique
   duplicate_names <- unique(name[which(duplicated(name))])
   if (length(duplicate_names) > 0) {
     stop(call. = FALSE,
-      "Duplicate @tab.arg name(s) detected: ",
+      "Duplicate @tableauArg name(s) detected: ",
       paste0(paste0("'", duplicate_names, "'"), collapse = ", "),
       ". Names must be unique."
     )
