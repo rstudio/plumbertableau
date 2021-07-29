@@ -350,7 +350,7 @@ render_setup_instructions <- function(path, pr) {
 #   6. Save changes"),
 # fragment.only = TRUE
 #         )
-      )
+      # )
     )
   )
 
