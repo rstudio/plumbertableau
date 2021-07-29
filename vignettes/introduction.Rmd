@@ -20,31 +20,31 @@ knitr::read_chunk(path = system.file("plumber", "capitalize", "plumber.R", packa
 
 [Tableau](https://www.tableau.com) is a leading visual analytics platform that lets its users investigate, understand, and report on data. R is a programming language for statistics, data analysis, and visualization.
 
-plumbertableau lets you call external R code from Tableau workbooks via [Tableau Analytics Extensions](https://tableau.github.io/analytics-extensions-api/). To do this, you start by writing a [Plumber](https://www.rplumber.io/) web service, and add some additional annotations to describe how the extension should talk to Tableau. plumbertableau uses these annotations to correctly serve requests from Tableau, as well as dynamically generate documentation, copy-and-paste code, and setup instructions for use in Tableau
+plumbertableau lets you call external R code from Tableau workbooks via [Tableau Analytics Extensions](https://tableau.github.io/analytics-extensions-api/). You achieve this by writing a plumbertableau extension, which is a [Plumber](https://www.rplumber.io/) web service with some extra annotations. plumbertableau uses these annotations to correctly serve requests from Tableau, as well as dynamically generate documentation, copy-and-paste Tableau code, and setup instructions.
 
-plumbertableau extensions are most easily hosted on [RStudio Connect](https://www.rstudio.com/products/connect/), which knows how to route requests from tableau to different extensions published to the same server.
+plumbertableau extensions are most easily used with [RStudio Connect](https://www.rstudio.com/products/connect/), which lets you host and manage any number of Tableau extensions.
 
-## A simple example
+## A Simple Example
 
 The following code is a simple plumbertableau extension. It can receive text from Tableau, and returns that text capitalized.
 
 ```{r capitalize, eval = FALSE}
 ```
 
-The core of this extension is a very simple R function that capitalizes text. It's surrounded by Plumber "annotations" which describe the web service. plumbertableau adds some new annotations above what Plumber requires. To learn or more information on these, see our guide to **[Developing plumbertableau Extensions in R](r-developer-guide.html)**.
+The core of this extension is a very simple R function that capitalizes text. It's surrounded by Plumber "annotations" which describe the web service. plumbertableau adds some new annotations above what Plumber requires. To learn or more information on these, see our guide to **[Writing plumbertableau Extensions in R](r-developer-guide.html)**.
 
-Before you use the extension in Tableau, Tableau needs to be able to access it. For instructions on how to do that, see the documentation on **[Setting Tableau Up to Work with Extensions](tableau-configuration.html)**, which will walk you through publishing extensions to RStudio Connect and setting up a Connect server as an extension in Tableau. Once you've done this, all plumbertableau extensions on that server will be accessible to Tableau.
+Before you use the extension in Tableau, Tableau needs to be able to access it. You can find instructions on how to do that, and information on publishing extensions to RStudio Connect **[Publishing plumbertableau Extensions to RStudio Connect](publishing-extensions.html)**. This document will walk you through publishing extensions to RStudio Connect and setting up a Connect server as an extension in Tableau.
 
-plumbertableau extensions are used in Tableau's *calculated fields*. To use our `capitalize` extension, we'd type the following into a Tableau calculated field, or just copy and paste it from the automatically generated code samples. (In real usage, you'll probably replace `"Hello World"` with references to Tableau data.)
+plumbertableau extensions are used in Tableau's *calculated fields*. Let's imagine we've published our extension to RStudio Connect and have given it the custom URL `stringutils`. use our `capitalize` extension, we'd type the following into a Tableau calculated field, or just copy and paste it from the automatically generated code samples. (In real usage, you'll probably replace `"Hello World"` with references to Tableau data.)
 
 ```
-SCRIPT_STR("/extension/path/capitalize", "Hello World")
+SCRIPT_STR("/stringutils/capitalize", "Hello World")
 ```
 
 Tableau will send a request to the server you configured, and the server will send it on to the extension you named in the first argument. All the other arguments are data sent to the extension. For more information on using published extensions in Tableau, see the guide to **[Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)**.
 
-### Learn more
+## Learn More
 
-* [R developer guide for getting started with developing Tableau extensions using plumbertableau](r-developer-guide.html)
-* [Tableau developer guide for getting started using Tableau extensions built with plumbertableau](tableau-developer-guide.html)
-* [Setting up Tableau for use with extensions hosted on RStudio Connect](tableau-configutation.html)
+- [Writing plumbertableau Extensions in R](r-developer-guide.html)
+- [Publishing plumbertableau Extensions to RStudio Connect](tableau-configutation.html)
+- [Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)

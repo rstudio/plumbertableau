@@ -42,7 +42,7 @@ remotes::install_github("rstudio/plumbertableau")
 
 plumbertableau extensions respond to requests from Tableau. In a request, Tableau will provide an [*endpoint*](https://www.rplumber.io/articles/routing-and-input.html?q=endpoint#endpoints-1) — which roughly corresponds to an R function — and will send along one or more *arguments*, which will generally consist of data from Tableau.
 
-An extension **must** return data that's the same elements or rows as the arguments it receive. It can do things like transform text, or use a model to predict Y values from a matrix of X values. It can't, say, receive an integer representing the number of elements to sample, and return a vector of that length.
+An extension *must* return data that's the same elements or rows as the arguments it receive. It can do things like transform text, or use a model to predict Y values from a matrix of X values. It can't, say, receive an integer representing the number of elements to sample, and return a vector of that length.
 
 ## An Example with Loess Regression
 
@@ -89,19 +89,19 @@ function(x, y, alpha = 0.75) {
 
 It accepts three inputs: `x`, `y`, and `alpha`. It fits a `loess()` model using this data, and returns the output of the `predict()` function for that model. We need to annotate its inputs and output so that plumbertableau can translate the data correctly for Tableau.
 
-**Data provided by Tableau** is described using the `@tab.arg` annotation. These annotations require a name and a type, and can optionally contain a description: `#* @tab.arg Name:Type Description`. In our example:
+**Data provided by Tableau** is described using the `@tableauArg` annotation. These annotations require a name and a type, and can optionally contain a description: `#* @tableauArg Name:Type Description`. In our example:
 
 ```{r, eval=FALSE}
-#* @tab.arg x:integer X values for fitting
-#* @tab.arg y:numeric Y values for fitting
+#* @tableauArg x:integer X values for fitting
+#* @tableauArg y:numeric Y values for fitting
 ```
 
 Here, `x:integer` specifies the `x` argument by name, and tells plumbertableau to expect an integer vector. The string `X values for fitting` will be used to describe this argument in the generated API documentation.
 
-**Data returned to Tableau** is described with `@tab.return`. The syntax is similar to `@tab.arg`, without an argument name: `#* @tab.return Type Description`.
+**Data returned to Tableau** is described with `@tableauReturn`. The syntax is similar to `@tableauArg`, without an argument name: `#* @tableauReturn Type Description`.
 
 ```{r, eval=FALSE}
-#* @tab.return numeric Fitted loess values
+#* @tableauReturn numeric Fitted loess values
 ```
 
 plumbertableau will expect `numeric` data to be returned, and will describe it as `Fitted loess values` in our documentation.
@@ -195,7 +195,7 @@ Additional messages will be logged to the R console while the extension is runni
 
 ## Deploying Extensions
 
-Now that we've written our extension, we can deploy it to RStudio Connect so that it can be called from Tableau. 
+Now that we've written our extension, we can deploy it to RStudio Connect and use it from Tableau. 
 
-- To read more about using extensions on RStudio Connect, see **[Publishing plumbertableau Extensions](publishing-extensions.html)**.
-- For more information about using extensions from Tableau
+- To learn how to publish and managing extensions on RStudio Connect, and how to configure Tableau to work with Connect, see **[Publishing plumbertableau Extensions to RStudio Connect](publishing-extensions.html)**.
+- For more information about using extensions from Tableau, see **[Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)**
