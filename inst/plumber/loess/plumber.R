@@ -5,10 +5,10 @@ library(plumbertableau)
 #* @apiDescription Loess smoothing for Tableau
 
 #* Fit a loess curve to the inputs and return the curve values
-#* @tab.arg x:integer X values for fitting
-#* @tab.arg y:numeric Y values for fitting
-#* @tab.return numeric Fitted loess values
 #* @param alpha Degree of smoothing
+#* @tableauArg x:integer X values for fitting
+#* @tableauArg y:numeric Y values for fitting
+#* @tableauReturn numeric Fitted loess values
 #* @post /predict
 function(x, y, alpha = 0.75) {
   alpha <- as.numeric(alpha)
