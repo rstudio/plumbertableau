@@ -1,5 +1,5 @@
 ---
-title: "Tableau Developer Guide"
+title: "Using plumbertableau Extensions in Tableau"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Tableau Developer Guide}
@@ -14,21 +14,26 @@ knitr::opts_chunk$set(
 )
 ```
 
-Analytics extensions built with `plumbertableau` are designed to be easily used from within calculated fields in  Tableau Workbooks. When extensions are published to RStudio Connect, a Tableau usage guide is automatically generated and displayed when viewing the extension on RStudio Connect:
+plumbertableau extensions are used within calculated fields in Tableau, using calls to Tableau's `SCRIPT_*` functions. 
 
-![Tableau usage guide](files/tableau-usage-guide.png){width=75%}
+plumbertableau automatically generates a documentation page for the extension, designed as a reference for Tableau users. These are displayed when viewing the extension on RStudio Connect.
 
-This page includes the following details about the extension:
-* A description of the endpoint
-* Links to other important pieces of documentation. This includes a setup guide for Tableau and the OpenAPI (Swagger) documentation for the extension.
-* An example of a `SCRIPT_` command to be used from within a calculated field in Tableau
-* Descriptions of the different parameters, arguments, and return data for the extension
+![](files/tableau-usage-guide.png){width=75%}
 
-Using this reference page, you can copy and paste the `SCRIPT_` command into a calculated field in Tableau and replace the argument placeholders with actual values from the Tableau workbook.
+This page includes the following information about the extension:
 
-![Tableau calculated field](files/calculated-field.png){width=75%}
+- The API's name and description;
+- Links to other important pieces of documentation, including instructions for configuring Tableau, and the OpenAPI (Swagger) documentation for the extension.
 
-In order to ensure values are correctly passed from Tableau to the extension, Tableau aggregation needs to be turned off.
+For each endpoint, it includes:
+- An example of how to call the  `SCRIPT_*` command in a Tableau calculated field;
+- Names, types, and descriptions for Tableau arguments, URL parameters, and return data returned.
+
+You can copy and paste the usage example (the `SCRIPT_*`) command into a calculated field in Tableau, and replace the argument placeholders with actual values from the Tableau workbook.
+
+![Using a plumbertableau extension in a calculated field](files/calculated-field.png){width=75%}
+
+Note: You *must* turn off "Aggregate Measures", under the "Analysis" menu, for Tableau to correctly pass values to the extension.
 
 ![Tableau aggregation](files/aggregate.png){width=75%}
 
