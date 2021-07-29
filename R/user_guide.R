@@ -315,10 +315,10 @@ render_setup_instructions <- function(path, pr) {
   3. Under the heading 'Analytics Extensions', select 'Enable analytics extension for site'
   4. Create a new connection and select the connection type of 'Analytics Extensions API'
   5. Select if you want to use SSL and enter the following information for your RStudio Connect server:
-  ```
-  Host: `{server_domain}`
-  Port: `{server_port}`
-  ```
+  
+  >Host: `{server_domain}`
+  >Port: `{server_port}`
+  
   6. Select 'Sign in with a username and password'.
    The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
   8. Create / Save changes
