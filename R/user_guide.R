@@ -305,33 +305,51 @@ render_setup_instructions <- function(path, pr) {
       )
     ),
     tags$main(
-      htmltools::HTML(
-        markdown::markdownToHTML(
-          text = glue::glue("#### Tableau Server / Tableau Online
-  ##### NOTE: The following has been generated and is specific for *your* installation.
+      htmltools::HTML("
+        <h1>Tableau Server / Tableau Online</h1>
+        <h2>Setting up access to your Tableau Extensions></h2>
+        <p>NOTE: The following has been generated and is specific for *your* installation.</p>
+        <ol>
+          <li>Using an administrative account, login to Tableau Server/Online</li>
+          <li>Navigate to Settings, then Extensions</li>
+          <li>Under the heading 'Analytics Extensions', select 'Enable analytics extension for site'</li>
+          <li>Create a new connection and select the connection type of 'Analytics Extensions API'</li>
+          <li>Select if you want to use SSL and enter the following information for your RStudio Connect server:
+            <ul>Host: `{server_domain}`</ul>
+            <ul>Port: `{server_port}`</ul>
+          </li>
+          <li>Select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect</li>
+          </li>Create / Save changes</li>
+        </ol>
+      ")
 
-  1. Using an administrative account, login to Tableau Server/Online
-  2. Navigate to Settings, then Extensions
-  3. Under the heading 'Analytics Extensions', select 'Enable analytics extension for site'
-  4. Create a new connection and select the connection type of 'Analytics Extensions API'
-  5. Select if you want to use SSL and enter the following information for your RStudio Connect server:
-  
-  >Host: `{server_domain}`
-  >Port: `{server_port}`
-  
-  6. Select 'Sign in with a username and password'.
-   The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
-  8. Create / Save changes
 
-#### Tableau Desktop
-  1. Navigate to Help, Settings and Performance, Manage Analytics Extension Connection...
-  2. Select 'TabPy/External API'
-  3. Set Server (`{server_domain}`) and Port (`{server_port}`) to the address and port of the server running the API
-  4. If desired, select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
-  5. Select whether to Require SSL
-  6. Save changes"),
-fragment.only = TRUE
-        )
+#         markdown::markdownToHTML(
+#           text = glue::glue("#### Tableau Server / Tableau Online
+#   ##### NOTE: The following has been generated and is specific for *your* installation.
+
+#   1. Using an administrative account, login to Tableau Server/Online
+#   2. Navigate to Settings, then Extensions
+#   3. Under the heading 'Analytics Extensions', select 'Enable analytics extension for site'
+#   4. Create a new connection and select the connection type of 'Analytics Extensions API'
+#   5. Select if you want to use SSL and enter the following information for your RStudio Connect server:
+  
+#   >Host: `{server_domain}`
+#   >Port: `{server_port}`
+  
+#   6. Select 'Sign in with a username and password'.
+#    The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
+#   8. Create / Save changes
+
+# #### Tableau Desktop
+#   1. Navigate to Help, Settings and Performance, Manage Analytics Extension Connection...
+#   2. Select 'TabPy/External API'
+#   3. Set Server (`{server_domain}`) and Port (`{server_port}`) to the address and port of the server running the API
+#   4. If desired, select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
+#   5. Select whether to Require SSL
+#   6. Save changes"),
+# fragment.only = TRUE
+#         )
       )
     )
   )
