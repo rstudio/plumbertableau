@@ -3,6 +3,12 @@
 # from running correctly, or receiving and responding to requests from
 # Tableau.
 warning_message <- function() {
+
+  # If not running on RSC, return NULL, otherwise perform checks;
+  if (!check_rstudio_connect()) {
+    return (NULL)
+  }
+
   message_contents <- NULL
   message_count <- 0
 
@@ -72,7 +78,7 @@ warning_message <- function() {
   # Get Server Settings endpoint
   # Confirm that the server address ends in a /
   if (!is.na(server)) {
-    last_char <- substr(server, (nchar(server)+1)-1, nchar(server))
+    last_char <- substr(server, nchar(server), nchar(server))
     if (!is.na(last_char) && last_char != "/") {
       server <- paste0(server, "/")
     }
@@ -135,8 +141,8 @@ warning_message <- function() {
       message_count <- message_count + 1
 
     } else {
+      "!DEBUG GET response was successful."
       server_settings <- httr::content(result$response, as="parsed")
-      "!DEBUG GET response was successful. Server settings = `server_settings`"
     }
   }
 
