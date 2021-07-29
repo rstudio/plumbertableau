@@ -293,13 +293,10 @@ render_setup_instructions <- function(path, pr) {
                htmltools::HTML(desc),
                htmltools::HTML('
 <a href="#" class="button">
-<table style="width:100%; padding: 0px; margin: 0px">
-  <tr style="padding: 0px">
-    <th style="padding-right: 10px;
-  text-align: left;"><span style="font-size: 64px; color: black;">?</span></th>
-    <th><span style="font-size: 16px;">Configure Tableau</span></th>
+<tr>
+<span style="font-size: 64px; color: black;">?</span>
+<span style="font-size: 16px;">Configure Tableau</span></th>
   </tr>
-  </table>
 </a>
 <a href="#" class="button">
 <table style="width:100%; padding: 0px; margin: 0px">
