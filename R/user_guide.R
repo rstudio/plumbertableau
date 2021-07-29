@@ -292,15 +292,15 @@ render_setup_instructions <- function(path, pr) {
       tags$div(class = "api-desc",
                htmltools::HTML(desc),
                tags$p(
-                 tags$a(
-                   href = "./",
+                 tags$button(
+                   onClick="javascript:location.href = './';"
                    "Tableau Usage Instructions"
                  ),
                  tags$br(),
-                 tags$a(
-                   href = "./__docs__/",
+                 tags$button(
+                   onClick="javascript:location.href = './__docs__/';"
                    "Open API Documentation"
-                 )
+                 ),
                )
       )
     ),
