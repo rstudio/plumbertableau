@@ -29,6 +29,7 @@ tableau_openapi <- function(pr) {
         "### Warnings",
         "\n",
         "#### The following item(s) need to be resolved before your API will be accessible from Tableau:",
+        "\n",
         warnings,
         sep = "\n"
       )
