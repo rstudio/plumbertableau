@@ -53,8 +53,14 @@ render_user_guide <- function(path, pr) {
         )),
       tags$main(
         htmltools::HTML(warnings),
-        tags$a(href = "./__docs__/",
-               "Open API documentation")
+      tags$div(htmltools::HTML('
+<a href="#" class="button">
+Configure Tableau
+</a>
+<a href="#" class="button">
+Test your extension
+</a>
+      '))
       )
     )
   } else {
@@ -74,17 +80,14 @@ render_user_guide <- function(path, pr) {
         ),
         tags$div(class = "api-desc",
                  htmltools::HTML(desc),
-                 tags$p(
-                   tags$a(
-                     href = "./setup",
-                     "Tableau Setup Instructions"
-                   ),
-                   tags$br(),
-                   tags$a(
-                     href = "./__docs__/",
-                     "Open API Documentation"
-                   )
-                 )
+      tags$div(htmltools::HTML('
+<a href="#" class="button">
+Configure Tableau
+</a>
+<a href="#" class="button">
+Test your extension
+</a>
+      '))
         )
       ),
       tags$main(
@@ -299,7 +302,6 @@ Configure Tableau
 <a href="#" class="button">
 Test your extension
 </a>
-
       '))
     ),
     tags$main(
