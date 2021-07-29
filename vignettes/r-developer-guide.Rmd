@@ -20,7 +20,7 @@ library(plumbertableau)
 set.seed(35487)
 
 # R chunks
-knitr::read_chunk(path = system.file("plumber", "loess", "plumber.R", package = "plumbertableau"),
+knitr::read_chunk(path = "../inst/plumber/loess/plumber.R",
                   labels = "loess")
 ```
 

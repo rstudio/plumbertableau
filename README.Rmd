@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 
 # R chunks
-knitr::read_chunk(path = system.file("plumber", "capitalize", "plumber.R", package = "plumbertableau"),
+knitr::read_chunk(path = "inst/plumber/capitalize/plumber.R",
                   from = 9,
                   labels = "capitalize")
 ```
