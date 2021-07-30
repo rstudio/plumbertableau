@@ -348,6 +348,6 @@ fragment.only = TRUE
 }
 
 strip_md_links <- function(text) {
-  i <- stringi::stri_locate_first(text, fixed = "### Description")
+  i <- stringi::stri_locate_first(text, fixed = "### Description")[1]
   text[0:i]
 }
