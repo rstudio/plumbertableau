@@ -348,10 +348,6 @@ fragment.only = TRUE
 }
 
 strip_md_links <- function(text) {
-
-  ### Description
-  desc <- stringi::stri_replace_all(text, regex = "\n### Description.*", "")
-  desc <- stringi::stri_replace_all(desc, regex = "\n\* \[Configure Tableau to access your extension\].*", "")
-  desc <- stringi::stri_replace_all(desc, regex = "\n\* \[How to use your extension from Tableau\].*", "")
-  desc
+  i <- stringi::stri_locate_first(text, fixed = "### Description")
+  text[0:i]
 }
