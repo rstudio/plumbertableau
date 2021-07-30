@@ -85,12 +85,13 @@ render_user_guide <- function(path, pr) {
           tags$div(
             tags$a(
               href = "./setup",
+              class="button",
               "Configure Tableau"
             )
           ),
           tags$div(
             tags$a(href = "./__docs__/",
-              class="button"
+              class="button",
               "View the generated Open API documentation"
             )
           )
