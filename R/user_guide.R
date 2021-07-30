@@ -49,18 +49,19 @@ render_user_guide <- function(path, pr) {
 
   if (!rlang::is_null(warnings)) {
     warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
+
     ui <- htmltools::tagList(
-      tags$header(
-        tags$h1(
-          title,
-          if (!is.null(version)) paste0("(v", version, ")")
-        ),
-        tags$div(class = "api-desc",
-          tags$div(
-            htmltools::HTML(desc)
-          ),
-        )
-      ),
+      # tags$header(
+      #   tags$h1(
+      #     title,
+      #     if (!is.null(version)) paste0("(v", version, ")")
+      #   ),
+      #   tags$div(class = "api-desc",
+      #     tags$div(
+      #       htmltools::HTML(desc)
+      #     ),
+      #   )
+      # ),
       tags$main(
         tags$div(
           class = "warning",
