@@ -44,24 +44,24 @@ render_user_guide <- function(path, pr) {
   title <- apiSpec$info$title
   version <- apiSpec$info$version
   # Strip description of links to other pages
-  desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-                                    fragment.only = TRUE)
+  # desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+  #                                   fragment.only = TRUE)
 
   if (!rlang::is_null(warnings)) {
     warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
 
     ui <- htmltools::tagList(
-      # tags$header(
-      #   tags$h1(
-      #     title,
-      #     if (!is.null(version)) paste0("(v", version, ")")
-      #   ),
+      tags$header(
+        tags$h1(
+          title,
+          if (!is.null(version)) paste0("(v", version, ")")
+        )
       #   tags$div(class = "api-desc",
       #     tags$div(
       #       htmltools::HTML(desc)
       #     ),
       #   )
-      # ),
+      ),
       tags$main(
         tags$div(
           class = "warning",
