@@ -166,7 +166,7 @@ Requests from Tableau consist of a JSON object with two items^[[Tableau Analytic
 }
 ```
 
-- `script`: A string identifying an endpoint. Behind the scenes, Tableau sends all extension requests to the `/evaluate` endpoint, and plumbertableau uses this to correctly route the request.
+- `script`: A string identifying an endpoint. Behind the scenes, Tableau sends all extension requests to the `/evaluate` endpoint, and plumbertableau uses this string value to correctly route the request to a the requested endpoint.
 - `data`: An object containing arguments for the function at the endpoint. plumbertableau parses this data and passes it to the R code. Tableau does not allow explicit naming of arguments, instead naming them `_arg1`, `_arg2`, ... ,`_argN`. Arguments are passed to R in the order in which they appear. In this case, `_arg1` will be passed to `x` and `_arg2` will be passed to `y`.
 
 To generate a more complex example, plumbertableau, we can use `tableau_json()` to create a more full-featured request for use with Swagger. Here, we pass in a data frame with two columns, and `tableau_json()` uses those columns for `_arg` and `_arg2`.
