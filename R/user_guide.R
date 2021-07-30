@@ -353,5 +353,5 @@ strip_md_links <- function(text) {
   "!DEBUG i = `i`"
   # "!DEBUG sub = `text[0:i]`"
   # text[0:i]
-  text
+  substr(text, start=1, stop=i)
 }
