@@ -35,14 +35,12 @@ tableau_openapi <- function(pr) {
       )
     } else {
       spec$info$description <- paste0(
-        "### Description\n",
+        # "### Description\n",
         spec$info$description,
-        "\n",
-        "#### Use the following links to setup and use your Tableau Analytics Extension.",
-        "\n",
-        "* [Configure Tableau to access your extension](../setup)",
-        "\n",
-        "* [How to use your extension from Tableau](../)",
+        "
+#### Use the following links to setup and use your Tableau Analytics Extension.
+* [Configure Tableau to access your extension](../setup)
+* [How to use your extension from Tableau](../)",
         sep = "\n"
 #       spec$info$description <- paste0(
 # "### Description\n",
