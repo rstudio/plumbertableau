@@ -318,8 +318,8 @@ render_setup_instructions <- function(path, pr) {
     ),
     tags$main(
       tags$div(
+        style="padding-bottom: 2rem;"
         tags$h2(
-          style="margin-bottom: 2rem;",
           "How to configure Tableau to use your analytics extension"
         ),
       ),
