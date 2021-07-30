@@ -43,6 +43,10 @@ render_user_guide <- function(path, pr) {
   apiSpec <- pr$getApiSpec()
   title <- apiSpec$info$title
   version <- apiSpec$info$version
+  
+  # Strip description of links to other pages
+  desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+                                    fragment.only = TRUE)
 
   if (!rlang::is_null(warnings)) {
     warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
