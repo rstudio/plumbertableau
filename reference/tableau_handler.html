@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a Tableau compliant handler — tableau_handler • plumbertableau</title>
+<title>Create a Tableau-compliant handler for a function — tableau_handler • plumbertableau</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Create a Tableau compliant handler — tableau_handler" />
-<meta property="og:description" content="Create a Tableau compliant handler" />
+<meta property="og:title" content="Create a Tableau-compliant handler for a function — tableau_handler" />
+<meta property="og:description" content="Creates an object that can translate arguments from Tableau to R, and return
+values from R to Tableau." />
 
 
 
@@ -132,13 +133,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a Tableau compliant handler</h1>
+    <h1>Create a Tableau-compliant handler for a function</h1>
     <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/tableau_handler.R'><code>R/tableau_handler.R</code></a></small>
     <div class="hidden name"><code>tableau_handler.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a Tableau compliant handler</p>
+    <p>Creates an object that can translate arguments from Tableau to R, and return
+values from R to Tableau.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tableau_handler</span><span class='op'>(</span><span class='va'>args</span>, <span class='va'>return</span>, <span class='va'>func</span><span class='op'>)</span></pre>
@@ -154,8 +156,7 @@ variable names. The values in the named list must each be either a string
 indicating the expected data type for that argument (<code>"character"</code>,
 <code>"logical"</code>, <code>"numeric"</code>, or <code>"integer"</code>); or better yet, a specification
 object created by <code><a href='arg_spec.html'>arg_spec()</a></code>. If an argument should be considered
-optional, then its data type should be followed by <code>?</code>, like
-<code>"numeric?"</code>.</p></td>
+optional, then its data type should be followed by <code>?</code>, like <code>"numeric?"</code>.</p></td>
     </tr>
     <tr>
       <th>return</th>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a mock JSON request that mimics the behavior of Tableau — tableau_json • plumbertableau</title>
+<title>Create a JSON object that mimics a request from Tableau — tableau_json • plumbertableau</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Create a mock JSON request that mimics the behavior of Tableau — tableau_json" />
-<meta property="og:description" content="Create a mock JSON request that mimics the behavior of Tableau" />
+<meta property="og:title" content="Create a JSON object that mimics a request from Tableau — tableau_json" />
+<meta property="og:description" content="tableau_json() creates a JSON object formatted like a request from Tableau.
+The JSON object it returns can be pasted directly into the &quot;Try it out&quot; field
+in the Swagger documentation for an endpoint to test its functionality." />
 
 
 
@@ -132,13 +134,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a mock JSON request that mimics the behavior of Tableau</h1>
+    <h1>Create a JSON object that mimics a request from Tableau</h1>
     <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/tableau_json.R'><code>R/tableau_json.R</code></a></small>
     <div class="hidden name"><code>tableau_json.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a mock JSON request that mimics the behavior of Tableau</p>
+    <p><code>tableau_json()</code> creates a JSON object formatted like a request from Tableau.
+The JSON object it returns can be pasted directly into the "Try it out" field
+in the Swagger documentation for an endpoint to test its functionality.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tableau_json</span><span class='op'>(</span><span class='va'>script</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -148,7 +152,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>script</th>
-      <td><p>String indicating the endpoint path</p></td>
+      <td><p>String indicating the path to the endpoint to be called</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -163,6 +167,12 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A JSON object that can be passed to a Tableau endpoint</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Behind the scenes, Tableau sends all requests to the <code>/evaluate</code> endpoint.
+Each request is a JSON object containing two items: <code>script</code> and <code>data</code>.
+plumbertableau uses <code>script</code> to specify an individual endpoint to call, and
+passes the arguments in <code>data</code> on to the function at that endpoint.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make an existing Plumber API compliant as a Tableau Analytics Extension — tableau_extension • plumbertableau</title>
+<title>Modify a Plumber router to function as a Tableau Analytics Extension — tableau_extension • plumbertableau</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Make an existing Plumber API compliant as a Tableau Analytics Extension — tableau_extension" />
-<meta property="og:description" content="Make an existing Plumber API compliant as a Tableau Analytics Extension" />
+<meta property="og:title" content="Modify a Plumber router to function as a Tableau Analytics Extension — tableau_extension" />
+<meta property="og:description" content="Most of the time, you won't call this function directly. Instead, you'll
+place it at the end of a Plumber router, under a #* @plumber annotation,
+with no trailing parentheses or arguments. This tells Plumber to use the
+function to modify the router object." />
 
 
 
@@ -132,16 +135,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make an existing Plumber API compliant as a Tableau Analytics Extension</h1>
+    <h1>Modify a Plumber router to function as a Tableau Analytics Extension</h1>
     <small class="dont-index">Source: <a href='https://github.com/rstudio/plumbertableau/blob/master/R/tableau_extension.R'><code>R/tableau_extension.R</code></a></small>
     <div class="hidden name"><code>tableau_extension.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Make an existing Plumber API compliant as a Tableau Analytics Extension</p>
+    <p>Most of the time, you won't call this function directly. Instead, you'll
+place it at the end of a Plumber router, under a <code>#* @plumber</code> annotation,
+with no trailing parentheses or arguments. This tells Plumber to use the
+function to modify the router object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tableau_extension</span><span class='op'>(</span><span class='va'>pr</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>tableau_extension</span>
+
+<span class='fu'>tableau_extension</span><span class='op'>(</span><span class='va'>pr</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -6,7 +6,7 @@ articles:
   publishing-extensions: publishing-extensions.html
   r-developer-guide: r-developer-guide.html
   tableau-developer-guide: tableau-developer-guide.html
-last_built: 2021-07-30T15:56Z
+last_built: 2021-07-30T16:00Z
 urls:
   reference: https://rstudio.github.io/plumbertableau//reference
   article: https://rstudio.github.io/plumbertableau//articles
