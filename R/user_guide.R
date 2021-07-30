@@ -331,10 +331,18 @@ render_setup_instructions <- function(path, pr) {
           tags$li("Under the heading 'Analytics Extensions', select 'Enable analytics extension for site"),
           tags$li("Create a new connection and select the connection type of 'Analytics Extensions API'"),
           tags$li("Select if you want to use SSL"),
-          tags$li("Enter the information for your RStudio Connect Server"),
-          tags$div(glue::glue("Host: `{server_domain}`")),
-          tags$div(glue::glue("Port: `{server_port}`")),
-          tags$li("Select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect"),
+          tags$li("Enter the information for your RStudio Connect Server:"),
+          tags$div(
+            class="values",
+            tags$div(glue::glue("Host: `{server_domain}`")),
+            tags$div(glue::glue("Port: `{server_port}`")),
+          ),
+          tags$li("Select 'Sign in with a username and password' and enter the credentials:"),
+          tags$div(
+            class="values",
+            tags$div("Username: rstudio-connect"),
+            tags$div("Password: any valid API key from RStudio Connect")
+          ),
           tags$li("Create / Save changes")
         )
       ),

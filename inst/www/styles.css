@@ -139,3 +139,7 @@ a.permalink {
 li {
   padding: 0.75rem;
 }
+
+.values {
+  background-color: lightgray;
+}
