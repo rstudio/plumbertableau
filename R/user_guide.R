@@ -348,5 +348,5 @@ fragment.only = TRUE
 }
 
 strip_md_links <- function(text) {
-  stringi::stri_replace_all(text, regex = " +\\*.*", "")
+  stringi::stri_replace_all(text, regex = "\\n#### +\\*.*", "")
 }

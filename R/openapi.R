@@ -43,7 +43,6 @@ tableau_openapi <- function(pr) {
         "* [Configure Tableau to access your extension](../setup)",
         "\n",
         "* [How to use your extension from Tableau](../)",
-        spec$info$description,
         sep = "\n"
 #       spec$info$description <- paste0(
 # "### Description\n",
