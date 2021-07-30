@@ -28,31 +28,31 @@ plumbertableau integrates seamlessly with RStudio Connect. You can host any numb
 
 - Tableau extensions are only supported in RStudio Connect [VERSION NUMBER] and above.
 - RStudio Connect must be configured with the following settings:
-  - [`TableauExtension.Enabled`](https://docs.rstudio.com/connect/admin/appendix/configuration/#TableauExtension) must be `True`.
+  - [`TableauExtension.Enabled`](https://docs.rstudio.com/connect/admin/appendix/configuration/#TableauExtension) must not be set to `False`.
   - [`Server.Address`](https://docs.rstudio.com/connect/admin/appendix/configuration/#Server.Address) must be configured.
 
 See the [RStudio Connect Admin Guide](https://docs.rstudio.com/connect/admin/appendix/configuration/) for more information about configuring Connect.
 
-Extensions published to an incompatible RStudio Connect server will an error message that detects which of the above criteria are not met.
+Extensions published to an incompatible RStudio Connect server will provide a warning message that detects which of the above criteria are not met.
 
 ![](files/warnings.png){width="75%"}
 
 ### Access, Permissions, and Security {#access}
 
-Your RStudio Connect server must be [configured as an Analytics Extension in Tableau](#tableau). Tableau requires an [API key](https://docs.rstudio.com/connect/user/api-keys/) to authenticate with RStudio Connect. This API key will be used for all requests from Tableau to RStudio Connect, and the Tableau instance will have access to any content on Connect that the API can access.
+Your RStudio Connect server must be [configured as an Analytics Extension in Tableau](#tableau). Tableau requires an [API key](https://docs.rstudio.com/connect/user/api-keys/) to authenticate with RStudio Connect. This API key will be used for all requests from Tableau to RStudio Connect, and the Tableau instance will have access to any content on Connect that the API key's owner can access.
 
-We recommend creating a "service account" (an account not used only by Tableau, not by any individual) on RStudio Connect, and configuring Tableau with API key for this account. If you name the service account "Tableau", simply add the "Tableau" to the [Access List](https://docs.rstudio.com/connect/user/content-settings/#content-access) for any content it should be able to access. This way, you can more finely control what content Tableau can access without affecting any users.
+We recommend creating a "service account" (an account used only by Tableau, not by any individual) on RStudio Connect, and configuring Tableau with an API key for this account. If you name the service account "Tableau", simply add the "Tableau" to the [Access List](https://docs.rstudio.com/connect/user/content-settings/#content-access) for any content it should be able to access. This way, you can more finely control what content Tableau can access without affecting any users.
 
 ## Configuring RStudio Connect as an Extension Server in Tableau #{tableau}
 
-Before you can use extensions hosted on an RStudio Connect server from Tableau, you'll need to register that server in Tableau's Extensions settings. you'll need to set up  The steps to set Tableau differ slightly depending on whether you're using Tableau Desktop or Tableau and Online.
+Before you can use extensions hosted on an RStudio Connect server from Tableau, you'll need to register that server in Tableau's Extensions settings. The steps to configure analytics extensions in Tableau differ slightly depending on whether you're using Tableau Desktop or Tableau Server/Online.
 
 ### Tableau Server / Tableau Online
   1. Using an administrative account, login to Tableau Server/Online
   2. Navigate to Settings, then Extensions
   3. Under the heading 'Analytics Extensions', select 'Enable analytics extension for site'
   4. Create a new connection and select the connection type of 'Analytics Extensions API'
-  5. Select whether you want to use SSL and enter the server Host and Port for your RStudio Connect server
+  5. Select whether you want to use SSL and enter the server Host and Port for your RStudio Connect server. **Please note that due to the way Tableau handles Host and Port, your RStudio Connect server must be listening on the root path of the provided Host value. You cannot use a reverse proxy with RStudio Connect and Tableau.**
   6. Select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect
   8. Create / Save changes
 
@@ -64,11 +64,11 @@ Before you can use extensions hosted on an RStudio Connect server from Tableau, 
   5. Select whether to Require SSL
   6. Save changes
 
-If you're using Tableau Desktop, you don't need to use authetication if you're using an extension running locally in R.
+If you're using Tableau Desktop, you don't need to use authentication if you're using an extension running locally in R.
 
 ##  Using Custom URLs for plumbertableau Extensions on RStudio Connect {#deploying}
 
-All content hosted on RStudio Connect receives randomized identifier, which is used as part of its default URL. You can optionally [set a custom URL](https://docs.rstudio.com/connect/user/content-settings/#custom-url) (called a vanity URL) for any piece of content on RStudio Connect in its control panel. By default, only administrators can assign vanity paths, but RStudio Connect [can be configured](https://docs.rstudio.com/connect/admin/content-management/#vanity-paths) to allow all publishers to assign them.
+All content hosted on RStudio Connect receives a random identifier, which is used as part of its default URL. You can optionally [set a custom URL](https://docs.rstudio.com/connect/user/content-settings/#custom-url) (called a vanity URL) for any piece of content on RStudio Connect in its control panel. By default, only administrators can assign vanity paths, but RStudio Connect [can be configured](https://docs.rstudio.com/connect/admin/content-management/#vanity-paths) to allow all publishers to assign them.
 
 We recommend using vanity paths for plumbertableau extensions. You must use a content identifier in calls to Tableau extensions, and a vanity URL makes the difference between `SCRIPT_REAL("/content/c8b1e158-4fab-4d09-9791-8674afba86eb/predict", ...)` and `SCRIPT_REAL("/loess/predict", ...)`.
 

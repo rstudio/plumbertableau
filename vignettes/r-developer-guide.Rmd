@@ -26,7 +26,7 @@ knitr::read_chunk(path = system.file("plumber", "loess", "plumber.R", package = 
 
 ## Getting Started {#getting-started}
 
-This vignette will walk you through writing plumbertableau extensions in R. plumbertableau extensions are Plumber web services with a few additional pieces, and this vignette assumes some familiarity with Plumber (https://www.rplumber.io/). Plumber's [Quickstart guide](https://www.rplumber.io/articles/quickstart.html) gives a good overview of that package. Throughout this guide we'll use the terms "web service" and "API" (application programming interface) interchangeably.
+This vignette will walk you through writing plumbertableau extensions in R. plumbertableau extensions are Plumber APIs with a few additional pieces, and this vignette assumes some familiarity with Plumber (https://www.rplumber.io/). If you're unfamiliar with Plumber, the [Quickstart guide](https://www.rplumber.io/articles/quickstart.html) gives a good overview of that package. Throughout this guide, we'll use the terms "web service" and "API" (application programming interface) interchangeably.
 
 You can install the plumbertableau package from CRAN or GitHub.
 
@@ -42,7 +42,7 @@ remotes::install_github("rstudio/plumbertableau")
 
 plumbertableau extensions respond to requests from Tableau. In a request, Tableau will provide an [*endpoint*](https://www.rplumber.io/articles/routing-and-input.html?q=endpoint#endpoints-1) — which roughly corresponds to an R function — and will send along one or more *arguments*, which will generally consist of data from Tableau.
 
-An extension *must* return data that's the same elements or rows as the arguments it receive. It can do things like transform text, or use a model to predict Y values from a matrix of X values. It can't, say, receive an integer representing the number of elements to sample, and return a vector of that length.
+An extension *must* return data that's the same number of observations as the arguments it receives. It can do things like transform text, or use a model to predict Y values from a matrix of X values. A plumbertableau extension can't, say, receive an integer representing the number of elements to sample, and return a vector of that length.
 
 ## An Example with Loess Regression
 
@@ -70,7 +70,7 @@ There are a few parts to our extension which are required to make it work:
 
 - **Annotations**. Comments beginning with `#*` are [annotations](https://www.rplumber.io/articles/annotations.html), which define aspects of the API for Plumber and plumbertableau.
 - **Function definitions** — Each function definition must use annotations to describe the data types for all inputs and the value it returns.
-- **The Tableau extension footer** — This contains the `tableau_extension` object with the `@plumber` annotation. This does the work of modifying the Plumber router to be Tableau-compatible.
+- **The Tableau extension footer** — This contains the `tableau_extension` object with the `@plumber` annotation. This does the work of modifying the Plumber router to be Tableau-compatible and is a required component of all plumbertableau extensions.
 
 The `@apiTitle` and `@apiDescription` annotations are used to describe the extension in documentation which is generated.
 
@@ -87,7 +87,7 @@ function(x, y, alpha = 0.75) {
 }
 ```
 
-It accepts three inputs: `x`, `y`, and `alpha`. It fits a `loess()` model using this data, and returns the output of the `predict()` function for that model. We need to annotate its inputs and output so that plumbertableau can translate the data correctly for Tableau.
+It accepts three inputs: `x`, `y`, and `alpha`, fits a `loess()` model using this data, and returns the output of the `predict()` function for that model. We need to annotate the function inputs and output so that plumbertableau can translate the data correctly for Tableau and generate proper documentation for the extension.
 
 **Data provided by Tableau** is described using the `@tableauArg` annotation. These annotations require a name and a type, and can optionally contain a description: `#* @tableauArg Name:Type Description`. In our example:
 
@@ -96,7 +96,10 @@ It accepts three inputs: `x`, `y`, and `alpha`. It fits a `loess()` model using 
 #* @tableauArg y:numeric Y values for fitting
 ```
 
-Here, `x:integer` specifies the `x` argument by name, and tells plumbertableau to expect an integer vector. The string `X values for fitting` will be used to describe this argument in the generated API documentation.
+Here, `x:integer` specifies the `x` argument by name, and tells plumbertableau to expect an integer vector. The string `X values for fitting` will be used to describe this argument in the generated API documentation. If an argument is optional, this can be noted using `?` after identifying the data type.
+
+```{r , eval=FALSE}
+#* @tableauArg y:numeric? Y values for fitting
 
 **Data returned to Tableau** is described with `@tableauReturn`. The syntax is similar to `@tableauArg`, without an argument name: `#* @tableauReturn Type Description`.
 
@@ -127,6 +130,7 @@ R type | Tableau type
 `numeric` | `real`
 `integer` | `integer`, `int`
 
+In addition to these described data types, you can use the type `any` to accept any type.
 ### Tableau Extension Footer
 
 ```{r, eval = FALSE}
