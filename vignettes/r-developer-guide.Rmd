@@ -176,7 +176,7 @@ tableau_json(script = "/predict",
              data = mtcars[,c("hp", "mpg")])
 ```
 
-Note that because the running API occupies your R session, you'll have to stop running it to use `tableau_json()`. But once you've generated a mock request, you can paste it into the Swagger documentation to test the API. The data that would be sent back to Tableau appears under "Response body".
+Note that because the running API occupies your R session, you'll have to stop running it to use `tableau_json()`. Once you've generated a mock request, you can run the API again and paste the request into the Swagger documentation to test the API. The data that would be sent back to Tableau appears under "Response body".
 
 ![](files/swagger-test.png){width=75%}
 
