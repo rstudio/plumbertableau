@@ -28,10 +28,12 @@ body {
   margin-left: 2rem;
 }
 
-header, main {
+main {
   padding: 3rem;
 }
+
 header {
+  padding: 3rem 3rem 1rem 3rem;
   background-color: #4c83b6;
   color: white;
 }
@@ -119,4 +121,13 @@ a.permalink {
 .button:hover {
   background-color: #81a8cb;
   border: #4c83b6;
+}
+
+.rounded_hr {
+  border-top: 8px solid #bbb;
+  border-radius: 5px;
+}
+
+.nav_div {
+  margin-top: 2rem;
 }

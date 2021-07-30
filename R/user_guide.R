@@ -83,6 +83,7 @@ render_user_guide <- function(path, pr) {
             htmltools::HTML(desc)
           ),
           tags$div(
+            class="nav_div",
             tags$a(
               href = "./setup",
               class="button",
@@ -299,18 +300,20 @@ render_setup_instructions <- function(path, pr) {
         "Tableau Setup"
       ),
       tags$div(class = "api-desc",
-               htmltools::HTML(desc),
-               tags$p(
-                 tags$a(
-                   href = "./",
-                   "Tableau Usage Instructions"
-                 ),
-                 tags$br(),
-                 tags$a(
-                   href = "./__docs__/",
-                   "Open API Documentation"
-                 )
-               )
+          htmltools::HTML(desc),
+          tags$div(
+            class="nav_div",
+            tags$a(
+              href = "./",
+              class="button",
+              "Using Your Tableau Extensions"
+            ),
+            tags$a(
+              href = "./__docs__/",
+              class="button",
+              "View the generated Open API documentation"
+            )
+          )
       )
     ),
     tags$main(
