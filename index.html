@@ -48,6 +48,27 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/introduction.html">Introduction</a>
+    </li>
+    <li>
+      <a href="articles/publishing-apis.html">Publishing APIs</a>
+    </li>
+    <li>
+      <a href="articles/r-developer-guide.html">R Developer Guide for Tableau Analytics Extensions</a>
+    </li>
+    <li>
+      <a href="articles/tableau-developer-guide.html">Tableau Developer Guide</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
@@ -87,7 +108,7 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>The main object in <code>plumbertableau</code> is <code>tableau_extension</code>. This is a function that modifies an existing Plumber router so that it complies with the specification set forward by the Tableau Analytics Extensions API. If you’re writing a Plumber API, you don’t call this function directly — instead, place it at the bottom of your extension, annotated with the <code>#* @plumber</code> decorator, as in the following example.</p>
+<p>The main object in <code>plumbertableau</code> is <code>tableau_extension</code>. This is a function that modifies an existing Plumber router so that it complies with the specification set forward by the Tableau Analytics Extensions API. If you’re writing a Plumber API, you don’t call this function directly — instead, place it at the bottom of your extension, annotated with the <code>#* @plumber</code> decorator, as in the following example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span>
@@ -96,8 +117,8 @@
 <span class="co">#* @apiDescription Simple functions for mutating strings</span>
 
 <span class="co">#* Capitalize incoming text</span>
-<span class="co">#* @tab.arg str_value:[character] Strings to be capitalized</span>
-<span class="co">#* @tab.return [character] A capitalized string(s)</span>
+<span class="co">#* @tableauArg str_value:[character] Strings to be capitalized</span>
+<span class="co">#* @tableauReturn [character] A capitalized string(s)</span>
 <span class="co">#* @post /capitalize</span>
 <span class="kw">function</span><span class="op">(</span><span class="va">str_value</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">str_value</span><span class="op">)</span>
