@@ -87,12 +87,12 @@ render_user_guide <- function(path, pr) {
             tags$a(
               href = "./setup",
               class="button",
-              "Configure Tableau to access your extension"
+              "Configure Tableau to access your analytics extension"
             ),
             tags$a(
               href = "./__docs__/",
               class="button",
-              "View the generated Open API documentation"
+              "View your extension's Open API documentation"
             )
           )
         )
@@ -306,7 +306,7 @@ render_setup_instructions <- function(path, pr) {
             tags$a(
               href = "./",
               class="button",
-              "Use your extension from Tableau"
+              "Use your analytics extension from Tableau"
             ),
             tags$a(
               href = "./__docs__/",
