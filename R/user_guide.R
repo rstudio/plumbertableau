@@ -98,6 +98,9 @@ render_user_guide <- function(path, pr) {
         )
       ),
       tags$main(
+        tags$h3(
+          "Use your analytics extension from Tableau"
+        ),
         tags$div(class = "routes",
                  lapply(extract_route_info(pr, path), render_route_info)
         )
@@ -297,7 +300,8 @@ render_setup_instructions <- function(path, pr) {
   ui <- htmltools::tagList(
     tags$header(
       tags$h1(
-        "Configure Tableau to access your extension"
+        title,
+        if (!is.null(version)) paste0("(v", version, ")")
       ),
       tags$div(class = "api-desc",
           htmltools::HTML(desc),
@@ -317,15 +321,9 @@ render_setup_instructions <- function(path, pr) {
       )
     ),
     tags$main(
-      # tags$div(
-      #   class="title",
-      #   tags$h2(
-      #     "How to configure Tableau to use your analytics extension"
-      #   ),
-      # ),
-      # tags$div(
-      #   "Depending on the Tableau product you will be using, follow the corresponding steps below."
-      # ),
+      tags$h3(
+        "Configure Tableau to access your extension"
+      ),
       tags$div(
         tags$h4("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
