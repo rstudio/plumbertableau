@@ -44,13 +44,19 @@ render_user_guide <- function(path, pr) {
     warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
     ui <- htmltools::tagList(
       tags$header(
-        class = "warning",
         tags$h1(
-          "Warning"
+          title,
+          if (!is.null(version)) paste0("(v", version, ")")
         ),
-        tags$h2(
-          "The following item(s) need to be resolved before your API will be accessible from Tableau:"
-        )),
+        tags$div(
+          class = "warning",
+          tags$h2(
+            "Warning"
+          ),
+          tags$h3(
+            "The following item(s) need to be resolved before your API will be accessible from Tableau:"
+          )
+        ),
       tags$main(
         tags$div(
           htmltools::HTML(warnings)
@@ -296,6 +302,9 @@ render_setup_instructions <- function(path, pr) {
   apiSpec <- pr$getApiSpec()
   desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                    fragment.only = TRUE)
+
+  title <- apiSpec$info$title
+  version <- apiSpec$info$version
 
   ui <- htmltools::tagList(
     tags$header(
