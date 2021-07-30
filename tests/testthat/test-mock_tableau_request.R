@@ -5,7 +5,8 @@ test_that("mock_tableau_request() works", {
       `_arg1` = letters,
       `_arg2` = 1:length(letters)
     )
-  ))
+  ),
+  pretty = TRUE)
 
   expect_identical(mock_tableau_request("/foo", list(x = letters, y = 1:length(letters))),
                    json)
