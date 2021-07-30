@@ -351,7 +351,7 @@ strip_md_links <- function(text) {
 
   ### Description
   desc <- stringi::stri_replace_all(text, regex = "\n### Description.*", "")
-  desc <- stringi::stri_replace_all(desc, regex = "\n* [Configure Tableau to access your extension](../setup)", "")
-  desc <- stringi::stri_replace_all(desc, regex = "\n* [How to use your extension from Tableau](../)", "")
+  desc <- stringi::stri_replace_all(desc, regex = "\n\* \[Configure Tableau to access your extension\].*", "")
+  desc <- stringi::stri_replace_all(desc, regex = "\n\* \[How to use your extension from Tableau\].*", "")
   desc
 }
