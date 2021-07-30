@@ -18,6 +18,7 @@ body {
 
 .warning {
   background-color: #cc3300;
+  padding: 1rem;
 }
 
 .warning h1 {
@@ -29,11 +30,14 @@ body {
 }
 
 main {
-  padding: 1rem;
+  background-color: white;
+}
+
+padded {
+  padding: 3rem 3rem 1rem 3rem;
 }
 
 header {
-  padding: 3rem 3rem 1rem 3rem;
   background-color: #4c83b6;
   color: white;
 }
