@@ -1,2 +1,3 @@
+#' @keywords internal
 #' @import stringi
-NULL
+"_PACKAGE"

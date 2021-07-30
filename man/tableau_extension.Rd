@@ -2,8 +2,10 @@
 % Please edit documentation in R/tableau_extension.R
 \name{tableau_extension}
 \alias{tableau_extension}
-\title{Make an existing Plumber API compliant as a Tableau Analytics Extension}
+\title{Modify a Plumber router to function as a Tableau Analytics Extension}
 \usage{
+tableau_extension
+
 tableau_extension(pr)
 }
 \arguments{
@@ -14,7 +16,10 @@ A modified plumber router that functions as a Tableau Analytics
 Extension
 }
 \description{
-Make an existing Plumber API compliant as a Tableau Analytics Extension
+Most of the time, you won't call this function directly. Instead, you'll
+place it at the end of a Plumber router, under a \verb{#* @plumber} annotation,
+with no trailing parentheses or arguments. This tells Plumber to use the
+function to modify the router object.
 }
 \examples{
 \dontrun{
