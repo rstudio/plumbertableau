@@ -72,7 +72,7 @@ arg_spec <- function(type = c("character", "integer", "logical", "numeric"),
     type = normalize_type_to_r(type),
     desc = desc,
     optional = optional
-  ), class = "tableau_arg_spec")
+  ), class = c("tableau_arg_spec", "list"))
 }
 
 param_spec <- function(type = c("character", "integer", "logical", "numeric"),
@@ -88,7 +88,7 @@ param_spec <- function(type = c("character", "integer", "logical", "numeric"),
     desc = desc,
     optional = optional,
     default = default
-  ), class = "tableau_param_spec")
+  ), class = c("tableau_param_spec", "list"))
 }
 
 #' @rdname arg_spec
@@ -101,7 +101,7 @@ return_spec <- function(type = c("character", "integer", "logical", "numeric"),
   structure(list(
     type = normalize_type_to_r(type),
     desc = desc
-  ), class = "tableau_return_spec")
+  ), class = c("tableau_return_spec", "list"))
 }
 
 # Given a route that may have @tab.* comments, create a tableau_handler object.

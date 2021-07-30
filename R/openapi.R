@@ -67,7 +67,20 @@ build_tableau_spec <- function(route_attrs) {
 
   names(arg_list) <- paste0("_arg", 1:length(arg_list))
 
-  list(description = "Tableau Request",
+  # Create argument map detailing how Tableau arguments relate to the arguments
+  # defined for the plumbertableau extension function
+  arg_map <- Reduce(rbind, lapply(args, as.data.frame))
+  arg_map$`arg name` <- names(args)
+  arg_map$`tableau name` <- names(arg_list)
+  arg_map <- arg_map[,c("arg name", "tableau name", "type", "desc", "optional")]
+
+  list(description = paste0(
+    markdown::markdownToHTML(
+    text = "### Tableau Request
+This is a mock Tableau request. Tableau sends a JSON request formatted like the following JSON. Tableau doesn't provide named arguments and instead assigns each argument `_arg1`, `_arg2`, ... , `_argN`.",
+    fragment.only = TRUE),
+knitr::kable(arg_map, format = "html")
+),
        required = TRUE,
        content = list(
          `application/json` = list(
