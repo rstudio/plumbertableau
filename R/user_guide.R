@@ -52,9 +52,14 @@ render_user_guide <- function(path, pr) {
           "The following item(s) need to be resolved before your API will be accessible from Tableau:"
         )),
       tags$main(
-        htmltools::HTML(warnings),
-        tags$a(href = "./__docs__/",
-               "Open API documentation")
+        tags$div(
+          htmltools::HTML(warnings)
+        ),
+        tags$div(class = "api-desc",
+          tags$a(href = "./__docs__/",
+                class="button"
+                "View the generated Open API documentation")
+        )
       )
     )
   } else {
@@ -73,18 +78,21 @@ render_user_guide <- function(path, pr) {
           if (!is.null(version)) paste0("(v", version, ")")
         ),
         tags$div(class = "api-desc",
-                 htmltools::HTML(desc),
-                 tags$p(
-                   tags$a(
-                     href = "./setup",
-                     "Tableau Setup Instructions"
-                   ),
-                   tags$br(),
-                   tags$a(
-                     href = "./__docs__/",
-                     "Open API Documentation"
-                   )
-                 )
+          tags$div(
+            htmltools::HTML(desc)
+          ),
+          tags$div(
+            tags$a(
+              href = "./setup",
+              "Configure Tableau"
+            )
+          ),
+          tags$div(
+            tags$a(href = "./__docs__/",
+              class="button"
+              "View the generated Open API documentation"
+            )
+          )
         )
       ),
       tags$main(
