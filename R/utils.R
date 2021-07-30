@@ -1,5 +1,6 @@
-#' Checks a Plumber router for Tableau compliance: that all endpoints accept
-#' POST requests and use the default JSON parser and serializer.
+#' Checks a Plumber route for Tableau compliance
+#'
+#' Checks a route to ensure that it accepts POST requests and uses the default JSON parser and serializer.
 #'
 #' @param route A plumber route
 #'
