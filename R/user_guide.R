@@ -43,7 +43,6 @@ render_user_guide <- function(path, pr) {
   apiSpec <- pr$getApiSpec()
   title <- apiSpec$info$title
   version <- apiSpec$info$version
-  
   # Strip description of links to other pages
   desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                     fragment.only = TRUE)
@@ -81,13 +80,13 @@ render_user_guide <- function(path, pr) {
       )
     )
   } else {
-    apiSpec <- pr$getApiSpec()
+    # apiSpec <- pr$getApiSpec()
 
-    title <- apiSpec$info$title
-    version <- apiSpec$info$version
-    # Strip description of links to other pages
-    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-                                     fragment.only = TRUE)
+    # title <- apiSpec$info$title
+    # version <- apiSpec$info$version
+    # # Strip description of links to other pages
+    # desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+    #                                  fragment.only = TRUE)
 
     ui <- htmltools::tagList(
       tags$header(
