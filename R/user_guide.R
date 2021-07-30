@@ -318,7 +318,7 @@ render_setup_instructions <- function(path, pr) {
     ),
     tags$main(
       tags$div(
-        class="title"
+        class="title",
         tags$h2("How to configure Tableau to use your analytics extension"),
       ),
       tags$div(
