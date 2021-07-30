@@ -37,8 +37,8 @@ tableau_openapi <- function(pr) {
       spec$info$description <- paste0(
 "### Description\n",
 "This is a Tableau Analytics Extension.
-  * [Tableau usage instructions](../)
-  * [Tableau setup instructions](../setup)
+  * [Configure Tableau to access your extension](../setup)
+  * [How to use your extension from Tableau](../)
 ***
 ",
         spec$info$description,

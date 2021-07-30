@@ -58,7 +58,7 @@ render_user_guide <- function(path, pr) {
         tags$div(class = "api-desc",
           tags$a(href = "./__docs__/",
                 class="button",
-                "View the generated Open API documentation"
+                "View your extension's Open API documentation"
           )
         )
       )
@@ -87,7 +87,7 @@ render_user_guide <- function(path, pr) {
             tags$a(
               href = "./setup",
               class="button",
-              "Configure Tableau"
+              "Configure Tableau to access your extension"
             ),
             tags$a(
               href = "./__docs__/",
@@ -306,12 +306,12 @@ render_setup_instructions <- function(path, pr) {
             tags$a(
               href = "./",
               class="button",
-              "Using Your Tableau Extensions"
+              "Use your extension from Tableau"
             ),
             tags$a(
               href = "./__docs__/",
               class="button",
-              "View the generated Open API documentation"
+              "View your extension's Open API documentation"
             )
           )
       )
