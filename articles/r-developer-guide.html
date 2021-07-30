@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R Developer Guide for Tableau Analytics Extensions • plumbertableau</title>
+<title>Writing plumbertableau Extensions in R • plumbertableau</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="R Developer Guide for Tableau Analytics Extensions">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Writing plumbertableau Extensions in R">
 <meta property="og:description" content="plumbertableau">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -57,13 +57,13 @@
       <a href="../articles/introduction.html">Introduction</a>
     </li>
     <li>
-      <a href="../articles/publishing-apis.html">Publishing APIs</a>
+      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
     </li>
     <li>
-      <a href="../articles/r-developer-guide.html">R Developer Guide for Tableau Analytics Extensions</a>
+      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
     </li>
     <li>
-      <a href="../articles/tableau-developer-guide.html">Tableau Developer Guide</a>
+      <a href="../articles/tableau-developer-guide.html">Using plumbertableau Extensions in Tableau</a>
     </li>
   </ul>
 </li>
@@ -91,7 +91,7 @@
       </header><script src="r-developer-guide_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>R Developer Guide for Tableau Analytics Extensions</h1>
+      <h1 data-toc-skip>Writing plumbertableau Extensions in R</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/rstudio/plumbertableau/blob/master/vignettes/r-developer-guide.Rmd"><code>vignettes/r-developer-guide.Rmd</code></a></small>
@@ -101,38 +101,44 @@
 
     
     
-<div id="setup" class="section level3">
-<h3 class="hasAnchor">
-<a href="#setup" class="anchor"></a>Setup</h3>
-<p>Install the R package.</p>
-<p>From CRAN:</p>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting Started</h2>
+<p>This vignette will walk you through writing plumbertableau extensions in R. plumbertableau extensions are Plumber APIs with a few additional pieces, and this vignette assumes some familiarity with Plumber (<a href="https://www.rplumber.io/" class="uri">https://www.rplumber.io/</a>). If you’re unfamiliar with Plumber, the <a href="https://www.rplumber.io/articles/quickstart.html">Quickstart guide</a> gives a good overview of that package. Throughout this guide, we’ll use the terms “web service” and “API” (application programming interface) interchangeably.</p>
+<p>You can install the plumbertableau package from CRAN or GitHub.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"plumbertableau"</span><span class="op">)</span></code></pre></div>
-<p>From Github:</p>
+<code class="sourceCode R"><span class="co"># from CRAN</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"plumbertableau"</span><span class="op">)</span>
+
+<span class="co"># from GitHub</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"rstudio/plumbertableau"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="capabilities" class="section level2">
+<h2 class="hasAnchor">
+<a href="#capabilities" class="anchor"></a>What can plumbertableau Extensions Do?</h2>
+<p>plumbertableau extensions respond to requests from Tableau. In a request, Tableau will provide an <a href="https://www.rplumber.io/articles/routing-and-input.html?q=endpoint#endpoints-1"><em>endpoint</em></a> — which roughly corresponds to an R function — and will send along one or more <em>arguments</em>, which will generally consist of data from Tableau.</p>
+<p>An extension <em>must</em> return data that’s the same number of observations as the arguments it receives. It can do things like transform text, or use a model to predict Y values from a matrix of X values. A plumbertableau extension can’t, say, receive an integer representing the number of elements to sample, and return a vector of that length.</p>
+</div>
+<div id="an-example-with-loess-regression" class="section level2">
+<h2 class="hasAnchor">
+<a href="#an-example-with-loess-regression" class="anchor"></a>An Example with Loess Regression</h2>
+<p>Let’s start with some plain R code that uses the <code><a href="https://rdrr.io/r/stats/loess.html">loess()</a></code> function to fit a smooth line across some input data and plot the result.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"rstudio/plumbertableau"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="getting-started" class="section level3">
-<h3 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting started</h3>
-<p><code>plumbertableau</code>, as the name suggests, is an extension of the <a href="https://www.rplumber.io/"><code>plumber</code></a> package. If you are unfamiliar with <code>plumber</code>, the <a href="https://www.rplumber.io/articles/quickstart.html">quickstart guide</a> provides a good overview of the package. Building a Tableau Analytics Extension with <code>plumbertableau</code> is simply a matter of building a <code>plumber</code> API with a few additional pieces.</p>
-</div>
-<div id="extension" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extension" class="anchor"></a>Creating an extension</h3>
-<p>Let’s start with an example. Let’s say we want to fit a loess curve to a given set of data. This can be done in R with the following:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/loess.html">loess</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, span <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>
-<span class="va">y_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Here, we can visualize the result of our smoothed fit:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
+<span class="va">y_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">fit</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co"># Plot the data and prediction.</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y_fit</span><span class="op">)</span></code></pre></div>
-<p><img src="r-developer-guide_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
-<p>To turn this into a Tableau extension, we can use <code>plumber</code> annotations to define the endpoint:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p><img src="r-developer-guide_files/figure-html/unnamed-chunk-3-1.png" width="624"></p>
+</div>
+<div id="anatomy" class="section level2">
+<h2 class="hasAnchor">
+<a href="#anatomy" class="anchor"></a>The Anatomy of a plumbertableau Extension</h2>
+<p>Here’s that same model in a finished plumbertableau extension.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span>
 
@@ -153,101 +159,140 @@
 
 <span class="co">#* @plumber</span>
 <span class="va">tableau_extension</span></code></pre></div>
-</div>
-<div id="development" class="section level3">
+<p>There are a few parts to our extension which are required to make it work:</p>
+<ul>
+<li>
+<strong>Annotations</strong>. Comments beginning with <code>#*</code> are <a href="https://www.rplumber.io/articles/annotations.html">annotations</a>, which define aspects of the API for Plumber and plumbertableau.</li>
+<li>
+<strong>Function definitions</strong> — Each function definition must use annotations to describe the data types for all inputs and the value it returns.</li>
+<li>
+<strong>The Tableau extension footer</strong> — This contains the <code>tableau_extension</code> object with the <code>@plumber</code> annotation. This does the work of modifying the Plumber router to be Tableau-compatible and is a required component of all plumbertableau extensions.</li>
+</ul>
+<p>The <code>@apiTitle</code> and <code>@apiDescription</code> annotations are used to describe the extension in documentation which is generated.</p>
+<div id="annotating-function-definitions-for-plumbertableau" class="section level3">
 <h3 class="hasAnchor">
-<a href="#development" class="anchor"></a>Development</h3>
-<p>Now that we have the whole picture, let’s break down each piece.</p>
-<div id="plumber-annotations" class="section level4">
-<h4 class="hasAnchor">
-<a href="#plumber-annotations" class="anchor"></a>Plumber annotations</h4>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span>
-
-<span class="co">#* @apiTitle Loess Smoothing</span>
-<span class="co">#* @apiDescription Loess smoothing for Tableau</span>
-
-<span class="co">#* Fit a loess curve to the inputs and return the curve values</span>
-<span class="co">#* @param alpha Degree of smoothing</span>
-<span class="co">#* @tab.arg x:integer X values for fitting</span>
-<span class="co">#* @tab.arg y:numeric Y values for fitting</span>
-<span class="co">#* @tab.return numeric Fitted loess values</span>
-<span class="co">#* @post /predict</span></code></pre></div>
-<p>Here we load the relevant packages and use standard <code>plumber</code> annotations to describe the API. <code>plumbertableau</code> introduces new annotations <code>tab.arg</code> and <code>tab.return</code> that allow you to describe the expected Tableau arguments and types and the return value and type of the API.</p>
-</div>
-<div id="function-definition" class="section level4">
-<h4 class="hasAnchor">
-<a href="#function-definition" class="anchor"></a>Function definition</h4>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">alpha</span> <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">{</span>
+<a href="#annotating-function-definitions-for-plumbertableau" class="anchor"></a>Annotating Function Definitions for plumbertableau</h3>
+<p>Let’s look again at our un-annotated function definition.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#* Annotate me!</span>
+<span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">alpha</span> <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">alpha</span><span class="op">)</span>
   <span class="va">l_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/loess.html">loess</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, span <span class="op">=</span> <span class="va">alpha</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">l_out</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="co">#&gt; function(x, y, alpha = 0.75) {</span>
-<span class="co">#&gt;   alpha &lt;- as.numeric(alpha)</span>
-<span class="co">#&gt;   l_out &lt;- loess(y ~ x, span = alpha)</span>
-<span class="co">#&gt;   predict(l_out, data.frame(x, y))</span>
-<span class="co">#&gt; }</span></code></pre></div>
-<p>This is the actual function definition for the endpoint. Here, the values <code>x</code> and <code>y</code> are the values described in the <code>tab.arg</code> statements. These values are automatically parsed and named from the request submitted from Tableau. <code>alpha</code> is a URL parameter we can use to adjust the level of smoothing.</p>
-</div>
-<div id="tableau-extension" class="section level4">
-<h4 class="hasAnchor">
-<a href="#tableau-extension" class="anchor"></a>Tableau extension</h4>
+<span class="op">}</span></code></pre></div>
+<p>It accepts three inputs: <code>x</code>, <code>y</code>, and <code>alpha</code>, fits a <code><a href="https://rdrr.io/r/stats/loess.html">loess()</a></code> model using this data, and returns the output of the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function for that model. We need to annotate the function inputs and output so that plumbertableau can translate the data correctly for Tableau and generate proper documentation for the extension.</p>
+<p><strong>Data provided by Tableau</strong> is described using the <code>@tableauArg</code> annotation. These annotations require a name and a type, and can optionally contain a description: <code>#* @tableauArg Name:Type Description</code>. In our example:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#* @tableauArg x:integer X values for fitting</span>
+<span class="co">#* @tableauArg y:numeric Y values for fitting</span></code></pre></div>
+<p>Here, <code>x:integer</code> specifies the <code>x</code> argument by name, and tells plumbertableau to expect an integer vector. The string <code>X values for fitting</code> will be used to describe this argument in the generated API documentation. If an argument is optional, this can be noted using <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> after identifying the data type.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#* @tableauArg y:numeric? Y values for fitting</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="op">**</span>Data returned to Tableau<span class="op">**</span><span class="st"> </span>is described with <span class="st">`</span><span class="dt">@tableauReturn</span><span class="st">`</span>. The syntax is similar to <span class="st">`</span><span class="dt">@tableauArg</span><span class="st">`</span>, without an argument name<span class="op">:</span><span class="st"> `</span><span class="dt">#* @tableauReturn Type Description</span><span class="st">`</span>.</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#* @tableauReturn numeric Fitted loess values</span></code></pre></div>
+<p>plumbertableau will expect <code>numeric</code> data to be returned, and will describe it as <code>Fitted loess values</code> in our documentation.</p>
+<p><strong>URL parameters</strong> are arguments described with Plumber’s <a href="https://www.rplumber.io/articles/annotations.html#endpoint"><code>@param</code></a> annotation. These are useful for providing fixed values that don’t use data from Tableau objects. In our example the optional <code>alpha</code> parameter lets Tableau users control the degree of smoothing used in the <code>loess</code> model.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#* @param alpha Degree of smoothing</span></code></pre></div>
+<p>Tableau users can now add <code>?alpha=0.5</code> to the end of the extension URL to control the degree of smoothing.</p>
+<p><strong>The path</strong> to the endpoint where this function is accessed is annotated with <code>@post</code>. Tableau only supports requests using the POST method, so all our Tableau-accessible endpoints must be annotated with <code>@post</code>.</p>
+</div>
+<div id="data-types" class="section level3">
+<h3 class="hasAnchor">
+<a href="#data-types" class="anchor"></a>Data Types</h3>
+<p>plumbertableau understands the following R and Tableau data types.</p>
+<table class="table">
+<thead><tr class="header">
+<th>R type</th>
+<th>Tableau type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>character</code></td>
+<td>
+<code>string</code>, <code>str</code>
+</td>
+</tr>
+<tr class="even">
+<td><code>logical</code></td>
+<td>
+<code>boolean</code>, <code>bool</code>
+</td>
+</tr>
+<tr class="odd">
+<td><code>numeric</code></td>
+<td><code>real</code></td>
+</tr>
+<tr class="even">
+<td><code>integer</code></td>
+<td>
+<code>integer</code>, <code>int</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>In addition to these described data types, you can use the type <code>any</code> to accept any type. ### Tableau Extension Footer</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#* @plumber</span>
 <span class="va">tableau_extension</span></code></pre></div>
-<p>In order for this API to properly respond to Tableau requests, using <code>tableau_extension</code> is required. This function handles the request from Tableau and makes sure it’s forwarded to the correct endpoint.</p>
+<p>In order for a plumbertableau extension to properly respond to Tableau requests, we must put this block at the bottom of our extension. The <code>@plumber</code> annotation tells Plumber to use the <code>tableau_extension</code> object to modify the router object it uses to handle requests.</p>
+<p>Behind the scenes, this object is a <a href="https://www.rplumber.io/articles/annotations.html#plumber-router-modifier">Plumber Router Modifier</a>, and is compatible with <a href="https://www.rplumber.io/articles/programmatic-usage.html">programmatic usage</a> in Plumber.</p>
 </div>
 </div>
-<div id="testing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#testing" class="anchor"></a>Testing</h3>
-<p>Once the extension has been developed, it can be tested locally through the default Swagger UI. In RStudio, you can click the Run API button, or you can use <code>plumber::plumb()$run()</code> to run the API. Once the API is running, you’ll be presented with an interface like the following:</p>
-<div class="figure">
-<img src="files/swagger.png" style="width:75.0%" alt=""><p class="caption">Swagger UI</p>
-</div>
-<p>From this page, you can click on the <code>/predict</code> endpoint to expand the available options. You can then click “Try it out” to test the API.</p>
-<div class="figure">
-<img src="files/swagger-predict.png" style="width:75.0%" alt=""><p class="caption">Swagger Predict</p>
-</div>
-<p>Tableau requests contain a JSON request body that contains two objects<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. * script: In the case of <code>plumbertableau</code>, this is a string that identifies the specific endpoint being requested. * data: This object contains the data being passed from Tableau to the extension. In the case of <code>plumbertableau</code>, this data is parsed and automatically made available to the underlying function. Note that values passed from Tableau are unnamed, and instead follow the naming convention <code>_arg1</code>, <code>_arg2</code>, … ,<code>_argN</code>.</p>
-<p><code>plumbertableau</code> automatically provides a simple mock request that follows the specification provided by Tableau. This initial mock request contains simple <code>script</code> and <code>data</code> values. If you’d like, you can use <code><a href="../reference/tableau_json.html">tableau_json()</a></code> to create a more full-featured request for use with Swagger:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div id="testing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#testing" class="anchor"></a>Running and Testing Extensions Locally</h2>
+<p>plumbertableau uses Plumber’s ability to generate <a href="https://github.com/rstudio/swagger">Swagger</a> documentation for APIs.</p>
+<p>Once you’ve written an API, it can be tested locally through the Swagger UI. To start the API, click the Run API button in RStudio, or run <code>plumber::plumb("path/to/plumber.R")$run()</code> in the R console. Once the API is running, you’ll be presented with an interface like the following:</p>
+<p><img src="files/swagger.png" style="width:75.0%"></p>
+<p>Click on the <code>/predict</code> endpoint to expand it. You can then click “Try it out” to modify the example request, and “Execute” to send it.</p>
+<p><img src="files/swagger-predict.png" style="width:75.0%"></p>
+<p>Requests from Tableau consist of a JSON object with two items<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. We can see these in the simple mock request that plumbertableau provides following Tableau’s specification.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">{</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="dt">"script"</span><span class="fu">:</span> <span class="st">"/predict"</span><span class="fu">,</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="dt">"data"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>    <span class="dt">"_arg1"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>      <span class="dv">0</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>    <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="dt">"_arg2"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>      <span class="dv">0</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>    <span class="ot">]</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>  <span class="fu">}</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="fu">}</span></span></code></pre></div>
+<ul>
+<li>
+<code>script</code>: A string identifying an endpoint. Behind the scenes, Tableau sends all extension requests to the <code>/evaluate</code> endpoint, and plumbertableau uses this string value to correctly route the request to a the requested endpoint.</li>
+<li>
+<code>data</code>: An object containing arguments for the function at the endpoint. plumbertableau parses this data and passes it to the R code. Tableau does not allow explicit naming of arguments, instead naming them <code>_arg1</code>, <code>_arg2</code>, … ,<code>_argN</code>. Arguments are passed to R in the order in which they appear. In this case, <code>_arg1</code> will be passed a <code>x</code> and <code>_arg2</code> will be passed a <code>y</code> to the underlying R function.</li>
+</ul>
+<p>To generate a more complex example, we can use <code><a href="../reference/tableau_json.html">tableau_json()</a></code> to create a more full-featured request for use with Swagger. Here, we pass in a data frame with two columns, and <code><a href="../reference/tableau_json.html">tableau_json()</a></code> uses those columns for <code>_arg</code> and <code>_arg2</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/tableau_json.html">tableau_json</a></span><span class="op">(</span>script <span class="op">=</span> <span class="st">"/predict"</span>, 
              data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hp"</span>, <span class="st">"mpg"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; {"script":"/predict","data":{"_arg1":[110,110,93,110,175,105,245,62,95,123,123,180,180,180,205,215,230,66,52,65,97,150,150,245,175,66,91,113,264,175,335,109],"_arg2":[21,21,22.8,21.4,18.7,18.1,14.3,24.4,22.8,19.2,17.8,16.4,17.3,15.2,10.4,10.4,14.7,32.4,30.4,33.9,21.5,15.5,15.2,13.3,19.2,27.3,26,30.4,15.8,19.7,15,21.4]}}</span></code></pre></div>
-<p>Note that you will have to stop the running API in order to generate the mock request body in the current R session.</p>
-<p>Once you’ve generated a mock request body, you can insert it into the Swagger documentation for the API to test the API.</p>
-<div class="figure">
-<img src="files/swagger-test.png" style="width:75.0%" alt=""><p class="caption">Swagger testing</p>
-</div>
-</div>
-<div id="deploying" class="section level3">
-<h3 class="hasAnchor">
-<a href="#deploying" class="anchor"></a>Deploying</h3>
-<p><code>plumbertableau</code> is designed to be used with RStudio Connect. RStudio Connect supports a variety of <a href="https://docs.rstudio.com/connect/user/publishing/">different deployment methods</a>. Once an extension is published to RStudio Connect, a few things need to be adjusted to make it easily accessible from Tableau.</p>
-<ol style="list-style-type: decimal">
-<li><p>Provide proper access Tableau extensions used from Tableau Server and Tableau Online are setup with a single set of shared credentials. We recommend creating a service account on RStudio Connect and using that account to manage access to extensions. For example, if the service account username is “Tableau”, you would give the “Tableau” user access to the extension after it’s been published.</p></li>
-<li><p>Assign a vanity URL By default, content published to RStudio Connect is assigned a URL containing the content GUID. These urls are long and unindicative of what the actual content is. We strongly recommend assigning a vanity URL to each extension published to RStudio Connect. This allows the extension to be easily referenced from Tableau workbooks. For example, if we published the previous example extension to RStudio Connect and assigned the vanity URL <code>/loess</code>, we would refer to it from a calculated field in Tableau with <code>/loess/predict</code>.</p></li>
-</ol>
-<div id="compatability" class="section level4">
-<h4 class="hasAnchor">
-<a href="#compatability" class="anchor"></a>Compatability</h4>
-<p>Tableau Analytics Extensions are only supported in RStudio Connect version 1.9+. If you publish an extension to an unsupported version of RStudio Connect, the extension will successfully publish but then you will see the following message when visiting the extension:</p>
-<div class="figure">
-<img src="files/warnings.png" style="width:75.0%" alt=""><p class="caption">Warning message</p>
-</div>
-<p>Additionally, Tableau Analytics Extensions have the following requirements on RStudio Connect: * <code>Tableau.IntegrationEnabled</code> must be <code>TRUE</code> - this is the default, but can be turned off by an RStudio Connect administrator * <code>Connect.ServerAddress</code> must be set</p>
-<p>If either of these criteria are not met, a published extension will show a warning message similar to the one above.</p>
-</div>
-</div>
+<p>Note that because the running API occupies your R session, you’ll have to stop running it to use <code><a href="../reference/tableau_json.html">tableau_json()</a></code>. Once you’ve generated a mock request, you can run the API again and paste the request into the Swagger documentation to test the API. The data that would be sent back to Tableau appears under “Response body”.</p>
+<p><img src="files/swagger-test.png" style="width:75.0%"></p>
 <div id="debugging" class="section level3">
 <h3 class="hasAnchor">
-<a href="#debugging" class="anchor"></a>Debugging</h3>
-<p>Logging can be enabled for <code>plumbertableau</code> using <a href="https://github.com/r-lib/debugme"><code>debugme</code></a>. Setting the <code>DEBUGME</code> environment variable to a value containing <code>plumbertableau</code> prior to loading the package will result in additional logging to the R console. These log messages can be helpful in understanding what’s happening with each request, as well as what is contained in each request. This feature is also available for content deployed on RStudio Connect by adding the <code>DEBUGME</code> <a href="https://docs.rstudio.com/connect/user/content-settings/#content-vars">environment variable</a>. RStudio Connect administrators can enable additional logging for Tableau extensions hosted on RStudio Connect.</p>
-<p>Adding <code><a href="https://rdrr.io/r/base/browser.html">browser()</a></code> statements during local development can also aid in debugging efforts.</p>
+<a href="#debugging" class="anchor"></a>Debugging Extensions</h3>
+<p>plumbertableau supports debug logging via the <a href="https://github.com/r-lib/debugme"><code>debugme</code></a> R package.</p>
+<p>To turn on debug messages in R, set the <code>DEBUGME</code> environment variable to a value containing <code>plumbertableau</code> in R before the package is loaded.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span>DEBUGME <span class="op">=</span> <span class="st">"plumbertableau"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span></code></pre></div>
+<p>Additional messages will be logged to the R console while the extension is running, with information about the contents and processing of each request the extension receives.</p>
+</div>
+</div>
+<div id="deploying-extensions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#deploying-extensions" class="anchor"></a>Deploying Extensions</h2>
+<p>Now that we’ve written our extension, we can deploy it to RStudio Connect and use it from Tableau.</p>
+<ul>
+<li>To learn how to publish and manage extensions on RStudio Connect, and how to configure Tableau to work with RStudio Connect, see <strong><a href="publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a></strong>.</li>
+<li>For more information about using extensions from Tableau, see <strong><a href="tableau-developer-guide.html">Using plumbertableau Extensions in Tableau</a></strong>
+</li>
+</ul>
 </div>
 <div class="footnotes">
 <hr>
@@ -259,7 +304,9 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
