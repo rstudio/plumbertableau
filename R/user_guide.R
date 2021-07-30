@@ -57,6 +57,7 @@ render_user_guide <- function(path, pr) {
             "The following item(s) need to be resolved before your API will be accessible from Tableau:"
           )
         ),
+      ),
       tags$main(
         tags$div(
           htmltools::HTML(warnings)
