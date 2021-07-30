@@ -39,6 +39,10 @@ create_user_guide <- function(pr) {
 
 render_user_guide <- function(path, pr) {
   warnings <- warning_message()
+  
+  apiSpec <- pr$getApiSpec()
+  title <- apiSpec$info$title
+  version <- apiSpec$info$version
 
   if (!rlang::is_null(warnings)) {
     warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
