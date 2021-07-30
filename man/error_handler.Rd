@@ -16,3 +16,4 @@ error_handler(req, res, err)
 \description{
 Gracefully handle Plumber errors so they are effectively communicated back to Tableau
 }
+\keyword{internal}

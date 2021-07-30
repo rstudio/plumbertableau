@@ -1,4 +1,7 @@
-#' Create a Tableau compliant handler
+#' Create a Tableau-compliant handler for a function
+#'
+#' Creates an object that can translate arguments from Tableau to R, and return
+#' values from R to Tableau.
 #'
 #' @param args A named list describing the arguments that are expected from
 #'   valid Tableau requests. The names in the named list can be any unique
@@ -6,8 +9,7 @@
 #'   indicating the expected data type for that argument (`"character"`,
 #'   `"logical"`, `"numeric"`, or `"integer"`); or better yet, a specification
 #'   object created by [arg_spec()]. If an argument should be considered
-#'   optional, then its data type should be followed by `?`, like
-#'   `"numeric?"`.
+#'   optional, then its data type should be followed by `?`, like `"numeric?"`.
 #' @param return A string indicating the data type that will be returned from
 #'   `func` (`"character"`, `"logical"`, `"numeric"`, or `"integer"`); or, a
 #'   specification object created by [return_spec()].
@@ -45,9 +47,9 @@ tableau_handler <- function(args, return, func) {
 
 #' Describe expected args and return values
 #'
-#' These functions are used to create arguments to [tableau_handler()]. They
-#' allow the API author to tell plumbertableau the data type of the arg or
-#' return value, and a human-readable description that can be used to generate
+#' `arg_spec()` and `return_spec()` are used to create arguments for
+#' [tableau_handler()]. They describe the data type of the arg or return value,
+#' and can return a human-readable description that can be used to generate
 #' documentation.
 #'
 #' @param type A string indicating the data type that is required for this

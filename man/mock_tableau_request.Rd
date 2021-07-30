@@ -7,7 +7,7 @@
 mock_tableau_request(script, data, pretty = TRUE, ...)
 }
 \arguments{
-\item{script}{String indicating the endpoint path}
+\item{script}{String indicating the path to the endpoint to be called}
 
 \item{data}{A list or dataframe that is serialized to JSON}
 
@@ -19,7 +19,16 @@ mock_tableau_request(script, data, pretty = TRUE, ...)
 A JSON object that can be passed to a Tableau endpoint
 }
 \description{
-Create a mock JSON request that mimics the request structure of Tableau
+\code{mock_tableau_request()} creates a JSON object formatted like a request from
+Tableau. The JSON object it returns can be pasted directly into the "Try it
+out" field in the Swagger documentation for an endpoint to test its
+functionality.
+}
+\details{
+Behind the scenes, Tableau sends all requests to the \verb{/evaluate} endpoint.
+Each request is a JSON object containing two items: \code{script} and \code{data}.
+plumbertableau uses \code{script} to specify an individual endpoint to call, and
+passes the arguments in \code{data} on to the function at that endpoint.
 }
 \examples{
 mock_tableau_request("/loess/predict", mtcars[,c("hp", "mpg")])

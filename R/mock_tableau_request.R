@@ -1,6 +1,16 @@
 #' Create a mock JSON request that mimics the request structure of Tableau
 #'
-#' @param script String indicating the endpoint path
+#' `mock_tableau_request()` creates a JSON object formatted like a request from
+#' Tableau. The JSON object it returns can be pasted directly into the "Try it
+#' out" field in the Swagger documentation for an endpoint to test its
+#' functionality.
+#'
+#' Behind the scenes, Tableau sends all requests to the `/evaluate` endpoint.
+#' Each request is a JSON object containing two items: `script` and `data`.
+#' plumbertableau uses `script` to specify an individual endpoint to call, and
+#' passes the arguments in `data` on to the function at that endpoint.
+#'
+#' @param script String indicating the path to the endpoint to be called
 #' @param data A list or dataframe that is serialized to JSON
 #' @param pretty Whether or not to 'prettify' the JSON output
 #' @param ... Additional arguments passed to \code{jsonlite::toJSON()}

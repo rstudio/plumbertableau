@@ -28,7 +28,7 @@ The object that was returned from the request, JSON-decoded using
 }
 \description{
 Simulates invoking a Tableau extension function from a Tableau calculated
-field \verb{SCRIPT_*} call. Intended for unit testing of Tableau extension APIs.
+field \verb{SCRIPT_*} call. Intended for unit testing of plumbertableau extensions.
 }
 \examples{
 pr_path <- system.file("plumber/stringutils/plumber.R",
