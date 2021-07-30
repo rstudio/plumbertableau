@@ -17,8 +17,9 @@ Extension
 }
 \description{
 Most of the time, you won't call this function directly. Instead, you'll
-place it at the end of a Plumber router, under a \verb{#* @plumber} annotation, with
-no trailing parentheses or arguments. This tells Plumber to use the function to modify the router object.
+place it at the end of a Plumber router, under a \verb{#* @plumber} annotation,
+with no trailing parentheses or arguments. This tells Plumber to use the
+function to modify the router object.
 }
 \examples{
 \dontrun{
