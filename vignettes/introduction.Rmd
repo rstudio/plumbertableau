@@ -41,7 +41,7 @@ plumbertableau extensions are used in Tableau's *calculated fields*. Let's imagi
 SCRIPT_STR("/stringutils/capitalize", "Hello World")
 ```
 
-Tableau will send a request to the server you configured, and the server will send it on to the extension you named in the first argument. All the other arguments are data sent to the extension. For more information on using published extensions in Tableau, see the guide to **[Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)**.
+Tableau will send a request to the server you configured, and the server will send it on to the extension you named in the first argument (in this case, `/stringutils/capitalize`). All the other arguments are data sent to the extension. For more information on using published extensions in Tableau, see the guide to **[Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)**.
 
 ## Learn More
 
