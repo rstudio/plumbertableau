@@ -1,8 +1,9 @@
-#' Create a JSON object that mimics a request from Tableau
+#' Create a mock JSON request that mimics the request structure of Tableau
 #'
-#' `tableau_json()` creates a JSON object formatted like a request from Tableau.
-#' The JSON object it returns can be pasted directly into the "Try it out" field
-#' in the Swagger documentation for an endpoint to test its functionality.
+#' `mock_tableau_request()` creates a JSON object formatted like a request from
+#' Tableau. The JSON object it returns can be pasted directly into the "Try it
+#' out" field in the Swagger documentation for an endpoint to test its
+#' functionality.
 #'
 #' Behind the scenes, Tableau sends all requests to the `/evaluate` endpoint.
 #' Each request is a JSON object containing two items: `script` and `data`.
@@ -11,12 +12,16 @@
 #'
 #' @param script String indicating the path to the endpoint to be called
 #' @param data A list or dataframe that is serialized to JSON
+#' @param pretty Whether or not to 'prettify' the JSON output
 #' @param ... Additional arguments passed to \code{jsonlite::toJSON()}
 #'
 #' @return A JSON object that can be passed to a Tableau endpoint
 #'
+#' @examples
+#' mock_tableau_request("/loess/predict", mtcars[,c("hp", "mpg")])
+#'
 #' @export
-tableau_json <- function(script, data, ...) {
+mock_tableau_request <- function(script, data, pretty = TRUE, ...) {
   # Verify data is a list
   if (!is.list(data)) stop("data must be a list or data.frame object.", call. = FALSE)
   data <- as.list(data)
@@ -31,5 +36,6 @@ tableau_json <- function(script, data, ...) {
     script = jsonlite::unbox(script),
     data = data
   ),
+  pretty = pretty,
   ...)
 }
