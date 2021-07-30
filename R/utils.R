@@ -5,6 +5,7 @@
 #' @param route A plumber route
 #'
 #' @return Provides warnings based on features of \code{route}
+#' @keywords internal
 check_route <- function(route) {
   # Recursively work through mounted / nested routes
   if ("Plumber" %in% class(route)) {

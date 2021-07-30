@@ -15,3 +15,4 @@ Provides warnings based on features of \code{route}
 \description{
 Checks a route to ensure that it accepts POST requests and uses the default JSON parser and serializer.
 }
+\keyword{internal}
