@@ -318,8 +318,8 @@ render_setup_instructions <- function(path, pr) {
     ),
     tags$main(
       tags$div(
+        class="button",
         tags$h2(
-          style="margin-bottom: 2rem;",
           "How to configure Tableau to use your analytics extension"
         ),
       ),
@@ -331,7 +331,7 @@ render_setup_instructions <- function(path, pr) {
           tags$li("Under the heading 'Analytics Extensions', select 'Enable analytics extension for site"),
           tags$li("Create a new connection and select the connection type of 'Analytics Extensions API'"),
           tags$li("Select if you want to use SSL"),
-          tags$li("Enter the server Host (`{server_domain}`) and Port (`{server_port}`) for your RStudio Connect server"),
+          tags$li(glue::glue("Enter the server Host (`{server_domain}`) and Port (`{server_port}`) for your RStudio Connect server")),
           tags$li("Select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect"),
           tags$li("Create / Save changes")
         )
