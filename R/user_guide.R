@@ -348,8 +348,7 @@ fragment.only = TRUE
 }
 
 strip_md_links <- function(text) {
-  str_split(text, "\n#### Use the following links", n=2)[[1]]
 
   ### Description
-  # stringi::stri_replace_all(text, regex = "\n#### Use the following links[\s\S]*", "")
+  stringi::stri_replace_all(text, regex = "\n#### Use the following links[\s\S]*", "")
 }
