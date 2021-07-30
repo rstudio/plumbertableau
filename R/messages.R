@@ -25,7 +25,7 @@ warning_message <- function() {
         "\nPossible Solutions:",
         "\n",
         "\n-    Have your system administrator confirm *Applications.DefaultServerEnv* is enabled and that *Server.Address* has been defined within the *rstudio-connect.gcfg* file on the RStudio Connect server.",
-        "\n-    Use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_SERVER* environment variable. It should be set to a reachable https or http address for the server." 
+        "\n-    Use the application settings for your content within the RStudio Connect dashboard to define the *CONNECT_SERVER* environment variable. It should be set to a reachable https or http address for the server."
         ),
       sep = "\n\n---\n\n"
     )
@@ -66,6 +66,11 @@ warning_message <- function() {
     )
     message_count <- message_count + 1
   }
+
+  if (message_count > 0) {
+    return (message_contents)
+  }
+
   use_http = Sys.getenv("PLUMBERTABLEAU_USE_HTTP", "FALSE")
   "!DEBUG Environment Variable PLUMBERTABLEAU_USE_HTTP = `use_http`"
 
@@ -100,15 +105,15 @@ warning_message <- function() {
       "!DEBUG GET response threw an exception: `err`"
 
       return (list(
-        success=FALSE, 
+        success=FALSE,
         message=paste0("### API request to ", server, " has failed with error:",
-            "\n", err, 
+            "\n", err,
             "\n",
             "\nPossible Solutions:",
             "\n",
             "\n-    If you have specified an API_KEY, confirm it is valid.",
-            "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".", 
-            "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ", 
+            "\n-    Confirm there is connectivity between the server itself and the address assigned to it: ", server, ".",
+            "\n-    If using HTTPS along with self-signed certificates, you may need to allow the plumbertableau package to use HTTP instead, ",
             "by setting the environment variable *PLUMBERTABLEAU_USE_HTTP* to *TRUE* within the RStudio Connect application settings."
         )
       ))
@@ -125,7 +130,7 @@ warning_message <- function() {
     message_count <- message_count + 1
   } else {
     "!DEBUG GET response has returned `httr::http_status(result$response)$category`, `httr::http_status(result$response)$reason`, `httr::http_status(result$response)$message`"
-    
+
     if (httr::http_error(result$response)) {
       message_contents <- paste0(
         message_contents,
