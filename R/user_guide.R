@@ -297,7 +297,7 @@ render_setup_instructions <- function(path, pr) {
   ui <- htmltools::tagList(
     tags$header(
       tags$h1(
-        "Tableau Setup"
+        "Configure Tableau to access your extension"
       ),
       tags$div(class = "api-desc",
           htmltools::HTML(desc),
@@ -324,7 +324,7 @@ render_setup_instructions <- function(path, pr) {
       #   ),
       # ),
       tags$div(
-        "Depending on the Tableau product you will be using, follow the appropriate steps below to configure Tableau for your analytics extension hosted by RStudio Connect."
+        "Depending on the Tableau product you will be using, follow the corresponding steps below."
       ),
       tags$div(
         tags$h3("If you are using Tableau Server or Tableau Online:"),
