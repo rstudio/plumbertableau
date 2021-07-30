@@ -54,7 +54,7 @@ tableau_openapi <- function(pr) {
 #         spec$info$description,
 #         sep = "\n"
       )
-      "!DEBUG pec$info$description = |{spec$info$description}|"
+      "!DEBUG pec$info$description = |`spec$info$description`|"
 
 
       # spec$info$description <- paste0(
