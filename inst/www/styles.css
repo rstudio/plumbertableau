@@ -84,8 +84,6 @@ td.item-desc {
   width: 60%;
 }
 
-
-
 a.permalink {
   display: none;
 }
@@ -122,6 +120,11 @@ a.permalink {
 .button:hover {
   background-color: #81a8cb;
   border: #4c83b6;
+}
+
+.title {
+  padding-bottom: 20px;
+  text-align: left;
 }
 
 .rounded_hr {
