@@ -35,16 +35,26 @@ tableau_openapi <- function(pr) {
       )
     } else {
       spec$info$description <- paste0(
-        "### Description\n",
+"### Description\n",
+"This is a Tableau Analytics Extension.
+  * [Tableau usage instructions](../)
+  * [Tableau setup instructions](../setup)
+***
+",
         spec$info$description,
-        "\n",
-        "#### Use the following links to setup and use your Tableau Analytics Extension.",
-        "\n",
-        "* [Configure Tableau to access your extension](../setup)",
-        "\n",
-        "* [How to use your extension from Tableau](../)",
         sep = "\n"
       )
+      # spec$info$description <- paste0(
+      #   "### Description\n",
+      #   spec$info$description,
+      #   "\n",
+      #   "#### Use the following links to setup and use your Tableau Analytics Extension.",
+      #   "\n",
+      #   "* [Configure Tableau to access your extension](../setup)",
+      #   "\n",
+      #   "* [How to use your extension from Tableau](../)",
+      #   sep = "\n"
+      # )
     }
 
     # Return OAS as a list
