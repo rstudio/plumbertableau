@@ -40,8 +40,8 @@ tableau_openapi <- function(pr) {
         "\n",
         "#### Use the following links to setup and use your Tableau Analytics Extension.",
         "\n",
-        "    * [Configure Tableau to access your extension](../setup)",
-        "    * [How to use your extension from Tableau](../)",
+        "*    [Configure Tableau to access your extension](../setup)",
+        "*     [How to use your extension from Tableau](../)",
         sep = "\n"
       )
     }
