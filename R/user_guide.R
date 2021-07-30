@@ -337,7 +337,7 @@ render_setup_instructions <- function(path, pr) {
         tags$ol(
           tags$li("Navigate to Help, Settings and Performance, Manage Analytics Extension Connection..."),
           tags$li("Select 'TabPy/External API'"),
-          tags$li("Set Server (`{server_domain}`) and Port (`{server_port}`) to the address and port of the server running the API"),
+          tags$li(glue::glue("Set Server (`{server_domain}`) and Port (`{server_port}`) to the address and port of the server running the API")),
           tags$li("If desired, select 'Sign in with a username and password'. The username is 'rstudio-connect' and the password is any valid API key from RStudio Connect"),
           tags$li("Select whether to Require SSL"),
           tags$li("Save changes")
