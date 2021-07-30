@@ -112,10 +112,10 @@ Tableau requests contain a JSON request body that contains two objects^[[Tableau
 * script: In the case of `plumbertableau`, this is a string that identifies the specific endpoint being requested.
 * data: This object contains the data being passed from Tableau to the extension. In the case of `plumbertableau`, this data is parsed and automatically made available to the underlying function. Note that values passed from Tableau are unnamed, and instead follow the naming convention `_arg1`, `_arg2`, ... ,`_argN`.
 
-`plumbertableau` automatically provides a simple mock request that follows the specification provided by Tableau. This initial mock request contains simple `script` and `data` values. If you'd like, you can use `tableau_json()` to create a more full-featured request for use with Swagger:
+`plumbertableau` automatically provides a simple mock request that follows the specification provided by Tableau. This initial mock request contains simple `script` and `data` values. If you'd like, you can use `mock_tableau_request()` to create a more full-featured request for use with Swagger:
 
 ```{r}
-tableau_json(script = "/predict", 
+mock_tableau_request(script = "/predict", 
              data = mtcars[,c("hp", "mpg")])
 ```
 
