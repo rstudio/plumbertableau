@@ -349,5 +349,5 @@ fragment.only = TRUE
 
 strip_md_links <- function(text) {
   ### Description
-  stringi::stri_replace_all(text, regex = "\\n#### Use the following links.*", "")
+  stringi::stri_replace_all(text, regex = "\\n#### Use the following links.*/s", "")
 }
