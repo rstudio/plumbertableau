@@ -266,12 +266,18 @@
 <li>
 <code>data</code>: An object containing arguments for the function at the endpoint. plumbertableau parses this data and passes it to the R code. Tableau does not allow explicit naming of arguments, instead naming them <code>_arg1</code>, <code>_arg2</code>, … ,<code>_argN</code>. Arguments are passed to R in the order in which they appear. In this case, <code>_arg1</code> will be passed a <code>x</code> and <code>_arg2</code> will be passed a <code>y</code> to the underlying R function.</li>
 </ul>
-<p>To generate a more complex example, we can use <code><a href="../reference/tableau_json.html">tableau_json()</a></code> to create a more full-featured request for use with Swagger. Here, we pass in a data frame with two columns, and <code><a href="../reference/tableau_json.html">tableau_json()</a></code> uses those columns for <code>_arg</code> and <code>_arg2</code>.</p>
+<p>To generate a more complex example, we can use <code><a href="../reference/mock_tableau_request.html">mock_tableau_request()</a></code> to create a more full-featured request for use with Swagger. Here, we pass in a data frame with two columns, and <code><a href="../reference/mock_tableau_request.html">mock_tableau_request()</a></code> uses those columns for <code>_arg</code> and <code>_arg2</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tableau_json.html">tableau_json</a></span><span class="op">(</span>script <span class="op">=</span> <span class="st">"/predict"</span>, 
+<code class="sourceCode R"><span class="fu"><a href="../reference/mock_tableau_request.html">mock_tableau_request</a></span><span class="op">(</span>script <span class="op">=</span> <span class="st">"/predict"</span>, 
              data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hp"</span>, <span class="st">"mpg"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; {"script":"/predict","data":{"_arg1":[110,110,93,110,175,105,245,62,95,123,123,180,180,180,205,215,230,66,52,65,97,150,150,245,175,66,91,113,264,175,335,109],"_arg2":[21,21,22.8,21.4,18.7,18.1,14.3,24.4,22.8,19.2,17.8,16.4,17.3,15.2,10.4,10.4,14.7,32.4,30.4,33.9,21.5,15.5,15.2,13.3,19.2,27.3,26,30.4,15.8,19.7,15,21.4]}}</span></code></pre></div>
-<p>Note that because the running API occupies your R session, you’ll have to stop running it to use <code><a href="../reference/tableau_json.html">tableau_json()</a></code>. Once you’ve generated a mock request, you can run the API again and paste the request into the Swagger documentation to test the API. The data that would be sent back to Tableau appears under “Response body”.</p>
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;   "script": "/predict",</span>
+<span class="co">#&gt;   "data": {</span>
+<span class="co">#&gt;     "_arg1": [110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, 180, 180, 205, 215, 230, 66, 52, 65, 97, 150, 150, 245, 175, 66, 91, 113, 264, 175, 335, 109],</span>
+<span class="co">#&gt;     "_arg2": [21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, 33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, 19.7, 15, 21.4]</span>
+<span class="co">#&gt;   }</span>
+<span class="co">#&gt; }</span></code></pre></div>
+<p>Note that because the running API occupies your R session, you’ll have to stop running it to use <code>mock_talbeau_request()</code>. Once you’ve generated a mock request, you can run the API again and paste the request into the Swagger documentation to test the API. The data that would be sent back to Tableau appears under “Response body”.</p>
 <p><img src="files/swagger-test.png" style="width:75.0%"></p>
 <div id="debugging" class="section level3">
 <h3 class="hasAnchor">
