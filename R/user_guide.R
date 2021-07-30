@@ -334,8 +334,14 @@ render_setup_instructions <- function(path, pr) {
           tags$li("Enter the information for your RStudio Connect Server:"),
           tags$div(
             class="values",
-            tags$div(glue::glue("Host: `{server_domain}`")),
-            tags$div(glue::glue("Port: `{server_port}`")),
+            tags$div(
+              tags$span(class="emphasized", "Host:"),
+              server_domain
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Port:"),
+              server_port
+            )
           ),
           tags$li("Select 'Sign in with a username and password' and enter the credentials:"),
           tags$div(

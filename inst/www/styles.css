@@ -142,4 +142,9 @@ li {
 
 .values {
   background-color: lightgray;
+  padding: 0.75rem;
+}
+
+.emphasized {
+  font-weight: bold;
 }
