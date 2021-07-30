@@ -317,11 +317,14 @@ render_setup_instructions <- function(path, pr) {
       )
     ),
     tags$main(
+      # tags$div(
+      #   class="title",
+      #   tags$h2(
+      #     "How to configure Tableau to use your analytics extension"
+      #   ),
+      # ),
       tags$div(
-        class="title",
-        tags$h2(
-          "How to configure Tableau to use your analytics extension"
-        ),
+        "Depending on the Tableau product you will be using, follow the appropriate steps below to configure Tableau for your analytics extension hosted by RStudio Connect."
       ),
       tags$div(
         tags$h3("If you are using Tableau Server or Tableau Online:"),
@@ -375,7 +378,7 @@ render_setup_instructions <- function(path, pr) {
               server_port
             )
           ),
-          tags$li("If desired, select 'Sign in with a username and password' and enter the following information:"),
+          tags$li("If desired, select 'Sign in with a username and password' and enter the credentials:"),
           tags$div(
             class="values",
             tags$div(
