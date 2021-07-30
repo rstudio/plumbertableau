@@ -57,8 +57,9 @@ render_user_guide <- function(path, pr) {
         ),
         tags$div(class = "api-desc",
           tags$a(href = "./__docs__/",
-                class="button"
-                "View the generated Open API documentation")
+                class="button",
+                "View the generated Open API documentation"
+          )
         )
       )
     )
