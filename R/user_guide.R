@@ -348,6 +348,9 @@ fragment.only = TRUE
 }
 
 strip_md_links <- function(text) {
-  i <- stringi::stri_locate_first(text, fixed = "### Description")[1]
+  "!DEBUG text = `text`"
+  i <- stringi::stri_locate_first(text, fixed = "#### Use the following links to setup and use your Tableau Analytics Extension.")[1]
+  "!DEBUG i = `i`"
+  "!DEBUG sub = `text[0:i]`"
   text[0:i]
 }
