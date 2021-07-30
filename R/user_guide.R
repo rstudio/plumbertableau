@@ -39,7 +39,7 @@ create_user_guide <- function(pr) {
 
 render_user_guide <- function(path, pr) {
   warnings <- warning_message()
-  
+
   apiSpec <- pr$getApiSpec()
   title <- apiSpec$info$title
   version <- apiSpec$info$version
@@ -52,17 +52,19 @@ render_user_guide <- function(path, pr) {
           title,
           if (!is.null(version)) paste0("(v", version, ")")
         ),
-        tags$div(
-          class = "warning",
-          tags$h2(
-            "Warning"
+        tags$div(class = "api-desc",
+          tags$div(
+            htmltools::HTML(desc)
           ),
-          tags$h3(
-            "The following item(s) need to be resolved before your API will be accessible from Tableau:"
-          )
-        ),
+        )
       ),
       tags$main(
+        tags$div(
+          class = "warning",
+          tags$h4(
+            "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau:"
+          )
+        ),
         tags$div(
           htmltools::HTML(warnings)
         ),
@@ -318,20 +320,22 @@ render_setup_instructions <- function(path, pr) {
         if (!is.null(version)) paste0("(v", version, ")")
       ),
       tags$div(class = "api-desc",
-          htmltools::HTML(desc),
-          tags$div(
-            class="nav_div",
-            tags$a(
-              href = "./",
-              class="button",
-              "Use your analytics extension from Tableau"
-            ),
-            tags$a(
-              href = "./__docs__/",
-              class="button",
-              "View your extension's Open API documentation"
-            )
+        tags$div(
+          htmltools::HTML(desc)
+        ),
+        tags$div(
+          class="nav_div",
+          tags$a(
+            href = "./",
+            class="button",
+            "Use your analytics extension from Tableau"
+          ),
+          tags$a(
+            href = "./__docs__/",
+            class="button",
+            "View your extension's Open API documentation"
           )
+        )
       )
     ),
     tags$main(
