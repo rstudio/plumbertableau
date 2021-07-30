@@ -319,7 +319,9 @@ render_setup_instructions <- function(path, pr) {
     tags$main(
       htmltools::HTML(
         markdown::markdownToHTML(
-          text = glue::glue("#### Tableau Server / Tableau Online
+          text = glue::glue("### Use these instructions to configure Tableau to use your analytics extension
+          
+  #### Tableau Server / Tableau Online
   1. Using an administrative account, login to Tableau Server/Online
   2. Navigate to Settings, then Extensions
   3. Under the heading 'Analytics Extensions', select 'Enable analytics extension for site'
