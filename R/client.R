@@ -1,7 +1,7 @@
 #' Programatically invoke a Tableau extension function
 #'
 #' Simulates invoking a Tableau extension function from a Tableau calculated
-#' field `SCRIPT_*` call. Intended for unit testing of Tableau extension APIs.
+#' field `SCRIPT_*` call. Intended for unit testing of plumbertableau extensions.
 #'
 #' @param pr Either a [tableau_extension] style Plumber router object, or, the
 #'   filename of a plumber.R that implements a Tableau extension.
