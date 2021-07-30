@@ -1,9 +1,17 @@
-#' Make an existing Plumber API compliant as a Tableau Analytics Extension
+#' Modify a Plumber router to function as a Tableau Analytics Extension
+#'
+#' Most of the time, you won't call this function directly. Instead, you'll
+#' place it at the end of a Plumber router, under a `#* @plumber` annotation,
+#' with no trailing parentheses or arguments. This tells Plumber to use the
+#' function to modify the router object.
+#'
+#' @usage tableau_extension
+#' @usage tableau_extension(pr)
 #'
 #' @param pr A plumber router
 #'
 #' @return A modified plumber router that functions as a Tableau Analytics
-#' Extension
+#'   Extension
 #'
 #' @examples
 #' \dontrun{

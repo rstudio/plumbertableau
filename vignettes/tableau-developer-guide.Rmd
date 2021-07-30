@@ -1,8 +1,8 @@
 ---
-title: "Tableau Developer Guide"
+title: "Using plumbertableau Extensions in Tableau"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tableau Developer Guide}
+  %\VignetteIndexEntry{Using plumbertableau Extensions in Tableau}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,22 +14,35 @@ knitr::opts_chunk$set(
 )
 ```
 
-Analytics extensions built with `plumbertableau` are designed to be easily used from within calculated fields in  Tableau Workbooks. When extensions are published to RStudio Connect, a Tableau usage guide is automatically generated and displayed when viewing the extension on RStudio Connect:
+Before you use plumbertableau extensions in Tableau, you'll need to configure your extension server in Tableau. See **["Publishing plumbertableau Extensions to RStudio Connect"](publishing-extensions.html)** for detailed instructions on setting up Tableau and  RStudio Connect to work together.
 
-![Tableau usage guide](files/tableau-usage-guide.png){width=75%}
+plumbertableau extensions are used within calculated fields in Tableau, with calls to [Tableau's `SCRIPT_*` functions](https://help.tableau.com/current/pro/desktop/en-us/functions_functions_tablecalculation.htm#scriptbool).
 
-This page includes the following details about the extension:
-* A description of the endpoint
-* Links to other important pieces of documentation. This includes a setup guide for Tableau and the OpenAPI (Swagger) documentation for the extension.
-* An example of a `SCRIPT_` command to be used from within a calculated field in Tableau
-* Descriptions of the different parameters, arguments, and return data for the extension
+## Viewing Info on an Extension
 
-Using this reference page, you can copy and paste the `SCRIPT_` command into a calculated field in Tableau and replace the argument placeholders with actual values from the Tableau workbook.
+plumbertableau automatically generates a documentation page with example calls for each endpoint in the extension. These are what you see when you view the extension on RStudio Connect.
 
-![Tableau calculated field](files/calculated-field.png){width=75%}
+![](files/tableau-usage-guide.png){width=75%}
 
-In order to ensure values are correctly passed from Tableau to the extension, Tableau aggregation needs to be turned off.
+This page includes the following information about the extension:
 
-![Tableau aggregation](files/aggregate.png){width=75%}
+- The API's name and description
+- Links to other important pieces of documentation, including instructions for configuring Tableau, and the OpenAPI (Swagger) documentation for the extension
 
-Calculated fields don't allow you to pass values directly from Tableau to an extension. Instead, those values must be aggregated using a function in Tableau. Since we've turned off "Aggregate Measures", any function should do. We've found success using `ATTR([VALUE_NAME])`.
+For each endpoint, it includes:
+
+- A usage example calling Tableau's appropriate `SCRIPT_*` command, ready for use in a Tableau workbook
+- Names, types, and descriptions for Tableau arguments, URL parameters, and return data returned
+
+## Calling an Extension Endpoint in Tableau
+
+You can copy and paste the usage example (the `SCRIPT_*` command) into a calculated field in Tableau (it generates the correct URL), and replace the argument placeholders with actual values from the Tableau workbook.
+
+![Using a plumbertableau extension in a calculated field](files/calculated-field.png){width=75%}
+
+### Working with Tableau Data
+
+We've found that a few practices in Tableau ensure that the data you pass to a plumbertableau extension is sent correctly.
+
+- You must turn off "Aggregate Measures" under the "Analysis" menu for Tableau to pass the correct values to the extension. If this setting is on, Tableau will send aggregated data to the extension, which may cause inaccuracies in computations.
+- With this value off, calculated fields don't allow you to pass raw values directly to an extension. Those values must be wrapped in an aggregating function. Since we've turned "Aggregate Measures" off, these functions won't actually aggregate the data. We've had success using `ATTR([VALUE_NAME])`.

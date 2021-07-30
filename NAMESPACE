@@ -2,11 +2,11 @@
 
 export("%>%")
 export(arg_spec)
+export(mock_tableau_request)
 export(return_spec)
 export(tableau_extension)
 export(tableau_handler)
 export(tableau_invoke)
-export(tableau_json)
 import(stringi)
 importFrom(htmltools,tags)
 importFrom(magrittr,"%>%")

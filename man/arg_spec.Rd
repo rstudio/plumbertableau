@@ -24,8 +24,8 @@ documentation.}
 request. Defaults to \code{TRUE} if \code{type} ends with a \code{"?"} character.}
 }
 \description{
-These functions are used to create arguments to \code{\link[=tableau_handler]{tableau_handler()}}. They
-allow the API author to tell plumbertableau the data type of the arg or
-return value, and a human-readable description that can be used to generate
+\code{arg_spec()} and \code{return_spec()} are used to create arguments for
+\code{\link[=tableau_handler]{tableau_handler()}}. They describe the data type of the arg or return value,
+and can return a human-readable description that can be used to generate
 documentation.
 }
