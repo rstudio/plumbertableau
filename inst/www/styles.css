@@ -131,3 +131,7 @@ a.permalink {
 .nav_div {
   margin-top: 2rem;
 }
+
+li {
+  padding: 0.75rem;
+}

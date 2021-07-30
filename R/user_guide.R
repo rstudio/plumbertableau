@@ -318,10 +318,10 @@ render_setup_instructions <- function(path, pr) {
     ),
     tags$main(
       tags$div(
-        tags$h2("Use these instructions to configure Tableau to use your analytics extension"),
+        tags$h2("Configure Tableau to use your analytics extension"),
       ),
       tags$div(
-        tags$h3("Tableau Server / Tableau Online"),
+        tags$h3("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
           tags$li("Using an administrative account, login to Tableau Server/Online"),
           tags$li("Navigate to Settings, then Extensions"),
@@ -333,7 +333,7 @@ render_setup_instructions <- function(path, pr) {
         )
       ),
       tags$div(
-        tags$h3("Tableau Desktop"),
+        tags$h3("If you are using Tableau Desktop:"),
         tags$ol(
           tags$li("Navigate to Help, Settings and Performance, Manage Analytics Extension Connection..."),
           tags$li("Select 'TabPy/External API'"),
