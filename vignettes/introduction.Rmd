@@ -26,7 +26,7 @@ plumbertableau extensions are most easily used with [RStudio Connect](https://ww
 
 ## A Simple Example
 
-The following code is a simple plumbertableau extension. It can receive text from Tableau, and returns that text capitalized.
+The following code is a simple plumbertableau extension. It can receive text from Tableau and returns that text capitalized.
 
 ```{r capitalize, eval = FALSE}
 ```
