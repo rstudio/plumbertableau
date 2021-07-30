@@ -2,7 +2,7 @@
 % Please edit documentation in R/tableau_handler.R
 \name{tableau_handler}
 \alias{tableau_handler}
-\title{Create a Tableau compliant handler}
+\title{Create a Tableau-compliant handler for a function}
 \usage{
 tableau_handler(args, return, func)
 }
@@ -13,8 +13,7 @@ variable names. The values in the named list must each be either a string
 indicating the expected data type for that argument (\code{"character"},
 \code{"logical"}, \code{"numeric"}, or \code{"integer"}); or better yet, a specification
 object created by \code{\link[=arg_spec]{arg_spec()}}. If an argument should be considered
-optional, then its data type should be followed by \verb{?}, like
-\code{"numeric?"}.}
+optional, then its data type should be followed by \verb{?}, like \code{"numeric?"}.}
 
 \item{return}{A string indicating the data type that will be returned from
 \code{func} (\code{"character"}, \code{"logical"}, \code{"numeric"}, or \code{"integer"}); or, a
@@ -25,5 +24,6 @@ of the function will automatically be able to access Tableau request args
 simply by referring to their names in \code{args}; see the example below.}
 }
 \description{
-Create a Tableau compliant handler
+Creates an object that can translate arguments from Tableau to R, and return
+values from R to Tableau.
 }
