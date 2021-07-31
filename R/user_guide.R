@@ -357,7 +357,7 @@ render_setup_instructions <- function(path, pr) {
         "Configure Tableau to access your extension"
       ),
       tags$div(
-        class="padded-fully",
+        class="padded-flat-top",
         tags$h4("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
           tags$li("Using an administrative account, login to Tableau Server/Online"),
@@ -393,6 +393,7 @@ render_setup_instructions <- function(path, pr) {
         )
       ),
       tags$div(
+        class="padded-flat-top",
         tags$h4("If you are using Tableau Desktop:"),
         tags$ol(
           tags$li("Navigate to Help, Settings and Performance, Manage Analytics Extension Connection..."),
