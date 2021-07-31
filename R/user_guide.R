@@ -50,11 +50,12 @@ render_user_guide <- function(path, pr) {
     ui <- htmltools::tagList(
       tags$header(
         tags$h1(
+          class="padded",
           title,
           if (!is.null(version)) paste0("(v", version, ")")
         ),
         tags$div(
-          class = "warning",
+          class = "warning, padded",
           tags$h4(
             "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau:"
           )
@@ -62,6 +63,7 @@ render_user_guide <- function(path, pr) {
       ),
       tags$main(
         tags$div(
+          class="padded",
           htmltools::HTML(warnings)
         ),
         tags$div(class = "api-desc",

@@ -33,8 +33,8 @@ main {
   background-color: white;
 }
 
-padded {
-  padding: 3rem 3rem 1rem 3rem;
+.padded {
+  padding: 1px 1rem;
 }
 
 header {
