@@ -349,10 +349,10 @@ render_setup_instructions <- function(path, pr) {
           class="button",
           "View your extension's Open API documentation"
         )
-      )
+      ),
+      htmltools::HTML(menu_html())
     ),
     tags$main(
-      htmltools::HTML(menu_html()),
       tags$h3(
         class="subtitle",
         "Configure Tableau to access your extension"

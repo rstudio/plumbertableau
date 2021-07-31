@@ -203,7 +203,7 @@ width:250px;
 }
 
 .main-menu li>a {
-position:relative;
+/* position:relative; */
 display:table;
 border-collapse:collapse;
 border-spacing:0;
