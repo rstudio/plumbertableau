@@ -122,7 +122,9 @@ a.permalink {
 }
 
 .subtitle {
-  margin-bottom: 2rem;
+  margin: 0 0 2rem;
+  background: aliceblue;
+  padding: 1rem;
 }
 
 .title_desc_container {

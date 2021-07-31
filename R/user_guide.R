@@ -118,12 +118,11 @@ render_user_guide <- function(path, pr) {
         )
       ),
       tags$main(
-        class="padded-fully",
         tags$h3(
           class="subtitle",
           "Use your analytics extension from Tableau"
         ),
-        tags$div(class = "routes",
+        tags$div(class = "padded-fully routes",
                  lapply(extract_route_info(pr, path), render_route_info)
         )
       )
@@ -353,12 +352,12 @@ render_setup_instructions <- function(path, pr) {
       )
     ),
     tags$main(
-      class="padded-fully",
       tags$h3(
         class="subtitle",
         "Configure Tableau to access your extension"
       ),
       tags$div(
+        class="padded-fully",
         tags$h4("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
           tags$li("Using an administrative account, login to Tableau Server/Online"),
