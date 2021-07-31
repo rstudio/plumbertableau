@@ -57,7 +57,7 @@ render_user_guide <- function(path, pr) {
         tags$div(
           class = "warning",
           tags$h4(
-            "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau:"
+            "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
           )
         )
       ),
@@ -79,9 +79,10 @@ render_user_guide <- function(path, pr) {
 
     # title <- apiSpec$info$title
     # version <- apiSpec$info$version
-    # # Strip description of links to other pages
-    # desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-    #                                  fragment.only = TRUE)
+    
+    # Strip description of links to other pages
+    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+                                     fragment.only = TRUE)
 
     ui <- htmltools::tagList(
       tags$header(
