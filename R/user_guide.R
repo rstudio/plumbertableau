@@ -52,7 +52,7 @@ render_user_guide <- function(path, pr) {
         tags$div(
           class="title_desc_container",
           tags$h1(
-            class="padded title",
+            class="padded-fully title",
             title,
             if (!is.null(version)) paste0("(v", version, ")")
           ),
@@ -66,10 +66,10 @@ render_user_guide <- function(path, pr) {
       ),
       tags$main(
         tags$div(
-          class="padded",
+          class="padded-flat-top",
           htmltools::HTML(warnings)
         ),
-        tags$div(class = "api-desc padded",
+        tags$div(class = "api-desc padded-flat-top",
           tags$a(href = "./__docs__/",
                 class="button",
                 "View your extension's Open API documentation"
