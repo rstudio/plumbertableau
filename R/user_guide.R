@@ -103,8 +103,13 @@ render_user_guide <- function(path, pr) {
             ),
           ),
         ),
+      ),
+      tags$main(
         tags$div(
-          class="nav_div",
+          tags$h3(
+            class="subtitle",
+            "Use your analytics extension from Tableau"
+          ),
           tags$a(
             href = "./setup",
             class="button",
@@ -115,12 +120,6 @@ render_user_guide <- function(path, pr) {
             class="button",
             "View your extension's Open API documentation"
           )
-        )
-      ),
-      tags$main(
-        tags$h3(
-          class="subtitle",
-          "Use your analytics extension from Tableau"
         ),
         tags$div(class = "padded-fully routes",
                  lapply(extract_route_info(pr, path), render_route_info)
@@ -336,9 +335,14 @@ render_setup_instructions <- function(path, pr) {
             htmltools::HTML(desc)
           ),
         ),
-      ),
+      )
+    ),
+    tags$main(
       tags$div(
-        class="nav_div",
+        tags$h3(
+          class="subtitle",
+          "Configure Tableau to access your extension"
+        ),
         tags$a(
           href = "./",
           class="button",
@@ -349,12 +353,6 @@ render_setup_instructions <- function(path, pr) {
           class="button",
           "View your extension's Open API documentation"
         )
-      )
-    ),
-    tags$main(
-      tags$h3(
-        class="subtitle",
-        "Configure Tableau to access your extension"
       ),
       tags$div(
         class="padded-flat-top",
