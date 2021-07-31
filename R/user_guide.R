@@ -79,7 +79,7 @@ render_user_guide <- function(path, pr) {
 
     # title <- apiSpec$info$title
     # version <- apiSpec$info$version
-    
+
     # Strip description of links to other pages
     desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                      fragment.only = TRUE)
@@ -87,11 +87,13 @@ render_user_guide <- function(path, pr) {
     ui <- htmltools::tagList(
       tags$header(
         tags$h1(
+          class="padded title",
           title,
           if (!is.null(version)) paste0("(v", version, ")")
         ),
         tags$div(class = "api-desc",
           tags$div(
+            class="padded",
             htmltools::HTML(desc)
           ),
           tags$div(
