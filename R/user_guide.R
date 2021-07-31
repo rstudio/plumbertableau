@@ -120,6 +120,7 @@ render_user_guide <- function(path, pr) {
       tags$main(
         class="padded",
         tags$h3(
+          class="subtitle",
           "Use your analytics extension from Tableau"
         ),
         tags$div(class = "routes",
@@ -354,6 +355,7 @@ render_setup_instructions <- function(path, pr) {
     tags$main(
       class="padded",
       tags$h3(
+        class="subtitle",
         "Configure Tableau to access your extension"
       ),
       tags$div(
