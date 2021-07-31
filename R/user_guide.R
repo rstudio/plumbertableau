@@ -50,7 +50,7 @@ render_user_guide <- function(path, pr) {
     ui <- htmltools::tagList(
       tags$header(
         tags$h1(
-          class="padded",
+          class="padded title",
           title,
           if (!is.null(version)) paste0("(v", version, ")")
         ),
