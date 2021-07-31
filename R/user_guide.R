@@ -92,13 +92,13 @@ render_user_guide <- function(path, pr) {
         tags$div(
           class="title_desc_container",
           tags$h1(
-            class="padded title",
+            class="padded-fully title",
             title,
             if (!is.null(version)) paste0("(v", version, ")")
           ),
-          tags$div(class = "api-desc",
+          tags$div(
             tags$div(
-              class="padded",
+              class="padded-flat-top",
               htmltools::HTML(desc)
             ),
           ),
@@ -118,7 +118,7 @@ render_user_guide <- function(path, pr) {
         )
       ),
       tags$main(
-        class="padded",
+        class="padded-fully",
         tags$h3(
           class="subtitle",
           "Use your analytics extension from Tableau"
@@ -327,13 +327,13 @@ render_setup_instructions <- function(path, pr) {
       tags$div(
         class="title_desc_container",
         tags$h1(
-          class="padded title",
+          class="padded-fully title",
           title,
           if (!is.null(version)) paste0("(v", version, ")")
         ),
         tags$div(class = "api-desc",
           tags$div(
-            class="padded",
+            class="padded-flat-top",
             htmltools::HTML(desc)
           ),
         ),
@@ -353,7 +353,7 @@ render_setup_instructions <- function(path, pr) {
       )
     ),
     tags$main(
-      class="padded",
+      class="padded-fully",
       tags$h3(
         class="subtitle",
         "Configure Tableau to access your extension"
