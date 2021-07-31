@@ -322,26 +322,31 @@ render_setup_instructions <- function(path, pr) {
 
   ui <- htmltools::tagList(
     tags$header(
-      tags$h1(
-        title,
-        if (!is.null(version)) paste0("(v", version, ")")
-      ),
-      tags$div(class = "api-desc",
-        tags$div(
-          htmltools::HTML(desc)
+      tags$div(
+        class="title_desc_container",
+        tags$h1(
+          class="padded title",
+          title,
+          if (!is.null(version)) paste0("(v", version, ")")
         ),
-        tags$div(
-          class="nav_div",
-          tags$a(
-            href = "./",
-            class="button",
-            "Use your analytics extension from Tableau"
+        tags$div(class = "api-desc",
+          tags$div(
+            class="padded",
+            htmltools::HTML(desc)
           ),
-          tags$a(
-            href = "./__docs__/",
-            class="button",
-            "View your extension's Open API documentation"
-          )
+        ),
+      ),
+      tags$div(
+        class="nav_div",
+        tags$a(
+          href = "./",
+          class="button",
+          "Use your analytics extension from Tableau"
+        ),
+        tags$a(
+          href = "./__docs__/",
+          class="button",
+          "View your extension's Open API documentation"
         )
       )
     ),
