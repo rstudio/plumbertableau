@@ -55,7 +55,7 @@ render_user_guide <- function(path, pr) {
           if (!is.null(version)) paste0("(v", version, ")")
         ),
         tags$div(
-          class = "warning, padded",
+          class = "warning",
           tags$h4(
             "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau:"
           )
@@ -66,7 +66,7 @@ render_user_guide <- function(path, pr) {
           class="padded",
           htmltools::HTML(warnings)
         ),
-        tags$div(class = "api-desc",
+        tags$div(class = "api-desc padded",
           tags$a(href = "./__docs__/",
                 class="button",
                 "View your extension's Open API documentation"
