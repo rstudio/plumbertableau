@@ -110,6 +110,7 @@ render_user_guide <- function(path, pr) {
               ),
               tags$li(
                 tags$a(
+                  href = "./help",
                   tags$div(
                     class="menuitem",
                     fa("question-circle")
@@ -506,6 +507,7 @@ render_setup_instructions <- function(path, pr) {
             ),
             tags$li(
               tags$a(
+                href = "./help",
                 tags$div(
                   class="menuitem",
                   fa("question-circle")
@@ -726,6 +728,7 @@ render_overview <- function(path, pr) {
             ),
             tags$li(
               tags$a(
+                href = "./help",
                 tags$div(
                   class="menuitem",
                   fa("question-circle")
@@ -912,6 +915,7 @@ render_help <- function(path, pr) {
             ),
             tags$li(
               tags$a(
+                href = "./help",
                 tags$div(
                   class="menuitem",
                   fa("question-circle")
