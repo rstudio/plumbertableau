@@ -36,6 +36,7 @@ main {
 header {
   background-color: #4c83b6;
   color: white;
+  position: flex;
 }
 
 .route {
@@ -156,6 +157,9 @@ li {
 .italic {
   font-style: italic;
 }
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
 .fa-2x {
   font-size: 2em;
