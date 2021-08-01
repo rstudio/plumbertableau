@@ -323,6 +323,7 @@ render_setup_instructions <- function(path, pr) {
 
   ui <- htmltools::tagList(
     tags$header(
+      htmltools::HTML(menu_html()),
       tags$div(
         class="title_desc_container",
         tags$h1(
@@ -350,7 +351,6 @@ render_setup_instructions <- function(path, pr) {
           "View your extension's Open API documentation"
         )
       ),
-      htmltools::HTML(menu_html())
     ),
     tags$main(
       tags$h3(
