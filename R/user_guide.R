@@ -129,16 +129,14 @@ render_user_guide <- function(path, pr) {
             class="padded-fully title",
             title,
             if (!is.null(version)) paste0("(v", version, ")")
-          ),
-          tags$div(
-            class = "warning",
-            tags$h4(
-              "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
-            )
           )
         )
       ),
       tags$main(
+        tags$h3(
+          class="warning",
+          "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
+        ),
         tags$div(
           class="padded-flat-top",
           htmltools::HTML(warnings)
@@ -432,6 +430,8 @@ render_setup_instructions <- function(path, pr) {
   connect_server <- Sys.getenv("CONNECT_SERVER")
   server_domain <- urltools::domain(connect_server)
   server_port <- urltools::port(connect_server)
+  warnings <- warning_message()
+
   if (rlang::is_na(server_port)) {
     server_scheme <- urltools::scheme(connect_server)
     if (rlang::is_na(server_scheme)) {
@@ -442,9 +442,11 @@ render_setup_instructions <- function(path, pr) {
       server_port <- 443
   }
   apiSpec <- pr$getApiSpec()
-  desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+  desc <- ""
+  if (!rlang::is_null(warnings)) {
+    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                    fragment.only = TRUE)
-
+  }
   title <- apiSpec$info$title
   version <- apiSpec$info$version
 
@@ -661,10 +663,14 @@ render_overview <- function(path, pr) {
   apiSpec <- pr$getApiSpec()
   title <- apiSpec$info$title
   version <- apiSpec$info$version
+  warnings <- warning_message()
 
-  # Strip description of links to other pages
-  desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-                                    fragment.only = TRUE)
+  desc <- ""
+  if (!rlang::is_null(warnings)) {
+    # Strip description of links to other pages
+    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+                                      fragment.only = TRUE)
+  }
   ui <- htmltools::tagList(
     tags$header(
       tags$div(
