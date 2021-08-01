@@ -796,12 +796,12 @@ A simple example is creating an API that capitalizes all incoming text:
 Once this API has been developed, it can be [published to RStudio Connect](https://docs.rstudio.com/connect/user/publishing/) and used from within a Tableau workbook, running in either Tableau Desktop, Tableau Server, or Tableau Online. Extensions are accessed from calculated fields in Tableau. To use our example `capitalize` extension, we type the following into a Tableau calculated field:
 
 ```
-SCRIPT_STR(""/extension/path/capitalize"", ""Hello World"")
+SCRIPT_STR(\"/extension/path/capitalize\", \"Hello World\")
 ```
 
-The first argumenent to the calculated field is the path to the API endpoint we wish to call. If the extension was published to RStudio Connect, this is path to the API on the server, `/extension/path""`, plus the path to the specific endpoint, `/capitalize`.
+The first argumenent to the calculated field is the path to the API endpoint we wish to call. If the extension was published to RStudio Connect, this is path to the API on the server, `/extension/path\"`, plus the path to the specific endpoint, `/capitalize`.
 
-The second (and subsequent) argument(s) are the values we want to pass from Tableau to the analytics extension. In this example, we're passing the string (`""Hello World""`), but this field can refer to data fields in the Tableau workbook.
+The second (and subsequent) argument(s) are the values we want to pass from Tableau to the analytics extension. In this example, we're passing the string (`\"Hello World\"`), but this field can refer to data fields in the Tableau workbook.
 
 ### Learn more
 * [R developer guide for getting started with developing Tableau extensions using plumbertableau](r-developer-guide.html)
