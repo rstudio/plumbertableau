@@ -4,6 +4,8 @@
 # NICE TO HAVE
 # TODO: URL param values should be coerced to type (if possible?)
 
+library(fontawesome)
+
 globalVariables(names(htmltools::tags))
 
 #' @importFrom htmltools tags
@@ -359,6 +361,7 @@ render_setup_instructions <- function(path, pr) {
       ),
       tags$div(
         class="padded-flat-top",
+        tags$p(fa("car", fill = "purple"), "Manufacturer:")
         tags$h4("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
           tags$li("Using an administrative account, login to Tableau Server/Online"),
