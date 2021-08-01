@@ -361,7 +361,7 @@ render_setup_instructions <- function(path, pr) {
       ),
       tags$div(
         class="padded-flat-top",
-        tags$p(fa("car", fill = "purple"), "Manufacturer:")
+        tags$p(fa("car", fill = "purple"), "Manufacturer:"),
         tags$h4("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
           tags$li("Using an administrative account, login to Tableau Server/Online"),
