@@ -343,7 +343,7 @@ render_setup_instructions <- function(path, pr) {
       #   )
       # ),
       tag("nav",
-        class="main-menu"
+        class="main-menu",
         tags$ul(
           tags$li(
             tags$a(
