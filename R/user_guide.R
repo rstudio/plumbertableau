@@ -343,6 +343,7 @@ render_setup_instructions <- function(path, pr) {
       #   )
       # ),
       fa("car"),
+      fa_i(name = "r-project"),
       tags$div(
         class="title_desc_container",
         tags$h1(
