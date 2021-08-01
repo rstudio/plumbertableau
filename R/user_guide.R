@@ -763,7 +763,7 @@ render_overview <- function(path, pr) {
         class = "padded-fully",
         tags$h4(
           htmltools::HTML(markdown::markdownToHTML(
-            text = introduction_text(), fragment.only = TRUE
+            text = introduction_text()), fragment.only = TRUE
           )
         )
       )
