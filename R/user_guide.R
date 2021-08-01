@@ -342,28 +342,82 @@ render_setup_instructions <- function(path, pr) {
       #     )
       #   )
       # ),
-      tags$div(
-        class="menuback",
-        tags$div(
-          class="menubar",
-          tags$div(
-            class="menuitem",
-            fa("home")
+      tag("nav",
+        class="main-menu"
+        tags$ul(
+          tags$li(
+            tags$a(
+              tags$div(
+                class="menuitem",
+                fa("home")
+              ),
+              tags$span(
+                class="nav-text",
+                "Home"
+              )
+            )
           ),
-          tags$div(
-            class="menuitem",
-            fa("cogs")
+          tags$li(
+            tags$a(
+              tags$div(
+                class="menuitem",
+                fa("cogs")
+              ),
+              tags$span(
+                class="nav-text",
+                "Setup"
+              )
+            )
           ),
-          tags$div(
-            class="menuitem",
-            fa("chart-area")
+          tags$li(
+            tags$a(
+              tags$div(
+                class="menuitem",
+                fa("chart-area")
+              ),
+              tags$span(
+                class="nav-text",
+                "Use from Tableau"
+              )
+            )
           ),
-          tags$div(
-            class="menuitem",
-            fa("info-circle")
-          )
+          tags$li(
+            tags$a(
+              tags$div(
+                class="menuitem",
+                fa("info-circle")
+              ),
+              tags$span(
+                class="nav-text",
+                "OpenAPI"
+              )
+            )
+          ),
         )
       ),
+
+      # tags$div(
+      #   class="menuback",
+      #   tags$div(
+      #     class="menubar",
+      #     tags$div(
+      #       class="menuitem",
+      #       fa("home")
+      #     ),
+      #     tags$div(
+      #       class="menuitem",
+      #       fa("cogs")
+      #     ),
+      #     tags$div(
+      #       class="menuitem",
+      #       fa("chart-area")
+      #     ),
+      #     tags$div(
+      #       class="menuitem",
+      #       fa("info-circle")
+      #     )
+      #   )
+      # ),
       tags$div(
         class="title_desc_container",
         tags$h1(
