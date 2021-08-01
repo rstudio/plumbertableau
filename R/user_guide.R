@@ -331,17 +331,18 @@ render_setup_instructions <- function(path, pr) {
     fa_html_dependency(),
     tags$header(
       # htmltools::HTML(menu_html()),
-      tag("nav",
-        class="main-menu",
-        tags$ui(
-          tags$li(
-            tags$a(
-              fa("car"),
-              tags$span(class="nav-text", "Dashboard")
-            )
-          )
-        )
-      ),
+      # tag("nav",
+      #   class="main-menu",
+      #   tags$ui(
+      #     tags$li(
+      #       tags$a(
+      #         fa("car"),
+      #         tags$span(class="nav-text", "Dashboard")
+      #       )
+      #     )
+      #   )
+      # ),
+      fa("car"),
       tags$div(
         class="title_desc_container",
         tags$h1(
