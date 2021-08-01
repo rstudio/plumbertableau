@@ -157,7 +157,7 @@ li {
 .italic {
   font-style: italic;
 }
-
+/* 
 .fa-2x {
   font-size: 2em;
   }
@@ -277,7 +277,7 @@ float: left;
 background: #e2e2e2;
 width: 100%;
 height: 100%;
-}
+} */
 
 .menuback {
   background-color: black;
