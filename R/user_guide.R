@@ -342,13 +342,13 @@ render_setup_instructions <- function(path, pr) {
       #     )
       #   )
       # ),
-      # tags$div(
-      #   class="menubar",
-      #   fa("home", class="menuitems"),
-      #   fa("cogs", class="menuitems"),
-      #   fa("chart-area", class="menuitems"),
-      #   fa("info-circle", class="menuitems")
-      # ),
+      tags$div(
+        class="menubar",
+        fa("home"),
+        fa("cogs"),
+        fa("chart-area"),
+        fa("info-circle")
+      ),
       tags$div(
         class="title_desc_container",
         tags$h1(
