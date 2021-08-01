@@ -442,9 +442,8 @@ strip_md_links <- function(text) {
 }
 
 menu_html <- function() {
-'
-  <div class="area"></div>
-  <nav class="main-menu">
+# <div class="area"></div>
+'  <nav class="main-menu">
     <ul>
       <li>
         <a href="http://justinfarrow.com">
