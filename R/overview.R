@@ -9,9 +9,9 @@ library(fontawesome)
 globalVariables(names(htmltools::tags))
 
 #' @importFrom htmltools tags
-create_user_guide <- function(pr) {
+create_overview <- function(pr) {
   function(req, res) {
-    "!DEBUG `write_log_message(req, res, 'Generating Tableau Usage Instructions')"
+    "!DEBUG `write_log_message(req, res, 'Generating Tableau Analytical Extension Overview')"
     # Parse the endpoint path from header on RStudio Connect
     content_path <- NULL
     if (!rlang::is_null(req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL)) {
@@ -35,230 +35,125 @@ create_user_guide <- function(pr) {
       # Ensure path starts with '/'
       if (!stringi::stri_startswith(content_path, fixed = "/")) content_path <- paste0("/", content_path)
     }
-    render_user_guide(content_path, pr)
+    render_overview(content_path, pr)
   }
 }
 
-render_user_guide <- function(path, pr) {
+render_overview <- function(path, pr) {
   warnings <- warning_message()
 
   apiSpec <- pr$getApiSpec()
   title <- apiSpec$info$title
   version <- apiSpec$info$version
 
-  if (!rlang::is_null(warnings)) {
-    warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
-
-    ui <- htmltools::tagList(
-      tags$header(
+  # Strip description of links to other pages
+  desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+                                    fragment.only = TRUE)
+  ui <- htmltools::tagList(
+    tags$header(
+      tags$div(
+        class="nav",
         tags$div(
-          class="nav",
-          tags$div(
-            class="main-menu",
-            tags$ul(
-              tags$li(
-                tags$a(
-                  tags$div(
-                    class="menuitem",
-                    fa("home")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "Home"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  href = "./setup",
-                  tags$div(
-                    class="menuitem",
-                    fa("cogs")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "Configure Tableau to use your analytics extension"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  href = "./",
-                  tags$div(
-                    class="menuitem",
-                    fa("chart-area")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "Call your analytics extension from Tableau"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  href = "./__docs__/",
-                  tags$div(
-                    class="menuitem",
-                    fa("info-circle")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "View your extension's Open API documentation"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  tags$div(
-                    class="menuitem",
-                    fa("question-circle")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "View the plumbertableau package documentation"
-                  )
+          class="main-menu",
+          tags$ul(
+            tags$li(
+              tags$a(
+                tags$div(
+                  class="menuitem",
+                  fa("home")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Home"
                 )
               )
-            )
-          )
-        ),
-        tags$div(
-          class="title_desc_container",
-          tags$h1(
-            class="padded-fully title",
-            title,
-            if (!is.null(version)) paste0("(v", version, ")")
-          ),
-          tags$div(
-            class = "warning",
-            tags$h4(
-              "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
-            )
-          )
-        )
-      ),
-      tags$main(
-        tags$div(
-          class="padded-flat-top",
-          htmltools::HTML(warnings)
-        ),
-        tags$div(class = "api-desc padded-flat-top",
-          tags$a(href = "./__docs__/",
-                class="button",
-                "View your extension's Open API documentation"
-          )
-        )
-      )
-    )
-  } else {
-    # Strip description of links to other pages
-    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-                                     fragment.only = TRUE)
-    ui <- htmltools::tagList(
-      tags$header(
-        tags$div(
-          class="nav",
-          tags$div(
-            class="main-menu",
-            tags$ul(
-              tags$li(
-                tags$a(
-                  tags$div(
-                    class="menuitem",
-                    fa("home")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "Home"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  href = "./setup",
-                  tags$div(
-                    class="menuitem",
-                    fa("cogs")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "Configure Tableau to use your analytics extension"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  href = "./",
-                  tags$div(
-                    class="menuitem",
-                    fa("chart-area")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "Call your analytics extension from Tableau"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  href = "./__docs__/",
-                  tags$div(
-                    class="menuitem",
-                    fa("info-circle")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "View your extension's Open API documentation"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  tags$div(
-                    class="menuitem",
-                    fa("question-circle")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "View the plumbertableau package documentation"
-                  )
-                )
-              )
-            )
-          )
-        ),
-        tags$div(
-          class="title_desc_container",
-          tags$h1(
-            class="padded-fully title",
-            title,
-            if (!is.null(version)) paste0("(v", version, ")")
-          ),
-          tags$div(class = "api-desc",
-            tags$div(
-              class="padded-flat-top",
-              htmltools::HTML(desc)
             ),
+            tags$li(
+              tags$a(
+                href = "./setup",
+                tags$div(
+                  class="menuitem",
+                  fa("cogs")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Configure Tableau to use your analytics extension"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                href = "./",
+                tags$div(
+                  class="menuitem",
+                  fa("chart-area")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Call your analytics extension from Tableau"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                href = "./__docs__/",
+                tags$div(
+                  class="menuitem",
+                  fa("info-circle")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "View your extension's Open API documentation"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                tags$div(
+                  class="menuitem",
+                  fa("question-circle")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "View the plumbertableau package documentation"
+                )
+              )
+            )
           )
         )
       ),
-      tags$main(
-        tags$h3(
-          class="subtitle",
-          "Use your analytics extension from Tableau"
+      tags$div(
+        class="title_desc_container",
+        tags$h1(
+          class="padded-fully title",
+          title,
+          if (!is.null(version)) paste0("(v", version, ")")
         ),
-        tags$div(class = "padded-fully routes",
-                 lapply(extract_route_info(pr, path), render_route_info)
+        tags$div(class = "api-desc",
+          tags$div(
+            class="padded-flat-top",
+            htmltools::HTML(desc)
+          ),
+        )
+      )
+    ),
+    tags$main(
+      tags$h3(
+        class="subtitle",
+        "Use your analytics extension from Tableau"
+      ),
+      tags$div(class = "padded-fully",
+        tgs$h4(
+          "Some kind of good overview here.. Of how you use Tableau extensions from RStudio Connect"
         )
       )
     )
-  }
+  )
 
   as.character(htmltools::htmlTemplate(
     system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
     content = ui
   ))
-
 }
 
 render_route_info <- function(route_info) {
