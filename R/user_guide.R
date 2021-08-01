@@ -328,20 +328,7 @@ render_setup_instructions <- function(path, pr) {
   version <- apiSpec$info$version
 
   ui <- htmltools::tagList(
-    fa_html_dependency(),
     tags$header(
-      # htmltools::HTML(menu_html()),
-      # tag("nav",
-      #   class="main-menu",
-      #   tags$ui(
-      #     tags$li(
-      #       tags$a(
-      #         fa("car"),
-      #         tags$span(class="nav-text", "Dashboard")
-      #       )
-      #     )
-      #   )
-      # ),
       tags$div(
         class="nav",
         tags$div(
