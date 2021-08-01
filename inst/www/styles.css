@@ -175,7 +175,7 @@ font-size:20px;
 }
 
 
-.main-menu:hover,nav.main-menu.expanded {
+.main-menu:hover,.nav.main-menu.expanded {
 width:250px;
 overflow:visible;
 }
@@ -258,7 +258,7 @@ a:hover,a:focus {
 text-decoration:none;
 }
 
-nav {
+.nav {
 -webkit-user-select:none;
 -moz-user-select:none;
 -ms-user-select:none;
@@ -266,12 +266,12 @@ nav {
 user-select:none;
 }
 
-nav ul,nav li {
+.nav ul,.nav li {
 outline:0;
 margin:0;
 padding:0;
 }
-.main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
+.main-menu li:hover>a,.nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page .nav.dashboard-menu ul li:hover a,.dashboard-page .nav.dashboard-menu ul li.active a {
 color:#fff;
 background-color:#5fa2db;
 }

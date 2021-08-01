@@ -342,57 +342,60 @@ render_setup_instructions <- function(path, pr) {
       #     )
       #   )
       # ),
-      tag("nav",
-        class="main-menu",
-        tags$ul(
-          tags$li(
-            tags$a(
-              tags$div(
-                class="menuitem",
-                fa("home")
-              ),
-              tags$span(
-                class="nav-text",
-                "Home"
+      tag$div(
+        class="nav",
+        tag$div(
+          class="main-menu",
+          tags$ul(
+            tags$li(
+              tags$a(
+                tags$div(
+                  class="menuitem",
+                  fa("home")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Home"
+                )
               )
-            )
-          ),
-          tags$li(
-            tags$a(
-              tags$div(
-                class="menuitem",
-                fa("cogs")
-              ),
-              tags$span(
-                class="nav-text",
-                "Setup"
+            ),
+            tags$li(
+              tags$a(
+                tags$div(
+                  class="menuitem",
+                  fa("cogs")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Setup"
+                )
               )
-            )
-          ),
-          tags$li(
-            tags$a(
-              tags$div(
-                class="menuitem",
-                fa("chart-area")
-              ),
-              tags$span(
-                class="nav-text",
-                "Use from Tableau"
+            ),
+            tags$li(
+              tags$a(
+                tags$div(
+                  class="menuitem",
+                  fa("chart-area")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Use from Tableau"
+                )
               )
-            )
-          ),
-          tags$li(
-            tags$a(
-              tags$div(
-                class="menuitem",
-                fa("info-circle")
-              ),
-              tags$span(
-                class="nav-text",
-                "OpenAPI"
+            ),
+            tags$li(
+              tags$a(
+                tags$div(
+                  class="menuitem",
+                  fa("info-circle")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "OpenAPI"
+                )
               )
-            )
-          ),
+            ),
+          )
         )
       ),
 
