@@ -140,12 +140,6 @@ render_user_guide <- function(path, pr) {
         tags$div(
           class="padded-flat-top",
           htmltools::HTML(warnings)
-        ),
-        tags$div(class = "api-desc padded-flat-top",
-          tags$a(href = "./__docs__/",
-                class="button",
-                "View your extension's Open API documentation"
-          )
         )
       )
     )
@@ -546,7 +540,7 @@ render_setup_instructions <- function(path, pr) {
       ),
       tags$div(
         class="padded-flat-top",
-        tags$h4("If you are using Tableau Server or Tableau Online:"),
+        tags$h3("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
           tags$li("Using an administrative account, login to Tableau Server/Online"),
           tags$li("Navigate to Settings, then Extensions"),
@@ -582,7 +576,7 @@ render_setup_instructions <- function(path, pr) {
       ),
       tags$div(
         class="padded-flat-top",
-        tags$h4("If you are using Tableau Desktop:"),
+        tags$h3("If you are using Tableau Desktop:"),
         tags$ol(
           tags$li("Navigate to Help, Settings and Performance, Manage Analytics Extension Connection..."),
           tags$li("Select 'TabPy/External API'"),
