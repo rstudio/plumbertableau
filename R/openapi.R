@@ -14,14 +14,11 @@ tableau_openapi <- function(pr) {
       }
     }
 
-    # Remove / from spec so it doesn't show in UI
+    # Remove paths from spec so they don't show in UI
     spec$paths[["/"]] <- NULL
-
-    # Remove /setup from spec so it doesn't show in UI
     spec$paths[["/setup"]] <- NULL
-    
-    # Remove /user from spec so it doesn't show in UI
     spec$paths[["/user"]] <- NULL
+    spec$paths[["/help"]] <- NULL
 
     # Provide additional context in the description field. This is also visible
     # in the user guide

@@ -208,6 +208,7 @@ render_user_guide <- function(path, pr) {
               ),
               tags$li(
                 tags$a(
+                  href = "./help",
                   tags$div(
                     class="menuitem",
                     fa("question-circle")
@@ -760,10 +761,8 @@ render_overview <- function(path, pr) {
       ),
       tags$div(
         class = "padded-fully",
-        tags$h4(
-          htmltools::HTML(markdown::markdownToHTML(
-            text = introduction_text()), fragment.only = TRUE
-          )
+        htmltools::HTML(markdown::markdownToHTML(
+          text = introduction_text()), fragment.only = TRUE
         )
       )
     )
@@ -808,4 +807,153 @@ The second (and subsequent) argument(s) are the values we want to pass from Tabl
 * [Setting up Tableau for use with extensions hosted on RStudio Connect](tableau-configutation.html)
 
 "
+}
+
+#' @importFrom htmltools tags
+create_help <- function(pr) {
+  function(req, res) {
+    "!DEBUG `write_log_message(req, res, 'Generating Tableau Analytical Extension Overview')"
+    # Parse the endpoint path from header on RStudio Connect
+    content_path <- NULL
+    if (!rlang::is_null(req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL)) {
+      base_url <- req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL
+      rsc_root <- Sys.getenv("CONNECT_SERVER")
+      content_path <- gsub(rsc_root,
+                           "",
+                           base_url,
+                           fixed = TRUE
+      )
+
+      # If the path requested is not root (/), strip it from the content path
+      if (req$PATH_INFO != "/") {
+        content_path <- gsub(req$PATH_INFO,
+                             "",
+                             content_path,
+                             fixed = TRUE
+        )
+      }
+
+      # Ensure path starts with '/'
+      if (!stringi::stri_startswith(content_path, fixed = "/")) content_path <- paste0("/", content_path)
+    }
+    render_help(content_path, pr)
+  }
+}
+
+render_help <- function(path, pr) {
+  apiSpec <- pr$getApiSpec()
+  title <- apiSpec$info$title
+  version <- apiSpec$info$version
+  warnings <- warning_message()
+
+  desc <- ""
+  if (rlang::is_null(warnings)) {
+    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
+                                   fragment.only = TRUE)
+  }
+  ui <- htmltools::tagList(
+    tags$header(
+      tags$div(
+        class="nav",
+        tags$div(
+          class="main-menu",
+          tags$ul(
+            tags$li(
+              tags$a(
+                href = "./",
+                tags$div(
+                  class="menuitem",
+                  fa("home")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Introduction to Tableau Analytics Extensions from RStudio Connect"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                href = "./setup",
+                tags$div(
+                  class="menuitem",
+                  fa("cogs")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Configure Tableau to use your analytics extension"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                href = "./user",
+                tags$div(
+                  class="menuitem",
+                  fa("chart-area")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Call your analytics extension(s) from Tableau"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                href = "./__docs__/",
+                tags$div(
+                  class="menuitem",
+                  fa("info-circle")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "View your extension's Open API documentation"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                tags$div(
+                  class="menuitem",
+                  fa("question-circle")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "View the plumbertableau package documentation"
+                )
+              )
+            )
+          )
+        )
+      ),
+      tags$div(
+        class="title_desc_container",
+        tags$h1(
+          class="padded-fully title",
+          title,
+          if (!is.null(version)) paste0("(v", version, ")")
+        ),
+        tags$div(class = "api-desc",
+          tags$div(
+            class="padded-flat-top",
+            htmltools::HTML(desc)
+          )
+        )
+      )
+    ),
+    tags$main(
+      tags$h3(
+        class="subtitle",
+        "View the plumbertableau package documentation"
+      ),
+      tags$div(
+        class = "padded-fully",
+        "But where is it??? Help me Plumber!!!!"
+      )
+    )
+  )
+  
+  as.character(htmltools::htmlTemplate(
+    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
+    content = ui
+  ))
 }
