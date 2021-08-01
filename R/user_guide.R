@@ -336,7 +336,7 @@ render_setup_instructions <- function(path, pr) {
         tags$ui(
           tags$li(
             tags$a(
-              fa_i("fa-home", class="fa-2x"),
+              fa("car"),
               tags$span(class="nav-text", "Dashboard")
             )
           )
