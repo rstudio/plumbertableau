@@ -758,13 +758,18 @@ render_overview <- function(path, pr) {
       tags$h3(
         class="subtitle",
         "Use your analytics extension from Tableau"
+      ),
+      tags$div(
+        class = "padded-fully",
+        tags$h4(
+          htmltools::HTML(markdown::markdownToHTML(
+            text = "
+              Some kind of good overview here.. Of how you use Tableau extensions from RStudio Connect
+            "),
+            fragment.only = TRUE
+          )
+        )
       )
-      # tags$div(
-      #   class = "padded-fully",
-      #   tgs$h4(
-      #     "Some kind of good overview here.. Of how you use Tableau extensions from RStudio Connect"
-      #   )
-      # )
     )
   )
   
