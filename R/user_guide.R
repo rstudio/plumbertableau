@@ -327,102 +327,7 @@ render_setup_instructions <- function(path, pr) {
   title <- apiSpec$info$title
   version <- apiSpec$info$version
 
-  ui <- menu_html() +
-  htmltools::tagList(
-    tags$main(
-      tags$h3(
-        class="subtitle",
-        "Configure Tableau to access your extension"
-      ),
-      tags$div(
-        class="padded-flat-top",
-        fa("r-project"),
-        fa("home"),
-        tags$p(fa("car", fill = "purple"), "Manufacturer:"),
-        tags$h4("If you are using Tableau Server or Tableau Online:"),
-        tags$ol(
-          tags$li("Using an administrative account, login to Tableau Server/Online"),
-          tags$li("Navigate to Settings, then Extensions"),
-          tags$li("Under the heading 'Analytics Extensions', select 'Enable analytics extension for site"),
-          tags$li("Create a new connection and select the connection type of 'Analytics Extensions API'"),
-          tags$li("Select if you want to use SSL"),
-          tags$li("Enter the information for your RStudio Connect Server:"),
-          tags$div(
-            class="values",
-            tags$div(
-              tags$span(class="emphasized", "Host:"),
-              server_domain
-            ),
-            tags$div(
-              tags$span(class="emphasized", "Port:"),
-              server_port
-            )
-          ),
-          tags$li("Select 'Sign in with a username and password' and enter the credentials:"),
-          tags$div(
-            class="values",
-            tags$div(
-              tags$span(class="emphasized", "Username:"),
-              "rstudio-connect"
-            ),
-            tags$div(
-              tags$span(class="emphasized", "Password:"),
-              tags$span(class="italic", "any valid API key from RStudio Connect")
-            )
-          ),
-          tags$li("Create / Save changes")
-        )
-      ),
-      tags$div(
-        class="padded-flat-top",
-        tags$h4("If you are using Tableau Desktop:"),
-        tags$ol(
-          tags$li("Navigate to Help, Settings and Performance, Manage Analytics Extension Connection..."),
-          tags$li("Select 'TabPy/External API'"),
-          tags$li("Enter the information for your RStudio Connect Server:"),
-          tags$div(
-            class="values",
-            tags$div(
-              tags$span(class="emphasized", "Host:"),
-              server_domain
-            ),
-            tags$div(
-              tags$span(class="emphasized", "Port:"),
-              server_port
-            )
-          ),
-          tags$li("If desired, select 'Sign in with a username and password' and enter the credentials:"),
-          tags$div(
-            class="values",
-            tags$div(
-              tags$span(class="emphasized", "Username:"),
-              "rstudio-connect"
-            ),
-            tags$div(
-              tags$span(class="emphasized", "Password:"),
-              tags$span(class="italic", "any valid API key from RStudio Connect")
-            )
-          ),
-          tags$li("Select whether to Require SSL"),
-          tags$li("Save changes")
-        )
-      )
-    )
-  )
-
-  as.character(htmltools::htmlTemplate(
-    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
-    content = ui
-  ))
-}
-
-strip_md_links <- function(text) {
-  i <- stringi::stri_locate_first(text, fixed = "#### Use the following links to setup and use your Tableau Analytics Extension.")
-  substr(text, start=1, stop=i-1)
-}
-
-menu_tags <- function() {
-  htmltools::tagList(
+  ui <- htmltools::tagList(
     tags$header(
       tags$div(
         class="nav",
@@ -522,8 +427,97 @@ menu_tags <- function() {
       #     "View your extension's Open API documentation"
       #   )
       # ),
+    ),
+    tags$main(
+      tags$h3(
+        class="subtitle",
+        "Configure Tableau to access your extension"
+      ),
+      tags$div(
+        class="padded-flat-top",
+        fa("r-project"),
+        fa("home"),
+        tags$p(fa("car", fill = "purple"), "Manufacturer:"),
+        tags$h4("If you are using Tableau Server or Tableau Online:"),
+        tags$ol(
+          tags$li("Using an administrative account, login to Tableau Server/Online"),
+          tags$li("Navigate to Settings, then Extensions"),
+          tags$li("Under the heading 'Analytics Extensions', select 'Enable analytics extension for site"),
+          tags$li("Create a new connection and select the connection type of 'Analytics Extensions API'"),
+          tags$li("Select if you want to use SSL"),
+          tags$li("Enter the information for your RStudio Connect Server:"),
+          tags$div(
+            class="values",
+            tags$div(
+              tags$span(class="emphasized", "Host:"),
+              server_domain
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Port:"),
+              server_port
+            )
+          ),
+          tags$li("Select 'Sign in with a username and password' and enter the credentials:"),
+          tags$div(
+            class="values",
+            tags$div(
+              tags$span(class="emphasized", "Username:"),
+              "rstudio-connect"
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Password:"),
+              tags$span(class="italic", "any valid API key from RStudio Connect")
+            )
+          ),
+          tags$li("Create / Save changes")
+        )
+      ),
+      tags$div(
+        class="padded-flat-top",
+        tags$h4("If you are using Tableau Desktop:"),
+        tags$ol(
+          tags$li("Navigate to Help, Settings and Performance, Manage Analytics Extension Connection..."),
+          tags$li("Select 'TabPy/External API'"),
+          tags$li("Enter the information for your RStudio Connect Server:"),
+          tags$div(
+            class="values",
+            tags$div(
+              tags$span(class="emphasized", "Host:"),
+              server_domain
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Port:"),
+              server_port
+            )
+          ),
+          tags$li("If desired, select 'Sign in with a username and password' and enter the credentials:"),
+          tags$div(
+            class="values",
+            tags$div(
+              tags$span(class="emphasized", "Username:"),
+              "rstudio-connect"
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Password:"),
+              tags$span(class="italic", "any valid API key from RStudio Connect")
+            )
+          ),
+          tags$li("Select whether to Require SSL"),
+          tags$li("Save changes")
+        )
+      )
     )
   )
+
+  as.character(htmltools::htmlTemplate(
+    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
+    content = ui
+  ))
+}
+
+strip_md_links <- function(text) {
+  i <- stringi::stri_locate_first(text, fixed = "#### Use the following links to setup and use your Tableau Analytics Extension.")
+  substr(text, start=1, stop=i-1)
 }
 
 menu_html <- function() {
