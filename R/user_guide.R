@@ -8,6 +8,11 @@ library(fontawesome)
 
 globalVariables(names(htmltools::tags))
 
+if (interactive()) {
+  # Create a Font Awesome `html_dependency`
+  fa_html_dependency()
+}
+
 #' @importFrom htmltools tags
 create_user_guide <- function(pr) {
   function(req, res) {
