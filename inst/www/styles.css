@@ -288,11 +288,15 @@ height: 100%;
   src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 
+.menuback {
+  background-color: black;
+}
+
 .menubar {
   min-width: 4rem;
   background-color: white;
 }
   
 .menuitems {
-  padding: 5px;
+  padding: 0.5rem;
 }

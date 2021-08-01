@@ -343,22 +343,25 @@ render_setup_instructions <- function(path, pr) {
       #   )
       # ),
       tags$div(
-        class="menubar",
+        class="menuback",
         tags$div(
-          class="menuitem",
-          fa("home")
-        ),
-        tags$div(
-          class="menuitem",
-          fa("cogs")
-        ),
-        tags$div(
-          class="menuitem",
-          fa("chart-area")
-        ),
-        tags$div(
-          class="menuitem",
-          fa("info-circle")
+          class="menubar",
+          tags$div(
+            class="menuitem",
+            fa("home")
+          ),
+          tags$div(
+            class="menuitem",
+            fa("cogs")
+          ),
+          tags$div(
+            class="menuitem",
+            fa("chart-area")
+          ),
+          tags$div(
+            class="menuitem",
+            fa("info-circle")
+          )
         )
       ),
       tags$div(
