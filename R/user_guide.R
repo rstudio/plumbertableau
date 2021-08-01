@@ -329,110 +329,98 @@ render_setup_instructions <- function(path, pr) {
 
   ui <- htmltools::tagList(
     tags$header(
-      tags$div(
-        class="nav",
-        tags$div(
-          class="main-menu",
-          tags$ul(
-            tags$li(
-              tags$a(
-                tags$div(
-                  class="menuitem",
-                  fa("home")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Home"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./setup",
-                tags$div(
-                  class="menuitem",
-                  fa("cogs")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Configure Tableau to use your analytics extension"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./",
-                tags$div(
-                  class="menuitem",
-                  fa("chart-area")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Call your analytics extension from Tableau"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./__docs__/",
-                tags$div(
-                  class="menuitem",
-                  fa("info-circle")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "View your extension's Open API documentation"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                tags$div(
-                  class="menuitem",
-                  fa("question-circle")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "View the plumbertableau package documentation"
-                )
-              )
-            )
-          )
-        )
-      ),
-      tags$div(
-        class="title_desc_container",
-        tags$h1(
-          class="padded-fully title",
-          title,
-          if (!is.null(version)) paste0("(v", version, ")")
-        ),
-        tags$div(class = "api-desc",
-          tags$div(
-            class="padded-flat-top",
-            htmltools::HTML(desc)
-          ),
-        ),
-        tags$h3(
-          class="subtitle",
-          "Configure Tableau to access your extension"
-        )
-      )
+      htmltools::HTML(header_html()),
       # tags$div(
-      #   class="nav_div",
-      #   tags$a(
-      #     href = "./",
-      #     class="button",
-      #     "Use your analytics extension from Tableau"
-      #   ),
-      #   tags$a(
-      #     href = "./__docs__/",
-      #     class="button",
-      #     "View your extension's Open API documentation"
+      #   class="nav",
+      #   tags$div(
+      #     class="main-menu",
+      #     tags$ul(
+      #       tags$li(
+      #         tags$a(
+      #           tags$div(
+      #             class="menuitem",
+      #             fa("home")
+      #           ),
+      #           tags$span(
+      #             class="nav-text",
+      #             "Home"
+      #           )
+      #         )
+      #       ),
+      #       tags$li(
+      #         tags$a(
+      #           href = "./setup",
+      #           tags$div(
+      #             class="menuitem",
+      #             fa("cogs")
+      #           ),
+      #           tags$span(
+      #             class="nav-text",
+      #             "Configure Tableau to use your analytics extension"
+      #           )
+      #         )
+      #       ),
+      #       tags$li(
+      #         tags$a(
+      #           href = "./",
+      #           tags$div(
+      #             class="menuitem",
+      #             fa("chart-area")
+      #           ),
+      #           tags$span(
+      #             class="nav-text",
+      #             "Call your analytics extension from Tableau"
+      #           )
+      #         )
+      #       ),
+      #       tags$li(
+      #         tags$a(
+      #           href = "./__docs__/",
+      #           tags$div(
+      #             class="menuitem",
+      #             fa("info-circle")
+      #           ),
+      #           tags$span(
+      #             class="nav-text",
+      #             "View your extension's Open API documentation"
+      #           )
+      #         )
+      #       ),
+      #       tags$li(
+      #         tags$a(
+      #           tags$div(
+      #             class="menuitem",
+      #             fa("question-circle")
+      #           ),
+      #           tags$span(
+      #             class="nav-text",
+      #             "View the plumbertableau package documentation"
+      #           )
+      #         )
+      #       )
+      #     )
       #   )
       # ),
+      # tags$div(
+      #   class="title_desc_container",
+      #   tags$h1(
+      #     class="padded-fully title",
+      #     title,
+      #     if (!is.null(version)) paste0("(v", version, ")")
+      #   ),
+      #   tags$div(class = "api-desc",
+      #     tags$div(
+      #       class="padded-flat-top",
+      #       htmltools::HTML(desc)
+      #     ),
+      #   )
+      # )
     ),
     tags$main(
+      tags$h3(
+        class="subtitle",
+        "Configure Tableau to access your extension"
+      ),
       tags$div(
         class="padded-flat-top",
         tags$h4("If you are using Tableau Server or Tableau Online:"),
@@ -607,4 +595,80 @@ menu_html <- function() {
     </ul>
   </nav>
   '
+}
+
+header_html <- function() {
+  htmltools::tagList(
+    tags$div(
+      class="nav",
+      tags$div(
+        class="main-menu",
+        tags$ul(
+          tags$li(
+            tags$a(
+              tags$div(
+                class="menuitem",
+                fa("home")
+              ),
+              tags$span(
+                class="nav-text",
+                "Home"
+              )
+            )
+          ),
+          tags$li(
+            tags$a(
+              href = "./setup",
+              tags$div(
+                class="menuitem",
+                fa("cogs")
+              ),
+              tags$span(
+                class="nav-text",
+                "Configure Tableau to use your analytics extension"
+              )
+            )
+          ),
+          tags$li(
+            tags$a(
+              href = "./",
+              tags$div(
+                class="menuitem",
+                fa("chart-area")
+              ),
+              tags$span(
+                class="nav-text",
+                "Call your analytics extension from Tableau"
+              )
+            )
+          ),
+          tags$li(
+            tags$a(
+              href = "./__docs__/",
+              tags$div(
+                class="menuitem",
+                fa("info-circle")
+              ),
+              tags$span(
+                class="nav-text",
+                "View your extension's Open API documentation"
+              )
+            )
+          ),
+          tags$li(
+            tags$a(
+              tags$div(
+                class="menuitem",
+                fa("question-circle")
+              ),
+              tags$span(
+                class="nav-text",
+                "View the plumbertableau package documentation"
+              )
+            )
+          )
+        )
+      )
+    )
+  )
 }
