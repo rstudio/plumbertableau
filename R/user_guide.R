@@ -343,10 +343,11 @@ render_setup_instructions <- function(path, pr) {
       #   )
       # ),
       tags$div(
-        fa("home"),
-        fa("cogs"),
-        fa("chart-area"),
-        fa("info-circle"),
+        class="menubar",
+        fa("home", class="fa fa-2x"),
+        fa("cogs", class="fa fa-2x"),
+        fa("chart-area", class="fa fa-2x"),
+        fa("info-circle", class="fa fa-2x"),
       ),
       tags$div(
         class="title_desc_container",
