@@ -330,7 +330,18 @@ render_setup_instructions <- function(path, pr) {
   ui <- htmltools::tagList(
     fa_html_dependency(),
     tags$header(
-      htmltools::HTML(menu_html()),
+      # htmltools::HTML(menu_html()),
+      tags$nav(
+        class="main-menu",
+        tags$ui(
+          tags$li(
+            tags$a(
+              fa_i("fa-home", class="fa-2x"),
+              tags$span(class="nav-text", "Dashboard")
+            )
+          )
+        )
+      ),
       tags$div(
         class="title_desc_container",
         tags$h1(
