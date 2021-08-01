@@ -327,8 +327,8 @@ render_setup_instructions <- function(path, pr) {
   title <- apiSpec$info$title
   version <- apiSpec$info$version
 
-  ui <- htmltools::tagList(
-    menu_tags(),
+  ui <- menu_html() +
+  htmltools::tagList(
     tags$main(
       tags$h3(
         class="subtitle",
@@ -422,6 +422,7 @@ strip_md_links <- function(text) {
 }
 
 menu_tags <- function() {
+  htmltools::tagList(
     tags$header(
       tags$div(
         class="nav",
@@ -522,6 +523,7 @@ menu_tags <- function() {
       #   )
       # ),
     )
+  )
 }
 
 menu_html <- function() {
