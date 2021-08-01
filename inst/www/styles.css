@@ -18,7 +18,8 @@ body {
 
 .warning {
   background-color: #cc3300;
-  padding: 0.25rem 1rem;
+  padding: 1rem;
+  margin: 0;
 }
 
 main {
@@ -130,6 +131,7 @@ a.permalink {
 
 .title_desc_container {
   min-height: 2rem;
+  width: 100%;
 }
 
 .rounded_hr {
