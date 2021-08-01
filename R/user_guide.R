@@ -757,7 +757,7 @@ render_overview <- function(path, pr) {
     tags$main(
       tags$h3(
         class="subtitle",
-        "Use your analytics extension from Tableau"
+        "Introduction to Tableau Analytics Extensions from RStudio Connect"
       ),
       tags$div(
         class = "padded-fully",
