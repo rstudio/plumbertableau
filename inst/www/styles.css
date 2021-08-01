@@ -232,6 +232,7 @@ font-size:18px;
 position:relative;
 display:table-cell;
 vertical-align:middle;
+padding: 5px;
 width:190px;
   font-family: sans-serif;
 }
@@ -289,7 +290,7 @@ height: 100%;
 }
   
 .menuitem {
-  min-width: 60px;
-  padding: 0.5rem;
+  min-width: 50px;
+  padding: 5px;
   background-color: white;
 }

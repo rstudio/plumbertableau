@@ -367,7 +367,7 @@ render_setup_instructions <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "Setup"
+                  "Configure Tableau to use your analytics extension"
                 )
               )
             ),
@@ -379,7 +379,7 @@ render_setup_instructions <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "Use from Tableau"
+                  "Call your analytics extension from Tableau"
                 )
               )
             ),
@@ -391,7 +391,7 @@ render_setup_instructions <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "OpenAPI"
+                  "View your extension's Open API documentation"
                 )
               )
             )
