@@ -56,17 +56,88 @@ render_user_guide <- function(path, pr) {
     ui <- htmltools::tagList(
       tags$header(
         tags$div(
+          class="nav",
+          tags$div(
+            class="main-menu",
+            tags$ul(
+              tags$li(
+                tags$a(
+                  tags$div(
+                    class="menuitem",
+                    fa("home")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "Home"
+                  )
+                )
+              ),
+              tags$li(
+                tags$a(
+                  href = "./setup",
+                  tags$div(
+                    class="menuitem",
+                    fa("cogs")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "Configure Tableau to use your analytics extension"
+                  )
+                )
+              ),
+              tags$li(
+                tags$a(
+                  href = "./",
+                  tags$div(
+                    class="menuitem",
+                    fa("chart-area")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "Call your analytics extension from Tableau"
+                  )
+                )
+              ),
+              tags$li(
+                tags$a(
+                  href = "./__docs__/",
+                  tags$div(
+                    class="menuitem",
+                    fa("info-circle")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "View your extension's Open API documentation"
+                  )
+                )
+              ),
+              tags$li(
+                tags$a(
+                  tags$div(
+                    class="menuitem",
+                    fa("question-circle")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "View the plumbertableau package documentation"
+                  )
+                )
+              )
+            )
+          )
+        ),
+        tags$div(
           class="title_desc_container",
           tags$h1(
             class="padded-fully title",
             title,
             if (!is.null(version)) paste0("(v", version, ")")
           ),
-        ),
-        tags$div(
-          class = "warning",
-          tags$h4(
-            "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
+          tags$div(
+            class = "warning",
+            tags$h4(
+              "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
+            )
           )
         )
       ),
@@ -96,30 +167,88 @@ render_user_guide <- function(path, pr) {
     ui <- htmltools::tagList(
       tags$header(
         tags$div(
+          class="nav",
+          tags$div(
+            class="main-menu",
+            tags$ul(
+              tags$li(
+                tags$a(
+                  tags$div(
+                    class="menuitem",
+                    fa("home")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "Home"
+                  )
+                )
+              ),
+              tags$li(
+                tags$a(
+                  href = "./setup",
+                  tags$div(
+                    class="menuitem",
+                    fa("cogs")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "Configure Tableau to use your analytics extension"
+                  )
+                )
+              ),
+              tags$li(
+                tags$a(
+                  href = "./",
+                  tags$div(
+                    class="menuitem",
+                    fa("chart-area")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "Call your analytics extension from Tableau"
+                  )
+                )
+              ),
+              tags$li(
+                tags$a(
+                  href = "./__docs__/",
+                  tags$div(
+                    class="menuitem",
+                    fa("info-circle")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "View your extension's Open API documentation"
+                  )
+                )
+              ),
+              tags$li(
+                tags$a(
+                  tags$div(
+                    class="menuitem",
+                    fa("question-circle")
+                  ),
+                  tags$span(
+                    class="nav-text",
+                    "View the plumbertableau package documentation"
+                  )
+                )
+              )
+            )
+          )
+        ),
+        tags$div(
           class="title_desc_container",
           tags$h1(
             class="padded-fully title",
             title,
             if (!is.null(version)) paste0("(v", version, ")")
           ),
-          tags$div(
+          tags$div(class = "api-desc",
             tags$div(
               class="padded-flat-top",
               htmltools::HTML(desc)
             ),
-          ),
-        ),
-        tags$div(
-          class="nav_div",
-          tags$a(
-            href = "./setup",
-            class="button",
-            "Configure Tableau to access your extension"
-          ),
-          tags$a(
-            href = "./__docs__/",
-            class="button",
-            "View your extension's Open API documentation"
           )
         )
       ),
@@ -504,94 +633,3 @@ strip_md_links <- function(text) {
   substr(text, start=1, stop=i-1)
 }
 
-menu_html <- function() {
-# <div class="area"></div>
-'  <nav class="main-menu">
-    <ul>
-      <li>
-        <a href="http://justinfarrow.com">
-          <i class="fa fa-home fa-2x"></i>
-          <span class="nav-text">
-              Dashboard
-          </span>
-        </a>
-      </li>
-      <li class="has-subnav">
-        <a href="#">
-          <i class="fa fa-laptop fa-2x"></i>
-          <span class="nav-text">
-              Stars Components
-          </span>
-        </a>
-      </li>
-      <li class="has-subnav">
-        <a href="#">
-          <i class="fa fa-list fa-2x"></i>
-          <span class="nav-text">
-              Forms
-          </span>
-        </a>
-      </li>
-      <li class="has-subnav">
-        <a href="#">
-          <i class="fa fa-folder-open fa-2x"></i>
-          <span class="nav-text">
-              Pages
-          </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-bar-chart-o fa-2x"></i>
-          <span class="nav-text">
-              Graphs and Statistics
-          </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-font fa-2x"></i>
-          <span class="nav-text">
-              Quotes
-          </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-table fa-2x"></i>
-          <span class="nav-text">
-              Tables
-          </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-map-marker fa-2x"></i>
-          <span class="nav-text">
-              Maps
-          </span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-info fa-2x"></i>
-          <span class="nav-text">
-              Documentation
-          </span>
-        </a>
-      </li>
-    </ul>
-
-    <ul class="logout">
-      <li>
-        <a href="#">
-          <i class="fa fa-power-off fa-2x"></i>
-          <span class="nav-text">
-              Logout
-          </span>
-        </a>
-      </li>  
-    </ul>
-  </nav>
-  '
-}
