@@ -444,6 +444,8 @@ render_setup_instructions <- function(path, pr) {
   apiSpec <- pr$getApiSpec()
   desc <- ""
   if (!rlang::is_null(warnings)) {
+    warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
+  } else {
     desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                    fragment.only = TRUE)
   }
