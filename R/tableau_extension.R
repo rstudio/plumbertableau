@@ -42,7 +42,7 @@ tableau_extension <- function(pr) {
   })
 
   pr %>%
-    plumber::pr_get("/", create_user_guide(pr), serializer = plumber::serializer_html()) %>%
+    plumber::pr_get("/", create_overview(pr), serializer = plumber::serializer_html()) %>%
     plumber::pr_get("/user", create_user_guide(pr), serializer = plumber::serializer_html()) %>%
     plumber::pr_get("/setup", create_setup_instructions(pr), serializer = plumber::serializer_html()) %>%
     plumber::pr_static("/__plumbertableau_assets__",

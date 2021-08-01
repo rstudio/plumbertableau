@@ -134,7 +134,7 @@ render_overview <- function(path, pr) {
           tags$div(
             class="padded-flat-top",
             htmltools::HTML(desc)
-          ),
+          )
         )
       )
     ),
