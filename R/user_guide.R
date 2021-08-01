@@ -58,13 +58,14 @@ render_user_guide <- function(path, pr) {
             tags$ul(
               tags$li(
                 tags$a(
+                  href = "./",
                   tags$div(
                     class="menuitem",
                     fa("home")
                   ),
                   tags$span(
                     class="nav-text",
-                    "Home"
+                    "Introduction to Tableau Analytics Extensions from RStudio Connect"
                   )
                 )
               ),
@@ -83,7 +84,7 @@ render_user_guide <- function(path, pr) {
               ),
               tags$li(
                 tags$a(
-                  href = "./",
+                  href = "./user",
                   tags$div(
                     class="menuitem",
                     fa("chart-area")
@@ -163,13 +164,14 @@ render_user_guide <- function(path, pr) {
             tags$ul(
               tags$li(
                 tags$a(
+                  href = "./",
                   tags$div(
                     class="menuitem",
                     fa("home")
                   ),
                   tags$span(
                     class="nav-text",
-                    "Home"
+                    "Introduction to Tableau Analytics Extensions from RStudio Connect"
                   )
                 )
               ),
@@ -188,7 +190,7 @@ render_user_guide <- function(path, pr) {
               ),
               tags$li(
                 tags$a(
-                  href = "./",
+                  href = "./user",
                   tags$div(
                     class="menuitem",
                     fa("chart-area")
@@ -455,13 +457,14 @@ render_setup_instructions <- function(path, pr) {
           tags$ul(
             tags$li(
               tags$a(
+                href = "./",
                 tags$div(
                   class="menuitem",
                   fa("home")
                 ),
                 tags$span(
                   class="nav-text",
-                  "Home"
+                  "Introduction to Tableau Analytics Extensions from RStudio Connect"
                 )
               )
             ),
@@ -480,7 +483,7 @@ render_setup_instructions <- function(path, pr) {
             ),
             tags$li(
               tags$a(
-                href = "./",
+                href = "./user",
                 tags$div(
                   class="menuitem",
                   fa("chart-area")

@@ -58,13 +58,14 @@ render_overview <- function(path, pr) {
           tags$ul(
             tags$li(
               tags$a(
+                href = "./",
                 tags$div(
                   class="menuitem",
                   fa("home")
                 ),
                 tags$span(
                   class="nav-text",
-                  "Home"
+                  "Introduction to Tableau Analytics Extensions from RStudio Connect"
                 )
               )
             ),
@@ -83,7 +84,7 @@ render_overview <- function(path, pr) {
             ),
             tags$li(
               tags$a(
-                href = "./",
+                href = "./user",
                 tags$div(
                   class="menuitem",
                   fa("chart-area")
