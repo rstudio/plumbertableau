@@ -342,9 +342,12 @@ render_setup_instructions <- function(path, pr) {
       #     )
       #   )
       # ),
-      fa("car"),
-      fa_i(name = "r-project", class="fa fa-car fa-2x"),
-      fa("home"),
+      tags$div(
+        fa("home"),
+        fa("cogs"),
+        fa("chart-area"),
+        fa("info-circle"),
+      ),
       tags$div(
         class="title_desc_container",
         tags$h1(
