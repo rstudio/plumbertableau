@@ -366,8 +366,8 @@ render_setup_instructions <- function(path, pr) {
       ),
       tags$div(
         class="padded-flat-top",
-        fa_i("r-project"),
-        fa_i("home"),
+        fa("r-project"),
+        fa("home"),
         tags$p(fa("car", fill = "purple"), "Manufacturer:"),
         tags$h4("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
