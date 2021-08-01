@@ -91,7 +91,7 @@ render_user_guide <- function(path, pr) {
                   ),
                   tags$span(
                     class="nav-text",
-                    "Call your analytics extension from Tableau"
+                    "Call your analytics extension(s) from Tableau"
                   )
                 )
               ),
@@ -189,7 +189,7 @@ render_user_guide <- function(path, pr) {
                   ),
                   tags$span(
                     class="nav-text",
-                    "Call your analytics extension from Tableau"
+                    "Call your analytics extension(s) from Tableau"
                   )
                 )
               ),
@@ -239,7 +239,7 @@ render_user_guide <- function(path, pr) {
       tags$main(
         tags$h3(
           class="subtitle",
-          "Use your analytics extension from Tableau"
+          "Call your analytics extension(s) from Tableau"
         ),
         tags$div(class = "padded-fully routes",
                  lapply(extract_route_info(pr, path), render_route_info)
@@ -486,7 +486,7 @@ render_setup_instructions <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "Call your analytics extension from Tableau"
+                  "Call your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -706,7 +706,7 @@ render_overview <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "Call your analytics extension from Tableau"
+                  "Call your analytics extension(s) from Tableau"
                 )
               )
             ),
