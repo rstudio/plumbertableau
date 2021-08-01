@@ -347,7 +347,7 @@ render_setup_instructions <- function(path, pr) {
         fa("home", class="fa fa-2x"),
         fa("cogs", class="fa fa-2x"),
         fa("chart-area", class="fa fa-2x"),
-        fa("info-circle", class="fa fa-2x"),
+        fa("info-circle", class="fa fa-2x")
       ),
       tags$div(
         class="title_desc_container",
