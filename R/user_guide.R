@@ -443,9 +443,7 @@ render_setup_instructions <- function(path, pr) {
   }
   apiSpec <- pr$getApiSpec()
   desc <- ""
-  if (!rlang::is_null(warnings)) {
-    warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
-  } else {
+  if (rlang::is_null(warnings)) {
     desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                    fragment.only = TRUE)
   }
@@ -668,10 +666,9 @@ render_overview <- function(path, pr) {
   warnings <- warning_message()
 
   desc <- ""
-  if (!rlang::is_null(warnings)) {
-    # Strip description of links to other pages
+  if (rlang::is_null(warnings)) {
     desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-                                      fragment.only = TRUE)
+                                   fragment.only = TRUE)
   }
   ui <- htmltools::tagList(
     tags$header(
