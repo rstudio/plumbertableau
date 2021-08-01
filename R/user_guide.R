@@ -412,6 +412,10 @@ render_setup_instructions <- function(path, pr) {
             class="padded-flat-top",
             htmltools::HTML(desc)
           ),
+        ),
+        tags$h3(
+          class="subtitle",
+          "Configure Tableau to access your extension"
         )
       )
       # tags$div(
@@ -429,15 +433,8 @@ render_setup_instructions <- function(path, pr) {
       # ),
     ),
     tags$main(
-      tags$h3(
-        class="subtitle",
-        "Configure Tableau to access your extension"
-      ),
       tags$div(
         class="padded-flat-top",
-        fa("r-project"),
-        fa("home"),
-        tags$p(fa("car", fill = "purple"), "Manufacturer:"),
         tags$h4("If you are using Tableau Server or Tableau Online:"),
         tags$ol(
           tags$li("Using an administrative account, login to Tableau Server/Online"),
