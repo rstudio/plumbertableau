@@ -294,9 +294,10 @@ height: 100%;
 
 .menubar {
   min-width: 4rem;
-  background-color: white;
+  background-color: darkblue;
 }
   
-.menuitems {
+.menuitem {
   padding: 0.5rem;
+  background-color: white;
 }
