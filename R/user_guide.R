@@ -324,6 +324,7 @@ render_setup_instructions <- function(path, pr) {
   version <- apiSpec$info$version
 
   ui <- htmltools::tagList(
+    fa_html_dependency(),
     tags$header(
       htmltools::HTML(menu_html()),
       tags$div(
