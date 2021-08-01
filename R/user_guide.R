@@ -451,6 +451,8 @@ strip_md_links <- function(text) {
 
 menu_html <- function() {
 # <div class="area"></div>
+fa_i("r-project", class="fa-2x") +
+fa_i("home", class="fa-2x") +
 '  <nav class="main-menu">
     <ul>
       <li>
