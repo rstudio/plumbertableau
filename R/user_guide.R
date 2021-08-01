@@ -342,9 +342,9 @@ render_setup_instructions <- function(path, pr) {
       #     )
       #   )
       # ),
-      tag$div(
+      tags$div(
         class="nav",
-        tag$div(
+        tags$div(
           class="main-menu",
           tags$ul(
             tags$li(
