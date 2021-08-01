@@ -394,7 +394,7 @@ render_setup_instructions <- function(path, pr) {
                   "OpenAPI"
                 )
               )
-            ),
+            )
           )
         )
       ),
