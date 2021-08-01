@@ -331,7 +331,7 @@ render_setup_instructions <- function(path, pr) {
     fa_html_dependency(),
     tags$header(
       # htmltools::HTML(menu_html()),
-      tags$nav(
+      tag("nav",
         class="main-menu",
         tags$ui(
           tags$li(
