@@ -381,45 +381,28 @@ render_setup_instructions <- function(path, pr) {
                   "View your extension's Open API documentation"
                 )
               )
+            ),
+            tags$li(
+              tags$a(
+                tags$div(
+                  class="menuitem",
+                  fa("question-circle")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "View the plumbertableau package documentation"
+                )
+              )
             )
           )
         )
       ),
-
-      # tags$div(
-      #   class="menuback",
-      #   tags$div(
-      #     class="menubar",
-      #     tags$div(
-      #       class="menuitem",
-      #       fa("home")
-      #     ),
-      #     tags$div(
-      #       class="menuitem",
-      #       fa("cogs")
-      #     ),
-      #     tags$div(
-      #       class="menuitem",
-      #       fa("chart-area")
-      #     ),
-      #     tags$div(
-      #       class="menuitem",
-      #       fa("info-circle")
-      #     )
-      #   )
-      # ),
       tags$div(
         class="title_desc_container",
         tags$h1(
           class="padded-fully title",
           title,
           if (!is.null(version)) paste0("(v", version, ")")
-        ),
-        tags$div(class = "api-desc",
-          tags$div(
-            class="padded-flat-top",
-            htmltools::HTML(desc)
-          ),
         ),
         tags$div(class = "api-desc",
           tags$div(
