@@ -807,5 +807,6 @@ The second (and subsequent) argument(s) are the values we want to pass from Tabl
 * [R developer guide for getting started with developing Tableau extensions using plumbertableau](r-developer-guide.html)
 * [Tableau developer guide for getting started using Tableau extensions built with plumbertableau](tableau-developer-guide.html)
 * [Setting up Tableau for use with extensions hosted on RStudio Connect](tableau-configutation.html)
+
 "
 }
