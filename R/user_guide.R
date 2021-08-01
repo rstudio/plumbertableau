@@ -421,6 +421,12 @@ render_setup_instructions <- function(path, pr) {
             htmltools::HTML(desc)
           ),
         ),
+        tags$div(class = "api-desc",
+          tags$div(
+            class="padded-flat-top",
+            htmltools::HTML(desc)
+          ),
+        )
       ),
       tags$div(
         class="nav_div",
