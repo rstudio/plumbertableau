@@ -476,14 +476,14 @@ The following code is a simple plumbertableau extension. It can receive text fro
 ```{r capitalize, eval = FALSE}
 ```
 
-The core of this extension is a very simple R function that capitalizes text. It's surrounded by Plumber ""annotations"" which describe the web service. plumbertableau introduces new annotations in addition to what Plumber already provides. To learn or more information on these, see the guide to **[Writing plumbertableau Extensions in R](r-developer-guide.html)**.
+The core of this extension is a very simple R function that capitalizes text. It's surrounded by Plumber \"annotations\" which describe the web service. plumbertableau introduces new annotations in addition to what Plumber already provides. To learn or more information on these, see the guide to **[Writing plumbertableau Extensions in R](r-developer-guide.html)**.
 
 Before you use the extension in Tableau, Tableau needs to be able to access it. You can find instructions on how to do that, and information on publishing extensions to RStudio Connect, in **[Publishing plumbertableau Extensions to RStudio Connect](publishing-extensions.html)**. This document will walk you through publishing extensions to RStudio Connect and setting up a Connect server as an extension in Tableau.
 
-plumbertableau extensions are used in Tableau's *calculated fields*. Let's imagine we've published our extension to RStudio Connect and have given it the custom URL `stringutils`. To use our `capitalize` extension, we'd type the following into a Tableau calculated field, or just copy and paste it from the automatically generated code samples. (In real usage, you'll probably replace `""Hello World""` with references to Tableau data.)
+plumbertableau extensions are used in Tableau's *calculated fields*. Let's imagine we've published our extension to RStudio Connect and have given it the custom URL `stringutils`. To use our `capitalize` extension, we'd type the following into a Tableau calculated field, or just copy and paste it from the automatically generated code samples. (In real usage, you'll probably replace `\"Hello World\"` with references to Tableau data.)
 
 ```
-SCRIPT_STR(""/stringutils/capitalize"", ""Hello World"")
+SCRIPT_STR(\"/stringutils/capitalize\", \"Hello World\")
 ```
 
 Tableau will send a request to the server you configured, and the server will send it on to the extension you named in the first argument (in this case, `/stringutils/capitalize`). All the other arguments are data sent to the extension. For more information on using published extensions in Tableau, see the guide to **[Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)**.
