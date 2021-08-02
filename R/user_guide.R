@@ -76,7 +76,7 @@ render_user_guide <- function(path, pr) {
     body_content <- htmltools::tagList(
       tags$h3(
         class="subtitle",
-        "Use your analytics extension(s) from Tableau"
+        "Use this extension in Tableau"
       ),
       tags$div(class = "padded-fully routes",
         lapply(extract_route_info(pr, path), render_route_info)
