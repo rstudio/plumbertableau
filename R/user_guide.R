@@ -636,7 +636,7 @@ render_help <- function(path, pr) {
           tags$div(
             class="nav",
             "<h3>HI Bill!</h3>"
-          ),
+          )
         ),
         fragment.only = TRUE
       ),
