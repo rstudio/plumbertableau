@@ -43,20 +43,25 @@ render_user_guide <- function(path, pr) {
   apiSpec <- pr$getApiSpec()
   title <- apiSpec$info$title
   version <- apiSpec$info$version
-  title_desc <- "title_desc not generated"
+  desc <- markdown::markdownToHTML(text = apiSpec$info$user_description,
+                                    fragment.only = TRUE)
   body_content <- "body_content not generated"
 
-  if (!rlang::is_null(warnings)) {
-    warnings <- markdown::markdownToHTML(text = warnings, fragment.only = TRUE)
-
-    title_desc <- htmltools::tagList(
-      tags$h1(
-        class="padded-fully title",
-        title,
-        if (!is.null(version)) paste0("(v", version, ")")
+  title_desc <- htmltools::tagList(
+    tags$h1(
+      class="padded-fully title",
+      title,
+      if (!is.null(version)) paste0("(v", version, ")")
+    ),
+    tags$div(class = "api-desc",
+      tags$div(
+        class="padded-flat-top",
+        htmltools::HTML(desc)
       )
     )
+  )
 
+  if (!rlang::is_null(warnings)) {
     body_content <- htmltools::tagList(
       tags$h3(
         class="warning",
@@ -64,35 +69,17 @@ render_user_guide <- function(path, pr) {
       ),
       tags$div(
         class="padded-flat-top",
-        htmltools::HTML(warnings)
+        htmltools::HTML(markdown::markdownToHTML(text = warnings, fragment.only = TRUE))
       )
     )
   } else {
-    # Strip description of links to other pages
-    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-                                     fragment.only = TRUE)
-    
-    title_desc <- htmltools::tagList(
-      tags$h1(
-        class="padded-fully title",
-        title,
-        if (!is.null(version)) paste0("(v", version, ")")
-      ),
-      tags$div(class = "api-desc",
-        tags$div(
-          class="padded-flat-top",
-          htmltools::HTML(desc)
-        )
-      )
-    )
-    
     body_content <- htmltools::tagList(
       tags$h3(
         class="subtitle",
         "Use your analytics extension(s) from Tableau"
       ),
       tags$div(class = "padded-fully routes",
-                lapply(extract_route_info(pr, path), render_route_info)
+        lapply(extract_route_info(pr, path), render_route_info)
       )
     )
   }
@@ -285,14 +272,10 @@ render_setup_instructions <- function(path, pr) {
       server_port <- 443
   }
   apiSpec <- pr$getApiSpec()
-  desc <- ""
-  if (rlang::is_null(warnings)) {
-    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-                                   fragment.only = TRUE)
-  }
+  desc <- markdown::markdownToHTML(text = apiSpec$info$user_description,
+                                    fragment.only = TRUE)
   title <- apiSpec$info$title
   version <- apiSpec$info$version
-  title_desc <- "title_desc not generated"
   body_content <- "body_content not generated"
 
   title_desc <- htmltools::tagList(
@@ -309,93 +292,101 @@ render_setup_instructions <- function(path, pr) {
     )
   )
 
-  body_content <- htmltools::tagList(
-    tags$h3(
-      class="subtitle",
-      "Configure Tableau to access your extension"
-    ),
-    tags$div(
-      class="padded-flat-top",
-      tags$h3("If you are using Tableau Server or Tableau Online:"),
-      tags$ol(
-        tags$li("Using an administrative account, login to Tableau Server/Online"),
-        tags$li("Navigate to Settings, then Extensions"),
-        tags$li("Under the heading 'Analytics Extensions', select 'Enable analytics extension for site"),
-        tags$li("Create a new connection and select the connection type of 'Analytics Extensions API'"),
-        tags$li("Select if you want to use SSL"),
-        tags$li("Enter the information for your RStudio Connect Server:"),
-        tags$div(
-          class="values",
-          tags$div(
-            tags$span(class="emphasized", "Host:"),
-            server_domain
-          ),
-          tags$div(
-            tags$span(class="emphasized", "Port:"),
-            server_port
-          )
-        ),
-        tags$li("Select 'Sign in with a username and password' and enter the credentials:"),
-        tags$div(
-          class="values",
-          tags$div(
-            tags$span(class="emphasized", "Username:"),
-            "rstudio-connect"
-          ),
-          tags$div(
-            tags$span(class="emphasized", "Password:"),
-            tags$span(class="italic", "any valid API key from RStudio Connect")
-          )
-        ),
-        tags$li("Create / Save changes")
-      )
-    ),
-    tags$div(
-      class="padded-flat-top",
-      tags$h3("If you are using Tableau Desktop:"),
-      tags$ol(
-        tags$li("Navigate to Help, Settings and Performance, Manage Analytics Extension Connection..."),
-        tags$li("Select 'TabPy/External API'"),
-        tags$li("Enter the information for your RStudio Connect Server:"),
-        tags$div(
-          class="values",
-          tags$div(
-            tags$span(class="emphasized", "Host:"),
-            server_domain
-          ),
-          tags$div(
-            tags$span(class="emphasized", "Port:"),
-            server_port
-          )
-        ),
-        tags$li("If desired, select 'Sign in with a username and password' and enter the credentials:"),
-        tags$div(
-          class="values",
-          tags$div(
-            tags$span(class="emphasized", "Username:"),
-            "rstudio-connect"
-          ),
-          tags$div(
-            tags$span(class="emphasized", "Password:"),
-            tags$span(class="italic", "any valid API key from RStudio Connect")
-          )
-        ),
-        tags$li("Select whether to Require SSL"),
-        tags$li("Save changes")
+  if (!rlang::is_null(warnings)) {
+    body_content <- htmltools::tagList(
+      tags$h3(
+        class="warning",
+        "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
+      ),
+      tags$div(
+        class="padded-flat-top",
+        htmltools::HTML(markdown::markdownToHTML(text = warnings, fragment.only = TRUE))
       )
     )
-  )
+  } else {
+    body_content <- htmltools::tagList(
+      tags$h3(
+        class="subtitle",
+        "Configure Tableau to access your extension"
+      ),
+      tags$div(
+        class="padded-flat-top",
+        tags$h3("If you are using Tableau Server or Tableau Online:"),
+        tags$ol(
+          tags$li("Using an administrative account, login to Tableau Server/Online"),
+          tags$li("Navigate to Settings, then Extensions"),
+          tags$li("Under the heading 'Analytics Extensions', select 'Enable analytics extension for site"),
+          tags$li("Create a new connection and select the connection type of 'Analytics Extensions API'"),
+          tags$li("Select if you want to use SSL"),
+          tags$li("Enter the information for your RStudio Connect Server:"),
+          tags$div(
+            class="values",
+            tags$div(
+              tags$span(class="emphasized", "Host:"),
+              server_domain
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Port:"),
+              server_port
+            )
+          ),
+          tags$li("Select 'Sign in with a username and password' and enter the credentials:"),
+          tags$div(
+            class="values",
+            tags$div(
+              tags$span(class="emphasized", "Username:"),
+              "rstudio-connect"
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Password:"),
+              tags$span(class="italic", "any valid API key from RStudio Connect")
+            )
+          ),
+          tags$li("Create / Save changes")
+        )
+      ),
+      tags$div(
+        class="padded-flat-top",
+        tags$h3("If you are using Tableau Desktop:"),
+        tags$ol(
+          tags$li("Navigate to Help, Settings and Performance, Manage Analytics Extension Connection..."),
+          tags$li("Select 'TabPy/External API'"),
+          tags$li("Enter the information for your RStudio Connect Server:"),
+          tags$div(
+            class="values",
+            tags$div(
+              tags$span(class="emphasized", "Host:"),
+              server_domain
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Port:"),
+              server_port
+            )
+          ),
+          tags$li("If desired, select 'Sign in with a username and password' and enter the credentials:"),
+          tags$div(
+            class="values",
+            tags$div(
+              tags$span(class="emphasized", "Username:"),
+              "rstudio-connect"
+            ),
+            tags$div(
+              tags$span(class="emphasized", "Password:"),
+              tags$span(class="italic", "any valid API key from RStudio Connect")
+            )
+          ),
+          tags$li("Select whether to Require SSL"),
+          tags$li("Save changes")
+        )
+      )
+    )
+  }
 
   as.character(htmltools::htmlTemplate(
     system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
     title_desc = title_desc,
     body_content = body_content
   ))
-}
-
-strip_md_links <- function(text) {
-  i <- stringi::stri_locate_first(text, fixed = "#### Use the following links to setup and use your Tableau Analytics Extension.")
-  substr(text, start=1, stop=i-1)
 }
 
 #' @importFrom htmltools tags
@@ -433,15 +424,8 @@ render_help <- function(path, pr) {
   apiSpec <- pr$getApiSpec()
   title <- apiSpec$info$title
   version <- apiSpec$info$version
-  title_desc <- "title_desc not generated"
-  body_content <- "body_content not generated"
-  warnings <- warning_message()
-
-  desc <- ""
-  if (rlang::is_null(warnings)) {
-    desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
-                                   fragment.only = TRUE)
-  }
+  desc <- markdown::markdownToHTML(text = apiSpec$info$user_description,
+                                    fragment.only = TRUE)
 
   title_desc <- htmltools::tagList(
     tags$h1(
