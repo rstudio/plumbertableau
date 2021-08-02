@@ -54,7 +54,7 @@ render_help <- function(path, pr) {
   body_content <- htmltools::tagList(
     tags$h3(
       class="subtitle",
-      "Read up on plumbertableau, Tableau, and RStudio Connect"
+      "Additional details about plumbertableau, Tableau, and RStudio Connect"
     ),
     tags$div(
       class = "padded-fully",
