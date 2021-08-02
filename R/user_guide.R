@@ -629,37 +629,37 @@ render_help <- function(path, pr) {
                                    fragment.only = TRUE)
   }
 
-  title_desc <- htmltools::tagList(
-    tags$h1(
-      class="padded-fully title",
-      title,
-      if (!is.null(version)) paste0("(v", version, ")")
-    ),
-    tags$div(class = "api-desc",
-      tags$div(
-        class="padded-flat-top",
-        htmltools::HTML(desc)
-      )
-    )
-  )
+  # title_desc <- htmltools::tagList(
+  #   tags$h1(
+  #     class="padded-fully title",
+  #     title,
+  #     if (!is.null(version)) paste0("(v", version, ")")
+  #   ),
+  #   tags$div(class = "api-desc",
+  #     tags$div(
+  #       class="padded-flat-top",
+  #       htmltools::HTML(desc)
+  #     )
+  #   )
+  # )
 
-  content <- htmltools::tagList(
-    tags$h3(
-      class="subtitle",
-      "Introduction to plumbertableau and RStudio Connect"
-    ),
-    tags$div(
-      class = "padded-fully",
-      htmltools::HTML(markdown::markdownToHTML(
-        text = help_text()), fragment.only = TRUE
-      )
-    )
-  )
+  # body_content <- htmltools::tagList(
+  #   tags$h3(
+  #     class="subtitle",
+  #     "Introduction to plumbertableau and RStudio Connect"
+  #   ),
+  #   tags$div(
+  #     class = "padded-fully",
+  #     htmltools::HTML(markdown::markdownToHTML(
+  #       text = help_text()), fragment.only = TRUE
+  #     )
+  #   )
+  # )
   
   as.character(htmltools::htmlTemplate(
     system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
-    title_desc = title_desc,
-    content = content
+    title_desc = "title_desc",
+    body_content = "body_content"
   ))
 }
 
