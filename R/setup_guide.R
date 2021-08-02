@@ -1,3 +1,5 @@
+globalVariables(names(htmltools::tags))
+
 create_setup_instructions <- function(pr) {
   cached_instructions <- NULL
 

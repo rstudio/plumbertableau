@@ -1,5 +1,5 @@
+globalVariables(names(htmltools::tags))
 
-#' @importFrom htmltools tags
 create_help <- function(pr) {
   function(req, res) {
     "!DEBUG `write_log_message(req, res, 'Generating Tableau Analytical Extension Overview')"
