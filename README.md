@@ -53,3 +53,21 @@ platform that enables R developers to easily publish a variety of R
 content types. Connect lets you host multiple extensions by ensuring
 that requests from Tableau are passed to the correct extension. It’s
 also possible to host plumbertableau extensions on your own servers.
+
+## Installation
+
+You can install the latest development version of plumbertableau from
+GitHub.
+
+``` r
+remotes::install_github("rstudio/plumbertableau")
+library(plumbertableau)
+```
+
+## Further Reading
+
+You can read more about plumbertableau at
+<https://rstudio.github.io/plumbertableau>. There, you’ll find more
+detail about writing plumbertableau extensions, publishing them to
+RStudio Connect, configuring Tableau, and using your extensions in
+Tableau.
