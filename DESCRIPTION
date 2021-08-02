@@ -1,6 +1,6 @@
 Package: plumbertableau
 Type: Package
-Title: Extend Tableau with Plumber APIs
+Title: Turn 'Plumber' APIs into 'Tableau' Extensions
 Version: 0.1.0.9999
 Authors@R: c(
     person("James", "Blair", email = "james@rstudio.com", role = c("aut", "cre")),
@@ -10,10 +10,10 @@ Authors@R: c(
     person("RStudio", role = c("cph", "fnd")),
     person("Tableau", role = c("cph"))
     )
-Description: Build and publish Plumber APIs that are compatible with the
-    Tableau Analytics Extension API. Using annotations in R comments, extensions
-    will respond to requests from Tableau, allowing you to call R code from
-    Tableau workbooks.
+Description: Build 'Plumber' APIs that can be used in 'Tableau' workbooks.
+    Annotations in R comments allow APIs to conform to the 'Tableau Analytics
+    Extension' specification, so that R code can be used to power 'Tableau'
+    workbooks.
 License: MIT + file LICENSE
 URL: https://rstudio.github.io/plumbertableau/, https://github.com/rstudio/plumbertableau
 BugReports: https://github.com/rstudio/plumbertableau/issues
