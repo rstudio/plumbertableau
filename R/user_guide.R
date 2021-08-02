@@ -630,15 +630,65 @@ render_help <- function(path, pr) {
   }
   ui <- htmltools::tagList(
     tags$header(
-      # htmltools::HTML(menu_html(), fragment.only = TRUE),
-      htmltools::HTML(
-        htmltools::tagList(
-          tags$div(
-            class="nav",
-            "<h3>HI Bill!</h3>"
+      tags$div(
+        class="nav",
+        tags$div(
+          class="main-menu",
+          tags$ul(
+            tags$li(
+              tags$a(
+                href = "./",
+                tags$div(
+                  class="menuitem",
+                  fa("chart-area")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Call your analytics extension(s) from Tableau"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                href = "./setup",
+                tags$div(
+                  class="menuitem",
+                  fa("cogs")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Configure Tableau to use your analytics extension"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                href = "./__docs__/",
+                tags$div(
+                  class="menuitem",
+                  fa("info-circle")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "View your extension's Open API documentation"
+                )
+              )
+            ),
+            tags$li(
+              tags$a(
+                href = "./help",
+                tags$div(
+                  class="menuitem",
+                  fa("question-circle")
+                ),
+                tags$span(
+                  class="nav-text",
+                  "Help with plumbertableau and RStudio Connect"
+                )
+              )
+            )
           )
-        ),
-        fragment.only = TRUE
+        )
       ),
       tags$div(
         class="title_desc_container",
