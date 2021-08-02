@@ -463,15 +463,6 @@ render_help <- function(path, pr) {
 
 help_text <- function() {
 "
----
-title: \"Introduction\"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Introduction}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
