@@ -630,7 +630,7 @@ render_help <- function(path, pr) {
   }
   ui <- htmltools::tagList(
     tags$header(
-      htmltools::HTML(menu_html(), fragment.only = TRUE),
+      # htmltools::HTML(menu_html(), fragment.only = TRUE),
       tags$div(
         class="title_desc_container",
         tags$h1(
