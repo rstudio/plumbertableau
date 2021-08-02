@@ -37,11 +37,11 @@ Imports:
     urltools,
     glue,
     utils,
-    httr
+    httr,
+    knitr
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
-    knitr,
     rmarkdown,
     covr
 Config/testthat/edition: 3

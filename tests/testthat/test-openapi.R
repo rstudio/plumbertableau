@@ -3,7 +3,7 @@ test_that("OpenAPI specification works", {
   spec <- pr$getApiSpec()
   for (path in spec$paths) {
     if (!is.null(path$post)) {
-      expect_equal(path$post$requestBody$description, "Tableau Request")
+      expect_match(path$post$requestBody$description, "^<h3>Tableau Request</h3>\n\n<p>This is a mock Tableau request.")
     }
   }
 })
