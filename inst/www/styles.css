@@ -243,6 +243,6 @@ background-color:#5fa2db;
 
 .menuitem {
   min-width: 40px;
-  padding: 5px;
+  padding: 0.5rem;
   background-color: white;
 }
