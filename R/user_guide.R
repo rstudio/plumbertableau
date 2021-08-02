@@ -656,10 +656,13 @@ render_help <- function(path, pr) {
   #   )
   # )
   
+  # as.character(htmltools::htmlTemplate(
+  #   system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
+  #   title_desc = "title_desc",
+  #   body_content = "body_content"
+  # ))
   as.character(htmltools::htmlTemplate(
-    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
-    title_desc = "title_desc",
-    body_content = "body_content"
+    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE)
   ))
 }
 
