@@ -61,11 +61,11 @@ render_user_guide <- function(path, pr) {
                   href = "./",
                   tags$div(
                     class="menuitem",
-                    fa("home")
+                    fa("chart-area")
                   ),
                   tags$span(
                     class="nav-text",
-                    "Introduction to plumbertableau and RStudio Connect"
+                    "Call your analytics extension(s) from Tableau"
                   )
                 )
               ),
@@ -79,19 +79,6 @@ render_user_guide <- function(path, pr) {
                   tags$span(
                     class="nav-text",
                     "Configure Tableau to use your analytics extension"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  href = "./user",
-                  tags$div(
-                    class="menuitem",
-                    fa("chart-area")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "Call your analytics extension(s) from Tableau"
                   )
                 )
               ),
@@ -117,7 +104,7 @@ render_user_guide <- function(path, pr) {
                   ),
                   tags$span(
                     class="nav-text",
-                    "View the plumbertableau package documentation"
+                    "Help with plumbertableau and RStudio Connect"
                   )
                 )
               )
@@ -160,11 +147,11 @@ render_user_guide <- function(path, pr) {
                   href = "./",
                   tags$div(
                     class="menuitem",
-                    fa("home")
+                    fa("chart-area")
                   ),
                   tags$span(
                     class="nav-text",
-                    "Introduction to plumbertableau and RStudio Connect"
+                    "Call your analytics extension(s) from Tableau"
                   )
                 )
               ),
@@ -178,19 +165,6 @@ render_user_guide <- function(path, pr) {
                   tags$span(
                     class="nav-text",
                     "Configure Tableau to use your analytics extension"
-                  )
-                )
-              ),
-              tags$li(
-                tags$a(
-                  href = "./user",
-                  tags$div(
-                    class="menuitem",
-                    fa("chart-area")
-                  ),
-                  tags$span(
-                    class="nav-text",
-                    "Call your analytics extension(s) from Tableau"
                   )
                 )
               ),
@@ -216,7 +190,7 @@ render_user_guide <- function(path, pr) {
                   ),
                   tags$span(
                     class="nav-text",
-                    "View the plumbertableau package documentation"
+                    "Help with plumbertableau and RStudio Connect"
                   )
                 )
               )
@@ -458,11 +432,11 @@ render_setup_instructions <- function(path, pr) {
                 href = "./",
                 tags$div(
                   class="menuitem",
-                  fa("home")
+                  fa("chart-area")
                 ),
                 tags$span(
                   class="nav-text",
-                  "Introduction to plumbertableau and RStudio Connect"
+                  "Call your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -476,19 +450,6 @@ render_setup_instructions <- function(path, pr) {
                 tags$span(
                   class="nav-text",
                   "Configure Tableau to use your analytics extension"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./user",
-                tags$div(
-                  class="menuitem",
-                  fa("chart-area")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Call your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -514,7 +475,7 @@ render_setup_instructions <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "View the plumbertableau package documentation"
+                  "Help with plumbertableau and RStudio Connect"
                 )
               )
             )
@@ -679,11 +640,11 @@ render_overview <- function(path, pr) {
                 href = "./",
                 tags$div(
                   class="menuitem",
-                  fa("home")
+                  fa("chart-area")
                 ),
                 tags$span(
                   class="nav-text",
-                  "Introduction to plumbertableau and RStudio Connect"
+                  "Call your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -697,19 +658,6 @@ render_overview <- function(path, pr) {
                 tags$span(
                   class="nav-text",
                   "Configure Tableau to use your analytics extension"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./user",
-                tags$div(
-                  class="menuitem",
-                  fa("chart-area")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Call your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -735,7 +683,7 @@ render_overview <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "View the plumbertableau package documentation"
+                  "Help with plumbertableau and RStudio Connect"
                 )
               )
             )
@@ -866,11 +814,11 @@ render_help <- function(path, pr) {
                 href = "./",
                 tags$div(
                   class="menuitem",
-                  fa("home")
+                  fa("chart-area")
                 ),
                 tags$span(
                   class="nav-text",
-                  "Introduction to plumbertableau and RStudio Connect"
+                  "Call your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -884,19 +832,6 @@ render_help <- function(path, pr) {
                 tags$span(
                   class="nav-text",
                   "Configure Tableau to use your analytics extension"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./user",
-                tags$div(
-                  class="menuitem",
-                  fa("chart-area")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Call your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -922,7 +857,7 @@ render_help <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "View the plumbertableau package documentation"
+                  "Help with plumbertableau and RStudio Connect"
                 )
               )
             )
