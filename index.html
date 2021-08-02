@@ -98,19 +98,8 @@
 <a href="#plumbertableau" class="anchor"></a>plumbertableau</h1></div>
 <!-- badges: start -->
 
-<p>An R package that helps create <a href="https://www.rplumber.io/">Plumber APIs</a> that are compliant with the <a href="https://tableau.github.io/analytics-extensions-api/#">Tableau Analytics Extension API</a>.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version of plumbertableau from <a href="https://github.com/rstudio/plumbertableau">GitHub</a> with:</p>
+<p>plumbertableau lets you call external R code from Tableau workbooks via <a href="https://tableau.github.io/analytics-extensions-api/">Tableau Analytics Extensions</a>. You achieve this by writing a plumbertableau extension, which is a <a href="https://www.rplumber.io/">Plumber</a> API with some extra annotations — comments prefixed with <code>#*</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"rstudio/plumbertableau"</span><span class="op">)</span></code></pre></div>
-</div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<p>The main object in <code>plumbertableau</code> is <code>tableau_extension</code>. This is a function that modifies an existing Plumber router so that it complies with the specification set forward by the Tableau Analytics Extensions API. If you’re writing a Plumber API, you don’t call this function directly — instead, place it at the bottom of your extension, annotated with the <code>#* @plumber</code> decorator, as in the following example:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span>
 
@@ -127,10 +116,21 @@
 
 <span class="co">#* @plumber</span>
 <span class="va">tableau_extension</span></code></pre></div>
-<p>In order to use an analytics extension from Tableau, you need to configure the extension for either <a href="https://tableau.github.io/analytics-extensions-api/docs/ae_connect_desktop.html">Tableau Desktop</a> or <a href="https://tableau.github.io/analytics-extensions-api/docs/ae_connect_server.html">Tableau Server</a>.</p>
-<p>When this API is running, it can be used via a calculated field in Tableau. To use to example above, you could create a calculated field like the following:</p>
-<p><img src="reference/figures/calculated-field.png" alt="Calculated field screen shot"></p>
-<p>A <code>SCRIPT_</code> function in Tableau takes two arguments: <code>string</code> and <code>expression</code>. When using <code>plumbertableau</code>, the <code>string</code> argument is the path to the endpoint you want to use (in this case <code>/capitalize</code>). The subsequent <code>expression</code> can be a constant value (in this case <code>"Hello World"</code>) or a reference to a data object in Tableau.</p>
+<p>plumbertableau extensions are used in Tableau’s <em>calculated fields</em>. Let’s imagine we’ve published our extension to RStudio Connect and have given it the custom URL <code>stringutils</code>. To use our <code>capitalize</code> extension, we’d type the following into a Tableau calculated field, or just copy and paste it from the automatically generated code samples. (In real usage, you’ll probably replace <code>"Hello World"</code> with references to Tableau data.)</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">SCRIPT_STR</span>(<span class="st">"/stringutils/capitalize"</span>, <span class="st">"Hello World"</span>)</span></code></pre></div>
+<p>Before you use the extension in Tableau, Tableau needs to be able to access it. plumbertableau integrates seamlessly with <a href="https://rstudio.com/products/connect/">RStudio Connect</a>, a commercial publishing platform that enables R developers to easily publish a variety of R content types. Connect lets you host multiple extensions by ensuring that requests from Tableau are passed to the correct extension. It’s also possible to host plumbertableau extensions on your own servers.</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install the latest development version of plumbertableau from GitHub.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"rstudio/plumbertableau"</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="further-reading" class="section level2">
+<h2 class="hasAnchor">
+<a href="#further-reading" class="anchor"></a>Further Reading</h2>
+<p>You can read more about plumbertableau at <a href="https://rstudio.github.io/plumbertableau" class="uri">https://rstudio.github.io/plumbertableau</a>. There, you’ll find more detail about writing plumbertableau extensions, publishing them to RStudio Connect, configuring Tableau, and using your extensions in Tableau.</p>
 </div>
 </div>
   </div>
