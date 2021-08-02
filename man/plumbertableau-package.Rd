@@ -4,27 +4,36 @@
 \name{plumbertableau-package}
 \alias{plumbertableau}
 \alias{plumbertableau-package}
-\title{plumbertableau: Create Tableau Analytics Extension API Compliant Plumber APIs}
+\title{plumbertableau: Extend Tableau with Plumber APIs}
 \description{
-The Tableau Analytics Extension API allows Tableau to be extended
-    to external services. This package provides helpers for creating Plumber
-    APIs that properly function as Tableau Analytics Extensions.
+Build and publish Plumber APIs that are compatible with the
+    Tableau Analytics Extension API. Using annotations in R comments, extensions
+    will respond to requests from Tableau, allowing you to call R code from
+    Tableau workbooks.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://rstudio.github.io/plumbertableau/}
   \item \url{https://github.com/rstudio/plumbertableau}
+  \item Report bugs at \url{https://github.com/rstudio/plumbertableau/issues}
 }
 
 }
 \author{
 \strong{Maintainer}: James Blair \email{james@rstudio.com}
 
+Authors:
+\itemize{
+  \item Joe Cheng \email{joe@rstudio.com}
+  \item Toph Allen \email{toph@rstudio.com}
+  \item Bill Sager \email{bill.sager@rstudio.com}
+}
+
 Other contributors:
 \itemize{
-  \item  RStudio [copyright holder, funder]
-  \item  Tableau [copyright holder]
+  \item RStudio [copyright holder, funder]
+  \item Tableau [copyright holder]
 }
 
 }
