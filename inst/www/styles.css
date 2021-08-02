@@ -187,7 +187,7 @@ top:0;
 bottom:0;
 height:100%;
 left:0;
-width:60px;
+width:50px;
 overflow:hidden;
 -webkit-transition:width .05s linear;
 transition:width .05s linear;
@@ -292,7 +292,7 @@ height: 100%;
 }
   
 .menuitem {
-  min-width: 50px;
-  padding: 10px 5px;
+  min-width: 40px;
+  padding: 5px;
   background-color: white;
 }

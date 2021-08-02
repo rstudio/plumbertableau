@@ -65,7 +65,7 @@ render_user_guide <- function(path, pr) {
                   ),
                   tags$span(
                     class="nav-text",
-                    "Introduction to Tableau Analytics Extensions from RStudio Connect"
+                    "Introduction to plumbertableau and RStudio Connect"
                   )
                 )
               ),
@@ -164,7 +164,7 @@ render_user_guide <- function(path, pr) {
                   ),
                   tags$span(
                     class="nav-text",
-                    "Introduction to Tableau Analytics Extensions from RStudio Connect"
+                    "Introduction to plumbertableau and RStudio Connect"
                   )
                 )
               ),
@@ -462,7 +462,7 @@ render_setup_instructions <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "Introduction to Tableau Analytics Extensions from RStudio Connect"
+                  "Introduction to plumbertableau and RStudio Connect"
                 )
               )
             ),
@@ -683,7 +683,7 @@ render_overview <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "Introduction to Tableau Analytics Extensions from RStudio Connect"
+                  "Introduction to plumbertableau and RStudio Connect"
                 )
               )
             ),
@@ -760,7 +760,7 @@ render_overview <- function(path, pr) {
     tags$main(
       tags$h3(
         class="subtitle",
-        "Introduction to Tableau Analytics Extensions from RStudio Connect"
+        "Introduction to plumbertableau and RStudio Connect"
       ),
       tags$div(
         class = "padded-fully",
@@ -870,7 +870,7 @@ render_help <- function(path, pr) {
                 ),
                 tags$span(
                   class="nav-text",
-                  "Introduction to Tableau Analytics Extensions from RStudio Connect"
+                  "Introduction to plumbertableau and RStudio Connect"
                 )
               )
             ),
