@@ -22,29 +22,29 @@ tableau_openapi <- function(pr) {
 
     # Provide additional context in the description field. This is also visible
     # in the user guide
-    spec$info$description <- paste0(
-      "### Description\n",
-      spec$info$description,
-      "\n",
-      "#### Use the following links to setup and use your Tableau Analytics Extension.",
-      "\n",
-      "* [How to configure Tableau to access your extension](../setup)",
-      "\n",
-      "* [How to use your analytics extension from Tableau](../)",
-      sep = "\n"
-    )
 
     warnings <- warning_message()
     if (!rlang::is_null(warnings)) {
       spec$info$description <- paste0(
-        spec$info$description,
         "### Warnings",
         "\n",
         "#### The following item(s) need to be resolved before your API will be accessible from Tableau:",
         "\n\n---\n\n",
         warnings,
         sep = "\n"
-      )      
+      )
+    } else {
+      spec$info$description <- paste0(
+        "### Description\n",
+        spec$info$description,
+        "\n",
+        "#### Use the following links to setup and use your Tableau Analytics Extension.",
+        "\n",
+        "* [How to configure Tableau to access your extension](../setup)",
+        "\n",
+        "* [How to use your analytics extension from Tableau](../)",
+        sep = "\n"
+      )
     }
 
     # Return OAS as a list
