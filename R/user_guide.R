@@ -61,11 +61,11 @@ render_user_guide <- function(path, pr) {
                   href = "./",
                   tags$div(
                     class="menuitem",
-                    fa("chart-area")
+                    fa("home")
                   ),
                   tags$span(
                     class="nav-text",
-                    "Call your analytics extension(s) from Tableau"
+                    "Use your analytics extension(s) from Tableau"
                   )
                 )
               ),
@@ -147,11 +147,11 @@ render_user_guide <- function(path, pr) {
                   href = "./",
                   tags$div(
                     class="menuitem",
-                    fa("chart-area")
+                    fa("home")
                   ),
                   tags$span(
                     class="nav-text",
-                    "Call your analytics extension(s) from Tableau"
+                    "Use your analytics extension(s) from Tableau"
                   )
                 )
               ),
@@ -215,7 +215,7 @@ render_user_guide <- function(path, pr) {
       tags$main(
         tags$h3(
           class="subtitle",
-          "Call your analytics extension(s) from Tableau"
+          "Use your analytics extension(s) from Tableau"
         ),
         tags$div(class = "padded-fully routes",
                  lapply(extract_route_info(pr, path), render_route_info)
@@ -432,11 +432,11 @@ render_setup_instructions <- function(path, pr) {
                 href = "./",
                 tags$div(
                   class="menuitem",
-                  fa("chart-area")
+                  fa("home")
                 ),
                 tags$span(
                   class="nav-text",
-                  "Call your analytics extension(s) from Tableau"
+                  "Use your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -640,11 +640,11 @@ render_help <- function(path, pr) {
                 href = "./",
                 tags$div(
                   class="menuitem",
-                  fa("chart-area")
+                  fa("home")
                 ),
                 tags$span(
                   class="nav-text",
-                  "Call your analytics extension(s) from Tableau"
+                  "Use your analytics extension(s) from Tableau"
                 )
               )
             ),
@@ -772,11 +772,11 @@ menu_html <- function() {
               href = "./",
               tags$div(
                 class="menuitem",
-                fa("chart-area")
+                fa("home")
               ),
               tags$span(
                 class="nav-text",
-                "Call your analytics extension(s) from Tableau"
+                "Use your analytics extension(s) from Tableau"
               )
             )
           ),
