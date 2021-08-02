@@ -20,9 +20,14 @@ tableau_openapi <- function(pr) {
     spec$paths[["/user"]] <- NULL
     spec$paths[["/help"]] <- NULL
 
-    # Provide additional context in the description field. This is also visible
-    # in the user guide
+    # We have different consumers of the description, so we'll split them apart..
+    spec$info$user_description <- paste0(
+      "### Description\n",
+      spec$info$description,
+      sep = "\n"
+    )
 
+    # Provide additional context in the description field for the OpenAPI documentation.
     warnings <- warning_message()
     if (!rlang::is_null(warnings)) {
       spec$info$description <- paste0(
