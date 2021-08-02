@@ -73,11 +73,14 @@ build_tableau_spec <- function(route_attrs) {
   arg_map$`arg name` <- names(args)
   arg_map$`tableau name` <- names(arg_list)
   arg_map <- arg_map[,c("arg name", "tableau name", "type", "desc", "optional")]
+  names(arg_map) <- c("Arg name", "Tableau name", "Type", "Description", "Optional")
 
   list(description = paste0(
     markdown::markdownToHTML(
     text = "### Tableau Request
-This is a mock Tableau request. Tableau sends a JSON request formatted like the following JSON. Tableau doesn't provide named arguments and instead assigns each argument `_arg1`, `_arg2`, ... , `_argN`.",
+This is a mock Tableau request. Tableau sends a JSON request formatted like the following JSON. Tableau doesn't provide named arguments and instead assigns each argument `_arg1`, `_arg2`, ... , `_argN`.
+
+The provided JSON is a simple template based on the described arguments and return values. A more comprehensive mock request can be generated with `mock_tableau_request()`.",
     fragment.only = TRUE),
 knitr::kable(arg_map, format = "html")
 ),
