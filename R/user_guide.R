@@ -65,7 +65,7 @@ render_user_guide <- function(path, pr) {
     body_content <- htmltools::tagList(
       tags$h3(
         class="warning",
-        "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
+        "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau."
       ),
       tags$div(
         class="padded-flat-top",
@@ -76,7 +76,7 @@ render_user_guide <- function(path, pr) {
     body_content <- htmltools::tagList(
       tags$h3(
         class="subtitle",
-        "Use your analytics extension(s) from Tableau"
+        "Use this extension in Tableau"
       ),
       tags$div(class = "padded-fully routes",
         lapply(extract_route_info(pr, path), render_route_info)
