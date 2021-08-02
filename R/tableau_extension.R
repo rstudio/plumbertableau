@@ -1,17 +1,9 @@
-#' Modify a Plumber router to function as a Tableau Analytics Extension
-#'
-#' Most of the time, you won't call this function directly. Instead, you'll
-#' place it at the end of a Plumber router, under a `#* @plumber` annotation,
-#' with no trailing parentheses or arguments. This tells Plumber to use the
-#' function to modify the router object.
-#'
-#' @usage tableau_extension
-#' @usage tableau_extension(pr)
+#' Make an existing Plumber API compliant as a Tableau Analytics Extension
 #'
 #' @param pr A plumber router
 #'
 #' @return A modified plumber router that functions as a Tableau Analytics
-#'   Extension
+#' Extension
 #'
 #' @examples
 #' \dontrun{
@@ -52,6 +44,7 @@ tableau_extension <- function(pr) {
   pr %>%
     plumber::pr_get("/", create_user_guide(pr), serializer = plumber::serializer_html()) %>%
     plumber::pr_get("/setup", create_setup_instructions(pr), serializer = plumber::serializer_html()) %>%
+    plumber::pr_get("/help", create_help(pr), serializer = plumber::serializer_html()) %>%
     plumber::pr_static("/__plumbertableau_assets__",
                        system.file("www", package = "plumbertableau", mustWork = TRUE)) %>%
     plumber::pr_filter("rsc_filter", rsc_filter) %>%
@@ -65,4 +58,3 @@ tableau_extension <- function(pr) {
     plumber::pr_set_parsers("json") %>%
     plumber::pr_set_serializer(plumber::serializer_unboxed_json())
 }
-
