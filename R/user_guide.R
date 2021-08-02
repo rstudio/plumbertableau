@@ -643,18 +643,18 @@ render_help <- function(path, pr) {
   #   )
   # )
 
-  # body_content <- htmltools::tagList(
-  #   tags$h3(
-  #     class="subtitle",
-  #     "Introduction to plumbertableau and RStudio Connect"
-  #   ),
-  #   tags$div(
-  #     class = "padded-fully",
-  #     htmltools::HTML(markdown::markdownToHTML(
-  #       text = help_text()), fragment.only = TRUE
-  #     )
-  #   )
-  # )
+  body_content <- htmltools::tagList(
+    tags$h3(
+      class="subtitle",
+      "Introduction to plumbertableau and RStudio Connect"
+    ),
+    tags$div(
+      class = "padded-fully",
+      htmltools::HTML(markdown::markdownToHTML(
+        text = help_text()), fragment.only = TRUE
+      )
+    )
+  )
   
   # as.character(htmltools::htmlTemplate(
   #   system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
@@ -663,7 +663,7 @@ render_help <- function(path, pr) {
   # ))
   as.character(htmltools::htmlTemplate(
     system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
-    content = "body_content"
+    content = body_content
   ))
 }
 
