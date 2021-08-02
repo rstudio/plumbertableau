@@ -52,6 +52,7 @@ tableau_extension <- function(pr) {
   pr %>%
     plumber::pr_get("/", create_user_guide(pr), serializer = plumber::serializer_html()) %>%
     plumber::pr_get("/setup", create_setup_instructions(pr), serializer = plumber::serializer_html()) %>%
+    plumber::pr_get("/help", create_help(pr), serializer = plumber::serializer_html()) %>%
     plumber::pr_static("/__plumbertableau_assets__",
                        system.file("www", package = "plumbertableau", mustWork = TRUE)) %>%
     plumber::pr_filter("rsc_filter", rsc_filter) %>%
@@ -65,4 +66,3 @@ tableau_extension <- function(pr) {
     plumber::pr_set_parsers("json") %>%
     plumber::pr_set_serializer(plumber::serializer_unboxed_json())
 }
-

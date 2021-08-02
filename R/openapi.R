@@ -14,15 +14,20 @@ tableau_openapi <- function(pr) {
       }
     }
 
-    # Remove / from spec so it doesn't show in UI
+    # Remove paths from spec so they don't show in UI
     spec$paths[["/"]] <- NULL
-
-    # Remove /setup from spec so it doesn't show in UI
     spec$paths[["/setup"]] <- NULL
+    spec$paths[["/user"]] <- NULL
+    spec$paths[["/help"]] <- NULL
 
-    # Provide additional context in the description field. This is also visible
-    # in the user guide
+    # We have different consumers of the description, so we'll split them apart..
+    spec$info$user_description <- paste0(
+      "### Description\n",
+      spec$info$description,
+      sep = "\n"
+    )
 
+    # Provide additional context in the description field for the OpenAPI documentation.
     warnings <- warning_message()
     if (!rlang::is_null(warnings)) {
       spec$info$description <- paste0(
@@ -35,13 +40,16 @@ tableau_openapi <- function(pr) {
       )
     } else {
       spec$info$description <- paste0(
-"### Description\n",
-"This is a Tableau Analytics Extension.
-  * [Tableau usage instructions](../)
-  * [Tableau setup instructions](../setup)
-***
-",
+        "### Description\n",
         spec$info$description,
+        "\n",
+        "#### Use the following links to setup and use your Tableau Analytics Extension.",
+        "\n",
+        "* [Use your analytics extension from Tableau](../)",
+        "\n",
+        "* [Configure Tableau to use your analytics extension](../setup)",
+        "\n",
+        "* [Read up on plumbertableau, Tableau, and RStudio Connect](../help)",
         sep = "\n"
       )
     }
