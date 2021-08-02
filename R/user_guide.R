@@ -65,7 +65,7 @@ render_user_guide <- function(path, pr) {
     body_content <- htmltools::tagList(
       tags$h3(
         class="warning",
-        "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau!"
+        "Warning: The following item(s) need to be resolved before your API will be accessible from Tableau."
       ),
       tags$div(
         class="padded-flat-top",
