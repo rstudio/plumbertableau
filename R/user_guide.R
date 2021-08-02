@@ -663,7 +663,7 @@ render_help <- function(path, pr) {
   # ))
   as.character(htmltools::htmlTemplate(
     system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
-    content = "hi bill"
+    body_content = "body_content"
   ))
 }
 
