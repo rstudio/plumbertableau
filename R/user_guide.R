@@ -628,100 +628,41 @@ render_help <- function(path, pr) {
     desc <- markdown::markdownToHTML(text = strip_md_links(apiSpec$info$description),
                                    fragment.only = TRUE)
   }
-  ui <- htmltools::tagList(
-    tags$header(
-      tags$div(
-        class="nav",
-        tags$div(
-          class="main-menu",
-          tags$ul(
-            tags$li(
-              tags$a(
-                href = "./",
-                tags$div(
-                  class="menuitem",
-                  fa("home")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Use your analytics extension(s) from Tableau"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./setup",
-                tags$div(
-                  class="menuitem",
-                  fa("cogs")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Configure Tableau to use your analytics extension"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./__docs__/",
-                tags$div(
-                  class="menuitem",
-                  fa("info-circle")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "View your extension's Open API documentation"
-                )
-              )
-            ),
-            tags$li(
-              tags$a(
-                href = "./help",
-                tags$div(
-                  class="menuitem",
-                  fa("question-circle")
-                ),
-                tags$span(
-                  class="nav-text",
-                  "Help with plumbertableau and RStudio Connect"
-                )
-              )
-            )
-          )
-        )
-      ),
-      tags$div(
-        class="title_desc_container",
-        tags$h1(
-          class="padded-fully title",
-          title,
-          if (!is.null(version)) paste0("(v", version, ")")
-        ),
-        tags$div(class = "api-desc",
-          tags$div(
-            class="padded-flat-top",
-            htmltools::HTML(desc)
-          )
-        )
-      )
-    ),
-    tags$main(
-      tags$h3(
-        class="subtitle",
-        "Introduction to plumbertableau and RStudio Connect"
-      ),
-      tags$div(
-        class = "padded-fully",
-        htmltools::HTML(markdown::markdownToHTML(
-          text = help_text()), fragment.only = TRUE
-        )
-      )
-    )
-  )
   
+  # title_desc <- htmltools::tagList(
+  #   tags$h1(
+  #     class="padded-fully title",
+  #     title,
+  #     if (!is.null(version)) paste0("(v", version, ")")
+  #   ),
+  #   tags$div(class = "api-desc",
+  #     tags$div(
+  #       class="padded-flat-top",
+  #       htmltools::HTML(desc)
+  #     )
+  #   )
+  # )
+
+  # body_content <- htmltools::tagList(
+  #   tags$h3(
+  #     class="subtitle",
+  #     "Introduction to plumbertableau and RStudio Connect"
+  #   ),
+  #   tags$div(
+  #     class = "padded-fully",
+  #     htmltools::HTML(markdown::markdownToHTML(
+  #       text = help_text()), fragment.only = TRUE
+  #     )
+  #   )
+  # )
+  
+  # as.character(htmltools::htmlTemplate(
+  #   system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
+  #   title_desc = "title_desc",
+  #   body_content = "body_content"
+  # ))
   as.character(htmltools::htmlTemplate(
-    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE),
-    content = ui
+    system.file("template/index.html", package = "plumbertableau", mustWork = TRUE)
   ))
 }
 
