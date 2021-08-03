@@ -182,6 +182,8 @@ mock_tableau_request(script = "/predict",
 
 Note that because the running API occupies your R session, you'll have to stop running it to use `mock_talbeau_request()`. Once you've generated a mock request, you can run the API again and paste the request into the Swagger documentation to test the API. The data that would be sent back to Tableau appears under "Response body".
 
+It's also worth noting that the `curl` command used by OpenAPI to submit the request doesn't exactly match the request sent by Tableau, since the `curl` request goes to the actual endpoint (in this case `/predict`) and requests from Tableau will go to `/evaluate` and then be routed to `/predict`. The request response will still be the same.
+
 ### Debugging Extensions {#debugging}
 
 plumbertableau supports debug logging via the [`debugme`](https://github.com/r-lib/debugme) R package.
