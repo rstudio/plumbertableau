@@ -4,7 +4,7 @@
 \alias{mock_tableau_request}
 \title{Create a mock JSON request that mimics the request structure of Tableau}
 \usage{
-mock_tableau_request(script, data, pretty = TRUE, ...)
+mock_tableau_request(script, data, ...)
 }
 \arguments{
 \item{script}{String indicating the path to the endpoint to be called}

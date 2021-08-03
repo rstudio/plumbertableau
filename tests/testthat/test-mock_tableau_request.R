@@ -1,12 +1,11 @@
 test_that("mock_tableau_request() works", {
-  json <- jsonlite::toJSON(list(
+  json <- jsonlite::prettify(jsonlite::toJSON(list(
     script = jsonlite::unbox("/foo"),
     data = list(
       `_arg1` = letters,
       `_arg2` = 1:length(letters)
     )
-  ),
-  pretty = TRUE)
+  )))
 
   expect_identical(mock_tableau_request("/foo", list(x = letters, y = 1:length(letters))),
                    json)

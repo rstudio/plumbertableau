@@ -20,7 +20,7 @@
 #' mock_tableau_request("/loess/predict", mtcars[,c("hp", "mpg")])
 #'
 #' @export
-mock_tableau_request <- function(script, data, pretty = TRUE, ...) {
+mock_tableau_request <- function(script, data, ...) {
   # Verify data is a list
   if (!is.list(data)) stop("data must be a list or data.frame object.", call. = FALSE)
   data <- as.list(data)
