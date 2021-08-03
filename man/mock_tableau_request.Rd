@@ -11,8 +11,6 @@ mock_tableau_request(script, data, pretty = TRUE, ...)
 
 \item{data}{A list or dataframe that is serialized to JSON}
 
-\item{pretty}{Whether or not to 'prettify' the JSON output}
-
 \item{...}{Additional arguments passed to \code{jsonlite::toJSON()}}
 }
 \value{

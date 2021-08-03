@@ -12,7 +12,6 @@
 #'
 #' @param script String indicating the path to the endpoint to be called
 #' @param data A list or dataframe that is serialized to JSON
-#' @param pretty Whether or not to 'prettify' the JSON output
 #' @param ... Additional arguments passed to \code{jsonlite::toJSON()}
 #'
 #' @return A JSON object that can be passed to a Tableau endpoint
@@ -32,10 +31,11 @@ mock_tableau_request <- function(script, data, pretty = TRUE, ...) {
   if(!all(list_lengths == list_lengths[1])) stop("All entries in data must be of equal length.", call. = FALSE)
 
   names(data) <- paste0("_arg", 1:length(data))
-  jsonlite::toJSON(list(
-    script = jsonlite::unbox(script),
-    data = data
-  ),
-  pretty = pretty,
-  ...)
+  jsonlite::prettify(
+    jsonlite::toJSON(list(
+      script = jsonlite::unbox(script),
+      data = data
+    ),
+    ...)
+  )
 }
