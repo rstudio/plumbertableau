@@ -1,9 +1,3 @@
-# MUST HAVE
-# TODO: URL param default values should be shown
-
-# NICE TO HAVE
-# TODO: URL param values should be coerced to type (if possible?)
-
 globalVariables(names(htmltools::tags))
 
 create_user_guide <- function(pr) {

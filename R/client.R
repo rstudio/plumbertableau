@@ -87,8 +87,6 @@ tableau_invoke <- function(pr, script, ..., .toJSON_args = NULL, .quiet = FALSE)
   }
 }
 
-# TODO: Error on unrealistic (non-Tableau-supported) data types? Error on
-# unrealistic vector lengths (lengths that are different and not 1)?
 encode_payload <- function(script, ..., .toJSON_args, raw = TRUE) {
   data <- rlang::list2(...)
   if (!is.null(names(data))) {
@@ -102,9 +100,6 @@ encode_payload <- function(script, ..., .toJSON_args, raw = TRUE) {
     data = data,
     script = jsonlite::unbox(script)
   )
-
-  # TODO: How does Tableau serialize missing values? We should match that
-  # behavior both here and when unpacking the JSON in reroute.R.
 
   json <- do.call(jsonlite::toJSON, c(list(x = payload, na = "null"), .toJSON_args))
   json <- enc2utf8(json)
