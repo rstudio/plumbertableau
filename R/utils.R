@@ -79,5 +79,12 @@ postroute_hook <- function(data, req, res) {
 
 check_rstudio_connect <- function() {
   # Return TRUE if running in a traditional RStudio Connect environment
-  Sys.getenv("RSTUDIO_PRODUCT") == "CONNECT"
+  env_vars <- Sys.getenv()
+  Sys.getenv("RSTUDIO_PRODUCT") == "CONNECT" |  # This is only a valid check on recent RSC versions
+    "RSTUDIO_CONNECT_HASTE" %in% names(env_vars) |
+    getwd() == "/opt/rstudio-connect/mnt/app" |
+    Sys.getenv("LOGNAME") == "rstudio-connect" |
+    Sys.getenv("R_CONFIG_ACTIVE") == "rsconnect" |
+    Sys.getenv("TMPDIR") == "/opt/rstudio-connect/mnt/tmp" |
+    grepl("^/opt/rstudio-connect/mnt/tmp", Sys.getenv("R_SESSION_TMPDIR"))
 }
