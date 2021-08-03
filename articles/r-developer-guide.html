@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">plumbertableau</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -57,10 +57,10 @@
       <a href="../articles/introduction.html">Introduction</a>
     </li>
     <li>
-      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
+      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
     </li>
     <li>
-      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
+      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
     </li>
     <li>
       <a href="../articles/tableau-developer-guide.html">Using plumbertableau Extensions in Tableau</a>
@@ -271,14 +271,81 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/mock_tableau_request.html">mock_tableau_request</a></span><span class="op">(</span>script <span class="op">=</span> <span class="st">"/predict"</span>, 
              data <span class="op">=</span> <span class="va">mtcars</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hp"</span>, <span class="st">"mpg"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; {</span>
-<span class="co">#&gt;   "script": "/predict",</span>
-<span class="co">#&gt;   "data": {</span>
-<span class="co">#&gt;     "_arg1": [110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, 180, 180, 205, 215, 230, 66, 52, 65, 97, 150, 150, 245, 175, 66, 91, 113, 264, 175, 335, 109],</span>
-<span class="co">#&gt;     "_arg2": [21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, 33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, 19.7, 15, 21.4]</span>
-<span class="co">#&gt;   }</span>
-<span class="co">#&gt; }</span></code></pre></div>
+<span class="co">#&gt;     "script": "/predict",</span>
+<span class="co">#&gt;     "data": {</span>
+<span class="co">#&gt;         "_arg1": [</span>
+<span class="co">#&gt;             110,</span>
+<span class="co">#&gt;             110,</span>
+<span class="co">#&gt;             93,</span>
+<span class="co">#&gt;             110,</span>
+<span class="co">#&gt;             175,</span>
+<span class="co">#&gt;             105,</span>
+<span class="co">#&gt;             245,</span>
+<span class="co">#&gt;             62,</span>
+<span class="co">#&gt;             95,</span>
+<span class="co">#&gt;             123,</span>
+<span class="co">#&gt;             123,</span>
+<span class="co">#&gt;             180,</span>
+<span class="co">#&gt;             180,</span>
+<span class="co">#&gt;             180,</span>
+<span class="co">#&gt;             205,</span>
+<span class="co">#&gt;             215,</span>
+<span class="co">#&gt;             230,</span>
+<span class="co">#&gt;             66,</span>
+<span class="co">#&gt;             52,</span>
+<span class="co">#&gt;             65,</span>
+<span class="co">#&gt;             97,</span>
+<span class="co">#&gt;             150,</span>
+<span class="co">#&gt;             150,</span>
+<span class="co">#&gt;             245,</span>
+<span class="co">#&gt;             175,</span>
+<span class="co">#&gt;             66,</span>
+<span class="co">#&gt;             91,</span>
+<span class="co">#&gt;             113,</span>
+<span class="co">#&gt;             264,</span>
+<span class="co">#&gt;             175,</span>
+<span class="co">#&gt;             335,</span>
+<span class="co">#&gt;             109</span>
+<span class="co">#&gt;         ],</span>
+<span class="co">#&gt;         "_arg2": [</span>
+<span class="co">#&gt;             21,</span>
+<span class="co">#&gt;             21,</span>
+<span class="co">#&gt;             22.8,</span>
+<span class="co">#&gt;             21.4,</span>
+<span class="co">#&gt;             18.7,</span>
+<span class="co">#&gt;             18.1,</span>
+<span class="co">#&gt;             14.3,</span>
+<span class="co">#&gt;             24.4,</span>
+<span class="co">#&gt;             22.8,</span>
+<span class="co">#&gt;             19.2,</span>
+<span class="co">#&gt;             17.8,</span>
+<span class="co">#&gt;             16.4,</span>
+<span class="co">#&gt;             17.3,</span>
+<span class="co">#&gt;             15.2,</span>
+<span class="co">#&gt;             10.4,</span>
+<span class="co">#&gt;             10.4,</span>
+<span class="co">#&gt;             14.7,</span>
+<span class="co">#&gt;             32.4,</span>
+<span class="co">#&gt;             30.4,</span>
+<span class="co">#&gt;             33.9,</span>
+<span class="co">#&gt;             21.5,</span>
+<span class="co">#&gt;             15.5,</span>
+<span class="co">#&gt;             15.2,</span>
+<span class="co">#&gt;             13.3,</span>
+<span class="co">#&gt;             19.2,</span>
+<span class="co">#&gt;             27.3,</span>
+<span class="co">#&gt;             26,</span>
+<span class="co">#&gt;             30.4,</span>
+<span class="co">#&gt;             15.8,</span>
+<span class="co">#&gt;             19.7,</span>
+<span class="co">#&gt;             15,</span>
+<span class="co">#&gt;             21.4</span>
+<span class="co">#&gt;         ]</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; </span></code></pre></div>
 <p>Note that because the running API occupies your R session, you’ll have to stop running it to use <code>mock_talbeau_request()</code>. Once you’ve generated a mock request, you can run the API again and paste the request into the Swagger documentation to test the API. The data that would be sent back to Tableau appears under “Response body”.</p>
-<p><img src="files/swagger-test.png" style="width:75.0%"></p>
+<p>It’s also worth noting that the <code>curl</code> command used by OpenAPI to submit the request doesn’t exactly match the request sent by Tableau, since the <code>curl</code> request goes to the actual endpoint (in this case <code>/predict</code>) and requests from Tableau will go to <code>/evaluate</code> and then be routed to <code>/predict</code>. The request response will still be the same.</p>
 <div id="debugging" class="section level3">
 <h3 class="hasAnchor">
 <a href="#debugging" class="anchor"></a>Debugging Extensions</h3>

@@ -75,7 +75,7 @@ functionality." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">plumbertableau</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -101,10 +101,10 @@ functionality." />
       <a href="../articles/introduction.html">Introduction</a>
     </li>
     <li>
-      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
+      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
     </li>
     <li>
-      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
+      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
     </li>
     <li>
       <a href="../articles/tableau-developer-guide.html">Using plumbertableau Extensions in Tableau</a>
@@ -147,7 +147,7 @@ out" field in the Swagger documentation for an endpoint to test its
 functionality.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mock_tableau_request</span><span class='op'>(</span><span class='va'>script</span>, <span class='va'>data</span>, pretty <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mock_tableau_request</span><span class='op'>(</span><span class='va'>script</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,10 +159,6 @@ functionality.</p>
     <tr>
       <th>data</th>
       <td><p>A list or dataframe that is serialized to JSON</p></td>
-    </tr>
-    <tr>
-      <th>pretty</th>
-      <td><p>Whether or not to 'prettify' the JSON output</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -183,12 +179,79 @@ passes the arguments in <code>data</code> on to the function at that endpoint.</
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>mock_tableau_request</span><span class='op'>(</span><span class='st'>"/loess/predict"</span>, <span class='va'>mtcars</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"hp"</span>, <span class='st'>"mpg"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; {
-#&gt;   "script": "/loess/predict",
-#&gt;   "data": {
-#&gt;     "_arg1": [110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, 180, 180, 205, 215, 230, 66, 52, 65, 97, 150, 150, 245, 175, 66, 91, 113, 264, 175, 335, 109],
-#&gt;     "_arg2": [21, 21, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.8, 16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, 33.9, 21.5, 15.5, 15.2, 13.3, 19.2, 27.3, 26, 30.4, 15.8, 19.7, 15, 21.4]
-#&gt;   }
-#&gt; } </div><div class='input'>
+#&gt;     "script": "/loess/predict",
+#&gt;     "data": {
+#&gt;         "_arg1": [
+#&gt;             110,
+#&gt;             110,
+#&gt;             93,
+#&gt;             110,
+#&gt;             175,
+#&gt;             105,
+#&gt;             245,
+#&gt;             62,
+#&gt;             95,
+#&gt;             123,
+#&gt;             123,
+#&gt;             180,
+#&gt;             180,
+#&gt;             180,
+#&gt;             205,
+#&gt;             215,
+#&gt;             230,
+#&gt;             66,
+#&gt;             52,
+#&gt;             65,
+#&gt;             97,
+#&gt;             150,
+#&gt;             150,
+#&gt;             245,
+#&gt;             175,
+#&gt;             66,
+#&gt;             91,
+#&gt;             113,
+#&gt;             264,
+#&gt;             175,
+#&gt;             335,
+#&gt;             109
+#&gt;         ],
+#&gt;         "_arg2": [
+#&gt;             21,
+#&gt;             21,
+#&gt;             22.8,
+#&gt;             21.4,
+#&gt;             18.7,
+#&gt;             18.1,
+#&gt;             14.3,
+#&gt;             24.4,
+#&gt;             22.8,
+#&gt;             19.2,
+#&gt;             17.8,
+#&gt;             16.4,
+#&gt;             17.3,
+#&gt;             15.2,
+#&gt;             10.4,
+#&gt;             10.4,
+#&gt;             14.7,
+#&gt;             32.4,
+#&gt;             30.4,
+#&gt;             33.9,
+#&gt;             21.5,
+#&gt;             15.5,
+#&gt;             15.2,
+#&gt;             13.3,
+#&gt;             19.2,
+#&gt;             27.3,
+#&gt;             26,
+#&gt;             30.4,
+#&gt;             15.8,
+#&gt;             19.7,
+#&gt;             15,
+#&gt;             21.4
+#&gt;         ]
+#&gt;     }
+#&gt; }
+#&gt;  </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

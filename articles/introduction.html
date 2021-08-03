@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">plumbertableau</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -57,10 +57,10 @@
       <a href="../articles/introduction.html">Introduction</a>
     </li>
     <li>
-      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
+      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
     </li>
     <li>
-      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
+      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
     </li>
     <li>
       <a href="../articles/tableau-developer-guide.html">Using plumbertableau Extensions in Tableau</a>
@@ -123,6 +123,7 @@
   <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">str_value</span><span class="op">)</span>
 <span class="op">}</span>
 
+<span class="co"># The Plumber router modifier tableau_extension is required</span>
 <span class="co">#* @plumber</span>
 <span class="va">tableau_extension</span></code></pre></div>
 <p>The core of this extension is a very simple R function that capitalizes text. It’s surrounded by Plumber “annotations” which describe the web service. plumbertableau introduces new annotations in addition to what Plumber already provides. To learn or more information on these, see the guide to <strong><a href="r-developer-guide.html">Writing plumbertableau Extensions in R</a></strong>.</p>

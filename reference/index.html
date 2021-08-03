@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">plumbertableau</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -97,10 +97,10 @@
       <a href="../articles/introduction.html">Introduction</a>
     </li>
     <li>
-      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
+      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
     </li>
     <li>
-      <a href="../articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
+      <a href="../articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
     </li>
     <li>
       <a href="../articles/tableau-developer-guide.html">Using plumbertableau Extensions in Tableau</a>
@@ -145,8 +145,27 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-plumber-modifier" class="hasAnchor"><a href="#section-plumber-modifier" class="anchor"></a>Plumber modifier</h2>
+          <p class="section-desc"><p>Main function for modifying an existing Plumber router into a Tableau analytics extension</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="tableau_extension.html">tableau_extension</a></code> <code><a href="tableau_extension.html">tableau_extension()</a></code> </p>
+        </td>
+        <td><p>Modify a Plumber router to function as a Tableau Analytics Extension</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-programmatic-usage" class="hasAnchor"><a href="#section-programmatic-usage" class="anchor"></a>Programmatic usage</h2>
+          <p class="section-desc"><p>Functions for programmatically creating plumbertableau extensions</p></p>
         </th>
       </tr>
       
@@ -163,21 +182,28 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="mock_tableau_request.html">mock_tableau_request()</a></code> </p>
-        </td>
-        <td><p>Create a mock JSON request that mimics the request structure of Tableau</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="tableau_extension.html">tableau_extension</a></code> <code><a href="tableau_extension.html">tableau_extension()</a></code> </p>
-        </td>
-        <td><p>Modify a Plumber router to function as a Tableau Analytics Extension</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="tableau_handler.html">tableau_handler()</a></code> </p>
         </td>
         <td><p>Create a Tableau-compliant handler for a function</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-testing" class="hasAnchor"><a href="#section-testing" class="anchor"></a>Testing</h2>
+          <p class="section-desc"><p>Functions for testing plumbertableau extensions locally</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="mock_tableau_request.html">mock_tableau_request()</a></code> </p>
+        </td>
+        <td><p>Create a mock JSON request that mimics the request structure of Tableau</p></td>
       </tr><tr>
         
         <td>
