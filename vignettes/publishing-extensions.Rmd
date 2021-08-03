@@ -26,7 +26,7 @@ plumbertableau integrates seamlessly with RStudio Connect. You can host any numb
 
 ### Requirements {#requirements}
 
-- Tableau extensions are only supported in recent version of RStudio Connect. See the [RStudio Connect release notes](https://docs.rstudio.com/connect/news/) to determine the minimum version with support for Tableau extensions.
+- Tableau extensions are only supported in recent versions of RStudio Connect. See the [RStudio Connect release notes](https://docs.rstudio.com/connect/news/) to determine the minimum version with support for Tableau extensions.
 - RStudio Connect must be configured with the following settings:
   - [`TableauExtension.Enabled`](https://docs.rstudio.com/connect/admin/appendix/configuration/#TableauExtension) must not be set to `False`.
   - [`Server.Address`](https://docs.rstudio.com/connect/admin/appendix/configuration/#Server.Address) must be configured.
