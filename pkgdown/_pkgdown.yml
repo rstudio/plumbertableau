@@ -1,1 +1,29 @@
 url: https://rstudio.github.io/plumbertableau/
+
+articles:
+- title: Main articles
+  navbar: ~
+  contents:
+  - introduction
+  - r-developer-guide
+  - publishing-extensions
+  - tableau-developer-guide
+
+reference:
+- title: "Plumber modifier"
+  desc: >
+    Main function for modifying an existing Plumber router into a Tableau
+    analytics extension
+- contents:
+  - tableau_extension
+- title: "Programmatic usage"
+  desc: "Functions for programmatically creating plumbertableau extensions"
+- contents:
+  - arg_spec
+  - return_spec
+  - tableau_handler
+- title: "Testing"
+  desc: "Functions for testing plumbertableau extensions locally"
+- contents:
+  - mock_tableau_request
+  - tableau_invoke

@@ -20,5 +20,6 @@ function(str_value) {
   toupper(str_value)
 }
 
+# The Plumber router modifier tableau_extension is required
 #* @plumber
 tableau_extension

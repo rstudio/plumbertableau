@@ -24,6 +24,7 @@ knitr::read_chunk(path = "inst/plumber/capitalize/plumber.R",
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/rstudio/plumbertableau/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/plumbertableau/actions)
 [![Codecov test coverage](https://codecov.io/gh/rstudio/plumbertableau/branch/main/graph/badge.svg)](https://codecov.io/gh/rstudio/plumbertableau?branch=main)
+[![CRAN status](https://www.r-pkg.org/badges/version/plumbertableau)](https://CRAN.R-project.org/package=plumbertableau)
 <!-- badges: end -->
 
 plumbertableau lets you call external R code from Tableau workbooks via [Tableau Analytics Extensions](https://tableau.github.io/analytics-extensions-api/). You achieve this by writing a plumbertableau extension, which is a [Plumber](https://www.rplumber.io/) API with some extra annotations — comments prefixed with `#*`.
@@ -40,11 +41,15 @@ SCRIPT_STR("/stringutils/capitalize", "Hello World")
 Before you use the extension in Tableau, Tableau needs to be able to access it. plumbertableau integrates seamlessly with [RStudio Connect](https://rstudio.com/products/connect/), a commercial publishing platform that enables R developers to easily publish a variety of R content types. Connect lets you host multiple extensions by ensuring that requests from Tableau are passed to the correct extension. It's also possible to host plumbertableau extensions on your own servers.
 
 ## Installation
-
-You can install the latest development version of plumbertableau from GitHub.
+You can install plumbertableau from CRAN or install the latest development version from GitHub.
 
 ```r
+# From CRAN
+install.packages("plumbertableau")
+
+# From GitHub
 remotes::install_github("rstudio/plumbertableau")
+
 library(plumbertableau)
 ```
 

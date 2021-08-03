@@ -4,12 +4,12 @@
 \name{plumbertableau-package}
 \alias{plumbertableau}
 \alias{plumbertableau-package}
-\title{plumbertableau: Extend Tableau with Plumber APIs}
+\title{plumbertableau: Turn 'Plumber' APIs into 'Tableau' Extensions}
 \description{
-Build and publish Plumber APIs that are compatible with the
-    Tableau Analytics Extension API. Using annotations in R comments, extensions
-    will respond to requests from Tableau, allowing you to call R code from
-    Tableau workbooks.
+Build 'Plumber' APIs that can be used in 'Tableau' workbooks.
+    Annotations in R comments allow APIs to conform to the 'Tableau Analytics
+    Extension' specification, so that R code can be used to power 'Tableau'
+    workbooks.
 }
 \seealso{
 Useful links:

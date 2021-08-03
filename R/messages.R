@@ -162,8 +162,7 @@ warning_message <- function() {
 
     message_contents <- paste0(
       message_contents,
-      paste0("### Tableau Integration Feature Flag is not available on the RStudio Connect server.",
-        "-    Current server is version: ", server_settings$version,
+      paste0("### Tableau Integration Feature Flag is not available on the RStudio Connect server. Current server is version: ", server_settings$version,
         "\n",
         "\nPossible Solution:",
         "\n",

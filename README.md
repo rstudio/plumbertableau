@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/rstudio/plumbertableau/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/plumbertableau/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/rstudio/plumbertableau/branch/main/graph/badge.svg)](https://codecov.io/gh/rstudio/plumbertableau?branch=main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/plumbertableau)](https://CRAN.R-project.org/package=plumbertableau)
 <!-- badges: end -->
 
 plumbertableau lets you call external R code from Tableau workbooks via
@@ -32,6 +34,8 @@ function(str_value) {
   toupper(str_value)
 }
 
+# This plumber modifier (tableau_extension) is required for all plumbertableau
+# extensions
 #* @plumber
 tableau_extension
 ```
@@ -56,11 +60,16 @@ also possible to host plumbertableau extensions on your own servers.
 
 ## Installation
 
-You can install the latest development version of plumbertableau from
-GitHub.
+You can install plumbertableau from CRAN or install the latest
+development version from GitHub.
 
 ``` r
+# From CRAN
+install.packages("plumbertableau")
+
+# From GitHub
 remotes::install_github("rstudio/plumbertableau")
+
 library(plumbertableau)
 ```
 
