@@ -20,5 +20,7 @@ function(str_value) {
   toupper(str_value)
 }
 
+# This plumber modifier (tableau_extension) is required for all plumbertableau
+# extensions
 #* @plumber
 tableau_extension
