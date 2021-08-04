@@ -114,13 +114,12 @@
   <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">str_value</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="co"># This plumber modifier (tableau_extension) is required for all plumbertableau</span>
-<span class="co"># extensions</span>
+<span class="co"># The Plumber router modifier tableau_extension is required</span>
 <span class="co">#* @plumber</span>
 <span class="va">tableau_extension</span></code></pre></div>
 <p>plumbertableau extensions are used in Tableau’s <em>calculated fields</em>. Let’s imagine we’ve published our extension to RStudio Connect and have given it the custom URL <code>stringutils</code>. To use our <code>capitalize</code> extension, we’d type the following into a Tableau calculated field, or just copy and paste it from the automatically generated code samples. (In real usage, you’ll probably replace <code>"Hello World"</code> with references to Tableau data.)</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">SCRIPT_STR</span>(<span class="st">"/stringutils/capitalize"</span>, <span class="st">"Hello World"</span>)</span></code></pre></div>
-<p>Before you use the extension in Tableau, Tableau needs to be able to access it. plumbertableau integrates seamlessly with <a href="https://rstudio.com/products/connect/">RStudio Connect</a>, a commercial publishing platform that enables R developers to easily publish a variety of R content types. Connect lets you host multiple extensions by ensuring that requests from Tableau are passed to the correct extension. It’s also possible to host plumbertableau extensions on your own servers.</p>
+<p>Before you use the extension in Tableau, Tableau needs to be able to access it. plumbertableau integrates seamlessly with <a href="https://www.rstudio.com/products/connect/">RStudio Connect</a>, a commercial publishing platform that enables R developers to easily publish a variety of R content types. Connect lets you host multiple extensions by ensuring that requests from Tableau are passed to the correct extension. It’s also possible to host plumbertableau extensions on your own servers.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -137,7 +136,7 @@
 <div id="further-reading" class="section level2">
 <h2 class="hasAnchor">
 <a href="#further-reading" class="anchor"></a>Further Reading</h2>
-<p>You can read more about plumbertableau at <a href="https://rstudio.github.io/plumbertableau" class="uri">https://rstudio.github.io/plumbertableau</a>. There, you’ll find more detail about writing plumbertableau extensions, publishing them to RStudio Connect, configuring Tableau, and using your extensions in Tableau.</p>
+<p>You can read more about plumbertableau at <a href="https://rstudio.github.io/plumbertableau/" class="uri">https://rstudio.github.io/plumbertableau/</a>. There, you’ll find more detail about writing plumbertableau extensions, publishing them to RStudio Connect, configuring Tableau, and using your extensions in Tableau.</p>
 </div>
 </div>
   </div>
