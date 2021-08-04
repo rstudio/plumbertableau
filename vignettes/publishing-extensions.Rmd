@@ -43,7 +43,7 @@ Your RStudio Connect server must be [configured as an Analytics Extension in Tab
 
 We recommend creating a "service account" (an account used only by Tableau, not by any individual) on RStudio Connect, and configuring Tableau with an API key for this account. If you name the service account "Tableau", simply add the "Tableau" to the [Access List](https://docs.rstudio.com/connect/user/content-settings/#content-access) for any content it should be able to access. This way, you can more finely control what content Tableau can access without affecting any users.
 
-## Configuring RStudio Connect as an Analytics Extension in Tableau #{tableau}
+## Configuring RStudio Connect as an Analytics Extension in Tableau {#tableau}
 
 Before you can use extensions hosted on an RStudio Connect server from Tableau, you'll need to register that server in Tableau's Extensions settings. The steps to configure analytics extensions in Tableau differ slightly depending on whether you're using Tableau Desktop or Tableau Server/Online.
 
