@@ -46,5 +46,5 @@ Tableau will send a request to the server you configured, and the server will se
 ## Learn More
 
 - [Writing plumbertableau Extensions in R](r-developer-guide.html)
-- [Publishing plumbertableau Extensions to RStudio Connect](tableau-configutation.html)
+- [Publishing plumbertableau Extensions to RStudio Connect](publishing-extensions.html)
 - [Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)
