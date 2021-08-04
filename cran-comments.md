@@ -1,3 +1,9 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Fixed URLs that were redirected (adding `www` and a trailing `/` where appropriate)
+* Fixed a broken link from the introduction vignette
+
 ## Test environments
 * local OS X installation, R 4.1.0
 * Microsoft Windows Server 2019, R 4.1.0 (GH Actions)
