@@ -34,8 +34,7 @@ function(str_value) {
   toupper(str_value)
 }
 
-# This plumber modifier (tableau_extension) is required for all plumbertableau
-# extensions
+# The Plumber router modifier tableau_extension is required
 #* @plumber
 tableau_extension
 ```
@@ -52,11 +51,12 @@ to Tableau data.)
 
 Before you use the extension in Tableau, Tableau needs to be able to
 access it. plumbertableau integrates seamlessly with [RStudio
-Connect](https://rstudio.com/products/connect/), a commercial publishing
-platform that enables R developers to easily publish a variety of R
-content types. Connect lets you host multiple extensions by ensuring
-that requests from Tableau are passed to the correct extension. It’s
-also possible to host plumbertableau extensions on your own servers.
+Connect](https://www.rstudio.com/products/connect/), a commercial
+publishing platform that enables R developers to easily publish a
+variety of R content types. Connect lets you host multiple extensions by
+ensuring that requests from Tableau are passed to the correct extension.
+It’s also possible to host plumbertableau extensions on your own
+servers.
 
 ## Installation
 
@@ -76,7 +76,7 @@ library(plumbertableau)
 ## Further Reading
 
 You can read more about plumbertableau at
-<https://rstudio.github.io/plumbertableau>. There, you’ll find more
+<https://rstudio.github.io/plumbertableau/>. There, you’ll find more
 detail about writing plumbertableau extensions, publishing them to
 RStudio Connect, configuring Tableau, and using your extensions in
 Tableau.
