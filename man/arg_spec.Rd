@@ -23,6 +23,13 @@ documentation.}
 \item{optional}{If \code{TRUE}, then this argument need not be present in a
 request. Defaults to \code{TRUE} if \code{type} ends with a \code{"?"} character.}
 }
+\value{
+A \code{tableau_arg_spec} object, which is a list containing details about
+the Tableau argument expectations
+
+A \code{tableau_return_spec} object, which is a list containing details
+about the values expected to be returned to Tableau
+}
 \description{
 \code{arg_spec()} and \code{return_spec()} are used to create arguments for
 \code{\link[=tableau_handler]{tableau_handler()}}. They describe the data type of the arg or return value,

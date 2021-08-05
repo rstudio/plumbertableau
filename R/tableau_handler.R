@@ -16,6 +16,11 @@
 #' @param func A function to be used as the handler function. Code in the body
 #'   of the function will automatically be able to access Tableau request args
 #'   simply by referring to their names in `args`; see the example below.
+#'
+#' @return A `tableau_handler` object that is a validated version of the
+#' provided `func` with additional attributes describing the expected arguments
+#' and return values
+#'
 #' @export
 tableau_handler <- function(args, return, func) {
   args <- lapply(args, normalize_argspec)
@@ -59,6 +64,10 @@ tableau_handler <- function(args, return, func) {
 #' @param optional If `TRUE`, then this argument need not be present in a
 #'   request. Defaults to `TRUE` if `type` ends with a `"?"` character.
 #'
+#' @return A `tableau_arg_spec` object, which is a list containing details about
+#' the Tableau argument expectations
+#'
+#'
 #' @export
 arg_spec <- function(type = c("character", "integer", "logical", "numeric"),
   desc = "", optional = grepl("\\?$", type)) {
@@ -92,6 +101,10 @@ param_spec <- function(type = c("character", "integer", "logical", "numeric"),
 }
 
 #' @rdname arg_spec
+#'
+#' @return A `tableau_return_spec` object, which is a list containing details
+#' about the values expected to be returned to Tableau
+#'
 #' @export
 return_spec <- function(type = c("character", "integer", "logical", "numeric"),
   desc = "") {
