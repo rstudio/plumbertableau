@@ -23,6 +23,11 @@ specification object created by \code{\link[=return_spec]{return_spec()}}.}
 of the function will automatically be able to access Tableau request args
 simply by referring to their names in \code{args}; see the example below.}
 }
+\value{
+A \code{tableau_handler} object that is a validated version of the
+provided \code{func} with additional attributes describing the expected arguments
+and return values
+}
 \description{
 Creates an object that can translate arguments from Tableau to R, and return
 values from R to Tableau.
