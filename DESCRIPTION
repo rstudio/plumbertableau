@@ -35,7 +35,6 @@ Imports:
     stringi,
     markdown,
     urltools,
-    glue,
     utils,
     httr,
     knitr
