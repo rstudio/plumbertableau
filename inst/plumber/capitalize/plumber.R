@@ -20,6 +20,9 @@ function(str_value) {
   toupper(str_value)
 }
 
-# The Plumber router modifier tableau_extension is required
+# The Plumber router modifier tableau_extension is required. This object is a
+# function that acts as a plumber router modifier. For more details, see the
+# Plumber documentation:
+# https://www.rplumber.io/articles/annotations.html#plumber-router-modifier
 #* @plumber
 tableau_extension
