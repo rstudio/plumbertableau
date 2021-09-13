@@ -19,7 +19,7 @@ knitr::read_chunk(path = "inst/plumber/capitalize/plumber.R",
                   labels = "capitalize")
 ```
 
-# plumbertableau
+# plumbertableau <a href='https://rstudio.github.io/plumbertableau'><img src='man/figures/logo.svg' align="right" height="139" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/rstudio/plumbertableau/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/plumbertableau/actions)

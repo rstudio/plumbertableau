@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# plumbertableau
+# plumbertableau <a href='https://rstudio.github.io/plumbertableau'><img src='man/figures/logo.svg' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -34,7 +34,10 @@ function(str_value) {
   toupper(str_value)
 }
 
-# The Plumber router modifier tableau_extension is required
+# The Plumber router modifier tableau_extension is required. This object is a
+# function that acts as a plumber router modifier. For more details, see the
+# Plumber documentation:
+# https://www.rplumber.io/articles/annotations.html#plumber-router-modifier
 #* @plumber
 tableau_extension
 ```
