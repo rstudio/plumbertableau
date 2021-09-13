@@ -48,7 +48,7 @@ The package also comes with several other example extensions:
 plumber::available_apis(package = "plumbertableau")
 ```
 
-These examples can be viewed using `plumber::plumb_api()`.
+These examples can be run and optionally viewed using `plumber::plumb_api()`.
 
 ## What can plumbertableau Extensions Do? {#capabilities}
 
