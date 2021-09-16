@@ -4,7 +4,7 @@ create_setup_instructions <- function(pr) {
   cached_instructions <- NULL
 
   function(req, res) {
-    "!DEBUG `write_log_message(req, res, 'Generating Tableau Setup Instructions')"
+    "!DEBUG `write_log_message(req, res, 'Generating Tableau Setup Instructions')`"
     if (is.null(cached_instructions)) {
       # Caching works b/c R is restarted when the vanity path changes on RStudio Connect
       cached_instructions <<- render_setup_instructions(req$content_path, pr)

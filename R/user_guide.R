@@ -3,7 +3,7 @@ globalVariables(names(htmltools::tags))
 #' @importFrom htmltools tags
 create_user_guide <- function(pr) {
   function(req, res) {
-    "!DEBUG `write_log_message(req, res, 'Generating Tableau Usage Instructions')"
+    "!DEBUG `write_log_message(req, res, 'Generating Tableau Usage Instructions')`"
     # Parse the endpoint path from header on RStudio Connect
     content_path <- NULL
     if (!rlang::is_null(req$HTTP_RSTUDIO_CONNECT_APP_BASE_URL)) {
