@@ -38,6 +38,18 @@ install.packages("plumbertableau")
 remotes::install_github("rstudio/plumbertableau")
 ```
 
+Once the package is installed, you can start a new RStudio Project with a
+template file from the New Project menu inside RStudio:
+
+![](files/rstudio-project.png){width=75%}
+
+The package also comes with several other example extensions:
+```{r}
+plumber::available_apis(package = "plumbertableau")
+```
+
+These examples can be run and optionally viewed using `plumber::plumb_api()`.
+
 ## What can plumbertableau Extensions Do? {#capabilities}
 
 plumbertableau extensions respond to requests from Tableau. In a request, Tableau will provide an [*endpoint*](https://www.rplumber.io/articles/routing-and-input.html?q=endpoint#endpoints-1) — which roughly corresponds to an R function — and will send along one or more *arguments*, which will generally consist of data from Tableau.
@@ -201,5 +213,5 @@ Additional messages will be logged to the R console while the extension is runni
 
 Now that we've written our extension, we can deploy it to RStudio Connect and use it from Tableau. 
 
-- To learn how to publish and manage extensions on RStudio Connect, and how to configure Tableau to work with RStudio Connect, see **[Publishing plumbertableau Extensions to RStudio Connect](publishing-extensions.html)**.
+- To learn how to publish and manage extensions on RStudio Connect, and how to configure Tableau to work with RStudio Connect, see the **[RStudio Connect documentation on Tableau integration](https://docs.rstudio.com/rsc/integration/tableau/)**.
 - For more information about using extensions from Tableau, see **[Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)**
