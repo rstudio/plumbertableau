@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Turn Plumber APIs into Tableau Extensions • plumbertableau</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -16,6 +22,7 @@
     Annotations in R comments allow APIs to conform to the Tableau Analytics
     Extension specification, so that R code can be used to power Tableau
     workbooks.">
+<meta property="og:image" content="https://rstudio.github.io/plumbertableau/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -63,9 +70,6 @@
       <a href="articles/r-developer-guide.html">Writing plumbertableau Extensions in R</a>
     </li>
     <li>
-      <a href="articles/publishing-extensions.html">Publishing plumbertableau Extensions to RStudio Connect</a>
-    </li>
-    <li>
       <a href="articles/tableau-developer-guide.html">Using plumbertableau Extensions in Tableau</a>
     </li>
   </ul>
@@ -93,9 +97,10 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="plumbertableau" class="section level1">
+<div id="plumbertableau-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#plumbertableau" class="anchor"></a>plumbertableau</h1></div>
+<a href="#plumbertableau-" class="anchor"></a>plumbertableau <a href="https://rstudio.github.io/plumbertableau"><img src="reference/figures/logo.svg" align="right" height="139"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>plumbertableau lets you call external R code from Tableau workbooks via <a href="https://tableau.github.io/analytics-extensions-api/">Tableau Analytics Extensions</a>. You achieve this by writing a plumbertableau extension, which is a <a href="https://www.rplumber.io/">Plumber</a> API with some extra annotations — comments prefixed with <code>#*</code>.</p>
@@ -114,7 +119,10 @@
   <span class="fu"><a href="https://rdrr.io/r/base/chartr.html">toupper</a></span><span class="op">(</span><span class="va">str_value</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="co"># The Plumber router modifier tableau_extension is required</span>
+<span class="co"># The Plumber router modifier tableau_extension is required. This object is a</span>
+<span class="co"># function that acts as a plumber router modifier. For more details, see the</span>
+<span class="co"># Plumber documentation:</span>
+<span class="co"># https://www.rplumber.io/articles/annotations.html#plumber-router-modifier</span>
 <span class="co">#* @plumber</span>
 <span class="va">tableau_extension</span></code></pre></div>
 <p>plumbertableau extensions are used in Tableau’s <em>calculated fields</em>. Let’s imagine we’ve published our extension to RStudio Connect and have given it the custom URL <code>stringutils</code>. To use our <code>capitalize</code> extension, we’d type the following into a Tableau calculated field, or just copy and paste it from the automatically generated code samples. (In real usage, you’ll probably replace <code>"Hello World"</code> with references to Tableau data.)</p>
