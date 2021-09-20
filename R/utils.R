@@ -73,7 +73,7 @@ preroute_hook <- function(data, req, res) {
 
 postroute_hook <- function(data, req, res) {
   time_diff <- round(abs(as.numeric(difftime(Sys.time(), data$start_time, units = "secs"))), 4)
-  "!DEBUG `write_log_message(req, res, paste('Request executed in', time_diff, 'seconds'))`"
+  "!DEBUG `write_log_message(req, res, paste0(res$status, ' ', time_diff, 's'))`"
 }
 
 
