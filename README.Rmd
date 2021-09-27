@@ -27,7 +27,7 @@ knitr::read_chunk(path = "inst/plumber/capitalize/plumber.R",
 [![CRAN status](https://www.r-pkg.org/badges/version/plumbertableau)](https://CRAN.R-project.org/package=plumbertableau)
 <!-- badges: end -->
 
-plumbertableau lets you call external R code from Tableau workbooks via [Tableau Analytics Extensions](https://tableau.github.io/analytics-extensions-api/). You achieve this by writing a plumbertableau extension, which is a [Plumber](https://www.rplumber.io/) API with some extra annotations — comments prefixed with `#*`.
+plumbertableau lets you call external R code in real time from Tableau workbooks via [Tableau Analytics Extensions](https://tableau.github.io/analytics-extensions-api/). You achieve this by writing a plumbertableau extension, which is a [Plumber](https://www.rplumber.io/) API with some extra annotations — comments prefixed with `#*`.
 
 ```{r capitalize}
 ```

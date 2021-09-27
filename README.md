@@ -12,8 +12,8 @@ coverage](https://codecov.io/gh/rstudio/plumbertableau/branch/main/graph/badge.s
 status](https://www.r-pkg.org/badges/version/plumbertableau)](https://CRAN.R-project.org/package=plumbertableau)
 <!-- badges: end -->
 
-plumbertableau lets you call external R code from Tableau workbooks via
-[Tableau Analytics
+plumbertableau lets you call external R code in real time from Tableau
+workbooks via [Tableau Analytics
 Extensions](https://tableau.github.io/analytics-extensions-api/). You
 achieve this by writing a plumbertableau extension, which is a
 [Plumber](https://www.rplumber.io/) API with some extra annotations —
