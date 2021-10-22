@@ -103,7 +103,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>plumbertableau lets you call external R code from Tableau workbooks via <a href="https://tableau.github.io/analytics-extensions-api/">Tableau Analytics Extensions</a>. You achieve this by writing a plumbertableau extension, which is a <a href="https://www.rplumber.io/">Plumber</a> API with some extra annotations — comments prefixed with <code>#*</code>.</p>
+<p>plumbertableau lets you call external R code in real time from Tableau workbooks via <a href="https://tableau.github.io/analytics-extensions-api/">Tableau Analytics Extensions</a>. You achieve this by writing a plumbertableau extension, which is a <a href="https://www.rplumber.io/">Plumber</a> API with some extra annotations — comments prefixed with <code>#*</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rplumber.io">plumber</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span>
@@ -140,6 +140,50 @@
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"rstudio/plumbertableau"</span><span class="op">)</span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/plumbertableau/">plumbertableau</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="faq" class="section level2">
+<h2 class="hasAnchor">
+<a href="#faq" class="anchor"></a>FAQ</h2>
+<div id="i-thought-tableau-already-supports-r" class="section level4">
+<h4 class="hasAnchor">
+<a href="#i-thought-tableau-already-supports-r" class="anchor"></a>I thought Tableau already supports R?</h4>
+<p>Tableau’s current support for R as an analytics extension is built on <a href="http://rforge.net/Rserve/index.html"><code>Rserve</code></a>. This approach requires configuring Rserve in a separate environment and then passing R code as plain text from Tableau calculated fields to be executed by Rserve.</p>
+</div>
+<div id="why-would-i-use-this-instead-of-rserve" class="section level4">
+<h4 class="hasAnchor">
+<a href="#why-would-i-use-this-instead-of-rserve" class="anchor"></a>Why would I use this instead of RServe?</h4>
+<p>The approach suggested here allows specific endpoints to be called, rather than requiring the Tableau user to write and submit R code in a plain text field from Tableau. This allows Tableau users to be seperate from the extension developers. R developers can build extensions that are then used by Tableau developers who may have no working knowledge of</p>
+<p>R.</p>
+</div>
+<div id="is-rstudio-connect-required" class="section level4">
+<h4 class="hasAnchor">
+<a href="#is-rstudio-connect-required" class="anchor"></a>Is RStudio Connect required?</h4>
+<p>While this package has been designed specifically with RStudio Connect in mind, it will work independent of RStudio Connect.</p>
+</div>
+<div id="what-are-the-advantages-of-rstudio-connect" class="section level4">
+<h4 class="hasAnchor">
+<a href="#what-are-the-advantages-of-rstudio-connect" class="anchor"></a>What are the advantages of RStudio Connect?</h4>
+<p>RStudio Connect offers a number of advantages as a deployment platform for Tableau Analytics Extensions:</p>
+<ul>
+<li>Tableau workbooks can only be configured to use a single extension endpoint, which typically limits a workbook to only using one type of extension. RStudio Connect can host both R and Python based extensions, which means that a single Tableau workbook can use both R and Python based extensions hosted on RStudio Connect.</li>
+<li>R developers can develop extensions in their preferred development environment and then publish to RStudio Connect</li>
+<li>Extensions published to RStudio Connect can be secured to only allow access from specific accounts</li>
+<li>RStudio Connect natively handles <a href="https://docs.rstudio.com/connect/admin/r/package-management/">R</a> and <a href="https://docs.rstudio.com/connect/admin/python/package-management/">Python</a> packages, which allows extensions to seemlessly use different versions of underlying packages without creating conflicts.</li>
+<li>RStudio Connect processes are <a href="https://docs.rstudio.com/connect/admin/process-management/#sandboxing">sandboxed</a>, which limits the scope of impact the extension can have on the underlying OS.</li>
+</ul>
+</div>
+<div id="why-cant-i-just-write-my-own-plumber-api-to-function-as-an-analytics-extension" class="section level4">
+<h4 class="hasAnchor">
+<a href="#why-cant-i-just-write-my-own-plumber-api-to-function-as-an-analytics-extension" class="anchor"></a>Why can’t I just write my own Plumber API to function as an analytics extension?</h4>
+<p>Tableau Analytics Extensions are configured to reach out to two specific endpoints:</p>
+<ul>
+<li>
+<code>/info</code>: Information about the extension</li>
+<li>
+<code>/evaluate</code>: Execution endpoint for the extension</li>
+</ul>
+<p>plumbertableau automatically generates the <code>/info</code> endpoint and reroutes requests to <code>/evaluate</code> to the endpoint defined in the <code>script</code> value of the request body. This allows multiple endpoints to function as extensions, rather than relying on a single extension operating under <code>/evaluate</code>. These features are intended to allow the R developer to easily create Tableau Analytics Extensions as standard Plumber APIs without needing to worry about the lower level implementation.</p>
+</div>
 </div>
 <div id="further-reading" class="section level2">
 <h2 class="hasAnchor">
