@@ -143,7 +143,7 @@ without needing to worry about the lower level implementation.
 ## Further Reading
 
 You can read more about plumbertableau at
-<https://rstudio.github.io/plumbertableau//>. There, you’ll find more
+<https://rstudio.github.io/plumbertableau/>. There, you’ll find more
 detail about writing plumbertableau extensions, publishing them to
 RStudio Connect, configuring Tableau, and using your extensions in
 Tableau.
