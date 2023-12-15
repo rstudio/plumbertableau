@@ -213,5 +213,5 @@ Additional messages will be logged to the R console while the extension is runni
 
 Now that we've written our extension, we can deploy it to RStudio Connect and use it from Tableau. 
 
-- To learn how to publish and manage extensions on RStudio Connect, and how to configure Tableau to work with RStudio Connect, see the **[RStudio Connect documentation on Tableau integration](https://docs.rstudio.com/rsc/integration/tableau/)**.
+- To learn how to publish and manage extensions on RStudio Connect, and how to configure Tableau to work with RStudio Connect, see the **[RStudio Connect documentation on Tableau integration](https://docs.posit.co/rsc/integration/tableau/)**.
 - For more information about using extensions from Tableau, see **[Using plumbertableau Extensions in Tableau](tableau-developer-guide.html)**

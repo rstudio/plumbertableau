@@ -1,13 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# plumbertableau <a href='https://rstudio.github.io/plumbertableau'><img src='man/figures/logo.svg' align="right" height="139" /></a>
+# plumbertableau <a href='https://rstudio.github.io/plumbertableau/'><img src='man/figures/logo.svg' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/rstudio/plumbertableau/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/plumbertableau/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/rstudio/plumbertableau/branch/main/graph/badge.svg)](https://codecov.io/gh/rstudio/plumbertableau?branch=main)
+coverage](https://codecov.io/gh/rstudio/plumbertableau/branch/main/graph/badge.svg)](https://app.codecov.io/gh/rstudio/plumbertableau?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/plumbertableau)](https://CRAN.R-project.org/package=plumbertableau)
 <!-- badges: end -->
@@ -54,7 +54,7 @@ to Tableau data.)
 
 Before you use the extension in Tableau, Tableau needs to be able to
 access it. plumbertableau integrates seamlessly with [RStudio
-Connect](https://www.rstudio.com/products/connect/), a commercial
+Connect](https://posit.co/products/enterprise/connect/), a commercial
 publishing platform that enables R developers to easily publish a
 variety of R content types. Connect lets you host multiple extensions by
 ensuring that requests from Tableau are passed to the correct extension.
@@ -114,13 +114,13 @@ for Tableau Analytics Extensions:
 -   Extensions published to RStudio Connect can be secured to only allow
     access from specific accounts
 -   RStudio Connect natively handles
-    [R](https://docs.rstudio.com/connect/admin/r/package-management/)
+    [R](https://docs.posit.co/connect/admin/r/package-management/)
     and
-    [Python](https://docs.rstudio.com/connect/admin/python/package-management/)
+    [Python](https://docs.posit.co/connect/admin/python/package-management/)
     packages, which allows extensions to seemlessly use different
     versions of underlying packages without creating conflicts.
 -   RStudio Connect processes are
-    [sandboxed](https://docs.rstudio.com/connect/admin/process-management/#sandboxing),
+    [sandboxed](https://docs.posit.co/connect/admin/process-management/#sandboxing),
     which limits the scope of impact the extension can have on the
     underlying OS.
 
@@ -143,7 +143,7 @@ without needing to worry about the lower level implementation.
 ## Further Reading
 
 You can read more about plumbertableau at
-<https://rstudio.github.io/plumbertableau/>. There, you’ll find more
+<https://rstudio.github.io/plumbertableau//>. There, you’ll find more
 detail about writing plumbertableau extensions, publishing them to
 RStudio Connect, configuring Tableau, and using your extensions in
 Tableau.
