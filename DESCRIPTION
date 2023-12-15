@@ -18,7 +18,6 @@ License: MIT + file LICENSE
 URL: https://rstudio.github.io/plumbertableau/, https://github.com/rstudio/plumbertableau
 BugReports: https://github.com/rstudio/plumbertableau/issues
 Encoding: UTF-8
-LazyData: true
 Depends:
   R (>= 3.0.0)
 Imports: 
