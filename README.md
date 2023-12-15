@@ -81,7 +81,7 @@ library(plumbertableau)
 #### I thought Tableau already supports R?
 
 Tableau’s current support for R as an analytics extension is built on
-[`Rserve`](http://rforge.net/Rserve/index.html). This approach requires
+[`Rserve`](https://rforge.net/Rserve/index.html). This approach requires
 configuring Rserve in a separate environment and then passing R code as
 plain text from Tableau calculated fields to be executed by Rserve.
 
