@@ -1,7 +1,7 @@
 Package: plumbertableau
 Type: Package
 Title: Turn 'Plumber' APIs into 'Tableau' Extensions
-Version: 0.1.0.9000
+Version: 0.1.1
 Authors@R: c(
     person("James", "Blair", email = "james@rstudio.com", role = c("aut", "cre")),
     person("Joe", "Cheng", email = "joe@rstudio.com", role = c("aut")),
