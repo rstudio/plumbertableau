@@ -1,7 +1,7 @@
 Package: plumbertableau
 Type: Package
 Title: Turn 'Plumber' APIs into 'Tableau' Extensions
-Version: 0.1.0.9000
+Version: 0.1.1
 Authors@R: c(
     person("James", "Blair", email = "james@rstudio.com", role = c("aut", "cre")),
     person("Joe", "Cheng", email = "joe@rstudio.com", role = c("aut")),
@@ -18,7 +18,6 @@ License: MIT + file LICENSE
 URL: https://rstudio.github.io/plumbertableau/, https://github.com/rstudio/plumbertableau
 BugReports: https://github.com/rstudio/plumbertableau/issues
 Encoding: UTF-8
-LazyData: true
 Depends:
   R (>= 3.0.0)
 Imports: 

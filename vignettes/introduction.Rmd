@@ -22,7 +22,7 @@ knitr::read_chunk(path = "../inst/plumber/capitalize/plumber.R",
 
 plumbertableau lets you call external R code from Tableau workbooks via [Tableau Analytics Extensions](https://tableau.github.io/analytics-extensions-api/). You achieve this by writing a plumbertableau extension, which is a [Plumber](https://www.rplumber.io/) API with some extra annotations. plumbertableau uses these annotations to correctly serve requests from Tableau, as well as dynamically generate documentation, copy-and-pasteable Tableau code, and setup instructions.
 
-plumbertableau extensions are most easily used with [RStudio Connect](https://www.rstudio.com/products/connect/), which lets you host and manage any number of Tableau extensions along with other content types.
+plumbertableau extensions are most easily used with [RStudio Connect](https://posit.co/products/enterprise/connect/), which lets you host and manage any number of Tableau extensions along with other content types.
 
 ## A Simple Example
 
