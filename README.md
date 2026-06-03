@@ -1,6 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+> [!NOTE]
+> This package is no longer actively maintained. See the [Posit blog](https://posit.co/blog/ending-active-maintenance-fastapitableau-plumbertableau-and-shinytableau) for more information.
+
 # plumbertableau <a href='https://rstudio.github.io/plumbertableau/'><img src='man/figures/logo.svg' align="right" height="139" /></a>
 
 <!-- badges: start -->
@@ -104,33 +107,32 @@ in mind, it will work independent of RStudio Connect.
 RStudio Connect offers a number of advantages as a deployment platform
 for Tableau Analytics Extensions:
 
--   Tableau workbooks can only be configured to use a single extension
-    endpoint, which typically limits a workbook to only using one type
-    of extension. RStudio Connect can host both R and Python based
-    extensions, which means that a single Tableau workbook can use both
-    R and Python based extensions hosted on RStudio Connect.
--   R developers can develop extensions in their preferred development
-    environment and then publish to RStudio Connect
--   Extensions published to RStudio Connect can be secured to only allow
-    access from specific accounts
--   RStudio Connect natively handles
-    [R](https://docs.posit.co/connect/admin/r/package-management/)
-    and
-    [Python](https://docs.posit.co/connect/admin/python/package-management/)
-    packages, which allows extensions to seemlessly use different
-    versions of underlying packages without creating conflicts.
--   RStudio Connect processes are
-    [sandboxed](https://docs.posit.co/connect/admin/process-management/#sandboxing),
-    which limits the scope of impact the extension can have on the
-    underlying OS.
+- Tableau workbooks can only be configured to use a single extension
+  endpoint, which typically limits a workbook to only using one type of
+  extension. RStudio Connect can host both R and Python based
+  extensions, which means that a single Tableau workbook can use both R
+  and Python based extensions hosted on RStudio Connect.
+- R developers can develop extensions in their preferred development
+  environment and then publish to RStudio Connect
+- Extensions published to RStudio Connect can be secured to only allow
+  access from specific accounts
+- RStudio Connect natively handles
+  [R](https://docs.posit.co/connect/admin/r/package-management/) and
+  [Python](https://docs.posit.co/connect/admin/python/package-management/)
+  packages, which allows extensions to seemlessly use different versions
+  of underlying packages without creating conflicts.
+- RStudio Connect processes are
+  [sandboxed](https://docs.posit.co/connect/admin/process-management/#sandboxing),
+  which limits the scope of impact the extension can have on the
+  underlying OS.
 
 #### Why can’t I just write my own Plumber API to function as an analytics extension?
 
 Tableau Analytics Extensions are configured to reach out to two specific
 endpoints:
 
--   `/info`: Information about the extension
--   `/evaluate`: Execution endpoint for the extension
+- `/info`: Information about the extension
+- `/evaluate`: Execution endpoint for the extension
 
 plumbertableau automatically generates the `/info` endpoint and reroutes
 requests to `/evaluate` to the endpoint defined in the `script` value of

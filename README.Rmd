@@ -4,6 +4,11 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+```{=markdown}
+> [!NOTE]
+> This package is no longer actively maintained. See the [Posit blog](https://posit.co/blog/ending-active-maintenance-fastapitableau-plumbertableau-and-shinytableau) for more information.
+```
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
